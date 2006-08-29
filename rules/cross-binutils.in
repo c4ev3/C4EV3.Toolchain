@@ -1,0 +1,29 @@
+# config for cross-binutils
+
+menuconfig CROSS_BINUTILS
+	bool
+	prompt "binutils                    "
+	select KERNEL_HEADERS
+
+config CROSS_BINUTILS_VERSION
+	depends on CROSS_BINUTILS
+	string
+	prompt "binutils version"
+	default "2.17"
+	help
+	  Specify the binutils version here.
+
+config CROSS_BINUTILS_EXTRA_CONFIG
+	depends on CROSS_BINUTILS
+	string
+	prompt "extra configure options"
+	help
+	  Add these extra options to binutils' configure script.
+
+config CROSS_BINUTILS_EXTRA_ENV
+	depends on CROSS_BINUTILS
+	string
+	prompt "extra environment"
+	help
+	  Add this to the binutils' environment.
+

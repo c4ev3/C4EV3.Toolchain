@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for conf in ptxconfig-*; do
+	test -e ptxconfig && rm ptxconfig
+	ptxdist select ${conf}
+	ptxdist compile foobar	
+done	
+
+for conf in ptxconfig-*; do
+	test -e ptxconfig && rm ptxconfig
+	ptxdist select ${conf}
+	ptxdist go | tee logfile-${conf}
+	ptxdist clean
+done

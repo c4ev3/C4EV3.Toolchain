@@ -1,0 +1,64 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2006-08-13
+# Committed-By: Marc Kleine-Budde
+#
+# Error:
+#
+# armeb-xscale-linux-gnu-gcc ../sysdeps/unix/sysv/linux/bind.S -c
+#-I../include
+#-I. -I/home/frogger/pengutronix/ptxdist/build/toolchain-armv5b-softfloat-linux-gnu/build-target/glibc-2.3.6-build/socket
+#-I.. -I../libio
+#-I/home/frogger/pengutronix/ptxdist/build/toolchain-armv5b-softfloat-linux-gnu/build-target/glibc-2.3.6-build
+#-I../sysdeps/arm/elf -I../linuxthreads/sysdeps/unix/sysv/linux/arm
+#-I../linuxthreads/sysdeps/unix/sysv/linux
+#-I../linuxthreads/sysdeps/pthread -I../sysdeps/pthread
+#-I../linuxthreads/sysdeps/unix/sysv -I../linuxthreads/sysdeps/unix
+#-I../linuxthreads/sysdeps/arm -I../sysdeps/unix/sysv/linux/arm
+#-I../sysdeps/unix/sysv/linux -I../sysdeps/gnu
+#-I../sysdeps/unix/common -I../sysdeps/unix/mman
+#-I../sysdeps/unix/inet -I../sysdeps/unix/sysv -I../sysdeps/unix/arm
+#-I../sysdeps/unix -I../sysdeps/posix -I../sysdeps/arm
+#-I../sysdeps/wordsize-32 -I../sysdeps/ieee754/flt-32
+#-I../sysdeps/ieee754/dbl-64 -I../sysdeps/ieee754
+#-I../sysdeps/generic/elf -I../sysdeps/generic -nostdinc -isystem
+#/usr/opt/ptxdist-0.10.svn/armeb-xscale-linux-gnu/gcc-4.1.1-glibc-2.3.6/bin/../lib/gcc/armeb-xscale-linux-gnu/4.1.1/include
+#-isystem
+#/opt/ptxdist-0.10.svn/armeb-xscale-linux-gnu/gcc-4.1.1-glibc-2.3.6/sysroot-armeb-xscale-linux-gnu/usr/include
+#-D_LIBC_REENTRANT -include ../include/libc-symbols.h -DASSEMBLER -g
+#-o
+#/home/frogger/pengutronix/ptxdist/build/toolchain-armv5b-softfloat-linux-gnu/build-target/glibc-2.3.6-build/socket/bind.o
+#-MD -MP -MF
+#/home/frogger/pengutronix/ptxdist/build/toolchain-armv5b-softfloat-linux-gnu/build-target/glibc-2.3.6-build/socket/bind.o.dt
+#-MT
+#/home/frogger/pengutronix/ptxdist/build/toolchain-armv5b-softfloat-linux-gnu/build-target/glibc-2.3.6-build/socket/bind.o
+#../sysdeps/unix/sysv/linux/bind.S: Assembler messages:
+#../sysdeps/unix/sysv/linux/bind.S:5: Error: symbol `__bind' is already defined
+#
+# State:
+# 
+# fixed in glibc-ports-2.4
+#
+Index: sysdeps/unix/sysv/linux/arm/socket.S
+===================================================================
+--- a/sysdeps/unix/sysv/linux/arm/socket.S.orig
++++ b/sysdeps/unix/sysv/linux/arm/socket.S
+@@ -32,7 +32,11 @@
+    The .S files for the other calls just #define socket and #include this.  */
+ 
+ #ifndef __socket
+-#define __socket P(__,socket)
++# ifndef NO_WEAK_ALIAS
++#  define __socket P(__,socket)
++# else
++#  define __socket socket
++# endif
+ #endif
+ 
+ #define PUSHARGS_1	str a1, [sp, $-4]!
+@@ -120,4 +124,6 @@ ENTRY (__socket)
+ 
+ PSEUDO_END (__socket)
+ 
++#ifndef NO_WEAK_ALIAS
+ weak_alias (__socket, socket)
++#endif

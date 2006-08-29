@@ -1,0 +1,5 @@
+make-install-lib-all.patch
+sysdeps_arm_dl-machine_h-fix_bad_pc24.diff
+sysdeps_unix_sysv_linux_arm_ioperm_c-BUS_ISA.diff
+sysdeps_unix_sysv_linux_arm_socket_S-alias.diff
+sysdeps_arm-fp-byteorder.diff

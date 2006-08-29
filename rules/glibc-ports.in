@@ -1,0 +1,7 @@
+config GLIBC_PORTS
+	bool
+
+config GLIBC_PORTS_VERSION
+	depends on GLIBC_PORTS
+	string
+	default "${PTXCONF_GLIBC_VERSION}"

@@ -1,0 +1,9 @@
+config CROSS_GDB
+	bool "cross gdb"
+	select GLIBC_FINAL
+	help
+	GDB is a source-level debugger, capable of breaking programs
+	at any specific line, displaying variable values, and
+	determining where errors occurred. Currently, it works for C,
+	C++, Fortran, Modula 2 and Java programs. A must-have for any
+	serious programmer.

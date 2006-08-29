@@ -1,0 +1,65 @@
+# config for glibc
+
+menuconfig GLIBC
+	bool
+	select GLIBC_PORTS if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
+	select GLIBC_LINUXTHREADS if GLIBC_ADDON_LINUXTHREADS
+	select GLIBC_CRT
+	select CROSS_GCC_FIRST
+	prompt "glibc                       "
+
+config GLIBC_VERSION
+	depends on GLIBC
+	string
+	prompt "glibc version"
+	default "2.4"
+	help
+	  Specify the glibc version here.
+
+config GLIBC_EXTRA_CONFIG
+	depends on GLIBC
+	string
+	prompt "extra configure options"
+	help
+	  Add these extra options to glibc's configure script.
+
+#config GLIBC_EXTRA_ENV
+#	depends on GLIBC
+#	string
+#	prompt "extra environment"
+#	help
+#	  Add this to the glibc environment.
+
+#config GLIBC_ADDON_CRYPT
+#	depends on GLIBC
+#	bool
+#	prompt "addon: crypt"
+#	help
+#	  Activate the crypt addon. This is only necessary for glibc
+#	  versions <= 2.1
+
+choice
+	prompt "Thread implementation"
+	depends on GLIBC
+	default GLIBC_ADDON_NPTL
+
+	config GLIBC_ADDON_LINUXTHREADS
+		bool
+		prompt "linuxthreads"
+		help
+		  Activate the linuxthreads addon.
+
+	config GLIBC_ADDON_NPTL
+		bool
+		prompt "nptl"
+		select GLIBC_TLS
+		help
+		  Activate the NPTL addon.
+endchoice
+
+config GLIBC_TLS
+	depends on GLIBC
+	bool
+	prompt "enable TLS"
+	help
+	  Activate Thread Local Storage.

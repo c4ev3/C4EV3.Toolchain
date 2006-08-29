@@ -1,0 +1,30 @@
+# config for cross-gcc-first
+
+menuconfig CROSS_GCC_FIRST
+	bool
+	select CROSS_BINUTILS
+	select GLIBC_HEADERS
+	prompt "gcc (first stage)           "
+
+config CROSS_GCC_FIRST_VERSION
+	depends on CROSS_GCC_FIRST
+	string
+	prompt "gcc (first stage) version"
+	default "4.1.1"
+	help
+	  Specify the version of the first stage gcc here.
+
+config CROSS_GCC_FIRST_EXTRA_CONFIG
+	depends on CROSS_GCC_FIRST
+	string
+	prompt "extra configure options"
+	help
+	  Add these extra options to the first stage gcc configure script.
+
+#config CROSS_GCC_FIRST_EXTRA_ENV
+#	depends on CROSS_GCC_FIRST
+#	string
+#	prompt "extra environment"
+#	help
+#	  Add this to the first stage gcc environment.
+

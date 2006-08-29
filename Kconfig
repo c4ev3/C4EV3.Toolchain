@@ -1,0 +1,104 @@
+#
+# Kconfig: Main menu structure definition
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005, 2006
+#
+
+#
+# TODO
+#
+# GLIBC_EXTRA_CC_ARGS
+# EXTRA_TARGET_CFLAGS
+# GCC_BUILD
+# GCC_HOST
+# SHARED_MODE
+#
+
+source "workspace/rules/glibc.in"
+source "workspace/rules/glibc-headers.in"
+source "workspace/rules/glibc-crt.in"
+source "workspace/rules/glibc-final.in"
+source "workspace/rules/glibc-ports.in"
+source "workspace/rules/glibc-linuxthreads.in"
+
+source "workspace/rules/cross-binutils.in"
+source "workspace/rules/kernel-headers.in"
+source "workspace/rules/cross-gcc-first.in"
+source "workspace/rules/cross-gcc-second.in"
+source "workspace/rules/cross-gdb.in"
+
+comment "                  "
+
+choice
+	prompt "architecture      "
+
+        config ARCH_ARM
+                bool "arm    "
+
+	config ARCH_MIPS
+		bool "mips   "
+
+        config ARCH_POWERPC
+                bool "powerpc"
+
+	config ARCH_I386
+		bool "i368   "
+
+	help
+	  This option specifies the toolchain architecture. It corresponds to
+	  the arch/ directory of the Linux kernel.
+
+endchoice
+
+config ARCH
+	string
+	default "arm" if ARCH_ARM
+	default "mips" if ARCH_MIPS
+	default "powerpc" if ARCH_POWERPC
+	default "i386" if ARCH_I386
+
+config GNU_TARGET
+	string
+	prompt "toolchain target"
+	help
+	  The GNU_TARGET specifies which toolchain variant is to be
+	  built.
+
+config COMPILER_PREFIX
+	string
+	default "${PTXCONF_GNU_TARGET}-"
+	help
+	 This is the prefix used to create the correct cross compiler name. If the
+	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
+	 use it.
+
+
+menu "misc                        "
+
+config CONFIGFILE_VERSION
+	string
+	prompt "ptxdist version"
+	default "0.10.4"
+	help
+	  Specify the PTXdist version this configuration was tested with
+	  here. This is an additional sanity check to make sure that
+	  only tested versions are built.
+
+config PREFIX
+	string
+	prompt "prefix"
+	default "/opt/ptxdist-${FULLVERSION}/${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_SECOND_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}"
+	help
+	  This option specifies the host side sysroot file, also known
+	  as PTXCONF_PREFIX.
+
+config HOST_PREFIX
+	prompt "Prefix for host tools development environment"
+	string
+	default "${PTXCONF_PREFIX}"
+
+config CROSS_PREFIX
+	prompt "Prefix for cross tools development environment"
+	string
+	default "${PTXCONF_PREFIX}"
+
+endmenu

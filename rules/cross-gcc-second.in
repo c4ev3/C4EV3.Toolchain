@@ -1,0 +1,12 @@
+# config for cross-gcc-second
+
+menuconfig CROSS_GCC_SECOND
+	bool
+	prompt "gcc (second stage)          "
+	select GLIBC
+
+config CROSS_GCC_SECOND_LANG
+	depends on CROSS_GCC_SECOND
+	string 
+	prompt "languages"
+	default "c,c++"
