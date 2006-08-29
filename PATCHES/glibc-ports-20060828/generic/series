@@ -1,2 +1,2 @@
 glibc-ports-20060828.diff
-ports-cvs-200607250000-mips-bootstrap.diff
+glibc-ports-20060828-mips-bootstrap.diff -p0
