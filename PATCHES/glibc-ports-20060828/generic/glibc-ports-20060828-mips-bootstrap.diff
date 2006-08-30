@@ -24,8 +24,8 @@ mailing list. Here is the link off of my FTP site:
 
 Index: sysdeps/mips/mips32/Makefile
 ===================================================================
---- sysdeps/mips/mips32/Makefile.orig
-+++ sysdeps/mips/mips32/Makefile
+--- a/sysdeps/mips/mips32/Makefile.orig
++++ b/sysdeps/mips/mips32/Makefile
 @@ -1,3 +1,7 @@
 +ifeq ($(filter -DBOOTSTRAP_GCC,$(CFLAGS)),)
  ifeq ($(filter -mabi=32,$(CC)),)
