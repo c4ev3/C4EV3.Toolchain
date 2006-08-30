@@ -15,8 +15,8 @@
 # --- T2-COPYRIGHT-NOTE-END ---
 Index: Makerules
 ===================================================================
---- Makerules.orig
-+++ Makerules
+--- a/Makerules.orig
++++ b/Makerules
 @@ -858,6 +858,13 @@ endef
  installed-libcs := $(foreach o,$(filter-out .os,$(object-suffixes-for-libc)),\
  			     $(inst_libdir)/$(patsubst %,$(libtype$o),\
