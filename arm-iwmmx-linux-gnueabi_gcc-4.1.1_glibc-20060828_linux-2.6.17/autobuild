@@ -8,5 +8,5 @@ retval=$?
 
 mv ptxconfig.orig ptxconfig
 
-return $retval
+exit $retval
 
