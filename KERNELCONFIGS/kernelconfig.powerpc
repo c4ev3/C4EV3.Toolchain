@@ -1,18 +1,44 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.17
-# Sat Aug 12 22:46:04 2006
+# Mon Sep  4 12:05:34 2006
 #
+# CONFIG_PPC64 is not set
+CONFIG_PPC32=y
+CONFIG_PPC_MERGE=y
 CONFIG_MMU=y
 CONFIG_GENERIC_HARDIRQS=y
 CONFIG_RWSEM_XCHGADD_ALGORITHM=y
 CONFIG_GENERIC_HWEIGHT=y
 CONFIG_GENERIC_CALIBRATE_DELAY=y
 CONFIG_PPC=y
-CONFIG_PPC32=y
+CONFIG_EARLY_PRINTK=y
 CONFIG_GENERIC_NVRAM=y
 CONFIG_SCHED_NO_NO_OMIT_FRAME_POINTER=y
 CONFIG_ARCH_MAY_HAVE_PC_FDC=y
+CONFIG_PPC_OF=y
+CONFIG_PPC_UDBG_16550=y
+# CONFIG_GENERIC_TBSYNC is not set
+# CONFIG_DEFAULT_UIMAGE is not set
+
+#
+# Processor support
+#
+CONFIG_CLASSIC32=y
+# CONFIG_PPC_52xx is not set
+# CONFIG_PPC_82xx is not set
+# CONFIG_PPC_83xx is not set
+# CONFIG_PPC_85xx is not set
+# CONFIG_40x is not set
+# CONFIG_44x is not set
+# CONFIG_8xx is not set
+# CONFIG_E200 is not set
+CONFIG_6xx=y
+CONFIG_PPC_FPU=y
+# CONFIG_ALTIVEC is not set
+CONFIG_PPC_STD_MMU=y
+CONFIG_PPC_STD_MMU_32=y
+# CONFIG_SMP is not set
 
 #
 # Code maturity level options
@@ -85,57 +111,29 @@ CONFIG_DEFAULT_AS=y
 CONFIG_DEFAULT_IOSCHED="anticipatory"
 
 #
-# Processor
+# Platform support
 #
-CONFIG_6xx=y
-# CONFIG_40x is not set
-# CONFIG_44x is not set
-# CONFIG_8xx is not set
-# CONFIG_E200 is not set
-# CONFIG_E500 is not set
-CONFIG_PPC_FPU=y
-# CONFIG_ALTIVEC is not set
-# CONFIG_TAU is not set
-# CONFIG_KEXEC is not set
+CONFIG_PPC_MULTIPLATFORM=y
+# CONFIG_PPC_ISERIES is not set
+# CONFIG_EMBEDDED6xx is not set
+# CONFIG_APUS is not set
+CONFIG_PPC_CHRP=y
+CONFIG_PPC_PMAC=y
+CONFIG_MPIC=y
+CONFIG_PPC_RTAS=y
+# CONFIG_RTAS_ERROR_LOGGING is not set
+CONFIG_RTAS_PROC=y
+# CONFIG_MMIO_NVRAM is not set
+CONFIG_PPC_MPC106=y
+# CONFIG_PPC_970_NAP is not set
 # CONFIG_CPU_FREQ is not set
+# CONFIG_PPC601_SYNC_FIX is not set
+# CONFIG_TAU is not set
 # CONFIG_WANT_EARLY_SERIAL is not set
-CONFIG_PPC_STD_MMU=y
 
 #
-# Platform options
+# Kernel options
 #
-# CONFIG_PPC_PREP is not set
-# CONFIG_APUS is not set
-# CONFIG_KATANA is not set
-# CONFIG_WILLOW is not set
-# CONFIG_CPCI690 is not set
-# CONFIG_POWERPMC250 is not set
-# CONFIG_CHESTNUT is not set
-# CONFIG_SPRUCE is not set
-# CONFIG_HDPU is not set
-# CONFIG_EV64260 is not set
-# CONFIG_LOPEC is not set
-# CONFIG_MVME5100 is not set
-# CONFIG_PPLUS is not set
-# CONFIG_PRPMC750 is not set
-# CONFIG_PRPMC800 is not set
-# CONFIG_SANDPOINT is not set
-# CONFIG_RADSTONE_PPC7D is not set
-# CONFIG_PAL4 is not set
-# CONFIG_GEMINI is not set
-# CONFIG_EST8260 is not set
-# CONFIG_SBC82xx is not set
-# CONFIG_SBS8260 is not set
-# CONFIG_RPX8260 is not set
-# CONFIG_TQM8260 is not set
-# CONFIG_ADS8272 is not set
-# CONFIG_PQ2FADS is not set
-CONFIG_LITE5200=y
-CONFIG_LITE5200B=y
-# CONFIG_MPC834x_SYS is not set
-# CONFIG_EV64360 is not set
-CONFIG_PPC_MPC52xx=y
-# CONFIG_SMP is not set
 # CONFIG_HIGHMEM is not set
 # CONFIG_HZ_100 is not set
 CONFIG_HZ_250=y
@@ -145,6 +143,10 @@ CONFIG_HZ=250
 # CONFIG_PREEMPT_VOLUNTARY is not set
 CONFIG_PREEMPT=y
 CONFIG_PREEMPT_BKL=y
+CONFIG_BINFMT_ELF=y
+# CONFIG_BINFMT_MISC is not set
+# CONFIG_KEXEC is not set
+CONFIG_ARCH_FLATMEM_ENABLE=y
 CONFIG_SELECT_MEMORY_MODEL=y
 CONFIG_FLATMEM_MANUAL=y
 # CONFIG_DISCONTIGMEM_MANUAL is not set
@@ -153,8 +155,7 @@ CONFIG_FLATMEM=y
 CONFIG_FLAT_NODE_MEM_MAP=y
 # CONFIG_SPARSEMEM_STATIC is not set
 CONFIG_SPLIT_PTLOCK_CPUS=4
-CONFIG_BINFMT_ELF=y
-# CONFIG_BINFMT_MISC is not set
+# CONFIG_PROC_DEVICETREE is not set
 # CONFIG_CMDLINE_BOOL is not set
 # CONFIG_PM is not set
 # CONFIG_SOFTWARE_SUSPEND is not set
@@ -164,9 +165,10 @@ CONFIG_ISA_DMA_API=y
 #
 # Bus options
 #
+# CONFIG_ISA is not set
 CONFIG_GENERIC_ISA_DMA=y
-# CONFIG_PPC_I8259 is not set
-# CONFIG_PPC_INDIRECT_PCI is not set
+CONFIG_PPC_I8259=y
+CONFIG_PPC_INDIRECT_PCI=y
 CONFIG_PCI=y
 CONFIG_PCI_DOMAINS=y
 # CONFIG_PCI_DEBUG is not set
@@ -175,6 +177,11 @@ CONFIG_PCI_DOMAINS=y
 # PCCARD (PCMCIA/CardBus) support
 #
 # CONFIG_PCCARD is not set
+
+#
+# PCI Hotplug Support
+#
+# CONFIG_HOTPLUG_PCI is not set
 
 #
 # Advanced setup
@@ -380,6 +387,7 @@ CONFIG_MTD_COMPLEX_MAPPINGS=y
 # Block devices
 #
 # CONFIG_BLK_DEV_FD is not set
+# CONFIG_MAC_FLOPPY is not set
 # CONFIG_BLK_CPQ_DA is not set
 # CONFIG_BLK_CPQ_CISS_DA is not set
 # CONFIG_BLK_DEV_DAC960 is not set
@@ -429,6 +437,10 @@ CONFIG_BLK_DEV_RAM_SIZE=4096
 #
 # Macintosh device drivers
 #
+# CONFIG_ADB is not set
+# CONFIG_ADB_CUDA is not set
+# CONFIG_ADB_PMU is not set
+# CONFIG_PMAC_MEDIABAY is not set
 # CONFIG_WINDFARM is not set
 
 #
@@ -450,6 +462,8 @@ CONFIG_BLK_DEV_RAM_SIZE=4096
 #
 CONFIG_NET_ETHERNET=y
 CONFIG_MII=y
+# CONFIG_MACE is not set
+# CONFIG_BMAC is not set
 # CONFIG_HAPPYMEAL is not set
 # CONFIG_SUNGEM is not set
 # CONFIG_CASSINI is not set
@@ -478,6 +492,7 @@ CONFIG_MII=y
 # CONFIG_SK98LIN is not set
 # CONFIG_TIGON3 is not set
 # CONFIG_BNX2 is not set
+# CONFIG_MV643XX_ETH is not set
 
 #
 # Ethernet (10000 Mbit)
@@ -555,11 +570,12 @@ CONFIG_SERIO_SERPORT=y
 #
 # Non-8250 serial port support
 #
-# CONFIG_SERIAL_MPC52xx is not set
+# CONFIG_SERIAL_PMACZILOG is not set
 # CONFIG_SERIAL_JSM is not set
 CONFIG_UNIX98_PTYS=y
 CONFIG_LEGACY_PTYS=y
 CONFIG_LEGACY_PTY_COUNT=32
+# CONFIG_HVC_RTAS is not set
 
 #
 # IPMI
@@ -840,6 +856,10 @@ CONFIG_CRC32=y
 # CONFIG_LIBCRC32C is not set
 CONFIG_ZLIB_INFLATE=y
 CONFIG_ZLIB_DEFLATE=y
+
+#
+# Instrumentation Support
+#
 # CONFIG_PROFILING is not set
 
 #
@@ -862,9 +882,14 @@ CONFIG_DEBUG_INFO=y
 # CONFIG_DEBUG_VM is not set
 CONFIG_FORCED_INLINING=y
 # CONFIG_RCU_TORTURE_TEST is not set
-# CONFIG_XMON is not set
+# CONFIG_DEBUGGER is not set
 # CONFIG_BDI_SWITCH is not set
-# CONFIG_SERIAL_TEXT_DEBUG is not set
+# CONFIG_BOOTX_TEXT is not set
+# CONFIG_PPC_EARLY_DEBUG_LPAR is not set
+# CONFIG_PPC_EARLY_DEBUG_G5 is not set
+# CONFIG_PPC_EARLY_DEBUG_RTAS is not set
+# CONFIG_PPC_EARLY_DEBUG_MAPLE is not set
+# CONFIG_PPC_EARLY_DEBUG_ISERIES is not set
 
 #
 # Security options
