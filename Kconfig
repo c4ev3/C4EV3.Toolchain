@@ -13,6 +13,16 @@
 # SHARED_MODE
 #
 
+config PROJECT
+	string
+	prompt "Project Name        "
+	help
+	  Name of this project; each PTXdist "Project" specifies a unique
+	  configuration for an embedded Linux project.
+
+	  Usually you don't have to set this config option; change it
+	  only if you want to have some non-default name.
+
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-headers.in"
 source "workspace/rules/glibc-crt.in"
