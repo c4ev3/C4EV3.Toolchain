@@ -1,8 +1,9 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.svn
-# Sun Aug 13 13:52:59 2006
+# Wed Sep  6 19:37:09 2006
 #
+PTXCONF_PROJECT="$(shell basename $(shell cd $(shell pwd)/.. && pwd))"
 PTXCONF_GLIBC=y
 PTXCONF_GLIBC_VERSION="2.4"
 PTXCONF_GLIBC_EXTRA_CONFIG=""
@@ -31,6 +32,7 @@ PTXCONF_CROSS_GDB=y
 #                   
 #
 # PTXCONF_ARCH_ARM is not set
+# PTXCONF_ARCH_MIPS is not set
 # PTXCONF_ARCH_POWERPC is not set
 PTXCONF_ARCH_I386=y
 PTXCONF_ARCH="i386"
