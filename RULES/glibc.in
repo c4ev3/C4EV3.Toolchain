@@ -16,6 +16,11 @@ config GLIBC_VERSION
 	help
 	  Specify the glibc version here.
 
+config GLIBC_SERIES
+	depends on GLIBC
+	string
+	prompt "glibc patch series file"
+
 config GLIBC_EXTRA_CONFIG
 	depends on GLIBC
 	string
