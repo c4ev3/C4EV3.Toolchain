@@ -23,6 +23,13 @@ config PROJECT
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
 
+config CONFIGFILE_VERSION
+	string
+	prompt "PTXdist version     "
+	default "0.10.svn"
+	help
+	  Specifies which PTXdist version this project is being built with.
+
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-headers.in"
 source "workspace/rules/glibc-crt.in"
