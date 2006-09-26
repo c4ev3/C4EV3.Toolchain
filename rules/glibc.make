@@ -137,7 +137,7 @@ glibc_compile: $(STATEDIR)/glibc.compile
 $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) lib
+		$(MAKE) lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -149,8 +149,7 @@ glibc_install: $(STATEDIR)/glibc.install
 $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && \
-		$(GLIBC_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) \
+		$(GLIBC_PATH) $(MAKE) \
 		install_root=$(SYSROOT) install-lib-all install-headers
 	@$(call touch, $@)
 

@@ -57,7 +57,7 @@ glibc_final_compile: $(STATEDIR)/glibc_final.compile
 
 $(STATEDIR)/glibc_final.compile: $(glibc_final_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ glibc_final_install: $(STATEDIR)/glibc_final.install
 $(STATEDIR)/glibc_final.install: $(glibc_final_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && \
-		$(GLIBC_PATH) $(MAKE) $(PARALLELMFLAGS) install_root=$(SYSROOT) \
+		$(GLIBC_PATH) $(MAKE) install_root=$(SYSROOT) \
 			install-bin install-rootsbin \
 			install-sbin install-data install-others
 	@$(call touch, $@)
