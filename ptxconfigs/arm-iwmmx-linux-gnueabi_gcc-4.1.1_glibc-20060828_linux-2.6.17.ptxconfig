@@ -3,7 +3,7 @@
 # PTXdist version: 0.10.svn
 # Tue Sep 12 13:20:19 2006
 #
-PTXCONF_PROJECT="$(shell basename $(shell cd $(shell pwd)/.. && pwd))"
+PTXCONF_PROJECT="$(shell basename $(shell cd $(shell pwd) && pwd))"
 PTXCONF_GLIBC=y
 PTXCONF_GLIBC_VERSION="2.4"
 PTXCONF_GLIBC_SERIES="series_20060828"
