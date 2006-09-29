@@ -100,22 +100,33 @@ config CONFIGFILE_VERSION
 	  here. This is an additional sanity check to make sure that
 	  only tested versions are built.
 
+config PREFIX_FIRST
+	string
+	prompt "first prefix"
+	default "/opt/${PTXCONF_PROJECT}"
+	help
+	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
+	  The intention behind this is that you can change the installation
+	  directory with PREFIX_FIRST while keeping the directory which
+	  describes what kind of toolchain you have (PREFIX_SECOND)
+
+config PREFIX_SECOND
+	string
+	prompt "second prefix"
+	default "${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_SECOND_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}"
+	help
+	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
+	  The intention behind this is that you can change the installation
+	  directory with PREFIX_FIRST while keeping the directory which
+	  describes what kind of toolchain you have (PREFIX_SECOND)
+
 config PREFIX
 	string
-	prompt "prefix"
-	default "/opt/ptxdist-${FULLVERSION}/${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_SECOND_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}"
-	help
-	  This option specifies the host side sysroot file, also known
-	  as PTXCONF_PREFIX.
+	default "${PTXCONF_PREFIX_FIRST}/${PTXCONF_PREFIX_SECOND}"
 
 config HOST_PREFIX
+	string
 	prompt "Prefix for host tools development environment"
-	string
-	default "${PTXCONF_PREFIX}"
-
-config CROSS_PREFIX
-	prompt "Prefix for cross tools development environment"
-	string
 	default "${PTXCONF_PREFIX}"
 
 endmenu
