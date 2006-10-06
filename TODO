@@ -1,6 +1,6 @@
-[ ] i686 toolchain fixing
 [ ] fix autobuilder
 [ ] migrate to glibc-2.5, audit patches
+[ ] i686 toolchain fixing
 
 [ ] audit softfloat stuff
 [ ] ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
