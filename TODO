@@ -1,8 +1,9 @@
-- audit softfloat stuff
-- ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
-- dependency generator doesn't work for CROSS_BINUTILS -> HOST_KERNEL
-- find out a better way than installing the different gcc stages ontop
-  of each other...
+[ ] i686 toolchain fixing
+[ ] fix autobuilder
+[ ] migrate to glibc-2.5, audit patches
+
+[ ] audit softfloat stuff
+[ ] ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
 
 ----------8<----------
 From: Marcelo Slomp <mslomp@linuxmail.org>
