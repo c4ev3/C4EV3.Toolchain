@@ -1,2 +1,2 @@
 20060828/glibc-ports-20060828.diff.bz2
-20060828/glibc-ports-20060828-mips-bootstrap.diff
+20060828/sysdeps_mips_mips32_Makefile-bootstrap.diff
