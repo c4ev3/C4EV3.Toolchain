@@ -85,6 +85,12 @@ ifdef PTXCONF_GLIBC_TLS
 GLIBC_HEADERS_AUTOCONF += --with-tls
 endif
 
+ifdef PTXCONF_GLIBC_PORTS
+GLIBC_HEADERS_AUTOCONF += --enable-add-ons=ports
+else
+GLIBC_HEADERS_AUTOCONF += --disable-add-ons
+endif
+
 glibc-headers_prepare_deps := \
 	$(glibc-headers_prepare_deps_default) \
 	$(STATEDIR)/glibc.extract

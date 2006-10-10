@@ -1,4 +1,5 @@
-config GLIBC_PORTS
+menuconfig GLIBC_PORTS
+	prompt "glibc-ports                 "
 	bool
 
 config GLIBC_PORTS_VERSION
