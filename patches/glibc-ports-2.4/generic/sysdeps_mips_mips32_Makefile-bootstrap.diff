@@ -22,9 +22,10 @@ mailing list. Here is the link off of my FTP site:
 
 [Note: BOOTSTRAP_GCC is set by crosstool.sh when invoking make install-headers]
 
-diff -urN glibc-ports-2.4-orig/sysdeps/mips/mips32/Makefile glibc-ports-2.4/sysdeps/mips/mips32/Makefile
---- glibc-ports-2.4-orig/sysdeps/mips/mips32/Makefile	2003-03-29 09:15:28.000000000 +0100
-+++ glibc-ports-2.4/sysdeps/mips/mips32/Makefile	2006-08-14 12:25:00.000000000 +0200
+Index: glibc-ports-2.4/sysdeps/mips/mips32/Makefile
+===================================================================
+--- glibc-ports-2.4.orig/sysdeps/mips/mips32/Makefile
++++ glibc-ports-2.4/sysdeps/mips/mips32/Makefile
 @@ -1,3 +1,7 @@
 +ifeq ($(filter -DBOOTSTRAP_GCC,$(CFLAGS)),)
  ifeq ($(filter -mabi=32,$(CC)),)
