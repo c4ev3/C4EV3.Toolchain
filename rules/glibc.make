@@ -102,7 +102,7 @@ GLIBC_AUTOCONF := \
 	$(call remove_quotes,$(PTXCONF_GLIBC_EXTRA_CONFIG)) \
 	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
 	--with-headers=$(SYSROOT)/usr/include \
-        --enable-kernel=2.4.3 \
+	--enable-kernel=2.4.3 \
 	--without-cvs \
 	--disable-sanity-checks \
 	--disable-profile \
@@ -138,7 +138,7 @@ glibc_compile: $(STATEDIR)/glibc.compile
 $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) \
-		$(MAKE) lib
+		$(MAKE) $(PARALLELMFLAGS) lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

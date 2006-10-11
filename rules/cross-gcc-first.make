@@ -124,22 +124,22 @@ $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		if test '!' -f $(CROSS_GCC_FIRST_DIR)/gcc/BASE-VER; then \
 			$(MAKE) configure-libiberty && \
-			$(MAKE) -C libiberty libiberty.a && \
+			$(MAKE) $(PARALLELMFLAGS) -C libiberty libiberty.a && \
 			$(MAKE) configure-gcc; \
 		else \
 			if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
 				$(MAKE) configure-libdecnumber && \
-				$(MAKE) all-libdecnumber; \
+				$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
 			fi && \
 			$(MAKE) configure-gcc && \
 			$(MAKE) configure-libcpp && \
 			$(MAKE) configure-build-libiberty && \
-			$(MAKE) all-libcpp && \
-			$(MAKE) all-build-libiberty; \
+			$(MAKE) $(PARALLELMFLAGS) all-libcpp && \
+			$(MAKE) $(PARALLELMFLAGS) all-build-libiberty; \
 		fi
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) -C gcc libgcc.mk
+		$(MAKE) $(PARALLELMFLAGS) -C gcc libgcc.mk
 
 	export $(CROSS_GCC_FIRST_PATH); \
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
@@ -152,7 +152,7 @@ $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 		$(MAKE) tree-check.h
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) all-gcc
+		$(MAKE) $(PARALLELMFLAGS) all-gcc
 
 	@$(call touch, $@)
 

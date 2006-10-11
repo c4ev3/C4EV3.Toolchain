@@ -57,7 +57,7 @@ glibc_final_compile: $(STATEDIR)/glibc_final.compile
 
 $(STATEDIR)/glibc_final.compile: $(glibc_final_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) $(MAKE)
+	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
