@@ -101,7 +101,7 @@ cross-gcc-second_install: $(STATEDIR)/cross-gcc-second.install
 $(STATEDIR)/cross-gcc-second.install: $(cross-gcc-second_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && \
-		$(CROSS_GCC_SECOND_PATH) $(MAKE) $(PARALLELMFLAGS) install
+		$(CROSS_GCC_SECOND_PATH) $(MAKE) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
