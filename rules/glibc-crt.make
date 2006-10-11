@@ -82,7 +82,8 @@ glibc-crt_compile: $(STATEDIR)/glibc-crt.compile
 
 $(STATEDIR)/glibc-crt.compile: $(glibc-crt_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_ENV) $(GLIBC_CRT_PATH) $(MAKE) csu/subdir_lib
+	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_ENV) $(GLIBC_CRT_PATH) \
+		$(MAKE) csu/subdir_lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
