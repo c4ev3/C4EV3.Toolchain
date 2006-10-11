@@ -119,34 +119,41 @@ cross-gcc-first_compile: $(STATEDIR)/cross-gcc-first.compile
 
 $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 	@$(call targetinfo, $@)
-	( \
-		$(CROSS_GCC_FIRST_PATH); \
-		cd $(CROSS_GCC_FIRST_BUILDDIR); \
-		if test '!' -f gcc/BASE-VER; then \
-			$(MAKE) configure-libiberty; \
-			$(MAKE) -C libiberty libiberty.a; \
+
+	export $(CROSS_GCC_FIRST_PATH); \
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
+		if test '!' -f $(CROSS_GCC_FIRST_DIR)/gcc/BASE-VER; then \
+			$(MAKE) configure-libiberty && \
+			$(MAKE) -C libiberty libiberty.a && \
 			$(MAKE) configure-gcc; \
 		else \
-			if test -d libdecnumber; then \
-				$(MAKE) configure-libdecnumber; \
+			if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
+				$(MAKE) configure-libdecnumber && \
 				$(MAKE) all-libdecnumber; \
-			fi; \
-			$(MAKE) configure-gcc; \
-			$(MAKE) configure-libcpp; \
-			$(MAKE) configure-build-libiberty; \
-			$(MAKE) all-libcpp; \
+			fi && \
+			$(MAKE) configure-gcc && \
+			$(MAKE) configure-libcpp && \
+			$(MAKE) configure-build-libiberty && \
+			$(MAKE) all-libcpp && \
 			$(MAKE) all-build-libiberty; \
-		fi; \
-		$(MAKE) -C gcc libgcc.mk; \
-		\
+		fi
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) -C gcc libgcc.mk
+
+	export $(CROSS_GCC_FIRST_PATH); \
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		if test '!' -f gcc/libgcc.mk-ORIG ; then \
 			cp -p gcc/libgcc.mk gcc/libgcc.mk-ORIG; \
-		fi; \
-		\
-		sed 's@-lc@@g' < gcc/libgcc.mk-ORIG > gcc/libgcc.mk; \
-		\
-		$(MAKE) all-gcc; \
-	)
+		fi && \
+		sed 's@-lc@@g' < gcc/libgcc.mk-ORIG > gcc/libgcc.mk
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) tree-check.h
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) all-gcc
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -158,7 +165,7 @@ cross-gcc-first_install: $(STATEDIR)/cross-gcc-first.install
 $(STATEDIR)/cross-gcc-first.install: $(cross-gcc-first_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		$(CROSS_GCC_FIRST_PATH) $(MAKE) install-gcc;
+		$(CROSS_GCC_FIRST_PATH) $(MAKE) install-gcc
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
