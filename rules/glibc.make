@@ -104,6 +104,7 @@ GLIBC_AUTOCONF := \
 	--with-headers=$(SYSROOT)/usr/include \
         --enable-kernel=2.4.3 \
 	--without-cvs \
+	--disable-sanity-checks \
 	--disable-profile \
         --enable-debug \
 	--without-gd \
