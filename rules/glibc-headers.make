@@ -121,19 +121,23 @@ glibc-headers_install: $(STATEDIR)/glibc-headers.install
 $(STATEDIR)/glibc-headers.install: $(glibc-headers_install_deps_default)
 	@$(call targetinfo, $@)
 
-	( \
-		cd $(GLIBC_HEADERS_DIR); \
+	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-			$(MAKE) sysdeps/gnu/errlist.c; \
-		mkdir -p stdio-common; \
-		touch stdio-common/errlist-compat.c; \
+		$(MAKE) sysdeps/gnu/errlist.c; \
+
+	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
+	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
+
+	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-			$(MAKE) compiling=yes install_root=$(SYSROOT) install-headers; \
-		mkdir -p $(SYSROOT)/usr/include/gnu; \
-		touch $(SYSROOT)/usr/include/gnu/stubs.h; \
-		cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h; \
-		cp bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h; \
-	)
+		$(MAKE) compiling=yes install_root=$(SYSROOT) install-headers
+
+	mkdir -p $(SYSROOT)/usr/include/gnu
+	touch $(SYSROOT)/usr/include/gnu/stubs.h
+
+	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
+	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
