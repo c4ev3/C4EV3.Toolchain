@@ -120,6 +120,10 @@ cross-gcc-first_compile: $(STATEDIR)/cross-gcc-first.compile
 $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 	@$(call targetinfo, $@)
 
+#
+# gcc-4.1.1 has gcc/BASE-VER
+# gcc-4.0.3 doesn't have gcc/BASE-VER
+#
 	export $(CROSS_GCC_FIRST_PATH); \
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		if test '!' -f $(CROSS_GCC_FIRST_DIR)/gcc/BASE-VER; then \
