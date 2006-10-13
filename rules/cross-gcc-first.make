@@ -120,27 +120,17 @@ cross-gcc-first_compile: $(STATEDIR)/cross-gcc-first.compile
 $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 	@$(call targetinfo, $@)
 
-#
-# gcc-4.1.1 has gcc/BASE-VER
-# gcc-4.0.3 doesn't have gcc/BASE-VER
-#
 	export $(CROSS_GCC_FIRST_PATH); \
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		if test '!' -f $(CROSS_GCC_FIRST_DIR)/gcc/BASE-VER; then \
-			$(MAKE) configure-libiberty && \
-			$(MAKE) $(PARALLELMFLAGS) -C libiberty libiberty.a && \
-			$(MAKE) configure-gcc; \
-		else \
-			if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
-				$(MAKE) configure-libdecnumber && \
-				$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
-			fi && \
-			$(MAKE) configure-gcc && \
-			$(MAKE) configure-libcpp && \
-			$(MAKE) configure-build-libiberty && \
-			$(MAKE) $(PARALLELMFLAGS) all-libcpp && \
-			$(MAKE) $(PARALLELMFLAGS) all-build-libiberty; \
-		fi
+		if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
+			$(MAKE) configure-libdecnumber && \
+			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
+		fi && \
+		$(MAKE) configure-gcc && \
+		$(MAKE) configure-libcpp && \
+		$(MAKE) configure-build-libiberty && \
+		$(MAKE) $(PARALLELMFLAGS) all-libcpp && \
+		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty; \
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) -C gcc libgcc.mk
