@@ -1,0 +1,2 @@
+sysdeps_mips_mips32_Makefile-bootstrap.diff
+oe/arm-memcpy.patch
