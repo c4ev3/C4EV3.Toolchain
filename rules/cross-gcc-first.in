@@ -14,6 +14,11 @@ config CROSS_GCC_FIRST_VERSION
 	help
 	  Specify the version of the first stage gcc here.
 
+config CROSS_GCC_FIRST_SERIES
+	depends on CROSS_GCC_FIRST
+	string
+	prompt "gcc patch series file"
+
 config CROSS_GCC_FIRST_EXTRA_CONFIG
 	depends on CROSS_GCC_FIRST
 	string
