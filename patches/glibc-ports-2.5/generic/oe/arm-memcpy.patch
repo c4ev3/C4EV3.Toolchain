@@ -1,3 +1,7 @@
+# This is
+#
+# http://www.openembedded.org/repo/org.openembedded.dev/packages/glibc/glibc-2.4/arm-memcpy.patch
+#
 Index: glibc-ports-2.5/arm/memmove.S
 ===================================================================
 --- /dev/null
