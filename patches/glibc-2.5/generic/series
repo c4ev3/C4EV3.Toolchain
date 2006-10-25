@@ -1,4 +1,5 @@
 make-install-lib-all.patch
 glibc-configure-apple-as.patch
+#zecke-sane-readelf.patch
 
 sysdeps_unix_sysv_linux_getcwd_c-MAX.diff
