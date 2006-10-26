@@ -1,14 +1,43 @@
+Index: glibc-2.5/configure.in
+===================================================================
+--- glibc-2.5.orig/configure.in
++++ glibc-2.5/configure.in
+@@ -1350,6 +1350,8 @@ EOF
+     fi
+   fi
+ 
++  AC_CHECK_TARGET_TOOL([READELF],[readelf],[readelf],[$PATH])
++
+   AC_CACHE_CHECK(for .preinit_array/.init_array/.fini_array support,
+ 		 libc_cv_initfini_array, [dnl
+   cat > conftest.c <<EOF
+@@ -1361,7 +1363,7 @@ EOF
+   if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -o conftest conftest.c
+ 		     -static -nostartfiles -nostdlib 1>&AS_MESSAGE_LOG_FD])
+   then
+-    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
++    if $READELF -S conftest | fgrep INIT_ARRAY > /dev/null; then
+       libc_cv_initfini_array=yes
+     else
+       libc_cv_initfini_array=no
+@@ -1543,7 +1545,7 @@ dnl cross-platform since the gcc used ca
+ dnl introducing new options this is not easily doable.  Instead use a tool
+ dnl which always is cross-platform: readelf.  To detect whether -z combreloc
+ dnl look for a section named .rel.dyn.
+-    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
++    if $READELF -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
+       libc_cv_z_combreloc=yes
+     else
+       libc_cv_z_combreloc=no
 Index: glibc-2.5/configure
 ===================================================================
 --- glibc-2.5.orig/configure
 +++ glibc-2.5/configure
-@@ -5488,6 +5488,95 @@ _ACEOF
+@@ -5488,6 +5488,92 @@ _ACEOF
      fi
    fi
  
-+### XXXX copy and pasted
-+# Check for readelf
-+# Extract the first word of "$target_alias-readelf", so it can be a program name with args.
++  # Extract the first word of "$target_alias-readelf", so it can be a program name with args.
 +set dummy $target_alias-readelf; ac_word=$2
 +{ echo "$as_me:$LINENO: checking for $ac_word" >&5
 +echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
@@ -93,57 +122,25 @@ Index: glibc-2.5/configure
 +  READELF="$ac_cv_prog_READELF"
 +fi
 +
-+### XXXX copy and pasted
 +
    echo "$as_me:$LINENO: checking for .preinit_array/.init_array/.fini_array support" >&5
  echo $ECHO_N "checking for .preinit_array/.init_array/.fini_array support... $ECHO_C" >&6
  if test "${libc_cv_initfini_array+set}" = set; then
-@@ -5507,7 +5596,7 @@ EOF
+@@ -5507,7 +5593,7 @@ EOF
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then
 -    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
-+    if $READELF -S conftest | fgrep INIT_ARRAY > /dev/null; then
++    if $(READELF) -S conftest | fgrep INIT_ARRAY > /dev/null; then
        libc_cv_initfini_array=yes
      else
        libc_cv_initfini_array=no
-@@ -5801,7 +5890,7 @@ EOF
+@@ -5801,7 +5887,7 @@ EOF
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then
 -    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
-+    if $READELF -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
-       libc_cv_z_combreloc=yes
-     else
-       libc_cv_z_combreloc=no
-Index: glibc-2.5/configure.in
-===================================================================
---- glibc-2.5.orig/configure.in
-+++ glibc-2.5/configure.in
-@@ -1350,6 +1350,8 @@ EOF
-     fi
-   fi
- 
-+  AC_CHECK_TARGET_TOOL([READELF],[readelf],[readelf],[$PATH])
-+
-   AC_CACHE_CHECK(for .preinit_array/.init_array/.fini_array support,
- 		 libc_cv_initfini_array, [dnl
-   cat > conftest.c <<EOF
-@@ -1361,7 +1363,7 @@ EOF
-   if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -o conftest conftest.c
- 		     -static -nostartfiles -nostdlib 1>&AS_MESSAGE_LOG_FD])
-   then
--    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
-+    if $READELF -S conftest | fgrep INIT_ARRAY > /dev/null; then
-       libc_cv_initfini_array=yes
-     else
-       libc_cv_initfini_array=no
-@@ -1543,7 +1545,7 @@ dnl cross-platform since the gcc used ca
- dnl introducing new options this is not easily doable.  Instead use a tool
- dnl which always is cross-platform: readelf.  To detect whether -z combreloc
- dnl look for a section named .rel.dyn.
--    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
-+    if $READELF -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
++    if $(READELF) -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
        libc_cv_z_combreloc=yes
      else
        libc_cv_z_combreloc=no
