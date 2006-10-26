@@ -47,8 +47,7 @@ $(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default)
 
 glibc-headers_prepare: $(STATEDIR)/glibc-headers.prepare
 
-GLIBC_HEADERS_PATH :=  PATH=$(PATH)
-
+GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
 GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
 	CFLAGS=-DBOOTSTRAP_GCC
