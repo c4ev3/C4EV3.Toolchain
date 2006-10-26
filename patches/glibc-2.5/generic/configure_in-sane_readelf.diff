@@ -131,7 +131,7 @@ Index: glibc-2.5/configure
    (exit $ac_status); }; }
    then
 -    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
-+    if $(READELF) -S conftest | fgrep INIT_ARRAY > /dev/null; then
++    if ${READELF} -S conftest | fgrep INIT_ARRAY > /dev/null; then
        libc_cv_initfini_array=yes
      else
        libc_cv_initfini_array=no
@@ -140,7 +140,7 @@ Index: glibc-2.5/configure
    (exit $ac_status); }; }
    then
 -    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
-+    if $(READELF) -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
++    if ${READELF} -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
        libc_cv_z_combreloc=yes
      else
        libc_cv_z_combreloc=no
