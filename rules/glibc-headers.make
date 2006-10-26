@@ -48,7 +48,6 @@ $(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default)
 glibc-headers_prepare: $(STATEDIR)/glibc-headers.prepare
 
 GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
-e
 #
 # these various env variables are necessary, because we are using the host compiler
 # it doesn't matter if we define ppc stuff during arm build
