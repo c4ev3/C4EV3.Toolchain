@@ -74,13 +74,10 @@ kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
 
 $(STATEDIR)/kernel-headers.compile: $(kernel-headers_compile_deps_default)
 	@$(call targetinfo, $@)
-	( \
-		cd $(KERNEL_HEADERS_DIR); \
-		$(MAKE) ARCH=$(PTXCONF_ARCH) oldconfig; \
-		$(MAKE) ARCH=$(PTXCONF_ARCH) include/asm include/linux/version.h; \
-	)
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) oldconfig
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) include/asm include/linux/version.h
 ifdef PTXCONF_ARCH_ARM
-		cd $(KERNEL_HEADERS_DIR) && $(MAKE) ARCH=$(PTXCONF_ARCH) include/asm-$(PTXCONF_ARCH)/.arch
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) include/asm-$(PTXCONF_ARCH)/.arch
 endif
 	@$(call touch, $@)
 
@@ -92,16 +89,17 @@ kernel-headers_install: $(STATEDIR)/kernel-headers.install
 
 $(STATEDIR)/kernel-headers.install: $(kernel-headers_install_deps_default)
 	@$(call targetinfo, $@)
-	( \
-		cd $(KERNEL_HEADERS_DIR); \
-		rm -fr $(SYSROOT)/usr/include/linux; \
-		mkdir -p $(SYSROOT)/usr/include; \
-		cp -r include/linux $(SYSROOT)/usr/include/; \
-		rm -fr $(SYSROOT)/usr/include/asm; \
-		cp -r include/asm-$(PTXCONF_ARCH) $(SYSROOT)/usr/include/asm; \
-		rm -fr $(SYSROOT)/usr/include/asm-generic; \
-		cp -r include/asm-generic $(SYSROOT)/usr/include/asm-generic; \
-	)
+
+	rm -fr $(SYSROOT)/usr/include/asm
+	rm -fr $(SYSROOT)/usr/include/linux
+	rm -fr $(SYSROOT)/usr/include/asm-generic
+
+	mkdir -p $(SYSROOT)/usr/include
+
+	cp -r $(KERNEL_HEADERS_DIR)/include/linux $(SYSROOT)/usr/include
+	cp -r $(KERNEL_HEADERS_DIR)/include/asm-$(PTXCONF_ARCH) $(SYSROOT)/usr/include/asm
+	cp -r $(KERNEL_HEADERS_DIR)/include/asm-generic $(SYSROOT)/usr/include/asm-generic
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
