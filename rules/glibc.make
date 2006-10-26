@@ -99,6 +99,7 @@ GLIBC_AUTOCONF := \
 	--prefix=/usr \
 	--build=$(GNU_BUILD) \
 	--host=$(PTXCONF_GNU_TARGET) \
+	--target=$(PTXCONF_GNU_TARGET) \
 	$(call remove_quotes,$(PTXCONF_GLIBC_EXTRA_CONFIG)) \
 	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
 	--with-headers=$(SYSROOT)/usr/include \
