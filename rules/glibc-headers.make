@@ -48,25 +48,22 @@ $(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default)
 glibc-headers_prepare: $(STATEDIR)/glibc-headers.prepare
 
 GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
+e
+#
+# these various env variables are necessary, because we are using the host compiler
+# it doesn't matter if we define ppc stuff during arm build
+# they aren't tested :)
+# no ifdefs for simplicity
+#
 GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
-	CFLAGS=-DBOOTSTRAP_GCC
-
-#
-# needed for powerpc:
-#
-# glibc checks for several binutils properties during configure; because
-# we don't have binutils yet and we only want to build the headers, fake
-# the tests:
-#
-# - libc_cv_ppc_machine: avoid altivec test
-#
-ifdef PTXCONF_ARCH_POWERPC
-GLIBC_HEADERS_ENV  += \
+	CFLAGS=-DBOOTSTRAP_GCC \
+	\
+	libc_cv_initfini_array=yes \
+	\
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
 	libc_cv_ppc_machine=yes
-endif
 
 #
 # autoconf
@@ -75,6 +72,7 @@ GLIBC_HEADERS_AUTOCONF := \
 	--prefix=/usr \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
+	--target=$(PTXCONF_GNU_TARGET) \
 	--with-headers=$(SYSROOT)/usr/include \
 	--without-cvs \
 	--disable-sanity-checks \
