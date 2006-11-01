@@ -69,7 +69,8 @@ CROSS_BINUTILS_AUTOCONF := \
 	--build=$(GNU_HOST) \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-sysroot=$(SYSROOT)
+	--with-sysroot=$(SYSROOT) \
+	--disable-nls
 
 $(STATEDIR)/cross-binutils.prepare: $(cross-binutils_prepare_deps_default)
 	@$(call targetinfo, $@)
