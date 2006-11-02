@@ -64,14 +64,12 @@ CROSS_GCC_SECOND_AUTOCONF := \
 	--enable-symvers=gnu \
 	--enable-__cxa_atexit \
 	\
-	--enable-multilib \
-	--enable-c99 \
-	--enable-long-long \
+	--disable-multilib \
 	--enable-shared \
 	--enable-threads=posix \
-	--enable-languages=$(PTXCONF_CROSS_GCC_SECOND_LANG)
-
-# 	--with-local-prefix=$(SYSROOT) \
+	--enable-languages=$(PTXCONF_CROSS_GCC_SECOND_LANG) \
+	--enable-c99 \
+	--enable-long-long
 
 $(STATEDIR)/cross-gcc-second.prepare: $(cross-gcc-second_prepare_deps_default)
 	@$(call targetinfo, $@)

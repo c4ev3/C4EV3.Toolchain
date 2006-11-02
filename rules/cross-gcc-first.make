@@ -79,10 +79,8 @@ CROSS_GCC_FIRST_AUTOCONF :=  \
 	\
 	--disable-multilib \
         --disable-shared \
-	--enable-threads=no \
+	--disable-threads \
         --enable-languages=c
-
-#	--with-local-prefix=$(SYSROOT) \
 
 $(STATEDIR)/cross-gcc-first.prepare: $(cross-gcc-first_prepare_deps_default)
 	@$(call targetinfo, $@)
