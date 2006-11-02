@@ -47,19 +47,8 @@ $(STATEDIR)/glibc-crt.extract: $(glibc-crt_extract_deps_default) $(STATEDIR)/gli
 
 glibc-crt_prepare: $(STATEDIR)/glibc-crt.prepare
 
-GLIBC_CRT_PATH	:= PATH=$(CROSS_PATH)
-GLIBC_CRT_ENV	:= \
-	BUILD_CC=$(HOSTCC) \
-	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes
-
-#
-# libc_cv_forced_unwind=yes
-# libc_cv_c_cleanup=yes
-#
-# is needed for nptl (mkl)
-#
-
+GLIBC_CRT_PATH = $(GLIBC_PATH)
+GLIBC_CRT_ENV = $(GLIBC_ENV)
 
 #
 # autoconf
