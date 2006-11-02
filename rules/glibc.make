@@ -69,7 +69,6 @@ endif
 glibc_prepare: $(STATEDIR)/glibc.prepare
 
 GLIBC_PATH := PATH=$(CROSS_PATH)
-
 GLIBC_ENV := \
 	BUILD_CC=$(HOSTCC) \
 	libc_cv_forced_unwind=yes \
@@ -103,7 +102,7 @@ GLIBC_AUTOCONF := \
 	$(call remove_quotes,$(PTXCONF_GLIBC_EXTRA_CONFIG)) \
 	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
 	--with-headers=$(SYSROOT)/usr/include \
-	--enable-kernel=2.4.3 \
+	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
 	--without-cvs \
 	--disable-sanity-checks \
 	--disable-profile \

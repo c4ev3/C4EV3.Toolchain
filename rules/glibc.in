@@ -12,14 +12,9 @@ config GLIBC_VERSION
 	depends on GLIBC
 	string
 	prompt "glibc version"
-	default "2.4"
+	default "2.5"
 	help
 	  Specify the glibc version here.
-
-config GLIBC_SERIES
-	depends on GLIBC
-	string
-	prompt "glibc patch series file"
 
 config GLIBC_EXTRA_CONFIG
 	depends on GLIBC
@@ -27,6 +22,17 @@ config GLIBC_EXTRA_CONFIG
 	prompt "extra configure options"
 	help
 	  Add these extra options to glibc's configure script.
+
+config GLIBC_ENABLE_KERNEL
+	depends on GLIBC
+	string
+	prompt "mininum kernel version"
+	default "2.6.16"
+
+config GLIBC_SERIES
+	depends on GLIBC
+	string
+	prompt "glibc patch series file"
 
 #config GLIBC_EXTRA_ENV
 #	depends on GLIBC
