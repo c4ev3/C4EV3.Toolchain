@@ -1,5 +1,6 @@
 make-install-lib-all.patch
 glibc-configure-apple-as.patch
-#configure_in-sane_readelf.diff
-#
+configure_in-sane_readelf.diff
+configure-sane_readelf.diff
+
 sysdeps_unix_sysv_linux_getcwd_c-MAX.diff
