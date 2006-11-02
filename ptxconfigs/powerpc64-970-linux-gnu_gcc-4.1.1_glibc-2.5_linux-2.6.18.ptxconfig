@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.svn
-# Thu Nov  2 09:36:21 2006
+# Thu Nov  2 15:15:05 2006
 #
 PTXCONF_PROJECT="OSELAS.Toolchain-trunk"
 PTXCONF_CONFIGFILE_VERSION="0.10.svn"
