@@ -1,5 +1,6 @@
 make-install-lib-all.patch
 glibc-configure-apple-as.patch
+glibc-configure-old-gcc.patch
 configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 

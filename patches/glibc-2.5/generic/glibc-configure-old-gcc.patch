@@ -1,0 +1,13 @@
+Index: glibc-2.5/configure
+===================================================================
+--- glibc-2.5.orig/configure
++++ glibc-2.5/configure
+@@ -4226,7 +4226,7 @@ echo $ECHO_N "checking version of $CC...
+   echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+ echo "${ECHO_T}$ac_prog_version" >&6
+ fi
+-if test $ac_verc_fail = yes; then
++if test $ac_verc_fail = yes -a -z "$enable_hacker_mode"; then
+   critic_missing="$critic_missing gcc"
+ fi
+ 
