@@ -1,7 +1,7 @@
-Index: gcc-4.1.1/gcc/config/arm/linux-elf.h
+Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
 ===================================================================
---- gcc-4.1.1.orig/gcc/config/arm/linux-elf.h
-+++ gcc-4.1.1/gcc/config/arm/linux-elf.h
+--- gcc-4.2-20061031.orig/gcc/config/arm/linux-elf.h
++++ gcc-4.2-20061031/gcc/config/arm/linux-elf.h
 @@ -54,7 +54,7 @@
  
  #undef  MULTILIB_DEFAULTS
@@ -18,12 +18,12 @@ Index: gcc-4.1.1/gcc/config/arm/linux-elf.h
 -#define LIBGCC_SPEC "%{msoft-float:-lfloat} %{mfloat-abi=soft*:-lfloat} -lgcc"
 +#define LIBGCC_SPEC "-lgcc"
  
- #define LINUX_TARGET_INTERPRETER "/lib/ld-linux.so.2"
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
  
-Index: gcc-4.1.1/gcc/config/arm/t-linux
+Index: gcc-4.2-20061031/gcc/config/arm/t-linux
 ===================================================================
---- gcc-4.1.1.orig/gcc/config/arm/t-linux
-+++ gcc-4.1.1/gcc/config/arm/t-linux
+--- gcc-4.2-20061031.orig/gcc/config/arm/t-linux
++++ gcc-4.2-20061031/gcc/config/arm/t-linux
 @@ -4,7 +4,10 @@ TARGET_LIBGCC2_CFLAGS = -fomit-frame-poi
  LIBGCC2_DEBUG_CFLAGS = -g0
  

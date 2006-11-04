@@ -3,10 +3,10 @@ Adds support for arm*b-linux* big-endian ARM targets
 
 See http://gcc.gnu.org/PR16350
 
-Index: gcc/config/arm/linux-elf.h
+Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
 ===================================================================
---- a/gcc/config/arm/linux-elf.h.orig
-+++ b/gcc/config/arm/linux-elf.h
+--- gcc-4.2-20061031.orig/gcc/config/arm/linux-elf.h
++++ gcc-4.2-20061031/gcc/config/arm/linux-elf.h
 @@ -28,19 +28,33 @@
  #undef  TARGET_VERSION
  #define TARGET_VERSION  fputs (" (ARM GNU/Linux with ELF)", stderr);
@@ -46,33 +46,33 @@ Index: gcc/config/arm/linux-elf.h
  #undef  LIB_SPEC
 @@ -61,7 +75,7 @@
     %{rdynamic:-export-dynamic} \
-    %{!dynamic-linker:-dynamic-linker " LINUX_TARGET_INTERPRETER "} \
+    %{!dynamic-linker:-dynamic-linker " LINUX_DYNAMIC_LINKER "} \
     -X \
 -   %{mbig-endian:-EB}" \
 +   %{mbig-endian:-EB} %{mlittle-endian:-EL}" \
     SUBTARGET_EXTRA_LINK_SPEC
  
  #undef  LINK_SPEC
-Index: gcc/config.gcc
+Index: gcc-4.2-20061031/gcc/config.gcc
 ===================================================================
---- a/gcc/config.gcc.orig
-+++ b/gcc/config.gcc
-@@ -672,6 +672,11 @@ arm*-*-netbsd*)
+--- gcc-4.2-20061031.orig/gcc/config.gcc
++++ gcc-4.2-20061031/gcc/config.gcc
+@@ -697,6 +697,11 @@ arm*-*-netbsd*)
  	;;
  arm*-*-linux*)			# ARM GNU/Linux with ELF
- 	tm_file="dbxelf.h elfos.h linux.h arm/elf.h arm/linux-gas.h arm/linux-elf.h" 
-+	case $target in
-+	arm*b-*)
+ 	tm_file="dbxelf.h elfos.h linux.h arm/elf.h arm/linux-gas.h arm/linux-elf.h"
++ 	case $target in
++ 	arm*b-*)
 +		tm_defines="${tm_defines} TARGET_BIG_ENDIAN_DEFAULT=1"
-+		;;
++ 		;;
 +	esac
  	tmake_file="${tmake_file} t-linux arm/t-arm"
  	case ${target} in
- 	arm*-*-linux-gnueabi)
-Index: gcc/config/arm/linux-eabi.h
+ 	arm*-*-linux-*eabi)
+Index: gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
 ===================================================================
---- a/gcc/config/arm/linux-eabi.h.orig
-+++ b/gcc/config/arm/linux-eabi.h
+--- gcc-4.2-20061031.orig/gcc/config/arm/linux-eabi.h
++++ gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
 @@ -20,6 +20,17 @@
     the Free Software Foundation, 51 Franklin Street, Fifth Floor,
     Boston, MA 02110-1301, USA.  */
