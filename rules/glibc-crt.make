@@ -83,9 +83,10 @@ glibc-crt_install: $(STATEDIR)/glibc-crt.install
 
 $(STATEDIR)/glibc-crt.install: $(glibc-crt_install_deps_default)
 	@$(call targetinfo, $@)
+	mkdir -p $(SYSROOT)/usr/lib
 	for file in crt1.o crti.o crtn.o; do \
-		$(INSTALL) -m 644 -D $(GLIBC_CRT_DIR)/csu/$$file \
-			$(SYSROOT)/usr/lib/$$file; \
+		$(INSTALL) -m 644 $(GLIBC_CRT_DIR)/csu/$$file \
+			$(SYSROOT)/usr/lib/$$file || exit 1 \
 	done
 	@$(call touch, $@)
 
