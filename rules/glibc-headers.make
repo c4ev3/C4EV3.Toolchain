@@ -62,7 +62,9 @@ GLIBC_HEADERS_ENV  := \
 	\
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
-	libc_cv_ppc_machine=yes
+	libc_cv_ppc_machine=yes \
+	libc_cv_powerpc32_tls=yes \
+	libc_cv_powerpc64_tls=yes
 
 #
 # autoconf
