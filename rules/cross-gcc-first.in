@@ -25,11 +25,3 @@ config CROSS_GCC_FIRST_EXTRA_CONFIG
 	prompt "extra configure options"
 	help
 	  Add these extra options to the first stage gcc configure script.
-
-#config CROSS_GCC_FIRST_EXTRA_ENV
-#	depends on CROSS_GCC_FIRST
-#	string
-#	prompt "extra environment"
-#	help
-#	  Add this to the first stage gcc environment.
-

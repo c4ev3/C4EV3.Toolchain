@@ -35,7 +35,7 @@ $(STATEDIR)/cross-gcc-second.get: $(STATEDIR)/cross-gcc-first.get
 
 cross-gcc-second_extract: $(STATEDIR)/cross-gcc-second.extract
 
-$(STATEDIR)/cross-gcc-second.extract: $(cross-gcc-second_extract_deps_default)
+$(STATEDIR)/cross-gcc-second.extract: $(cross-gcc-second_extract_deps_default) $(STATEDIR)/cross-gcc-first.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_SECOND_BUILDDIR))
 	mkdir -p $(CROSS_GCC_SECOND_BUILDDIR)
@@ -61,10 +61,10 @@ CROSS_GCC_SECOND_AUTOCONF := \
 	$(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG)) \
 	\
         --disable-nls \
+	--disable-multilib \
 	--enable-symvers=gnu \
 	--enable-__cxa_atexit \
 	\
-	--disable-multilib \
 	--enable-shared \
 	--enable-threads=posix \
 	--enable-languages=$(PTXCONF_CROSS_GCC_SECOND_LANG) \

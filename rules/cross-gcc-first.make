@@ -74,10 +74,10 @@ CROSS_GCC_FIRST_AUTOCONF :=  \
 	$(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG)) \
 	\
         --disable-nls \
+	--disable-multilib \
         --enable-symvers=gnu \
         --enable-__cxa_atexit \
 	\
-	--disable-multilib \
         --disable-shared \
 	--disable-threads \
         --enable-languages=c
@@ -123,22 +123,34 @@ $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 		if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
 			$(MAKE) configure-libdecnumber && \
 			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
-		fi && \
-		$(MAKE) configure-gcc && \
-		$(MAKE) configure-libcpp && \
-		$(MAKE) configure-build-libiberty && \
-		$(MAKE) $(PARALLELMFLAGS) all-libcpp && \
-		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty; \
+		fi
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) -C gcc libgcc.mk
+		$(MAKE) configure-gcc
 
-	export $(CROSS_GCC_FIRST_PATH); \
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		if test '!' -f gcc/libgcc.mk-ORIG ; then \
-			cp -p gcc/libgcc.mk gcc/libgcc.mk-ORIG; \
-		fi && \
-		sed 's@-lc@@g' < gcc/libgcc.mk-ORIG > gcc/libgcc.mk
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) configure-libcpp
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) configure-build-libiberty
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) all-libcpp
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty
+
+	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) libgcc.mk
+
+
+	if test '!' -f $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; then \
+		cp -p $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk \
+			$(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; \
+	fi
+
+	sed 's@-lc@@g' < $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG \
+		> $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
 		$(MAKE) tree-check.h

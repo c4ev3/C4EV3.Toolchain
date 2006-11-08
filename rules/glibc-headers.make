@@ -25,7 +25,7 @@ GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers
 
 glibc-headers_get: $(STATEDIR)/glibc-headers.get
 
-$(STATEDIR)/glibc-headers.get: $(glibc-headers_get_deps_default)
+$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -35,7 +35,7 @@ $(STATEDIR)/glibc-headers.get: $(glibc-headers_get_deps_default)
 
 glibc-headers_extract: $(STATEDIR)/glibc-headers.extract
 
-$(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default)
+$(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default) $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_HEADERS_DIR))
 	mkdir -p $(GLIBC_HEADERS_DIR)
@@ -106,6 +106,12 @@ glibc-headers_compile: $(STATEDIR)/glibc-headers.compile
 
 $(STATEDIR)/glibc-headers.compile: $(glibc-headers_compile_deps_default)
 	@$(call targetinfo, $@)
+	cd $(GLIBC_HEADERS_DIR) && \
+		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
+		$(MAKE) sysdeps/gnu/errlist.c; \
+
+	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
+	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,14 +122,6 @@ glibc-headers_install: $(STATEDIR)/glibc-headers.install
 
 $(STATEDIR)/glibc-headers.install: $(glibc-headers_install_deps_default)
 	@$(call targetinfo, $@)
-
-	cd $(GLIBC_HEADERS_DIR) && \
-		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(MAKE) sysdeps/gnu/errlist.c; \
-
-	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
-	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
-
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
 		$(MAKE) compiling=yes install_root=$(SYSROOT) install-headers
@@ -133,7 +131,6 @@ $(STATEDIR)/glibc-headers.install: $(glibc-headers_install_deps_default)
 
 	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
 	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
