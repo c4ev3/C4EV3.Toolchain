@@ -1,2 +1,3 @@
 sysdeps_mips_mips32_Makefile-bootstrap.diff
+avoid_using_asm_procinfo.diff
 arm-memcpy.patch
