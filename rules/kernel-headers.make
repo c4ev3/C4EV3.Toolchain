@@ -59,6 +59,7 @@ kernel-headers_prepare: $(STATEDIR)/kernel-headers.prepare
 
 KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
+KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH)
 
 $(STATEDIR)/kernel-headers.prepare: $(kernel-headers_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -74,11 +75,8 @@ kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
 
 $(STATEDIR)/kernel-headers.compile: $(kernel-headers_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) oldconfig
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) include/asm include/linux/version.h
-ifdef PTXCONF_ARCH_ARM
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) include/asm-$(PTXCONF_ARCH)/.arch
-endif
+	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) archprepare
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -90,15 +88,14 @@ kernel-headers_install: $(STATEDIR)/kernel-headers.install
 $(STATEDIR)/kernel-headers.install: $(kernel-headers_install_deps_default)
 	@$(call targetinfo, $@)
 
-	rm -fr $(SYSROOT)/usr/include/asm
-	rm -fr $(SYSROOT)/usr/include/linux
-	rm -fr $(SYSROOT)/usr/include/asm-generic
-
+ifdef PTXCONF_KERNEL_HEADERS_SANIZIZED
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) headers_install INSTALL_HDR_PATH=$(SYSROOT)/usr
+else
 	mkdir -p $(SYSROOT)/usr/include
-
 	cp -r $(KERNEL_HEADERS_DIR)/include/linux $(SYSROOT)/usr/include
 	cp -r $(KERNEL_HEADERS_DIR)/include/asm-$(PTXCONF_ARCH) $(SYSROOT)/usr/include/asm
 	cp -r $(KERNEL_HEADERS_DIR)/include/asm-generic $(SYSROOT)/usr/include/asm-generic
+endif
 
 	@$(call touch, $@)
 

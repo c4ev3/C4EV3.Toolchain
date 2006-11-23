@@ -12,13 +12,13 @@ config KERNEL_HEADERS_VERSION
 	help
 	  Specify the kernel version here.
 
-#config KERNEL_HEADERS_SANIZIZED
-#	depends on KERNEL_HEADERS
-#	bool
-#	prompt "use sanitized headers"
-#	help
-#	  If selected we use the sanitized kernel headers instead of the
-#	  original kernel headers.
+config KERNEL_HEADERS_SANIZIZED
+	depends on KERNEL_HEADERS
+	bool
+	prompt "use sanitized headers"
+	help
+	  If selected we use the sanitized kernel headers instead of the
+	  original kernel headers.
 
 config KERNEL_HEADERS_CONFIG
 	depends on KERNEL_HEADERS
