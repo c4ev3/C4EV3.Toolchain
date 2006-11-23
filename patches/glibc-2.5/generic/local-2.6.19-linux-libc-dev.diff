@@ -1,0 +1,82 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2006-11-23
+# Committed-By: Marc Kleine-Budde
+#
+# Error:
+#
+# glibc cannot be compiled with samitized headers from 2.6.19rc6
+#
+# Description:
+#
+# http://sourceware.org/ml/libc-alpha/2006-10/msg00024.html
+#
+# State:
+#
+# this patch is from ubuntu's glibc-2.5 patch:
+# https://patches.ubuntu.com/g/glibc/glibc_2.5-0ubuntu2.patch
+#
+
+# DP: Description: Add missing bits in 2.6.19 kernel headers
+# DP: Author: Jeff Bailey <jbailey@ubuntu.com>
+# DP: Upstream status: Not Submitted.
+# DP: Status Details: No response on http://sourceware.org/ml/libc-alpha/2006-10/msg00024.html
+# DP: Date: 2006-10-27
+
+Index: glibc-2.5/sysdeps/unix/sysv/linux/check_pf.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/check_pf.c
++++ glibc-2.5/sysdeps/unix/sysv/linux/check_pf.c
+@@ -30,10 +30,15 @@
+ #include <asm/types.h>
+ #include <linux/netlink.h>
+ #include <linux/rtnetlink.h>
++#include <linux/if_addr.h>
+ 
+ #include <not-cancel.h>
+ #include <kernel-features.h>
+ 
++#define IFLA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifinfomsg))))
++#define IFLA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifinfomsg))
++#define IFA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifaddrmsg))))
++#define IFA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifaddrmsg))
+ 
+ #ifndef IFA_F_TEMPORARY
+ # define IFA_F_TEMPORARY IFA_F_SECONDARY
+Index: glibc-2.5/sysdeps/unix/sysv/linux/if_index.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/if_index.c
++++ glibc-2.5/sysdeps/unix/sysv/linux/if_index.c
+@@ -28,9 +28,14 @@
+ #include <sys/ioctl.h>
+ #include <bits/libc-lock.h>
+ #include <not-cancel.h>
++#include <linux/if_addr.h>
+ 
+ #include "netlinkaccess.h"
+ 
++#define IFA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifaddrmsg))))
++#define IFA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifaddrmsg))
++#define IFLA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifinfomsg))))
++#define IFLA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifinfomsg))
+ 
+ /* Variable to signal whether SIOCGIFCONF is not available.  */
+ # if __ASSUME_SIOCGIFNAME == 0
+Index: glibc-2.5/sysdeps/unix/sysv/linux/ifaddrs.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/ifaddrs.c
++++ glibc-2.5/sysdeps/unix/sysv/linux/ifaddrs.c
+@@ -33,9 +33,14 @@
+ #include <sysdep.h>
+ #include <time.h>
+ #include <unistd.h>
++#include <linux/if_addr.h>
+ 
+ #include "netlinkaccess.h"
+ 
++#define IFLA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifinfomsg))))
++#define IFLA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifinfomsg))
++#define IFA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifaddrmsg))))
++#define IFA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifaddrmsg))
+ 
+ /* We don't know if we have NETLINK support compiled in in our
+    Kernel, so include the old implementation as fallback.  */
