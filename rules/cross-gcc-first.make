@@ -77,6 +77,7 @@ CROSS_GCC_FIRST_AUTOCONF :=  \
 	--disable-multilib \
         --enable-symvers=gnu \
         --enable-__cxa_atexit \
+	--enable-serial-configure \
 	\
         --disable-shared \
 	--disable-threads \
