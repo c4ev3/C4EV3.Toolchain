@@ -100,6 +100,11 @@ config CONFIGFILE_VERSION
 	  here. This is an additional sanity check to make sure that
 	  only tested versions are built.
 
+config PREFIX_KERNEL
+	string
+	default "-sanitized" if KERNEL_HEADERS_SANIZIZED
+	default "" if !KERNEL_HEADERS_SANIZIZED
+
 config PREFIX_FIRST
 	string
 	prompt "first prefix"
@@ -113,7 +118,7 @@ config PREFIX_FIRST
 config PREFIX_SECOND
 	string
 	prompt "second prefix"
-	default "${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_SECOND_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}"
+	default "${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_FIRST_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"
 	help
 	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
 	  The intention behind this is that you can change the installation
