@@ -70,7 +70,8 @@ CROSS_BINUTILS_AUTOCONF := \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
-	--disable-nls
+	--disable-nls \
+	--enable-serial-configure
 
 $(STATEDIR)/cross-binutils.prepare: $(cross-binutils_prepare_deps_default)
 	@$(call targetinfo, $@)
