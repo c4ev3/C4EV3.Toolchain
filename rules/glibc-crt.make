@@ -58,7 +58,7 @@ GLIBC_CRT_AUTOCONF = $(GLIBC_AUTOCONF)
 $(STATEDIR)/glibc-crt.prepare: $(glibc-crt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_CRT_DIR)/config.cache)
-	cd $(GLIBC_CRT_DIR) && \
+	cd $(GLIBC_CRT_DIR) && eval \
 		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
 		$(GLIBC_DIR)/configure $(GLIBC_CRT_AUTOCONF)
 	@$(call touch, $@)
@@ -71,7 +71,7 @@ glibc-crt_compile: $(STATEDIR)/glibc-crt.compile
 
 $(STATEDIR)/glibc-crt.compile: $(glibc-crt_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_ENV) $(GLIBC_CRT_PATH) \
+	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) csu/subdir_lib
 	@$(call touch, $@)
 

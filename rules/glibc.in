@@ -34,12 +34,12 @@ config GLIBC_SERIES
 	string
 	prompt "glibc patch series file"
 
-#config GLIBC_EXTRA_ENV
-#	depends on GLIBC
-#	string
-#	prompt "extra environment"
-#	help
-#	  Add this to the glibc environment.
+config GLIBC_EXTRA_ENV
+	depends on GLIBC
+	string
+	prompt "extra environment"
+	help
+	  Add this to the glibc environment.
 
 #config GLIBC_ADDON_CRYPT
 #	depends on GLIBC

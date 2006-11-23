@@ -72,7 +72,8 @@ GLIBC_PATH := PATH=$(CROSS_PATH)
 GLIBC_ENV := \
 	BUILD_CC=$(HOSTCC) \
 	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes
+	libc_cv_c_cleanup=yes \
+	$(PTXCONF_GLIBC_EXTRA_ENV)
 
 #
 # libc_cv_forced_unwind=yes
@@ -124,7 +125,7 @@ endif
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && \
+	cd $(GLIBC_BUILDDIR) && eval \
 		$(GLIBC_ENV) $(GLIBC_PATH) \
 		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
 	@$(call touch, $@)
