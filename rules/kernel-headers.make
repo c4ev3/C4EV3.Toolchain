@@ -76,7 +76,12 @@ kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
 $(STATEDIR)/kernel-headers.compile: $(kernel-headers_compile_deps_default)
 	@$(call targetinfo, $@)
 	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) archprepare
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) ARCH=$(PTXCONF_ARCH) include/asm include/linux/version.h
+#
+# this is used to generate asm/mach links for arm
+# but fails on ppc/powerpc, thus the (-)
+#
+	-$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) archprepare
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
