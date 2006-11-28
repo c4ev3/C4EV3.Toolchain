@@ -1,9 +1,13 @@
-[ ] fix autobuilder
-[ ] migrate to glibc-2.5, audit patches
-[ ] i686 toolchain fixing
+[ ] write fixup.make
+	[ ] copy ptxconfig
+	[ ] chmod prefix 555, to prevent overwriting
 
-[ ] audit softfloat stuff
-[ ] ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
+[ ] fix autobuilder
+[x] migrate to glibc-2.5, audit patches
+[x] i686 toolchain fixing
+
+[x] audit softfloat stuff
+[.] ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
 
 ----------8<----------
 From: Marcelo Slomp <mslomp@linuxmail.org>
