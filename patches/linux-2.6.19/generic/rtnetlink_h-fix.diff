@@ -1,0 +1,94 @@
+#
+# Submitted-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-30
+#
+# Error:
+#
+# The kernel headers installed by Linux 2.6.19-rc1 "make
+# headers_install" do not work for building glibc, because glibc
+# expects <linux/rtnetlink.h> to provide various definitions, some of
+# which have been moved to <linux/if_addr.h> and some of which have
+# been removed altogether.
+#
+# Description:
+#
+# http://sourceware.org/ml/libc-alpha/2006-10/msg00024.html
+#
+From libc-alpha-return-19426-listarch-libc-alpha=sources dot redhat dot com at sourceware dot org Fri Oct 06 17:20:24 2006
+Return-Path: <libc-alpha-return-19426-listarch-libc-alpha=sources dot redhat dot com at sourceware dot org>
+Delivered-To: listarch-libc-alpha at sources dot redhat dot com
+Received: (qmail 29973 invoked by alias); 6 Oct 2006 17:20:23 -0000
+Received: (qmail 29960 invoked by uid 22791); 6 Oct 2006 17:20:22 -0000
+X-Spam-Check-By: sourceware.org
+Received: from mail.codesourcery.com (HELO mail.codesourcery.com) (65.74.133.4)     by sourceware.org (qpsmtpd/0.31) with ESMTP; Fri, 06 Oct 2006 17:20:10 +0000
+Received: (qmail 22787 invoked from network); 6 Oct 2006 17:20:08 -0000
+Received: from unknown (HELO digraph.polyomino.org.uk) (joseph@127.0.0.2)   by mail.codesourcery.com with ESMTPA; 6 Oct 2006 17:20:08 -0000
+Received: from jsm28 (helo=localhost) 	by digraph.polyomino.org.uk with local-esmtp (Exim 4.63) 	(envelope-from <joseph@codesourcery.com>) 	id 1GVtMl-00054o-S9; Fri, 06 Oct 2006 17:20:07 +0000
+Date: Fri, 6 Oct 2006 17:20:07 +0000 (UTC)
+From: "Joseph S dot  Myers" <joseph at codesourcery dot com>
+To: netdev at vger dot kernel dot org
+cc: David Woodhouse <dwmw2 at infradead dot org>, libc-alpha at sourceware dot org
+Subject: Kernel header changes break glibc build
+Message-ID: <Pine.LNX.4.64.0610061718370.18057@digraph.polyomino.org.uk>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Mailing-List: contact libc-alpha-help at sourceware dot org; run by ezmlm
+Precedence: bulk
+List-Subscribe: <mailto:libc-alpha-subscribe at sourceware dot org>
+List-Archive: <http://sourceware.org/ml/libc-alpha/>
+List-Post: <mailto:libc-alpha at sourceware dot org>
+List-Help: <mailto:libc-alpha-help at sourceware dot org>, <http://sourceware dot org/ml/#faqs>
+Sender: libc-alpha-owner at sourceware dot org
+Delivered-To: mailing list libc-alpha at sourceware dot org
+
+The kernel headers installed by Linux 2.6.19-rc1 "make
+headers_install" do not work for building glibc, because glibc expects
+<linux/rtnetlink.h> to provide various definitions, some of which have
+been moved to <linux/if_addr.h> and some of which have been removed
+altogether.
+
+This kernel patch allows glibc to build again by making rtnetlink.h
+include if_addr.h and adding back the removed definitions required by
+glibc, but I don't know if it's the correct approach or if glibc
+should change the headers it includes and add its own macro
+definitions.
+
+Signed-off-by: Joseph Myers <joseph@codesourcery.com>
+---
+Index: linux-2.6.19/include/linux/rtnetlink.h
+===================================================================
+--- linux-2.6.19.orig/include/linux/rtnetlink.h
++++ linux-2.6.19/include/linux/rtnetlink.h
+@@ -2,6 +2,7 @@
+ #define __LINUX_RTNETLINK_H
+ 
+ #include <linux/netlink.h>
++#include <linux/if_addr.h>
+ #include <linux/if_link.h>
+ 
+ /****
+Index: linux-2.6.19/include/linux/if_link.h
+===================================================================
+--- linux-2.6.19.orig/include/linux/if_link.h
++++ linux-2.6.19/include/linux/if_link.h
+@@ -82,6 +82,9 @@ enum
+ 
+ #define IFLA_MAX (__IFLA_MAX - 1)
+ 
++#define IFLA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifinfomsg))))
++#define IFLA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifinfomsg))
++
+ /* ifi_flags.
+ 
+    IFF_* flags.
+Index: linux-2.6.19/include/linux/if_addr.h
+===================================================================
+--- linux-2.6.19.orig/include/linux/if_addr.h
++++ linux-2.6.19/include/linux/if_addr.h
+@@ -52,4 +52,7 @@ struct ifa_cacheinfo
+ 	__u32	tstamp; /* updated timestamp, hundredths of seconds */
+ };
+ 
++#define IFA_RTA(r)  ((struct rtattr*)(((char*)(r)) + NLMSG_ALIGN(sizeof(struct ifaddrmsg))))
++#define IFA_PAYLOAD(n) NLMSG_PAYLOAD(n,sizeof(struct ifaddrmsg))
++
+ #endif
