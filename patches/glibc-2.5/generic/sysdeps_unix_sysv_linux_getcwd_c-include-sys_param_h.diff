@@ -1,0 +1,109 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2006-12-04
+#
+# Error:
+#
+#
+# arm-v4t-linux-gnu-gcc -shared -static-libgcc -Wl,-O1 -Wl,-z,defs
+# -Wl,-dynamic-linker=/lib/ld-linux.so.2
+# -B/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/csu/
+# -Wl,--version-script=/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/libc.map
+# -Wl,-soname=libc.so.6 -Wl,-z,combreloc -Wl,-z,relro -nostdlib
+# -nostartfiles -e __libc_main
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/math
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/dlfcn
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/nss
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/nis
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/rt
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/resolv
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/crypt
+# -L/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/linuxthreads
+# -Wl,-rpath-link=/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/math:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/dlfcn:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/nss:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/nis:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/rt:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/resolv:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/crypt:/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/linuxthreads
+# -o
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/libc.so
+# -T
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/shlib.lds
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/csu/abi-note.o
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/soinit.os
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/libc_pic.os
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/sofini.os
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/interp.os
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/ld.so
+# -lgcc
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/libc_pic.os:
+# In function `__getcwd': ../sysdeps/unix/sysv/linux/getcwd.c:90:
+# undefined reference to `MAX' MAX is undefined during compilation of
+# "sysdeps/unix/sysv/linux/getcwd.c": arm-v4t-linux-gnu-gcc
+# ../sysdeps/unix/sysv/linux/getcwd.c -c -std=gnu99 -O2 -Wall -Winline
+# -Wwrite-strings -fmerge-all-constants -g -Wstr ict-prototypes
+# -I../include
+# -I/home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/io
+# -I/home/mkl
+# /pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build
+# -I../ports/sysdeps/arm/elf -I../ports/sysdeps/unix/sysv/li
+# nux/arm/linuxthreads -I../ports/sysdeps/unix/sysv/linux/arm
+# -I../ports/sysdeps/unix/sysv/linux
+# -I../linuxthreads/sysdeps/unix/sysv/linux
+# -I../linuxthreads/sysdeps/pthread -I../sysdeps/pthread
+# -I../sysdeps/unix/sysv/linux -I../sysdeps/gnu
+# -I../sysdeps/unix/common -I../sysdep s/unix/mman
+# -I../sysdeps/unix/inet -I../ports/sysdeps/unix/sysv
+# -I../linuxthreads/sysdeps/unix/sysv -I../sysdeps/unix/sysv
+# -I../ports/sys deps/unix/arm -I../ports/sysdeps/unix
+# -I../linuxthreads/sysdeps/unix -I../sysdeps/unix -I../sysdeps/posix
+# -I../ports/sysdeps/arm/linuxthr eads -I../ports/sysdeps/arm
+# -I../sysdeps/wordsize-32 -I../sysdeps/ieee754/flt-32
+# -I../sysdeps/ieee754/dbl-64 -I../sysdeps/ieee754
+# -I../sysdeps/generic/elf -I../sysdeps/generic -I../ports
+# -I../linuxthreads -I.. -I../libio -I. -nostdinc -isystem
+# /opt/OSELAS.Toolchain-trunk/arm-v4t-linux-gnu/gcc-4.1.1-glibc-2.5/lib/gcc/arm-v4t-linux-gnu/4.1.1/include-isystem
+# /opt/OSELAS.Toolchain-trunk/arm-v4t-linux-gnu/gcc-4.1.1-glibc-2.5/sysroot-arm-v4t-linux-gnu/usr/include
+# -D_LIBC_REENTRANT -include../include/libc-symbols.h -o
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/io/getcwd.o
+# -MD -MP -MF
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/io/getcwd.o.dt
+# -MT
+# /home/mkl/pengutronix/ptxdist/build/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/io/getcwd.o
+# ../sysdeps/unix/sysv/linux/getcwd.c: In function '__getcwd':
+# ../sysdeps/unix/sysv/linux/getcwd.c:90: warning: implicit
+# declaration of function 'MAX'
+#
+# Description:
+#
+# the recent change to use MAX(getpagesize()) in the linux getcwd.c
+# assumes that the header files it includes already will eventually
+# pull in sys/param.h and setup the MAX() define
+#
+# http://sourceware.org/bugzilla/show_bug.cgi?id=3335
+#
+# State:
+#
+# not fixed yet, but this is:
+# http://sourceware.org/ml/libc-alpha/2006-06/msg00068.html
+#
+
+the recent change to use MAX(getpagesize()) in the linux getcwd.c assumes that
+the header files it includes already will eventually pull in sys/param.h and
+setup the MAX() define ... the attached patch adds an explicit sys/param.h
+include to get rid of this implicit include path
+
+-mike
+
+2006-06-18  Mike Frysinger  <vapier@gentoo.org>
+
+	* sysdeps/unix/sysv/linux/getcwd.c: Include sys/param.h.
+
+Index: glibc-2.5/sysdeps/unix/sysv/linux/getcwd.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/getcwd.c
++++ glibc-2.5/sysdeps/unix/sysv/linux/getcwd.c
+@@ -24,6 +24,7 @@
+ #include <limits.h>
+ #include <stdlib.h>
+ #include <unistd.h>
++#include <sys/param.h>
+ 
+ #include <sysdep.h>
+ #include <sys/syscall.h>
