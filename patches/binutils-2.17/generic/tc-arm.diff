@@ -58,9 +58,11 @@
 # fixed in upstream cvs
 #
 
---- src/gas/config/tc-arm.c	2006/09/16 00:55:33	1.292
-+++ src/gas/config/tc-arm.c	2006/09/16 16:24:28	1.293
-@@ -3628,6 +3628,7 @@
+Index: binutils-2.17/gas/config/tc-arm.c
+===================================================================
+--- binutils-2.17.orig/gas/config/tc-arm.c
++++ binutils-2.17/gas/config/tc-arm.c
+@@ -2710,6 +2710,7 @@ s_arm_unwind_movsp (int ignored ATTRIBUT
  {
    int reg;
    valueT op;
@@ -68,7 +70,7 @@
  
    reg = arm_reg_parse (&input_line_pointer, REG_TYPE_RN);
    if (reg == FAIL)
-@@ -3636,6 +3637,16 @@
+@@ -2718,6 +2719,16 @@ s_arm_unwind_movsp (int ignored ATTRIBUT
        ignore_rest_of_line ();
        return;
      }
@@ -85,7 +87,7 @@
    demand_empty_rest_of_line ();
  
    if (reg == REG_SP || reg == REG_PC)
-@@ -3653,7 +3664,7 @@
+@@ -2735,7 +2746,7 @@ s_arm_unwind_movsp (int ignored ATTRIBUT
  
    /* Record the information for later.	*/
    unwind.fp_reg = reg;
