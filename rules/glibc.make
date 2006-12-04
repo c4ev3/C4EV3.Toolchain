@@ -106,7 +106,6 @@ GLIBC_AUTOCONF := \
 	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
 	--without-cvs \
 	--disable-sanity-checks \
-	--disable-profile \
         --enable-debug \
 	--without-gd \
 	--with-__thread \

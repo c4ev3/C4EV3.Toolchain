@@ -1,0 +1,96 @@
+#
+# Submitted-By: Robert Schwebel, 2006-12-03
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# rsc@isonoe:/media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5/elf$
+# PATH=/media/rscusb1_plain/tmp//armeb-xscale-linux-gnueabi/gcc-4.1.1-glibc-2.5-kernel-2.6.18/bin:/media/rscusb1_plain/tmp//armeb-xscale
+# -linux-gnueabi/gcc-4.1.1-glibc-2.5-kernel-2.6.18/usr/bin:$PATH armeb-xscale-linux-gnueabi-gcc dl-lookup.c -c -std=gnu99 -O2 -Wall
+# -Winline -Wwrite-strings -fmerge-all-constants -g -Wstrict-prototypes  -pg -fexceptions -fasynchronous-unwind-tables   -I../include
+# -I/media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf
+# -I/media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build -I../ports/sysdeps/arm/elf
+# -I../ports/sysdeps/unix/sysv/linux/arm/eabi/nptl -I../ports/sysdeps/unix/sysv/linux/arm/eabi
+# -I../ports/sysdeps/unix/sysv/linux/arm/nptl -I../ports/sysdeps/unix/sysv/linux/arm -I../ports/sysdeps/unix/sysv/linux
+# -I../nptl/sysdeps/unix/sysv/linux -I../nptl/sysdeps/pthread -I../sysdeps/pthread -I../sysdeps/unix/sysv/linux -I../sysdeps/gnu
+# -I../sysdeps/unix/common -I../sysdeps/unix/mman -I../sysdeps/unix/inet -I../ports/sysdeps/unix/sysv -I../nptl/sysdeps/unix/sysv
+# -I../sysdeps/unix/sysv -I../ports/sysdeps/unix/arm -I../ports/sysdeps/unix -I../nptl/sysdeps/unix -I../sysdeps/unix -I../sysdeps/posix
+# -I../ports/sysdeps/arm/eabi -I../ports/sysdeps/arm/nptl -I../ports/sysdeps/arm -I../sysdeps/wordsize-32 -I../sysdeps/ieee754/flt-32
+# -I../sysdeps/ieee754/dbl-64 -I../sysdeps/ieee754 -I../sysdeps/generic/elf -I../sysdeps/generic -I../ports -I../nptl  -I.. -I../libio
+# -I. -nostdinc -isystem
+# /media/rscusb1_plain/tmp/armeb-xscale-linux-gnueabi/gcc-4.1.1-glibc-2.5-kernel-2.6.18/bin/../lib/gcc/armeb-xscale-linux-gnueabi/4.1.1/
+# include -isystem
+# /media/rscusb1_plain/tmp//armeb-xscale-linux-gnueabi/gcc-4.1.1-glibc-2.5-kernel-2.6.18/sysroot-armeb-xscale-linux-gnueabi/usr/include
+# -D_LIBC_REENTRANT -include ../include/libc-symbols.h  -DPROF      -o
+# /media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/dl-lookup.op -MD -MP -MF
+# /media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/dl-lookup.op.dt -MT
+# /media/rscusb1_plain/svn/oselas/toolchain/trunks/OSELAS.Toolchain-trunk/build-target/glibc-2.5-build/elf/dl-lookup.op
+# /tmp/ccuNAGqV.s: Assembler messages:
+# /tmp/ccuNAGqV.s:169: Error: junk at end of line, first unrecognized character is `,'
+#
+# Here's where the assember barfs (the second line):
+#
+# check_match.7984:
+#         .fnstart
+# .LFB69:
+#         .file 2 "do-lookup.h"
+#         .loc 2 76 0
+#         @ Nested: function declared inside another function.
+#         @ args = 0, pretend = 0, frame = 0
+#         @ frame_needed = 1, uses_anonymous_args = 0
+# .LVL19:
+#         .pad #4
+#         str     ip, [sp, #-4]!
+#
+# .LCFI4:
+#         .movsp ip, #4      <---------------------------------------
+#         add ip, sp, #4
+#
+# The ", #4" seems to be bogus. This is built with binutils 2.17.
+#
+#
+# Description:
+#
+# http://sourceware.org/cgi-bin/cvsweb.cgi/src/gas/config/tc-arm.c.diff?r1=1.292&r2=1.293&cvsroot=src
+#
+# State:
+#
+# fixed in upstream cvs
+#
+
+--- src/gas/config/tc-arm.c	2006/09/16 00:55:33	1.292
++++ src/gas/config/tc-arm.c	2006/09/16 16:24:28	1.293
+@@ -3628,6 +3628,7 @@
+ {
+   int reg;
+   valueT op;
++  int offset;
+ 
+   reg = arm_reg_parse (&input_line_pointer, REG_TYPE_RN);
+   if (reg == FAIL)
+@@ -3636,6 +3637,16 @@
+       ignore_rest_of_line ();
+       return;
+     }
++
++  /* Optional constant.	 */
++  if (skip_past_comma (&input_line_pointer) != FAIL)
++    {
++      if (immediate_for_directive (&offset) == FAIL)
++	return;
++    }
++  else
++    offset = 0;
++
+   demand_empty_rest_of_line ();
+ 
+   if (reg == REG_SP || reg == REG_PC)
+@@ -3653,7 +3664,7 @@
+ 
+   /* Record the information for later.	*/
+   unwind.fp_reg = reg;
+-  unwind.fp_offset = unwind.frame_size;
++  unwind.fp_offset = unwind.frame_size - offset;
+   unwind.sp_restored = 1;
+ }
+ 
