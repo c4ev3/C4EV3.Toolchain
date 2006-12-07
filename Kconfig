@@ -42,6 +42,7 @@ source "workspace/rules/kernel-headers.in"
 source "workspace/rules/cross-gcc-first.in"
 source "workspace/rules/cross-gcc-second.in"
 source "workspace/rules/cross-gdb.in"
+source "workspace/rules/cross-toolchain.in"
 
 comment "                  "
 
