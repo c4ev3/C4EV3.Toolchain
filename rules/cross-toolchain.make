@@ -69,8 +69,8 @@ cross-toolchain_install: $(STATEDIR)/cross-toolchain.install
 
 $(STATEDIR)/cross-toolchain.install: $(cross-toolchain_install_deps_default)
 	@$(call targetinfo, $@)
-	rm -f ${PTXCONF_PREFIX_FIRST}/${PTXCONF_PREFIX_SECOND}/bin/ptxconfig
-	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX_FIRST}/${PTXCONF_PREFIX_SECOND}/bin/ptxconfig
+	rm -f ${PTXCONF_PREFIX}/bin/ptxconfig
+	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX}/bin/ptxconfig
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
