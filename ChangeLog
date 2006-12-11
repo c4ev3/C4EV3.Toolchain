@@ -1,0 +1,9 @@
+2006-12-11 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* general: opened maintenance-only branch for 1.0
+
+2006-12-11 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* rules/cross-binutils.make, rules/cross-gdb.make:
+	added --disable-werror, to work with nasty suse compilers
+

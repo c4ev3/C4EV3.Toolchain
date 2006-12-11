@@ -70,6 +70,7 @@ CROSS_BINUTILS_AUTOCONF := \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
+	--disable-werror \
 	--disable-nls \
 	--enable-serial-configure
 
