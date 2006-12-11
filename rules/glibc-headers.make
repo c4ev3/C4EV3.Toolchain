@@ -60,6 +60,8 @@ GLIBC_HEADERS_ENV  := \
 	\
 	libc_cv_initfini_array=yes \
 	\
+	libc_cv_386_tls=yes \
+	\
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
 	libc_cv_ppc_machine=yes \
