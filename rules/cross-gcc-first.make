@@ -69,7 +69,7 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 CROSS_GCC_FIRST_AUTOCONF :=  \
 	--host=$(GNU_HOST) \
 	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(CROSS_GCC_FIST_PREFIX) \
 	--with-sysroot=$(SYSROOT) \
 	$(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG)) \
 	\

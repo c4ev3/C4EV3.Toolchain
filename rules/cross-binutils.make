@@ -104,6 +104,19 @@ cross-binutils_install: $(STATEDIR)/cross-binutils.install
 $(STATEDIR)/cross-binutils.install: $(cross-binutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
+
+#
+# the gcc-first lives in it's own directory. he looks for the
+# binutils in $(PTXCONF_GNU_TARGET)/bin not in the path.
+# make some links to work against this.
+#
+	mkdir -p $(CROSS_GCC_FIST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	for tool in ar as ld nm objdump ranlib strip; do \
+		p_tool=$(PTXCONF_GNU_TARGET)/bin/$${tool}; \
+		rm -f $(CROSS_GCC_FIST_PREFIX)/$${p_tool}; \
+		ln -s ../../../$${p_tool} $(CROSS_GCC_FIST_PREFIX)/$${p_tool}; \
+	done
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
