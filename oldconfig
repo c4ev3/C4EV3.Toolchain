@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for i in ptxconfigs/*.ptxconfig; do
+	test -e ptxconfig && rm ptxconfig
+	ln -sf $i ptxconfig
+	ptxdist oldconfig
+done
+
+rm ptxconfig
