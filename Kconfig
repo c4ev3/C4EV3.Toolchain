@@ -3,15 +3,9 @@
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005, 2006
 #
 
-#
-# TODO
-#
-# GLIBC_EXTRA_CC_ARGS
-# EXTRA_TARGET_CFLAGS
-# GCC_BUILD
-# GCC_HOST
-# SHARED_MODE
-#
+config BUILD_TOOLCHAIN
+	bool
+	default y
 
 config PROJECT
 	string
