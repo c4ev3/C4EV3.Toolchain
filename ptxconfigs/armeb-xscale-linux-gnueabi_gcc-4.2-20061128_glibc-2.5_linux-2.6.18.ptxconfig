@@ -1,10 +1,11 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.6
-# Thu Dec  7 22:20:36 2006
+# PTXdist version: 0.10.svn
+# Fri Feb  9 13:25:50 2007
 #
+PTXCONF_BUILD_TOOLCHAIN=y
 PTXCONF_PROJECT="OSELAS.Toolchain-trunk"
-PTXCONF_CONFIGFILE_VERSION="0.10.6"
+PTXCONF_CONFIGFILE_VERSION="0.10.svn"
 PTXCONF_GLIBC=y
 PTXCONF_GLIBC_VERSION="2.5"
 PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
