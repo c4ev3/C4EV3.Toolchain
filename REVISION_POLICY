@@ -1,0 +1,20 @@
+OSELAS.Toolchain() Revision Policy                             rsc, 20070211-1
+------------------------------------------------------------------------------
+
+Changes allowed in micro releases (x.y.Z): 
+
+	- only oselas bugfixing
+
+Changes allowed in minor releases (x.Y.z): 
+
+	- bugfixing
+	- compiler micro version update (e.g. gcc-4.0.3 -> 4.0.4)
+	- kernel header updates (2.6.18 -> 2.6.20-sanitized)
+	- new toolchains which have not been included yet
+
+Changes allowed in major releases (X.y.z):
+
+	- structural changes
+	- new methods
+	- everything else
+
