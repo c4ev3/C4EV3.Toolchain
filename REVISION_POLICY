@@ -9,11 +9,11 @@ Changes allowed in minor releases (x.Y.z):
 
 	- bugfixing
 	- compiler micro version update (e.g. gcc-4.0.3 -> 4.0.4)
-	- kernel header updates (2.6.18 -> 2.6.20-sanitized)
 	- new toolchains which have not been included yet
 
 Changes allowed in major releases (X.y.z):
 
+	- kernel header updates (2.6.18 -> 2.6.20-sanitized)
 	- structural changes
 	- new methods
 	- everything else
