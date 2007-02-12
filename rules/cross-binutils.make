@@ -71,8 +71,7 @@ CROSS_BINUTILS_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
 	--disable-werror \
-	--disable-nls \
-	--enable-serial-configure
+	--disable-nls
 
 $(STATEDIR)/cross-binutils.prepare: $(cross-binutils_prepare_deps_default)
 	@$(call targetinfo, $@)

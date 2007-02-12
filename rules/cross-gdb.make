@@ -70,7 +70,6 @@ CROSS_GDB_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
 	--disable-werror \
-	--enable-serial-configure \
 	--enable-tui
 #	--enable-gdbtk
 

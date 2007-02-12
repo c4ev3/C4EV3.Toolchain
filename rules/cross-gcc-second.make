@@ -64,7 +64,6 @@ CROSS_GCC_SECOND_AUTOCONF := \
 	--disable-multilib \
 	--enable-symvers=gnu \
 	--enable-__cxa_atexit \
-	--enable-serial-configure \
 	\
 	--enable-shared \
 	--enable-threads=posix \
