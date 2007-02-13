@@ -17,13 +17,6 @@ config PROJECT
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
 
-config CONFIGFILE_VERSION
-	string
-	prompt "PTXdist version     "
-	default "0.10.svn"
-	help
-	  Specifies which PTXdist version this project is being built with.
-
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-headers.in"
 source "workspace/rules/glibc-crt.in"
@@ -78,18 +71,21 @@ config GNU_TARGET
 config COMPILER_PREFIX
 	string
 	default "${PTXCONF_GNU_TARGET}-"
-	help
-	 This is the prefix used to create the correct cross compiler name. If the
-	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
-	 use it.
 
+config TOOLCHAIN_DEBUG
+	bool
+	prompt "debuggable toolchain internals"
+	help
+	  Select this if you want to debug the glibc/libstdc++ internals.
+	  Note: this enlarges your toolchain at about 500 MB.
+	
 
 menu "misc                        "
 
 config CONFIGFILE_VERSION
 	string
 	prompt "ptxdist version"
-	default "0.10.4"
+	default "0.10.7"
 	help
 	  Specify the PTXdist version this configuration was tested with
 	  here. This is an additional sanity check to make sure that
@@ -97,8 +93,8 @@ config CONFIGFILE_VERSION
 
 config PREFIX_KERNEL
 	string
-	default "-sanitized" if KERNEL_HEADERS_SANIZIZED
-	default "" if !KERNEL_HEADERS_SANIZIZED
+	depends on KERNEL_HEADERS_SANIZIZED
+	default "-sanitized"
 
 config PREFIX_FIRST
 	string
@@ -126,7 +122,6 @@ config PREFIX
 
 config HOST_PREFIX
 	string
-	prompt "Prefix for host tools development environment"
 	default "${PTXCONF_PREFIX}"
 
 endmenu
