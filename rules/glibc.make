@@ -22,7 +22,7 @@ GLIBC		:= glibc-$(GLIBC_VERSION)
 GLIBC_SUFFIX	:= tar.bz2
 GLIBC_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC).$(GLIBC_SUFFIX)
 GLIBC_SOURCE	:= $(SRCDIR)/$(GLIBC).$(GLIBC_SUFFIX)
-GLIBC_DIR	:= $(BUILDDIR)/$(GLIBC)
+GLIBC_DIR	:= $(BUILDDIR_DEBUG)/$(GLIBC)
 GLIBC_BUILDDIR	:= $(BUILDDIR)/$(GLIBC)-build
 
 # ----------------------------------------------------------------------------
@@ -49,15 +49,16 @@ $(STATEDIR)/glibc.extract: $(glibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_DIR))
 	@$(call clean, $(GLIBC_BUILDDIR))
-	@$(call extract, GLIBC)
-	@$(call patchin, GLIBC)
+	@$(call extract, GLIBC, $(BUILDDIR_DEBUG))
+	@$(call patchin, GLIBC, $(GLIBC_DIR))
 
 ifdef PTXCONF_GLIBC_LINUXTHREADS
 	cp -r $(GLIBC_LINUXTHREADS_DIR)/linuxthreads $(GLIBC_DIR)
 	cp -r $(GLIBC_LINUXTHREADS_DIR)/linuxthreads_db $(GLIBC_DIR)
 endif
 ifdef PTXCONF_GLIBC_PORTS
-	ln -sf $(GLIBC_PORTS_DIR) $(GLIBC_DIR)/ports
+	mkdir -p $(GLIBC_DIR)/ports
+	cp -r $(GLIBC_PORTS_DIR)/* $(GLIBC_DIR)/ports
 endif
 	mkdir -p $(GLIBC_BUILDDIR)
 	@$(call touch, $@)

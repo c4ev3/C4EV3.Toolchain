@@ -17,7 +17,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC_SECOND) += cross-gcc-second
 #
 # Paths and names
 #
-CROSS_GCC_SECOND_BUILDDIR	= $(CROSS_GCC_FIRST_DIR)-second-build
+CROSS_GCC_SECOND_BUILDDIR	= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-second-build
 
 # ----------------------------------------------------------------------------
 # Get

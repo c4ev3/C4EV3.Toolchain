@@ -22,8 +22,8 @@ CROSS_GCC_FIRST			:= gcc-$(CROSS_GCC_FIRST_VERSION)
 CROSS_GCC_FIRST_SUFFIX	 	:= tar.bz2
 CROSS_GCC_FIRST_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
 CROSS_GCC_FIRST_SOURCE		:= $(SRCDIR)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
-CROSS_GCC_FIRST_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)
-CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_GCC_FIRST_DIR)-first-build
+CROSS_GCC_FIRST_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC_FIRST)
+CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-first-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,7 +49,7 @@ $(STATEDIR)/cross-gcc-first.extract: $(cross-gcc-first_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_FIRST_DIR))
 	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
-	@$(call extract, CROSS_GCC_FIRST, $(CROSS_BUILDDIR))
+	@$(call extract, CROSS_GCC_FIRST, $(BUILDDIR_CROSS_DEBUG))
 	@$(call patchin, CROSS_GCC_FIRST, $(CROSS_GCC_FIRST_DIR))
 	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	@$(call touch, $@)
