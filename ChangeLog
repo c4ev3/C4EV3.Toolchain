@@ -13,3 +13,20 @@
 	added env var "libc_cv_386_tls=yes" to fool configure, we've working
 	i386 TLS support even on non x86 systems
 
+2007-02-04 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxconfigs, patches: upgraded gcc-4.0.3 -> gcc-4.0.4
+
+2007-02-13 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* general: added bundle sources with binary toolchain.
+	To be able to debug the toolchain internals (glibc and libstdc++)
+	later on.
+
+2007-02-13 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* ptxconfigs: added arm-1136jfs configs
+
+2007-02-27 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* ptxconfigs, patches: upgraded to gcc-4.1.2 release
