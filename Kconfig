@@ -30,6 +30,7 @@ source "workspace/rules/cross-gcc-first.in"
 source "workspace/rules/cross-gcc-second.in"
 source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
+source "workspace/rules/host-dejagnu.in"
 
 comment "                  "
 

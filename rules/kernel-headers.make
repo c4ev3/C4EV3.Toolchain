@@ -30,7 +30,7 @@ KERNEL_HEADERS_DIR	:= $(BUILDDIR)/$(KERNEL_HEADERS)
 
 kernel-headers_get: $(STATEDIR)/kernel-headers.get
 
-$(STATEDIR)/kernel-headers.get: $(kernel-headers_get_deps_default)
+$(STATEDIR)/kernel-headers.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(KERNEL_HEADERS_SOURCE):
 
 kernel-headers_extract: $(STATEDIR)/kernel-headers.extract
 
-$(STATEDIR)/kernel-headers.extract: $(kernel-headers_extract_deps_default)
+$(STATEDIR)/kernel-headers.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_HEADERS_DIR))
 	@$(call extract, KERNEL_HEADERS)
@@ -59,9 +59,9 @@ kernel-headers_prepare: $(STATEDIR)/kernel-headers.prepare
 
 KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
-KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH)
+KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH) $(PARALLELMFLAGS)
 
-$(STATEDIR)/kernel-headers.prepare: $(kernel-headers_prepare_deps_default)
+$(STATEDIR)/kernel-headers.prepare:
 	@$(call targetinfo, $@)
 	cp $(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL_HEADERS_CONFIG) \
 		$(KERNEL_HEADERS_DIR)/.config
@@ -73,7 +73,7 @@ $(STATEDIR)/kernel-headers.prepare: $(kernel-headers_prepare_deps_default)
 
 kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
 
-$(STATEDIR)/kernel-headers.compile: $(kernel-headers_compile_deps_default)
+$(STATEDIR)/kernel-headers.compile:
 	@$(call targetinfo, $@)
 	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
 #
@@ -93,7 +93,7 @@ $(STATEDIR)/kernel-headers.compile: $(kernel-headers_compile_deps_default)
 
 kernel-headers_install: $(STATEDIR)/kernel-headers.install
 
-$(STATEDIR)/kernel-headers.install: $(kernel-headers_install_deps_default)
+$(STATEDIR)/kernel-headers.install:
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_HEADERS_SANIZIZED
@@ -113,7 +113,7 @@ endif
 
 kernel-headers_targetinstall: $(STATEDIR)/kernel-headers.targetinstall
 
-$(STATEDIR)/kernel-headers.targetinstall: $(kernel-headers_targetinstall_deps_default)
+$(STATEDIR)/kernel-headers.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

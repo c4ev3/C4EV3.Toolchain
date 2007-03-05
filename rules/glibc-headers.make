@@ -35,7 +35,7 @@ $(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
 
 glibc-headers_extract: $(STATEDIR)/glibc-headers.extract
 
-$(STATEDIR)/glibc-headers.extract: $(glibc-headers_extract_deps_default) $(STATEDIR)/glibc.extract
+$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_HEADERS_DIR))
 	mkdir -p $(GLIBC_HEADERS_DIR)
@@ -56,11 +56,13 @@ GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
 #
 GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
-	CFLAGS=-DBOOTSTRAP_GCC \
+	CC="$${CC} -DBOOTSTRAP_GCC $(call remove_quotes, $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS))" \
 	\
 	libc_cv_initfini_array=yes \
 	\
 	libc_cv_386_tls=yes \
+	\
+	libc_cv_arm_tls=yes \
 	\
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
@@ -71,33 +73,16 @@ GLIBC_HEADERS_ENV  := \
 #
 # autoconf
 #
-GLIBC_HEADERS_AUTOCONF := \
-	--prefix=/usr \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--with-headers=$(SYSROOT)/usr/include \
-	--without-cvs \
-	--disable-sanity-checks \
+GLIBC_HEADERS_AUTOCONF = \
+	$(GLIBC_AUTOCONF_COMMON) \
+	\
 	--enable-hacker-mode
 
-ifdef PTXCONF_GLIBC_TLS
-GLIBC_HEADERS_AUTOCONF += --with-tls
-endif
-
-ifdef PTXCONF_GLIBC_PORTS
-GLIBC_HEADERS_AUTOCONF += --enable-add-ons=ports
-endif
-
-glibc-headers_prepare_deps := \
-	$(glibc-headers_prepare_deps_default) \
-	$(STATEDIR)/glibc.extract
-
-$(STATEDIR)/glibc-headers.prepare: $(glibc-headers_prepare_deps)
+$(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_HEADERS_AUTOCONF)
+		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -106,11 +91,11 @@ $(STATEDIR)/glibc-headers.prepare: $(glibc-headers_prepare_deps)
 
 glibc-headers_compile: $(STATEDIR)/glibc-headers.compile
 
-$(STATEDIR)/glibc-headers.compile: $(glibc-headers_compile_deps_default)
+$(STATEDIR)/glibc-headers.compile:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(MAKE) sysdeps/gnu/errlist.c; \
+		$(MAKE) sysdeps/gnu/errlist.c
 
 	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
 	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
@@ -122,7 +107,7 @@ $(STATEDIR)/glibc-headers.compile: $(glibc-headers_compile_deps_default)
 
 glibc-headers_install: $(STATEDIR)/glibc-headers.install
 
-$(STATEDIR)/glibc-headers.install: $(glibc-headers_install_deps_default)
+$(STATEDIR)/glibc-headers.install:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
@@ -141,7 +126,7 @@ $(STATEDIR)/glibc-headers.install: $(glibc-headers_install_deps_default)
 
 glibc-headers_targetinstall: $(STATEDIR)/glibc-headers.targetinstall
 
-$(STATEDIR)/glibc-headers.targetinstall: $(glibc-headers_targetinstall_deps_default)
+$(STATEDIR)/glibc-headers.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

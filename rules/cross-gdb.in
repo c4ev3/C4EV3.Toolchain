@@ -1,6 +1,6 @@
 config CROSS_GDB
 	bool "cross gdb"
-	select GLIBC_FINAL
+	select CROSS_GCC_SECOND
 	help
 	GDB is a source-level debugger, capable of breaking programs
 	at any specific line, displaying variable values, and

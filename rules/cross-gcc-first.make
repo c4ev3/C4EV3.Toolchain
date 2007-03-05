@@ -31,7 +31,7 @@ CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-first-build
 
 cross-gcc-first_get: $(STATEDIR)/cross-gcc-first.get
 
-$(STATEDIR)/cross-gcc-first.get: $(cross-gcc-first_get_deps_default)
+$(STATEDIR)/cross-gcc-first.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(CROSS_GCC_FIRST_SOURCE):
 
 cross-gcc-first_extract: $(STATEDIR)/cross-gcc-first.extract
 
-$(STATEDIR)/cross-gcc-first.extract: $(cross-gcc-first_extract_deps_default)
+$(STATEDIR)/cross-gcc-first.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_FIRST_DIR))
 	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
@@ -66,27 +66,38 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 #
 # autoconf
 #
-CROSS_GCC_FIRST_AUTOCONF :=  \
+CROSS_GCC_AUTOCONF_COMMON := \
 	--host=$(GNU_HOST) \
-	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
-	--prefix=$(CROSS_GCC_FIST_PREFIX) \
+	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
-	$(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG)) \
+	$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG) \
 	\
         --disable-nls \
 	--disable-multilib \
-        --enable-symvers=gnu \
-        --enable-__cxa_atexit \
+	--enable-symvers=gnu \
+	--enable-__cxa_atexit \
+	--disable-libunwind-exceptions
+
+CROSS_GCC_FIRST_AUTOCONF := \
+	$(CROSS_GCC_AUTOCONF_COMMON) \
+	--prefix=$(CROSS_GCC_FIRST_PREFIX) \
 	\
         --disable-shared \
-	--disable-threads \
-        --enable-languages=c
+        --enable-languages=c \
+	\
+	--with-ld=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld \
+	--with-as=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as \
+	--disable-checking \
 
-$(STATEDIR)/cross-gcc-first.prepare: $(cross-gcc-first_prepare_deps_default)
+# 	--disable-libmudflap \
+# 	--disable-libssp \
+# 	--disable-libgomp \
+
+$(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR)/config.cache)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		$(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
+		eval $(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)
 	@$(call touch, $@)
 
@@ -94,69 +105,50 @@ $(STATEDIR)/cross-gcc-first.prepare: $(cross-gcc-first_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-# From crosstool:
-#
-# HACK: we need to override SHLIB_LC from gcc/config/t-slibgcc-elf-ver or
-#       gcc/config/t-libunwind so -lc is removed from the link for
-#       libgcc_s.so, as we do not have a target -lc yet.
-#       This is not as ugly as it appears to be ;-) All symbols get resolved
-#       during the glibc build, and we provide a proper libgcc_s.so for the
-#       cross toolchain during the final gcc build.
-#
-#       As we cannot modify the source tree, nor override SHLIB_LC itself
-#       during configure or make, we have to edit the resultant
-#       gcc/libgcc.mk itself to remove -lc from the link.
-#       This causes us to have to jump through some hoops...
-#
-#       To produce libgcc.mk to edit we firstly require libiberty.a,
-#       so we configure then build it.
-#       Next we have to configure gcc, create libgcc.mk then edit it...
-#       So much easier if we just edit the source tree, but hey...
-
 cross-gcc-first_compile: $(STATEDIR)/cross-gcc-first.compile
 
-$(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
+$(STATEDIR)/cross-gcc-first.compile:
 	@$(call targetinfo, $@)
 
-	export $(CROSS_GCC_FIRST_PATH); \
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
-			$(MAKE) configure-libdecnumber && \
-			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
-		fi
+# 	export $(CROSS_GCC_FIRST_PATH); \
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
+# 		if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
+# 			$(MAKE) configure-libdecnumber && \
+# 			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
+# 		fi
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) configure-gcc
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) configure-libcpp
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) configure-build-libiberty
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) $(PARALLELMFLAGS) all-libcpp
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) $(PARALLELMFLAGS) libgcc.mk
+
+
+# 	if test '!' -f $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; then \
+# 		cp -p $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk \
+# 			$(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; \
+# 	fi
+
+# 	sed 's@-lc@@g' < $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG \
+# 		> $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk
+
+# 	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
+# 		$(MAKE) tree-check.h
 
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) configure-gcc
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) configure-libcpp
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) configure-build-libiberty
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) all-libcpp
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) libgcc.mk
-
-
-	if test '!' -f $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; then \
-		cp -p $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk \
-			$(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; \
-	fi
-
-	sed 's@-lc@@g' < $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG \
-		> $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) tree-check.h
-
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) all-gcc
+		$(MAKE) $(PARALLELMFLAGS) #all-gcc
 
 	@$(call touch, $@)
 
@@ -166,10 +158,13 @@ $(STATEDIR)/cross-gcc-first.compile: $(cross-gcc-first_compile_deps_default)
 
 cross-gcc-first_install: $(STATEDIR)/cross-gcc-first.install
 
-$(STATEDIR)/cross-gcc-first.install: $(cross-gcc-first_install_deps_default)
+$(STATEDIR)/cross-gcc-first.install:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		$(CROSS_GCC_FIRST_PATH) $(MAKE) install-gcc
+		$(CROSS_GCC_FIRST_PATH) $(MAKE) install #install-gcc
+	ln -sv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)-gcc \
+		-print-libgcc-file-name | \
+		sed 's/libgcc/&_eh/'`
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

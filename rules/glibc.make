@@ -31,7 +31,7 @@ GLIBC_BUILDDIR	:= $(BUILDDIR)/$(GLIBC)-build
 
 glibc_get: $(STATEDIR)/glibc.get
 
-$(STATEDIR)/glibc.get: $(glibc_get_deps_default)
+$(STATEDIR)/glibc.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(GLIBC_SOURCE):
 
 glibc_extract: $(STATEDIR)/glibc.extract
 
-$(STATEDIR)/glibc.extract: $(glibc_extract_deps_default)
+$(STATEDIR)/glibc.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_DIR))
 	@$(call clean, $(GLIBC_BUILDDIR))
@@ -73,8 +73,9 @@ GLIBC_PATH := PATH=$(CROSS_PATH)
 GLIBC_ENV := \
 	BUILD_CC=$(HOSTCC) \
 	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes \
-	$(PTXCONF_GLIBC_EXTRA_ENV)
+	libc_cv_c_cleanup=yes
+
+GLIBC_MAKEVARS := AUTOCONF=no
 
 #
 # libc_cv_forced_unwind=yes
@@ -96,25 +97,34 @@ ifdef PTXCONF_GLIBC_ADDON_LINUXTHREADS
 GLIBC_ADDONS	+= linuxthreads
 endif
 
-GLIBC_AUTOCONF := \
+GLIBC_AUTOCONF_COMMON := \
 	--prefix=/usr \
 	--build=$(GNU_BUILD) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	$(call remove_quotes,$(PTXCONF_GLIBC_EXTRA_CONFIG)) \
-	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
+	\
 	--with-headers=$(SYSROOT)/usr/include \
-	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
+	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
+	\
 	--without-cvs \
 	--disable-sanity-checks \
-        --enable-debug \
-	--without-gd \
-	--with-__thread \
-        --enable-shared
+	--without-selinux \
+	$(PTXCONF_GLIBC_EXTRA_CONFIG)
 
 ifdef PTXCONF_GLIBC_TLS
-GLIBC_AUTOCONF	+= --with-tls
+GLIBC_AUTOCONF_COMMON	+= --with-tls --with-__thread
+else
+GLIBC_AUTOCONF_COMMON	+= --without-tls --without-__thread
 endif
+
+
+GLIBC_AUTOCONF := \
+	$(GLIBC_AUTOCONF_COMMON) \
+	\
+	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
+        --enable-debug \
+	--without-gd \
+        --enable-shared
 
 #
 # --enable-profile
@@ -122,11 +132,10 @@ endif
 # is broken, see http://gcc.gnu.org/bugzilla/show_bug.cgi?id=28516
 #
 
-
-$(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
+$(STATEDIR)/glibc.prepare:
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && eval \
-		$(GLIBC_ENV) $(GLIBC_PATH) \
+	cd $(GLIBC_BUILDDIR) && \
+		eval $(GLIBC_ENV) $(GLIBC_PATH) \
 		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
 	@$(call touch, $@)
 
@@ -136,10 +145,10 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 
 glibc_compile: $(STATEDIR)/glibc.compile
 
-$(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
+$(STATEDIR)/glibc.compile:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) lib
+		$(MAKE) $(GLIBC_MAKEVARS) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -148,11 +157,11 @@ $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 
 glibc_install: $(STATEDIR)/glibc.install
 
-$(STATEDIR)/glibc.install: $(glibc_install_deps_default)
+$(STATEDIR)/glibc.install:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && \
-		$(GLIBC_PATH) $(MAKE) \
-		install_root=$(SYSROOT) install-lib-all install-headers
+		$(GLIBC_PATH) $(MAKE) $(GLIBC_MAKEVARS) \
+		install_root=$(SYSROOT) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -161,7 +170,7 @@ $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 
 glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
-$(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
+$(STATEDIR)/glibc.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

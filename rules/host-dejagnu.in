@@ -1,0 +1,5 @@
+# config for cross-binutils
+
+config HOST_DEJAGNU
+	bool
+	prompt "dejagnu"

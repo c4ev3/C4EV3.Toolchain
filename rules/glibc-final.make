@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -12,20 +12,20 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_GLIBC_FINAL) += glibc_final
+PACKAGES-$(PTXCONF_GLIBC_FINAL) += glibc-final
 
 #
 # Paths and names
 #
-GLIBC_FINAL_DIR	= $(BUILDDIR)/$(GLIBC)-build
+GLIBC_FINAL_DIR	= $(BUILDDIR)/$(GLIBC)-final
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-glibc_final_get: $(STATEDIR)/glibc_final.get
+glibc-final_get: $(STATEDIR)/glibc-final.get
 
-$(STATEDIR)/glibc_final.get: $(glibc_final_get_deps_default)
+$(STATEDIR)/glibc-final.get: $(STATEDIR)/glibc.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -33,54 +33,69 @@ $(STATEDIR)/glibc_final.get: $(glibc_final_get_deps_default)
 # Extract
 # ----------------------------------------------------------------------------
 
-glibc_final_extract: $(STATEDIR)/glibc_final.extract
+glibc-final_extract: $(STATEDIR)/glibc-final.extract
 
-$(STATEDIR)/glibc_final.extract: $(glibc_final_extract_deps_default)
+$(STATEDIR)/glibc-final.extract: $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
+	@$(call clean, $(GLIBC_FINAL_DIR))
+	mkdir -p $(GLIBC_FINAL_DIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc_final_prepare: $(STATEDIR)/glibc_final.prepare
+glibc-final_prepare: $(STATEDIR)/glibc-final.prepare
 
-$(STATEDIR)/glibc_final.prepare: $(glibc_final_prepare_deps_default)
+GLIBC_FINAL_PATH := PATH=$(CROSS_PATH)
+GLIBC_FINAL_ENV := BUILD_CC=$(HOSTCC)
+GLIBC_FINAL_MAKEVARS := AUTOCONF=no
+
+#
+# autoconf
+#
+GLIBC_FINAL_AUTOCONF = $(GLIBC_AUTOCONF)
+
+$(STATEDIR)/glibc-final.prepare:
 	@$(call targetinfo, $@)
+	@$(call clean, $(GLIBC_FINAL_DIR)/config.cache)
+	cd $(GLIBC_FINAL_DIR) && \
+		eval $(GLIBC_FINAL_PATH) $(GLIBC_FINAL_ENV) \
+		$(GLIBC_DIR)/configure $(GLIBC_FINAL_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-glibc_final_compile: $(STATEDIR)/glibc_final.compile
+glibc-final_compile: $(STATEDIR)/glibc-final.compile
 
-$(STATEDIR)/glibc_final.compile: $(glibc_final_compile_deps_default)
+$(STATEDIR)/glibc-final.compile:
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(GLIBC_FINAL_DIR) && $(GLIBC_FINAL_PATH) \
+		$(MAKE) $(GLIBC_FINAL_MAKEVARS) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-glibc_final_install: $(STATEDIR)/glibc_final.install
+glibc-final_install: $(STATEDIR)/glibc-final.install
 
-$(STATEDIR)/glibc_final.install: $(glibc_final_install_deps_default)
+$(STATEDIR)/glibc-final.install:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && \
-		$(GLIBC_PATH) $(MAKE) install_root=$(SYSROOT) \
-			install-bin install-rootsbin \
-			install-sbin install-data install-others
+		$(GLIBC_PATH) $(MAKE) $(GLIBC_FINAL_MAKEVARS) \
+		install_root=$(SYSROOT) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc_final_targetinstall: $(STATEDIR)/glibc_final.targetinstall
+glibc-final_targetinstall: $(STATEDIR)/glibc-final.targetinstall
 
-$(STATEDIR)/glibc_final.targetinstall: $(glibc_final_targetinstall_deps_default)
+$(STATEDIR)/glibc-final.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -88,9 +103,8 @@ $(STATEDIR)/glibc_final.targetinstall: $(glibc_final_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-glibc_final_clean:
-	rm -rf $(STATEDIR)/glibc_final.*
-	rm -rf $(IMAGEDIR)/glibc_final_*
+glibc-final_clean:
+	rm -rf $(STATEDIR)/glibc-final.*
 	rm -rf $(GLIBC_FINAL_DIR)
 
 # vim: syntax=make

@@ -6,7 +6,7 @@ fixup() {
 
     sed -i \
 	-e "s/\(PTXCONF_GNU_TARGET\)=.*/\1=\"${TARGET}\"/" \
-	-e "s/\(PTXCONF_CROSS_GCC_FIRST_VERSION\)=.*/\1=\"${GCC}\"/" \
+	-e "s/\(PTXCONF_CROSS_GCC_VERSION\)=.*/\1=\"${GCC}\"/" \
 	-e "s/\(PTXCONF_GLIBC_VERSION\)=.*/\1=\"${GLIBC}\"/" \
 	-e "s/\(PTXCONF_KERNEL_HEADERS_VERSION\)=.*/\1=\"${LINUX}\"/" \
 	${1}

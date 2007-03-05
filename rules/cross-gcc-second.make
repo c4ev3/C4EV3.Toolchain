@@ -35,7 +35,7 @@ $(STATEDIR)/cross-gcc-second.get: $(STATEDIR)/cross-gcc-first.get
 
 cross-gcc-second_extract: $(STATEDIR)/cross-gcc-second.extract
 
-$(STATEDIR)/cross-gcc-second.extract: $(cross-gcc-second_extract_deps_default) $(STATEDIR)/cross-gcc-first.extract
+$(STATEDIR)/cross-gcc-second.extract: $(STATEDIR)/cross-gcc-first.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_SECOND_BUILDDIR))
 	mkdir -p $(CROSS_GCC_SECOND_BUILDDIR)
@@ -53,27 +53,20 @@ CROSS_GCC_SECOND_ENV	:= $(HOSTCC_ENV)
 #
 # autoconf
 #
-CROSS_GCC_SECOND_AUTOCONF := \
-	--host=$(GNU_HOST) \
-	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
+CROSS_GCC_SECOND_AUTOCONF = \
+	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(PTXCONF_PREFIX) \
-	--with-sysroot=$(SYSROOT) \
-	$(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG)) \
-	\
-        --disable-nls \
-	--disable-multilib \
-	--enable-symvers=gnu \
-	--enable-__cxa_atexit \
 	\
 	--enable-shared \
+	--enable-languages=$(PTXCONF_CROSS_GCC_LANG) \
 	--enable-threads=posix \
-	--enable-languages=$(PTXCONF_CROSS_GCC_SECOND_LANG) \
 	--enable-c99 \
-	--enable-long-long
+	--enable-long-long \
+	--enable-libstdcxx-debug
 
-$(STATEDIR)/cross-gcc-second.prepare: $(cross-gcc-second_prepare_deps_default)
+$(STATEDIR)/cross-gcc-second.prepare:
 	@$(call targetinfo, $@)
-	cd $(CROSS_GCC_SECOND_BUILDDIR) && \
+	cd $(CROSS_GCC_SECOND_BUILDDIR) && eval \
 		$(CROSS_GCC_SECOND_PATH) $(CROSS_GCC_SECOND_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_SECOND_AUTOCONF)
 	@$(call touch, $@)
@@ -84,10 +77,10 @@ $(STATEDIR)/cross-gcc-second.prepare: $(cross-gcc-second_prepare_deps_default)
 
 cross-gcc-second_compile: $(STATEDIR)/cross-gcc-second.compile
 
-$(STATEDIR)/cross-gcc-second.compile: $(cross-gcc-second_compile_deps_default)
+$(STATEDIR)/cross-gcc-second.compile:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && $(CROSS_GCC_SECOND_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) all
+		$(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -96,7 +89,7 @@ $(STATEDIR)/cross-gcc-second.compile: $(cross-gcc-second_compile_deps_default)
 
 cross-gcc-second_install: $(STATEDIR)/cross-gcc-second.install
 
-$(STATEDIR)/cross-gcc-second.install: $(cross-gcc-second_install_deps_default)
+$(STATEDIR)/cross-gcc-second.install:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && \
 		$(CROSS_GCC_SECOND_PATH) $(MAKE) install

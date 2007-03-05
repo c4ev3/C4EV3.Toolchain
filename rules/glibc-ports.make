@@ -30,7 +30,7 @@ GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC_PORTS)
 
 glibc-ports_get: $(STATEDIR)/glibc-ports.get
 
-$(STATEDIR)/glibc-ports.get: $(glibc-ports_get_deps_default)
+$(STATEDIR)/glibc-ports.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ endif
 
 glibc-ports_extract: $(STATEDIR)/glibc-ports.extract
 
-$(STATEDIR)/glibc-ports.extract: $(glibc-ports_extract_deps_default)
+$(STATEDIR)/glibc-ports.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_PORTS_DIR))
 	@$(call extract, GLIBC_PORTS, $(BUILDDIR))
@@ -61,7 +61,7 @@ $(STATEDIR)/glibc-ports.extract: $(glibc-ports_extract_deps_default)
 
 glibc-ports_prepare: $(STATEDIR)/glibc-ports.prepare
 
-$(STATEDIR)/glibc-ports.prepare: $(glibc-ports_prepare_deps_default)
+$(STATEDIR)/glibc-ports.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -71,7 +71,7 @@ $(STATEDIR)/glibc-ports.prepare: $(glibc-ports_prepare_deps_default)
 
 glibc-ports_compile: $(STATEDIR)/glibc-ports.compile
 
-$(STATEDIR)/glibc-ports.compile: $(glibc-ports_compile_deps_default)
+$(STATEDIR)/glibc-ports.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ $(STATEDIR)/glibc-ports.compile: $(glibc-ports_compile_deps_default)
 
 glibc-ports_install: $(STATEDIR)/glibc-ports.install
 
-$(STATEDIR)/glibc-ports.install: $(glibc-ports_install_deps_default)
+$(STATEDIR)/glibc-ports.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ $(STATEDIR)/glibc-ports.install: $(glibc-ports_install_deps_default)
 
 glibc-ports_targetinstall: $(STATEDIR)/glibc-ports.targetinstall
 
-$(STATEDIR)/glibc-ports.targetinstall: $(glibc-ports_targetinstall_deps_default)
+$(STATEDIR)/glibc-ports.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

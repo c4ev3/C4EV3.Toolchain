@@ -30,7 +30,7 @@ GLIBC_LINUXTHREADS_DIR		:= $(BUILDDIR)/$(GLIBC_LINUXTHREADS)
 
 glibc-linuxthreads_get: $(STATEDIR)/glibc-linuxthreads.get
 
-$(STATEDIR)/glibc-linuxthreads.get: $(glibc-linuxthreads_get_deps_default)
+$(STATEDIR)/glibc-linuxthreads.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ endif
 
 glibc-linuxthreads_extract: $(STATEDIR)/glibc-linuxthreads.extract
 
-$(STATEDIR)/glibc-linuxthreads.extract: $(glibc-linuxthreads_extract_deps_default)
+$(STATEDIR)/glibc-linuxthreads.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_LINUXTHREADS_DIR))
 	@$(call extract, GLIBC_LINUXTHREADS, $(GLIBC_LINUXTHREADS_DIR))
@@ -61,7 +61,7 @@ $(STATEDIR)/glibc-linuxthreads.extract: $(glibc-linuxthreads_extract_deps_defaul
 
 glibc-linuxthreads_prepare: $(STATEDIR)/glibc-linuxthreads.prepare
 
-$(STATEDIR)/glibc-linuxthreads.prepare: $(glibc-linuxthreads_prepare_deps_default)
+$(STATEDIR)/glibc-linuxthreads.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -71,7 +71,7 @@ $(STATEDIR)/glibc-linuxthreads.prepare: $(glibc-linuxthreads_prepare_deps_defaul
 
 glibc-linuxthreads_compile: $(STATEDIR)/glibc-linuxthreads.compile
 
-$(STATEDIR)/glibc-linuxthreads.compile: $(glibc-linuxthreads_compile_deps_default)
+$(STATEDIR)/glibc-linuxthreads.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ $(STATEDIR)/glibc-linuxthreads.compile: $(glibc-linuxthreads_compile_deps_defaul
 
 glibc-linuxthreads_install: $(STATEDIR)/glibc-linuxthreads.install
 
-$(STATEDIR)/glibc-linuxthreads.install: $(glibc-linuxthreads_install_deps_default)
+$(STATEDIR)/glibc-linuxthreads.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ $(STATEDIR)/glibc-linuxthreads.install: $(glibc-linuxthreads_install_deps_defaul
 
 glibc-linuxthreads_targetinstall: $(STATEDIR)/glibc-linuxthreads.targetinstall
 
-$(STATEDIR)/glibc-linuxthreads.targetinstall: $(glibc-linuxthreads_targetinstall_deps_default)
+$(STATEDIR)/glibc-linuxthreads.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

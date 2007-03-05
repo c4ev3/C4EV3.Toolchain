@@ -1,9 +1,9 @@
 # -*-makefile-*-
 
-SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/sysroot-$(PTXCONF_GNU_TARGET))
+SYSROOT			:= $(call remove_quotes,$(PTXCONF_PREFIX)/sysroot-$(PTXCONF_GNU_TARGET))
 
-CROSS_GCC_FIST_PREFIX := $(PTXCONF_PREFIX)/gcc-first
-CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$(CROSS_GCC_FIST_PREFIX)/bin):$$PATH
+CROSS_GCC_FIRST_PREFIX	:= $(call remove_quotes,$(PTXCONF_PREFIX)/gcc-first)
+CROSS_PATH		:= $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$(CROSS_GCC_FIRST_PREFIX)/bin):$$PATH
 
 ifdef PTXCONF_TOOLCHAIN_DEBUG
 BUILDDIR_DEBUG		:= $(PTXCONF_PREFIX)/src/target

@@ -17,7 +17,6 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_TOOLCHAIN) += cross-toolchain
 #
 # Paths and names
 #
-CROSS_TOOLCHAIN_VERSION		:=
 CROSS_TOOLCHAIN			:= toolchain-$(CROSS_TOOLCHAIN_VERSION)
 CROSS_TOOLCHAIN_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_TOOLCHAIN)
 
@@ -27,7 +26,7 @@ CROSS_TOOLCHAIN_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_TOOLCHAIN)
 
 cross-toolchain_get: $(STATEDIR)/cross-toolchain.get
 
-$(STATEDIR)/cross-toolchain.get: $(cross-toolchain_get_deps_default)
+$(STATEDIR)/cross-toolchain.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -37,7 +36,7 @@ $(STATEDIR)/cross-toolchain.get: $(cross-toolchain_get_deps_default)
 
 cross-toolchain_extract: $(STATEDIR)/cross-toolchain.extract
 
-$(STATEDIR)/cross-toolchain.extract: $(cross-toolchain_extract_deps_default)
+$(STATEDIR)/cross-toolchain.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +46,7 @@ $(STATEDIR)/cross-toolchain.extract: $(cross-toolchain_extract_deps_default)
 
 cross-toolchain_prepare: $(STATEDIR)/cross-toolchain.prepare
 
-$(STATEDIR)/cross-toolchain.prepare: $(cross-toolchain_prepare_deps_default)
+$(STATEDIR)/cross-toolchain.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -57,7 +56,7 @@ $(STATEDIR)/cross-toolchain.prepare: $(cross-toolchain_prepare_deps_default)
 
 cross-toolchain_compile: $(STATEDIR)/cross-toolchain.compile
 
-$(STATEDIR)/cross-toolchain.compile: $(cross-toolchain_compile_deps_default)
+$(STATEDIR)/cross-toolchain.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -67,7 +66,7 @@ $(STATEDIR)/cross-toolchain.compile: $(cross-toolchain_compile_deps_default)
 
 cross-toolchain_install: $(STATEDIR)/cross-toolchain.install
 
-$(STATEDIR)/cross-toolchain.install: $(cross-toolchain_install_deps_default)
+$(STATEDIR)/cross-toolchain.install:
 	@$(call targetinfo, $@)
 	rm -f ${PTXCONF_PREFIX}/bin/ptxconfig
 	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX}/bin/ptxconfig

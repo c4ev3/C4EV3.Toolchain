@@ -30,7 +30,7 @@ CROSS_GDB_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
 cross-gdb_get: $(STATEDIR)/cross-gdb.get
 
-$(STATEDIR)/cross-gdb.get: $(cross-gdb_get_deps_default)
+$(STATEDIR)/cross-gdb.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(CROSS_GDB_SOURCE):
 
 cross-gdb_extract: $(STATEDIR)/cross-gdb.extract
 
-$(STATEDIR)/cross-gdb.extract: $(cross-gdb_extract_deps_default)
+$(STATEDIR)/cross-gdb.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GDB_DIR))
 	@$(call extract, CROSS_GDB, $(CROSS_BUILDDIR))
@@ -73,7 +73,7 @@ CROSS_GDB_AUTOCONF := \
 	--enable-tui
 #	--enable-gdbtk
 
-$(STATEDIR)/cross-gdb.prepare: $(cross-gdb_prepare_deps_default)
+$(STATEDIR)/cross-gdb.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GDB_DIR)/config.cache)
 	cd $(CROSS_GDB_DIR) && \
@@ -87,7 +87,7 @@ $(STATEDIR)/cross-gdb.prepare: $(cross-gdb_prepare_deps_default)
 
 cross-gdb_compile: $(STATEDIR)/cross-gdb.compile
 
-$(STATEDIR)/cross-gdb.compile: $(cross-gdb_compile_deps_default)
+$(STATEDIR)/cross-gdb.compile:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GDB_DIR) && $(CROSS_GDB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -98,7 +98,7 @@ $(STATEDIR)/cross-gdb.compile: $(cross-gdb_compile_deps_default)
 
 cross-gdb_install: $(STATEDIR)/cross-gdb.install
 
-$(STATEDIR)/cross-gdb.install: $(cross-gdb_install_deps_default)
+$(STATEDIR)/cross-gdb.install:
 	@$(call targetinfo, $@)
 	@$(call install, CROSS_GDB,,h)
 	@$(call touch, $@)

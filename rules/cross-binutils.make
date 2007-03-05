@@ -31,7 +31,7 @@ CROSS_BINUTILS_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_BINUTILS)-build
 
 cross-binutils_get: $(STATEDIR)/cross-binutils.get
 
-$(STATEDIR)/cross-binutils.get: $(cross-binutils_get_deps_default)
+$(STATEDIR)/cross-binutils.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(CROSS_BINUTILS_SOURCE):
 
 cross-binutils_extract: $(STATEDIR)/cross-binutils.extract
 
-$(STATEDIR)/cross-binutils.extract: $(cross-binutils_extract_deps_default)
+$(STATEDIR)/cross-binutils.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_BINUTILS_DIR))
 	@$(call extract, CROSS_BINUTILS, $(CROSS_BUILDDIR))
@@ -73,7 +73,7 @@ CROSS_BINUTILS_AUTOCONF := \
 	--disable-werror \
 	--disable-nls
 
-$(STATEDIR)/cross-binutils.prepare: $(cross-binutils_prepare_deps_default)
+$(STATEDIR)/cross-binutils.prepare:
 	@$(call targetinfo, $@)
 	rm -fr $(CROSS_BINUTILS_BUILDDIR)
 	mkdir -p $(CROSS_BINUTILS_BUILDDIR)
@@ -88,7 +88,7 @@ $(STATEDIR)/cross-binutils.prepare: $(cross-binutils_prepare_deps_default)
 
 cross-binutils_compile: $(STATEDIR)/cross-binutils.compile
 
-$(STATEDIR)/cross-binutils.compile: $(cross-binutils_compile_deps_default)
+$(STATEDIR)/cross-binutils.compile:
 	@$(call targetinfo, $@)
 	cd $(CROSS_BINUTILS_BUILDDIR) && $(CROSS_BINUTILS_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
@@ -100,22 +100,9 @@ $(STATEDIR)/cross-binutils.compile: $(cross-binutils_compile_deps_default)
 
 cross-binutils_install: $(STATEDIR)/cross-binutils.install
 
-$(STATEDIR)/cross-binutils.install: $(cross-binutils_install_deps_default)
+$(STATEDIR)/cross-binutils.install:
 	@$(call targetinfo, $@)
 	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
-
-#
-# the gcc-first lives in it's own directory. he looks for the
-# binutils in $(PTXCONF_GNU_TARGET)/bin not in the path.
-# make some links to work against this.
-#
-	mkdir -p $(CROSS_GCC_FIST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
-	for tool in ar as ld nm objdump ranlib strip; do \
-		p_tool=$(PTXCONF_GNU_TARGET)/bin/$${tool}; \
-		rm -f $(CROSS_GCC_FIST_PREFIX)/$${p_tool}; \
-		ln -s ../../../$${p_tool} $(CROSS_GCC_FIST_PREFIX)/$${p_tool}; \
-	done
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
