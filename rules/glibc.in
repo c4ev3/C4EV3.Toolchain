@@ -4,7 +4,6 @@ menuconfig GLIBC
 	bool
 	select GLIBC_PORTS if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
 	select GLIBC_LINUXTHREADS if GLIBC_ADDON_LINUXTHREADS
-#	select GLIBC_CRT
 	select CROSS_GCC_FIRST
 	prompt "glibc                       "
 
