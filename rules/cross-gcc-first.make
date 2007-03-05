@@ -48,9 +48,9 @@ cross-gcc-first_extract: $(STATEDIR)/cross-gcc-first.extract
 $(STATEDIR)/cross-gcc-first.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GCC_FIRST_DIR))
-	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
 	@$(call extract, CROSS_GCC_FIRST, $(BUILDDIR_CROSS_DEBUG))
 	@$(call patchin, CROSS_GCC_FIRST, $(CROSS_GCC_FIRST_DIR))
+	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
 	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	@$(call touch, $@)
 
@@ -88,10 +88,10 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	--with-ld=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld \
 	--with-as=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as \
 	--disable-checking \
-
-# 	--disable-libmudflap \
-# 	--disable-libssp \
-# 	--disable-libgomp \
+	\
+	--disable-libmudflap \
+	--disable-libssp \
+	--disable-libgomp \
 
 $(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo, $@)
@@ -162,7 +162,7 @@ $(STATEDIR)/cross-gcc-first.install:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		$(CROSS_GCC_FIRST_PATH) $(MAKE) install #install-gcc
-	ln -sv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)-gcc \
+	ln -sv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_eh/'`
 	@$(call touch, $@)

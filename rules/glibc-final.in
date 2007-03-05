@@ -1,4 +1,0 @@
-config GLIBC_FINAL
-	bool
-	select CROSS_GCC_SECOND
-
