@@ -19,7 +19,6 @@ config PROJECT
 
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-headers.in"
-source "workspace/rules/glibc-final.in"
 source "workspace/rules/glibc-ports.in"
 source "workspace/rules/glibc-linuxthreads.in"
 
