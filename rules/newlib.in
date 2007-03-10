@@ -1,0 +1,12 @@
+menuconfig NEWLIB
+	bool
+	select CROSS_GCC_FIRST
+	prompt "newlib                      "
+
+config NEWLIB_VERSION
+	depends on NEWLIB
+	string
+	prompt "newlib version"
+	default "1.15.0"
+	help
+	  Specify the newlib version here.
