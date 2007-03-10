@@ -48,7 +48,6 @@ glibc_extract: $(STATEDIR)/glibc.extract
 $(STATEDIR)/glibc.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_DIR))
-	@$(call clean, $(GLIBC_BUILDDIR))
 	@$(call extract, GLIBC, $(BUILDDIR_DEBUG))
 	@$(call patchin, GLIBC, $(GLIBC_DIR))
 
@@ -60,7 +59,6 @@ ifdef PTXCONF_GLIBC_PORTS
 	mkdir -p $(GLIBC_DIR)/ports
 	cp -r $(GLIBC_PORTS_DIR)/* $(GLIBC_DIR)/ports
 endif
-	mkdir -p $(GLIBC_BUILDDIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -134,6 +132,8 @@ GLIBC_AUTOCONF := \
 
 $(STATEDIR)/glibc.prepare:
 	@$(call targetinfo, $@)
+	mkdir -p $(GLIBC_BUILDDIR)
+	@$(call clean, $(GLIBC_BUILDDIR))
 	cd $(GLIBC_BUILDDIR) && \
 		eval $(GLIBC_ENV) $(GLIBC_PATH) \
 		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)

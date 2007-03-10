@@ -1,0 +1,18 @@
+# config for uclibc
+
+menuconfig UCLIBC
+	bool
+	prompt "uclibc                      "
+	select LIBC_NEEDS_KERNEL_HEADERS
+
+config UCLIBC_VERSION
+	depends on UCLIBC
+	string
+	prompt "uclibc version"
+	default "0.9.28"
+	help
+	  Specify the uclibc version here.
+
+config UCLIBC_HEADERS
+	bool
+	select KERNEL_HEADERS

@@ -1,0 +1,34 @@
+config LIBC_NEEDS_KERNEL_HEADERS
+	bool
+
+config LIBC_HEADERS
+	bool
+	select GLIBC_HEADERS if LIBC_GLIBC
+	select UCLIBC_HEADERS if LIBC_UCLIBC
+
+config LIBC
+	bool
+	select GLIBC if LIBC_GLIBC
+	select UCLIBC if LIBC_UCLIBC
+	select NEWLIB if LIBC_NEWLIB
+
+choice
+	prompt "C library"
+	default LIBC_GLIBC
+
+	config LIBC_GLIBC
+#		select GLIBC
+		bool
+		prompt "glibc"
+
+	config LIBC_UCLIBC
+#		select UCLIBC
+		bool
+		prompt "uClibc"
+
+	config LIBC_NEWLIB
+#		select NEWLIB
+		bool
+		prompt "newlib"
+
+endchoice

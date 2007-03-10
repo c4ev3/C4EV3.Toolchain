@@ -2,12 +2,11 @@
 
 menuconfig CROSS_GCC_FIRST
 	bool
+	prompt "gcc (first)                 "
 	select CROSS_BINUTILS
 	select LIBC_HEADERS
-	prompt "gcc                         "
 
-
-config CROSS_GCC_FIRST_VERSION
+config CROSS_GCC_VERSION
 	depends on CROSS_GCC_FIRST
 	string
 	prompt "gcc version"
@@ -22,7 +21,7 @@ config CROSS_GCC_FIRST_SERIES
 
 config CROSS_GCC_LANG
 	depends on CROSS_GCC_FIRST
-	string 
+	string
 	prompt "languages"
 	default "c,c++"
 
@@ -32,3 +31,9 @@ config CROSS_GCC_EXTRA_CONFIG
 	prompt "extra configure options"
 	help
 	  Add these extra options to the gcc configure script.
+
+config CROSS_GCC_SECOND
+	bool
+	select LIBC
+	prompt "gcc (second)                "
+

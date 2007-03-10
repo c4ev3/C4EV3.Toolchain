@@ -1,6 +1,7 @@
 # config for kernel-headers
 
 menuconfig KERNEL_HEADERS
+	depends on LIBC_NEEDS_KERNEL_HEADERS
 	bool
 	prompt "kernel                      "
 

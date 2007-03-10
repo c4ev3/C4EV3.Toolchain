@@ -17,7 +17,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC_FIRST) += cross-gcc-first
 #
 # Paths and names
 #
-CROSS_GCC_FIRST_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_FIRST_VERSION))
+CROSS_GCC_FIRST_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
 CROSS_GCC_FIRST			:= gcc-$(CROSS_GCC_FIRST_VERSION)
 CROSS_GCC_FIRST_SUFFIX	 	:= tar.bz2
 CROSS_GCC_FIRST_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
@@ -50,8 +50,6 @@ $(STATEDIR)/cross-gcc-first.extract:
 	@$(call clean, $(CROSS_GCC_FIRST_DIR))
 	@$(call extract, CROSS_GCC_FIRST, $(BUILDDIR_CROSS_DEBUG))
 	@$(call patchin, CROSS_GCC_FIRST, $(CROSS_GCC_FIRST_DIR))
-	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
-	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -91,11 +89,18 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	\
 	--disable-libmudflap \
 	--disable-libssp \
-	--disable-libgomp \
+	--disable-libgomp
+
+ifdef PTXCONF_NEWLIB
+CROSS_GCC_FIRST_AUTOCONF += \
+	--with-newlib \
+	--without-headers
+endif
 
 $(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo, $@)
-	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR)/config.cache)
+	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
+	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		eval $(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)

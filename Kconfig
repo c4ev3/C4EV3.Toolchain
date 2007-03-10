@@ -17,15 +17,26 @@ config PROJECT
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
 
+source "workspace/rules/libc.in"
+
+if LIBC_GLIBC
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-headers.in"
 source "workspace/rules/glibc-ports.in"
 source "workspace/rules/glibc-linuxthreads.in"
+endif
+
+if LIBC_UCLIBC
+source "workspace/rules/uclibc.in"
+endif
+
+if LIBC_NEWLIB
+source "workspace/rules/newlib.in"
+endif
 
 source "workspace/rules/cross-binutils.in"
 source "workspace/rules/kernel-headers.in"
-source "workspace/rules/cross-gcc-first.in"
-source "workspace/rules/cross-gcc-second.in"
+source "workspace/rules/cross-gcc.in"
 source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-dejagnu.in"

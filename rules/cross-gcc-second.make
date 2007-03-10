@@ -37,8 +37,6 @@ cross-gcc-second_extract: $(STATEDIR)/cross-gcc-second.extract
 
 $(STATEDIR)/cross-gcc-second.extract: $(STATEDIR)/cross-gcc-first.extract
 	@$(call targetinfo, $@)
-	@$(call clean, $(CROSS_GCC_SECOND_BUILDDIR))
-	mkdir -p $(CROSS_GCC_SECOND_BUILDDIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -66,6 +64,8 @@ CROSS_GCC_SECOND_AUTOCONF = \
 
 $(STATEDIR)/cross-gcc-second.prepare:
 	@$(call targetinfo, $@)
+	@$(call clean, $(CROSS_GCC_SECOND_BUILDDIR))
+	mkdir -p $(CROSS_GCC_SECOND_BUILDDIR)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && eval \
 		$(CROSS_GCC_SECOND_PATH) $(CROSS_GCC_SECOND_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_SECOND_AUTOCONF)

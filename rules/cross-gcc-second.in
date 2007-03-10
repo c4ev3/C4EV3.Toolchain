@@ -2,4 +2,4 @@
 
 config CROSS_GCC_SECOND
 	bool
-	select GLIBC
+	select LIBC
