@@ -1,5 +1,0 @@
-# config for cross-gcc-second
-
-config CROSS_GCC_SECOND
-	bool
-	select LIBC

@@ -38,3 +38,7 @@
 2007-03-12 Marc Kleine-Budde <mkl@pengutronix.de>
 
 	* rules/newlib.{in.make}: added newlib (tnx to sha)
+
+2007-03-12 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* rules/host-{mpfr,gmp}.{make,in}: added for gcc-4.3 support

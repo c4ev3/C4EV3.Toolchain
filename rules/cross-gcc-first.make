@@ -68,6 +68,8 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
+	--with-gmp=$(PTX_PREFIX_HOST) \
+	--with-mpfr=$(PTX_PREFIX_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
 	\
