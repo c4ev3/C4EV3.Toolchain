@@ -5,6 +5,8 @@ menuconfig CROSS_GCC_FIRST
 	prompt "gcc (first)                 "
 	select CROSS_BINUTILS
 	select LIBC_HEADERS
+        select HOST_GMP if CROSS_GCC_43
+        select HOST_MPFR if CROSS_GCC_43
 
 config CROSS_GCC_VERSION
 	depends on CROSS_GCC_FIRST
@@ -13,6 +15,13 @@ config CROSS_GCC_VERSION
 	default "4.1.2"
 	help
 	  Specify the version of gcc here.
+
+config CROSS_GCC_43
+	depends on CROSS_GCC_FIRST
+	bool
+	prompt "additional packages for gcc-4.3"
+	help
+	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
 config CROSS_GCC_FIRST_SERIES
 	depends on CROSS_GCC_FIRST
