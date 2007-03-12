@@ -132,8 +132,8 @@ GLIBC_AUTOCONF := \
 
 $(STATEDIR)/glibc.prepare:
 	@$(call targetinfo, $@)
-	mkdir -p $(GLIBC_BUILDDIR)
 	@$(call clean, $(GLIBC_BUILDDIR))
+	mkdir -p $(GLIBC_BUILDDIR)
 	cd $(GLIBC_BUILDDIR) && \
 		eval $(GLIBC_ENV) $(GLIBC_PATH) \
 		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
