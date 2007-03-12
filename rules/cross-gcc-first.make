@@ -65,7 +65,6 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 # autoconf
 #
 CROSS_GCC_AUTOCONF_COMMON := \
-	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
 	--with-gmp=$(PTX_PREFIX_HOST) \
@@ -78,6 +77,11 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--enable-symvers=gnu \
 	--enable-__cxa_atexit \
 	--disable-libunwind-exceptions
+
+#
+# the host hack (or trick) is broken with gcc-4.3+
+#
+#	--host=$(GNU_HOST)
 
 ifndef CROSS_GCC_HEADERS
 CROSS_GCC_AUTOCONF_COMMON += --without-headers

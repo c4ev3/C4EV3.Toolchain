@@ -23,10 +23,15 @@ config CROSS_GCC_43
 	help
 	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
-config CROSS_GCC_FIRST_SERIES
+config CROSS_GCC_SERIES
 	depends on CROSS_GCC_FIRST
 	string
 	prompt "gcc patch series file"
+
+config CROSS_GCC_FIRST_SERIES
+	depends on CROSS_GCC_FIRST
+	string
+	default "${PTXCONF_CROSS_GCC_SERIES}"
 
 config CROSS_GCC_LANG
 	depends on CROSS_GCC_FIRST
