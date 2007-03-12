@@ -30,7 +30,7 @@ $(STATEDIR)/libc_headers.get:
 
 libc_headers_extract: $(STATEDIR)/libc_headers.extract
 
-$(STATEDIR)/libc_headers.extract: $(libc_headers_extract_deps_default)
+$(STATEDIR)/libc_headers.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -40,7 +40,7 @@ $(STATEDIR)/libc_headers.extract: $(libc_headers_extract_deps_default)
 
 libc_headers_prepare: $(STATEDIR)/libc_headers.prepare
 
-$(STATEDIR)/libc_headers.prepare: $(libc_headers_prepare_deps_default)
+$(STATEDIR)/libc_headers.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/libc_headers.prepare: $(libc_headers_prepare_deps_default)
 
 libc_headers_compile: $(STATEDIR)/libc_headers.compile
 
-$(STATEDIR)/libc_headers.compile: $(libc_headers_compile_deps_default)
+$(STATEDIR)/libc_headers.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -60,7 +60,7 @@ $(STATEDIR)/libc_headers.compile: $(libc_headers_compile_deps_default)
 
 libc_headers_install: $(STATEDIR)/libc_headers.install
 
-$(STATEDIR)/libc_headers.install: $(libc_headers_install_deps_default)
+$(STATEDIR)/libc_headers.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -70,7 +70,7 @@ $(STATEDIR)/libc_headers.install: $(libc_headers_install_deps_default)
 
 libc_headers_targetinstall: $(STATEDIR)/libc_headers.targetinstall
 
-$(STATEDIR)/libc_headers.targetinstall: $(libc_headers_targetinstall_deps_default)
+$(STATEDIR)/libc_headers.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

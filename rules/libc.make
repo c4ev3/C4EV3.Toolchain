@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -40,7 +40,7 @@ $(STATEDIR)/libc.extract:
 
 libc_prepare: $(STATEDIR)/libc.prepare
 
-$(STATEDIR)/libc.prepare: $(libc_prepare_deps_default)
+$(STATEDIR)/libc.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/libc.prepare: $(libc_prepare_deps_default)
 
 libc_compile: $(STATEDIR)/libc.compile
 
-$(STATEDIR)/libc.compile: $(libc_compile_deps_default)
+$(STATEDIR)/libc.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -60,7 +60,7 @@ $(STATEDIR)/libc.compile: $(libc_compile_deps_default)
 
 libc_install: $(STATEDIR)/libc.install
 
-$(STATEDIR)/libc.install: $(libc_install_deps_default)
+$(STATEDIR)/libc.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -70,7 +70,7 @@ $(STATEDIR)/libc.install: $(libc_install_deps_default)
 
 libc_targetinstall: $(STATEDIR)/libc.targetinstall
 
-$(STATEDIR)/libc.targetinstall: $(libc_targetinstall_deps_default)
+$(STATEDIR)/libc.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
