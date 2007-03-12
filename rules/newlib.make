@@ -61,14 +61,11 @@ $(STATEDIR)/newlib.extract: $(newlib_extract_deps_default)
 newlib_prepare: $(STATEDIR)/newlib.prepare
 
 NEWLIB_PATH := PATH=$(CROSS_PATH)
-NEWLIB_ENV := \
-	CC_FOR_BUILD=$(HOSTCC) \
-	$(PTXCONF_NEWLIB_EXTRA_ENV)
+NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 
 #
 # autoconf
 #
-
 NEWLIB_AUTOCONF := \
 	--prefix=$(SYSROOT) \
 	--build=$(GNU_BUILD) \

@@ -68,13 +68,18 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-sysroot=$(SYSROOT) \
-	$(PTXCONF_CROSS_GCC_FIRST_EXTRA_CONFIG) \
+	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
+	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
 	\
         --disable-nls \
 	--disable-multilib \
 	--enable-symvers=gnu \
 	--enable-__cxa_atexit \
 	--disable-libunwind-exceptions
+
+ifndef CROSS_GCC_HEADERS
+CROSS_GCC_AUTOCONF_COMMON += --without-headers
+endif
 
 CROSS_GCC_FIRST_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
@@ -91,11 +96,6 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	--disable-libssp \
 	--disable-libgomp
 
-ifdef PTXCONF_NEWLIB
-CROSS_GCC_FIRST_AUTOCONF += \
-	--with-newlib \
-	--without-headers
-endif
 
 $(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo, $@)

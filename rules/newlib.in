@@ -1,6 +1,7 @@
 menuconfig NEWLIB
 	bool
 	select CROSS_GCC_FIRST
+	select CROSS_GCC_THREADS_SINGLE
 	prompt "newlib                      "
 
 config NEWLIB_VERSION

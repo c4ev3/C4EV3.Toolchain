@@ -116,10 +116,17 @@ config PREFIX_FIRST
 	  directory with PREFIX_FIRST while keeping the directory which
 	  describes what kind of toolchain you have (PREFIX_SECOND)
 
+config PREFIX_TCID
+	string
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_GLIBC
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_GLIBC
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
+
+
 config PREFIX_SECOND
 	string
-	prompt "second prefix"
-	default "${PTXCONF_GNU_TARGET}/gcc-${PTXCONF_CROSS_GCC_FIRST_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"
+#	prompt "second prefix"
+	default "${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
 	help
 	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
 	  The intention behind this is that you can change the installation

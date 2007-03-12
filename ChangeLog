@@ -30,3 +30,11 @@
 2007-02-27 Marc Kleine-Budde <mkl@pengutronix.de>
 
 	* ptxconfigs, patches: upgraded to gcc-4.1.2 release
+
+2007-03-12 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* general: added libc abstraction
+
+2007-03-12 Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* rules/newlib.{in.make}: added newlib (tnx to sha)

@@ -55,12 +55,19 @@ CROSS_GCC_SECOND_AUTOCONF = \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(PTXCONF_PREFIX) \
 	\
-	--enable-shared \
 	--enable-languages=$(PTXCONF_CROSS_GCC_LANG) \
-	--enable-threads=posix \
+	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--enable-c99 \
 	--enable-long-long \
 	--enable-libstdcxx-debug
+
+ifdef PTXCONF_CROSS_GCC_SHARED
+CROSS_GCC_SECOND_AUTOCONF += \
+	--enable-shared
+else
+CROSS_GCC_SECOND_AUTOCONF += \
+	--disable-shared
+endif
 
 $(STATEDIR)/cross-gcc-second.prepare:
 	@$(call targetinfo, $@)

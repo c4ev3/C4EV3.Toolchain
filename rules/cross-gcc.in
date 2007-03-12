@@ -32,8 +32,31 @@ config CROSS_GCC_EXTRA_CONFIG
 	help
 	  Add these extra options to the gcc configure script.
 
+
+config CROSS_GCC_EXTRA_CONFIG_LIBC
+	string
+	default "--with-newlib" if LIBC_NEWLIB # --disable-libssp
+
+
 config CROSS_GCC_SECOND
 	bool
 	select LIBC
-	prompt "gcc (second)                "
+	prompt "gcc (second)"
 
+
+config CROSS_GCC_HEADERS
+	bool
+
+config CROSS_GCC_SHARED
+	bool
+
+config CROSS_GCC_THREADS_SINGLE
+	bool
+
+config CROSS_GCC_THREADS_POSIX
+	bool
+
+config CROSS_GCC_THREADS
+	string
+	default "posix" if CROSS_GCC_THREADS_POSIX
+	default "single" if CROSS_GCC_THREADS_SINGLE

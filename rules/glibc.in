@@ -2,10 +2,13 @@
 
 menuconfig GLIBC
 	bool
+	select CROSS_GCC_FIRST
 	select GLIBC_PORTS if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
 	select GLIBC_LINUXTHREADS if GLIBC_ADDON_LINUXTHREADS
-	select CROSS_GCC_FIRST
-	select LIBC_NEEDS_KERNEL_HEADERS
+
+	select CROSS_GCC_HEADERS
+	select CROSS_GCC_SHARED
+	select CROSS_GCC_THREADS_POSIX
 	prompt "glibc                       "
 
 config GLIBC_VERSION
