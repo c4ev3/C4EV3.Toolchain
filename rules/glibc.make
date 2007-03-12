@@ -73,6 +73,9 @@ GLIBC_ENV := \
 	libc_cv_forced_unwind=yes \
 	libc_cv_c_cleanup=yes
 
+#	libc_cv_as_noexecstack=no \
+#	libc_cv_hashstyle=no
+
 GLIBC_MAKEVARS := AUTOCONF=no
 
 #
