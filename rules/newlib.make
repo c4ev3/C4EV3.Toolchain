@@ -67,14 +67,13 @@ NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 # autoconf
 #
 NEWLIB_AUTOCONF := \
-	--prefix=$(SYSROOT) \
+	--prefix=$(PTXCONF_PREFIX) \
 	--build=$(GNU_BUILD) \
 	--target=$(PTXCONF_GNU_TARGET) \
         --disable-shared \
 	--disable-newlib-supplied-syscalls \
 	--with-newlib
 
-#	--host=$(PTXCONF_GNU_TARGET) \
 
 $(STATEDIR)/newlib.prepare: $(newlib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -105,8 +104,6 @@ $(STATEDIR)/newlib.install: $(newlib_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NEWLIB_BUILDDIR) && \
 		$(NEWLIB_PATH) $(MAKE) install
-	rm -rf $(SYSROOT)/usr
-	mv $(SYSROOT)/$(PTXCONF_GNU_TARGET) $(SYSROOT)/usr
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
