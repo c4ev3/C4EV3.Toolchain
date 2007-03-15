@@ -173,9 +173,12 @@ $(STATEDIR)/cross-gcc-first.install:
 	@$(call targetinfo, $@)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		$(CROSS_GCC_FIRST_PATH) $(MAKE) install #install-gcc
-	ln -sv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
+	ln -sfv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_eh/'`
+	ln -sfv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
+		-print-libgcc-file-name | \
+		sed 's/libgcc/&_s/'`
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

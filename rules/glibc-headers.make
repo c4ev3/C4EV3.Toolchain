@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GLIBC_HEADERS) += glibc-headers
 #
 # Paths and names
 #
-GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers
+GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC_FIRST)-headers
 
 # ----------------------------------------------------------------------------
 # Get
@@ -25,7 +25,7 @@ GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers
 
 glibc-headers_get: $(STATEDIR)/glibc-headers.get
 
-$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
+$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc-first.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -35,7 +35,7 @@ $(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
 
 glibc-headers_extract: $(STATEDIR)/glibc-headers.extract
 
-$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc.extract
+$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc-first.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_HEADERS_DIR))
 	mkdir -p $(GLIBC_HEADERS_DIR)
@@ -82,7 +82,7 @@ $(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
+		$(GLIBC_FIRST_DIR)/configure $(GLIBC_HEADERS_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ $(STATEDIR)/glibc-headers.install:
 	mkdir -p $(SYSROOT)/usr/include/gnu
 	touch $(SYSROOT)/usr/include/gnu/stubs.h
 
-	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
+	cp $(GLIBC_FIRST_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
 	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
 	@$(call touch, $@)
 

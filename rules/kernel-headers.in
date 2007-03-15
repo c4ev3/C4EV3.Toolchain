@@ -28,4 +28,3 @@ config KERNEL_HEADERS_CONFIG
 	prompt "kernel config file"
 	help
 	  This kernel .config file is being used.
-	

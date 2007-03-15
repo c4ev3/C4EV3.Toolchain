@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
+# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@ppengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,56 +12,35 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_GLIBC_PORTS) += glibc-ports
-
-#
-# Paths and names
-#
-GLIBC_PORTS_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_PORTS_VERSION))
-GLIBC_PORTS		:= glibc-ports-$(GLIBC_PORTS_VERSION)
-GLIBC_PORTS_SUFFIX	:= tar.bz2
-GLIBC_PORTS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
-GLIBC_PORTS_SOURCE	:= $(SRCDIR)/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
-GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC_PORTS)
+PACKAGES-$(PTXCONF_LIBC_SECOND) += libc-second
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-glibc-ports_get: $(STATEDIR)/glibc-ports.get
+libc-second_get: $(STATEDIR)/libc-second.get
 
-$(STATEDIR)/glibc-ports.get:
+$(STATEDIR)/libc-second.get: $(libc-second_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(GLIBC_PORTS_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, GLIBC_PORTS)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_GLIBC_PORTS
-$(STATEDIR)/glibc-first.extract: $(STATEDIR)/glibc-ports.extract
-endif
+libc-second_extract: $(STATEDIR)/libc-second.extract
 
-glibc-ports_extract: $(STATEDIR)/glibc-ports.extract
-
-$(STATEDIR)/glibc-ports.extract:
+$(STATEDIR)/libc-second.extract: $(libc-second_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(GLIBC_PORTS_DIR))
-	@$(call extract, GLIBC_PORTS, $(BUILDDIR))
-	@$(call patchin, GLIBC_PORTS, $(GLIBC_PORTS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc-ports_prepare: $(STATEDIR)/glibc-ports.prepare
+libc-second_prepare: $(STATEDIR)/libc-second.prepare
 
-$(STATEDIR)/glibc-ports.prepare:
+$(STATEDIR)/libc-second.prepare: $(libc-second_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -69,9 +48,9 @@ $(STATEDIR)/glibc-ports.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-glibc-ports_compile: $(STATEDIR)/glibc-ports.compile
+libc-second_compile: $(STATEDIR)/libc-second.compile
 
-$(STATEDIR)/glibc-ports.compile:
+$(STATEDIR)/libc-second.compile: $(libc-second_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,9 +58,9 @@ $(STATEDIR)/glibc-ports.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-glibc-ports_install: $(STATEDIR)/glibc-ports.install
+libc-second_install: $(STATEDIR)/libc-second.install
 
-$(STATEDIR)/glibc-ports.install:
+$(STATEDIR)/libc-second.install: $(libc-second_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -89,9 +68,9 @@ $(STATEDIR)/glibc-ports.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc-ports_targetinstall: $(STATEDIR)/glibc-ports.targetinstall
+libc-second_targetinstall: $(STATEDIR)/libc-second.targetinstall
 
-$(STATEDIR)/glibc-ports.targetinstall:
+$(STATEDIR)/libc-second.targetinstall: $(libc-second_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -99,9 +78,8 @@ $(STATEDIR)/glibc-ports.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-glibc-ports_clean:
-	rm -rf $(STATEDIR)/glibc-ports.*
-	rm -rf $(IMAGEDIR)/glibc_ports_*
-	rm -rf $(GLIBC_PORTS_DIR)
+libc-second_clean:
+	rm -rf $(STATEDIR)/libc-second.*
+	rm -rf $(IMAGEDIR)/libc-second_*
 
 # vim: syntax=make

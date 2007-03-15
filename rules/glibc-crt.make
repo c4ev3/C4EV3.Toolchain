@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
+# $Id$
 #
-# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+# Copyright (C) 2006 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -12,15 +12,20 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_LIBC) += libc
+PACKAGES-$(PTXCONF_GLIBC_CRT) += glibc-crt
+
+#
+# Paths and names
+#
+GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-libc_get: $(STATEDIR)/libc.get
+glibc-crt_get: $(STATEDIR)/glibc-crt.get
 
-$(STATEDIR)/libc.get:
+$(STATEDIR)/glibc-crt.get: $(STATEDIR)/glibc.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -28,9 +33,9 @@ $(STATEDIR)/libc.get:
 # Extract
 # ----------------------------------------------------------------------------
 
-libc_extract: $(STATEDIR)/libc.extract
+glibc-crt_extract: $(STATEDIR)/glibc-crt.extract
 
-$(STATEDIR)/libc.extract:
+$(STATEDIR)/glibc-crt.extract: $(STATEDIR)/glibc.extract
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -38,39 +43,63 @@ $(STATEDIR)/libc.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-libc_prepare: $(STATEDIR)/libc.prepare
+glibc-crt_prepare: $(STATEDIR)/glibc-crt.prepare
 
-$(STATEDIR)/libc.prepare:
+GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
+GLIBC_CRT_ENV := \
+	BUILD_CC=$(HOSTCC) \
+	libc_cv_forced_unwind=yes \
+	libc_cv_c_cleanup=yes
+
+
+#
+# autoconf
+#
+GLIBC_CRT_AUTOCONF = $(GLIBC_AUTOCONF)
+
+$(STATEDIR)/glibc-crt.prepare:
 	@$(call targetinfo, $@)
+	@$(call clean, $(GLIBC_CRT_DIR))
+	mkdir -p $(GLIBC_CRT_DIR)
+	cd $(GLIBC_CRT_DIR) && eval \
+		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
+		$(GLIBC_DIR)/configure $(GLIBC_CRT_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-libc_compile: $(STATEDIR)/libc.compile
+glibc-crt_compile: $(STATEDIR)/glibc-crt.compile
 
-$(STATEDIR)/libc.compile:
+$(STATEDIR)/glibc-crt.compile:
 	@$(call targetinfo, $@)
+	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) csu/subdir_lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-libc_install: $(STATEDIR)/libc.install
+glibc-crt_install: $(STATEDIR)/glibc-crt.install
 
-$(STATEDIR)/libc.install:
+$(STATEDIR)/glibc-crt.install:
 	@$(call targetinfo, $@)
+	mkdir -p $(SYSROOT)/usr/lib
+	for file in {S,}crt1.o crt{i,n}.o; do \
+		$(INSTALL) -m 644 $(GLIBC_CRT_DIR)/csu/$$file \
+			$(SYSROOT)/usr/lib/$$file || exit 1; \
+	done
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libc_targetinstall: $(STATEDIR)/libc.targetinstall
+glibc-crt_targetinstall: $(STATEDIR)/glibc-crt.targetinstall
 
-$(STATEDIR)/libc.targetinstall:
+$(STATEDIR)/glibc-crt.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -78,7 +107,8 @@ $(STATEDIR)/libc.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-libc_clean:
-	rm -rf $(STATEDIR)/libc.*
+glibc-crt_clean:
+	rm -rf $(STATEDIR)/glibc-crt.*
+	rm -rf $(GLIBC_CRT_DIR)
 
 # vim: syntax=make

@@ -43,7 +43,7 @@ $(GLIBC_LINUXTHREADS_SOURCE):
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_GLIBC_LINUXTHREADS
-$(STATEDIR)/glibc.extract: $(STATEDIR)/glibc-linuxthreads.extract
+$(STATEDIR)/glibc-first.extract: $(STATEDIR)/glibc-linuxthreads.extract
 endif
 
 glibc-linuxthreads_extract: $(STATEDIR)/glibc-linuxthreads.extract

@@ -49,12 +49,12 @@ config CROSS_GCC_EXTRA_CONFIG
 
 config CROSS_GCC_EXTRA_CONFIG_LIBC
 	string
-	default "--with-newlib" if LIBC_NEWLIB # --disable-libssp
+	default "--with-newlib" if LIBC_NEWLIB
 
 
 config CROSS_GCC_SECOND
 	bool
-	select LIBC
+	select LIBC_FIRST
 	prompt "gcc (second)"
 
 

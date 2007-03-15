@@ -1,7 +1,8 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by 
+# Copyright (C) 2006 by Robert Schwebel
+#		2007 by Marc Kleine-Budde
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,7 +24,7 @@ GLIBC_FIRST_SUFFIX	:= tar.bz2
 GLIBC_FIRST_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC_FIRST).$(GLIBC_FIRST_SUFFIX)
 GLIBC_FIRST_SOURCE	:= $(SRCDIR)/$(GLIBC_FIRST).$(GLIBC_FIRST_SUFFIX)
 GLIBC_FIRST_DIR		:= $(BUILDDIR_DEBUG)/$(GLIBC_FIRST)
-GLIBC_FIRST_BUILDDIR	:= $(BUILDDIR)/$(GLIBC_FIRST)-build
+GLIBC_FIRST_BUILDDIR	:= $(BUILDDIR)/$(GLIBC_FIRST)-first-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +32,7 @@ GLIBC_FIRST_BUILDDIR	:= $(BUILDDIR)/$(GLIBC_FIRST)-build
 
 glibc-first_get: $(STATEDIR)/glibc-first.get
 
-$(STATEDIR)/glibc-first.get: $(glibc-first_get_deps_default)
+$(STATEDIR)/glibc-first.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +46,7 @@ $(GLIBC_FIRST_SOURCE):
 
 glibc-first_extract: $(STATEDIR)/glibc-first.extract
 
-$(STATEDIR)/glibc-first.extract: $(glibc-first_extract_deps_default)
+$(STATEDIR)/glibc-first.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_FIRST_DIR))
 	@$(call extract, GLIBC_FIRST, $(BUILDDIR_DEBUG))
@@ -116,7 +117,7 @@ GLIBC_FIRST_AUTOCONF := \
 	--without-gd \
         --enable-shared
 
-$(STATEDIR)/glibc-first.prepare: $(glibc-first_prepare_deps_default)
+$(STATEDIR)/glibc-first.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIBC_FIRST_BUILDDIR))
 	mkdir -p $(GLIBC_FIRST_BUILDDIR)
@@ -131,7 +132,7 @@ $(STATEDIR)/glibc-first.prepare: $(glibc-first_prepare_deps_default)
 
 glibc-first_compile: $(STATEDIR)/glibc-first.compile
 
-$(STATEDIR)/glibc-first.compile: $(glibc-first_compile_deps_default)
+$(STATEDIR)/glibc-first.compile:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_FIRST_BUILDDIR) && $(GLIBC_FIRST_PATH) $(MAKE) $(PARALLELMFLAGS) lib
 	@$(call touch, $@)
@@ -142,7 +143,7 @@ $(STATEDIR)/glibc-first.compile: $(glibc-first_compile_deps_default)
 
 glibc-first_install: $(STATEDIR)/glibc-first.install
 
-$(STATEDIR)/glibc-first.install: $(glibc-first_install_deps_default)
+$(STATEDIR)/glibc-first.install:
 	@$(call targetinfo, $@)
 	cd $(GLIBC_FIRST_BUILDDIR) && \
 		$(GLIBC_FIRST_PATH) $(MAKE) $(GLIBC_FIRST_MAKEVARS) \
@@ -155,7 +156,7 @@ $(STATEDIR)/glibc-first.install: $(glibc-first_install_deps_default)
 
 glibc-first_targetinstall: $(STATEDIR)/glibc-first.targetinstall
 
-$(STATEDIR)/glibc-first.targetinstall: $(glibc-first_targetinstall_deps_default)
+$(STATEDIR)/glibc-first.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

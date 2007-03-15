@@ -1,8 +1,9 @@
 # config for glibc
 
-menuconfig GLIBC
+menuconfig GLIBC_FIRST
 	bool
 	select CROSS_GCC_FIRST
+#	select GLIBC_CRT
 	select GLIBC_PORTS if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
 	select GLIBC_LINUXTHREADS if GLIBC_ADDON_LINUXTHREADS
 
@@ -12,7 +13,7 @@ menuconfig GLIBC
 	prompt "glibc                       "
 
 config GLIBC_VERSION
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	string
 	prompt "glibc version"
 	default "2.5"
@@ -20,25 +21,30 @@ config GLIBC_VERSION
 	  Specify the glibc version here.
 
 config GLIBC_SERIES
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	string
 	prompt "glibc patch series file"
 
+config GLIBC_FIRST_SERIES
+	depends on GLIBC_FIRST
+	string
+	default "${PTXCONF_GLIBC_SERIES}"
+
 config GLIBC_ENABLE_KERNEL
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	string
 	prompt "mininum kernel version"
 	default "2.6.16"
 
 config GLIBC_EXTRA_CONFIG
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	string
 	prompt "extra configure options"
 	help
 	  Add these extra options to glibc's configure script.
 
 config GLIBC_HEADERS_FAKE_CROSS
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	string
 	prompt "fake cross args"
 	help
@@ -46,7 +52,7 @@ config GLIBC_HEADERS_FAKE_CROSS
 
 choice
 	prompt "Thread implementation"
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	default GLIBC_ADDON_NPTL
 
 	config GLIBC_ADDON_LINUXTHREADS
@@ -64,8 +70,15 @@ choice
 endchoice
 
 config GLIBC_TLS
-	depends on GLIBC
+	depends on GLIBC_FIRST
 	bool
 	prompt "enable TLS"
 	help
 	  Activate Thread Local Storage.
+
+config GLIBC_CRT
+	bool
+	select CROSS_GCC_FIRST
+
+config GLIBC_SECOND
+	bool
