@@ -19,7 +19,7 @@ config CROSS_GCC_VERSION
 config CROSS_GCC_43
 	depends on CROSS_GCC_FIRST
 	bool
-	prompt "additional packages for gcc-4.3"
+	prompt "additional deps for gcc-4.3"
 	help
 	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
@@ -58,8 +58,13 @@ config CROSS_GCC_SECOND
 	prompt "gcc (second)"
 
 
-config CROSS_GCC_HEADERS
+config CROSS_GCC_WITHOUT_HEADERS
 	bool
+
+config CROSS_GCC_HEADERS
+	string
+	default "--without-headers" if CROSS_GCC_WITHOUT_HEADERS
+
 
 config CROSS_GCC_SHARED
 	bool
@@ -70,7 +75,11 @@ config CROSS_GCC_THREADS_SINGLE
 config CROSS_GCC_THREADS_POSIX
 	bool
 
+config CROSS_GCC_THREADS_WIN32
+	bool
+
 config CROSS_GCC_THREADS
 	string
 	default "posix" if CROSS_GCC_THREADS_POSIX
 	default "single" if CROSS_GCC_THREADS_SINGLE
+	default "win32" if CROSS_GCC_THREADS_WIN32

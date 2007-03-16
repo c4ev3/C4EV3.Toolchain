@@ -2,7 +2,6 @@
 
 menuconfig UCLIBC
 	bool
-	select CROSS_GCC_HEADERS
 	select CROSS_GCC_SHARED
 	select CROSS_GCC_THREADS_POSIX
 	prompt "uclibc                      "

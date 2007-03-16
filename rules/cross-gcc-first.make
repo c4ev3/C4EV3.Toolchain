@@ -71,6 +71,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--with-mpfr=$(PTX_PREFIX_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
+	$(PTXCONF_CROSS_GCC_HEADERS) \
 	\
         --disable-nls \
 	--disable-multilib \
@@ -82,10 +83,6 @@ CROSS_GCC_AUTOCONF_COMMON := \
 # the host hack (or trick) is broken with gcc-4.3+
 #
 #	--host=$(GNU_HOST)
-
-ifndef CROSS_GCC_HEADERS
-CROSS_GCC_AUTOCONF_COMMON += --without-headers
-endif
 
 CROSS_GCC_FIRST_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \

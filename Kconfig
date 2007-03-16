@@ -34,6 +34,13 @@ if LIBC_NEWLIB
 source "workspace/rules/newlib.in"
 endif
 
+if LIBC_MINGW
+source "workspace/rules/mingw-runtime.in"
+source "workspace/rules/mingw-runtime-headers.in"
+source "workspace/rules/w32api.in"
+source "workspace/rules/w32api-headers.in"
+endif
+
 source "workspace/rules/cross-binutils.in"
 source "workspace/rules/kernel-headers.in"
 source "workspace/rules/cross-gcc.in"
@@ -123,11 +130,11 @@ config PREFIX_TCID
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_GLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_GLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}" if LIBC_MINGW
 
 
 config PREFIX_SECOND
 	string
-#	prompt "second prefix"
 	default "${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
 	help
 	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
