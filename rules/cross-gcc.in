@@ -58,16 +58,17 @@ config CROSS_GCC_SECOND
 	prompt "gcc (second)"
 
 
-config CROSS_GCC_WITHOUT_HEADERS
-	bool
-
-config CROSS_GCC_HEADERS
-	string
-	default "--without-headers" if CROSS_GCC_WITHOUT_HEADERS
+#config CROSS_GCC_WITHOUT_HEADERS
+#	bool
+#
+#config CROSS_GCC_HEADERS
+#	string
+#	default "--without-headers" if CROSS_GCC_WITHOUT_HEADERS
 
 
 config CROSS_GCC_SHARED
 	bool
+
 
 config CROSS_GCC_THREADS_SINGLE
 	bool
