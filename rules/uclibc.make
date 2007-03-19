@@ -104,7 +104,9 @@ uclibc_install: $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.install:
 	@$(call targetinfo, $@)
-	@$(call install, UCLIBC)
+	cd $(UCLIBC_DIR) && \
+		$(UCLIBC_PATH) $(MAKE) $(UCLIBC_MAKEVARS) \
+		install DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
