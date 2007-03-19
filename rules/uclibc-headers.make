@@ -12,17 +12,15 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_UCLIBC_HEADERS) += uclibc_headers
-
-UCLIBC_HEADERS_DIR	= $(UCLIBC_DIR)
+PACKAGES-$(PTXCONF_UCLIBC_HEADERS) += uclibc-headers
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-uclibc_headers_get: $(STATEDIR)/uclibc_headers.get
+uclibc-headers_get: $(STATEDIR)/uclibc-headers.get
 
-$(STATEDIR)/uclibc_headers.get: $(STATEDIR)/uclibc.get
+$(STATEDIR)/uclibc-headers.get: $(STATEDIR)/uclibc.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -30,9 +28,9 @@ $(STATEDIR)/uclibc_headers.get: $(STATEDIR)/uclibc.get
 # Extract
 # ----------------------------------------------------------------------------
 
-uclibc_headers_extract: $(STATEDIR)/uclibc_headers.extract
+uclibc-headers_extract: $(STATEDIR)/uclibc-headers.extract
 
-$(STATEDIR)/uclibc_headers.extract: $(STATEDIR)/uclibc.extract
+$(STATEDIR)/uclibc-headers.extract: $(STATEDIR)/uclibc.extract
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -40,47 +38,46 @@ $(STATEDIR)/uclibc_headers.extract: $(STATEDIR)/uclibc.extract
 # Prepare
 # ----------------------------------------------------------------------------
 
-uclibc_headers_prepare: $(STATEDIR)/uclibc_headers.prepare
+uclibc-headers_prepare: $(STATEDIR)/uclibc-headers.prepare
 
 UCLIBC_HEADERS_PATH	:= PATH=$(CROSS_PATH)
 UCLIBC_HEADERS_ENV 	:= $(CROSS_ENV)
 
-$(STATEDIR)/uclibc_headers.prepare:
+$(STATEDIR)/uclibc-headers.prepare: $(STATEDIR)/uclibc.prepare
 	@$(call targetinfo, $@)
-	cp $(PTXDIST_WORKSPACE)/uclibc.config $(UCLIBC_HEADERS_DIR)/.config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-uclibc_headers_compile: $(STATEDIR)/uclibc_headers.compile
+uclibc-headers_compile: $(STATEDIR)/uclibc-headers.compile
 
-$(STATEDIR)/uclibc_headers.compile:
+$(STATEDIR)/uclibc-headers.compile:
 	@$(call targetinfo, $@)
-	yes "" | make -C $(UCLIBC_HEADERS_DIR) oldconfig
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-uclibc_headers_install: $(STATEDIR)/uclibc_headers.install
+uclibc-headers_install: $(STATEDIR)/uclibc-headers.install
 
-$(STATEDIR)/uclibc_headers.install:
+$(STATEDIR)/uclibc-headers.install:
 	@$(call targetinfo, $@)
-	cd $(UCLIBC_HEADERS_DIR) && \
-		$(UCLIBC_HEADERS_PATH) $(UCLIBC_HEADERS_ENV) \
-		$(MAKE) pregen install_dev DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT) KERNEL_SOURCE=$(SYSROOT)/usr
+	cd $(UCLIBC_DIR) && \
+		$(UCLIBC_PATH) $(UCLIBC_ENV) \
+		$(MAKE) $(UCLIBC_MAKEVARS) \
+		pregen install_dev DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT) KERNEL_SOURCE=$(SYSROOT)/usr
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-uclibc_headers_targetinstall: $(STATEDIR)/uclibc_headers.targetinstall
+uclibc-headers_targetinstall: $(STATEDIR)/uclibc-headers.targetinstall
 
-$(STATEDIR)/uclibc_headers.targetinstall:
+$(STATEDIR)/uclibc-headers.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -88,9 +85,9 @@ $(STATEDIR)/uclibc_headers.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-uclibc_headers_clean:
-	rm -rf $(STATEDIR)/uclibc_headers.*
-	rm -rf $(IMAGEDIR)/uclibc_headers_*
+uclibc-headers_clean:
+	rm -rf $(STATEDIR)/uclibc-headers.*
+	rm -rf $(IMAGEDIR)/uclibc-headers_*
 	rm -rf $(UCLIBC_HEADERS_DIR)
 
 # vim: syntax=make

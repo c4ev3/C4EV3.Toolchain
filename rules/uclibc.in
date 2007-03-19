@@ -6,14 +6,41 @@ menuconfig UCLIBC
 	select CROSS_GCC_THREADS_POSIX
 	prompt "uclibc                      "
 
+choice
+	depends on UCLIBC
+	prompt "uclibc version"
+
+	config UCLIBC_VERSION_0_9_28
+		bool "0.9.28"
+
+	config UCLIBC_VERSION_0_9_29
+		bool "0.9.29"
+
+	help
+	  Specify the uclibc version here.
+endchoice
+
 config UCLIBC_VERSION
 	depends on UCLIBC
 	string
-	prompt "uclibc version"
-	default "0.9.28"
-	help
-	  Specify the uclibc version here.
+	default "0.9.28" if UCLIBC_VERSION_0_9_28
+	default "0.9.29" if UCLIBC_VERSION_0_9_29
 
-config UCLIBC_HEADERS
-	bool
-	select KERNEL_HEADERS
+config UCLIBC_RELEASE
+	depends on UCLIBC
+	string
+	prompt "uclibc release       "
+	default ""
+	help
+	  Specify the uclibc bugfix release number.
+
+menu "uClibc options         "
+	depends on UCLIBC
+if UCLIBC_VERSION_0_9_28
+source "workspace/config/uClibc-0.9.28/Config.in"
+endif
+if UCLIBC_VERSION_0_9_29
+#source "workspace/config/uClibc-0.9.29/Config.in"
+endif
+endmenu
+

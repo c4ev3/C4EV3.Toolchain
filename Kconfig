@@ -28,6 +28,7 @@ endif
 
 if LIBC_UCLIBC
 source "workspace/rules/uclibc.in"
+source "workspace/rules/uclibc-headers.in"
 endif
 
 if LIBC_NEWLIB

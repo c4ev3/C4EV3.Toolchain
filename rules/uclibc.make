@@ -17,12 +17,24 @@ PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 #
 # Paths and names
 #
-UCLIBC_VERSION	:= 0.9.28
+UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
+ifneq ($(PTXCONF_UCLIBC_RELEASE),"")
+UCLIBC_VERSION	:= $(UCLIBC_VERSION).$(call remove_quotes,$(PTXCONF_UCLIBC_RELEASE))
+endif
 UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 UCLIBC_SUFFIX	:= tar.bz2
 UCLIBC_URL	:= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_SOURCE	:= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_DIR	:= $(BUILDDIR)/$(UCLIBC)
+
+uclibc_fix_config =								\
+	echo 'KERNEL_SOURCE="$(SYSROOT)/usr"'           	>> $(1);	\
+	echo 'SHARED_LIB_LOADER_PREFIX="/lib"'                  >> $(1);	\
+	echo 'RUNTIME_PREFIX="/"'                               >> $(1);	\
+	echo 'DEVEL_PREFIX=$(CROSS_LIB_DIR)'                    >> $(1);	\
+	perl -i -p -e 's/^(.*=)"(.*?)"(.*)"(.*)"/$$1"$$2$$3$$4"/'  $(1);	\
+	perl -i -p -e 's/^(.*=)"(.*?)"(.*)/$$1"$$2$$3"/'           $(1)
+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -60,13 +72,17 @@ uclibc_prepare: $(STATEDIR)/uclibc.prepare
 UCLIBC_PATH	:= PATH=$(CROSS_PATH)
 UCLIBC_ENV 	:= $(CROSS_ENV)
 
-#
-# autoconf
-#
-UCLIBC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+UCLIBC_MAKEVARS	:= \
+		CROSS=$(COMPILER_PREFIX)
 
 $(STATEDIR)/uclibc.prepare:
 	@$(call targetinfo, $@)
+	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/ptxconfig > $(UCLIBC_DIR)/.config
+	perl -i -p -e 's/PTXCONF_UC_//g' $(UCLIBC_DIR)/.config
+	@$(call uclibc_fix_config, $(UCLIBC_DIR)/.config)
+	yes "" | $(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) \
+		$(UCLIBC_MAKEVARS) \
+		oldconfig
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -77,7 +93,7 @@ uclibc_compile: $(STATEDIR)/uclibc.compile
 
 $(STATEDIR)/uclibc.compile:
 	@$(call targetinfo, $@)
-	cd $(UCLIBC_DIR) && $(UCLIBC_PATH) $(MAKE)
+	cd $(UCLIBC_DIR) && $(UCLIBC_PATH) $(MAKE) $(UCLIBC_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
