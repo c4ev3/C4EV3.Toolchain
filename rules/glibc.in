@@ -9,6 +9,7 @@ menuconfig GLIBC_FIRST
 
 	select CROSS_GCC_SHARED
 	select CROSS_GCC_THREADS_POSIX
+	select CROSS_GCC_ENABLE_CXA_ATEXIT
 	prompt "glibc                       "
 
 config GLIBC_VERSION

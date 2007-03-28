@@ -71,12 +71,12 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--with-mpfr=$(PTX_PREFIX_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
+	$(CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
 	$(PTXCONF_CROSS_GCC_HEADERS) \
 	\
         --disable-nls \
 	--disable-multilib \
 	--enable-symvers=gnu \
-	--enable-__cxa_atexit \
 	--disable-libunwind-exceptions
 
 #

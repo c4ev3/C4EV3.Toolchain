@@ -15,6 +15,7 @@ choice
 
 	config UCLIBC_VERSION_0_9_29
 		bool "0.9.29"
+		select CROSS_GCC_ENABLE_CXA_ATEXIT
 
 	help
 	  Specify the uclibc version here.
