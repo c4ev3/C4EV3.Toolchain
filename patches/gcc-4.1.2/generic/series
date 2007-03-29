@@ -4,6 +4,6 @@ gcc-4.1.0-arm-bigendian.patch
 arm-softfloat.diff
 gcc-4.1.1-pr28516.diff -p0
 
-100-uclibc-conf.patch
-300-libstdc++-pic.patch
+uclibc/100-uclibc-conf.patch
+uclibc/300-libstdc++-pic.patch
 libstdc++-v3__ctype_touplow_t-fix.patch
