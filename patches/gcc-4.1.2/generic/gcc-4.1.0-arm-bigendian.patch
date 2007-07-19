@@ -3,10 +3,17 @@ Adds support for arm*b-linux* big-endian ARM targets
 
 See http://gcc.gnu.org/PR16350
 
-Index: gcc-4.1.1/gcc/config/arm/linux-elf.h
+---
+ gcc/config.gcc              |    5 +++++
+ gcc/config/arm/bpabi.h      |   12 +++++++++++-
+ gcc/config/arm/linux-eabi.h |   13 ++++++++++++-
+ gcc/config/arm/linux-elf.h  |   22 ++++++++++++++++++----
+ 4 files changed, 46 insertions(+), 6 deletions(-)
+
+Index: gcc-4.1.2/gcc/config/arm/linux-elf.h
 ===================================================================
---- gcc-4.1.1.orig/gcc/config/arm/linux-elf.h
-+++ gcc-4.1.1/gcc/config/arm/linux-elf.h
+--- gcc-4.1.2.orig/gcc/config/arm/linux-elf.h
++++ gcc-4.1.2/gcc/config/arm/linux-elf.h
 @@ -28,19 +28,33 @@
  #undef  TARGET_VERSION
  #define TARGET_VERSION  fputs (" (ARM GNU/Linux with ELF)", stderr);
@@ -53,10 +60,10 @@ Index: gcc-4.1.1/gcc/config/arm/linux-elf.h
     SUBTARGET_EXTRA_LINK_SPEC
  
  #undef  LINK_SPEC
-Index: gcc-4.1.1/gcc/config.gcc
+Index: gcc-4.1.2/gcc/config.gcc
 ===================================================================
---- gcc-4.1.1.orig/gcc/config.gcc
-+++ gcc-4.1.1/gcc/config.gcc
+--- gcc-4.1.2.orig/gcc/config.gcc
++++ gcc-4.1.2/gcc/config.gcc
 @@ -672,6 +672,11 @@ arm*-*-netbsd*)
  	;;
  arm*-*-linux*)			# ARM GNU/Linux with ELF
@@ -69,10 +76,10 @@ Index: gcc-4.1.1/gcc/config.gcc
  	tmake_file="${tmake_file} t-linux arm/t-arm"
  	case ${target} in
  	arm*-*-linux-gnueabi)
-Index: gcc-4.1.1/gcc/config/arm/linux-eabi.h
+Index: gcc-4.1.2/gcc/config/arm/linux-eabi.h
 ===================================================================
---- gcc-4.1.1.orig/gcc/config/arm/linux-eabi.h
-+++ gcc-4.1.1/gcc/config/arm/linux-eabi.h
+--- gcc-4.1.2.orig/gcc/config/arm/linux-eabi.h
++++ gcc-4.1.2/gcc/config/arm/linux-eabi.h
 @@ -20,6 +20,17 @@
     the Free Software Foundation, 51 Franklin Street, Fifth Floor,
     Boston, MA 02110-1301, USA.  */
@@ -100,10 +107,10 @@ Index: gcc-4.1.1/gcc/config/arm/linux-eabi.h
  
  /* Use ld-linux.so.3 so that it will be possible to run "classic"
     GNU/Linux binaries on an EABI system.  */
-Index: gcc-4.1.1/gcc/config/arm/bpabi.h
+Index: gcc-4.1.2/gcc/config/arm/bpabi.h
 ===================================================================
---- gcc-4.1.1.orig/gcc/config/arm/bpabi.h
-+++ gcc-4.1.1/gcc/config/arm/bpabi.h
+--- gcc-4.1.2.orig/gcc/config/arm/bpabi.h
++++ gcc-4.1.2/gcc/config/arm/bpabi.h
 @@ -33,9 +33,19 @@
  #undef FPUTYPE_DEFAULT
  #define FPUTYPE_DEFAULT FPUTYPE_VFP
