@@ -1,8 +1,15 @@
 # libstdc++-v3/include/i586-linux-uclibc/bits/ctype_noninline.h: In constructor `std::ctype<char>::ctype(int*, const short unsigned int*, bool, size_t)':
 # libstdc++-v3/include/i586-linux-uclibc/bits/ctype_noninline.h:85: error: cannot convert `const __ctype_touplow_t*' to `const int*' in assignment
 #
---- gcc-4.1.2/libstdc++-v3/config/locale/generic/c_locale.h.orig	2007-03-20 12:41:43.000000000 +0100
-+++ gcc-4.1.2/libstdc++-v3/config/locale/generic/c_locale.h	2007-03-20 12:43:15.000000000 +0100
+---
+# libstdc++-v3/config/locale/generic/c_locale.h |    6 ++++++
+# libstdc++-v3/config/os/gnu-linux/ctype_base.h |   10 ++++++++--
+# 2 files changed, 14 insertions(+), 2 deletions(-)
+#
+Index: gcc-4.1.2/libstdc++-v3/config/locale/generic/c_locale.h
+===================================================================
+--- gcc-4.1.2.orig/libstdc++-v3/config/locale/generic/c_locale.h
++++ gcc-4.1.2/libstdc++-v3/config/locale/generic/c_locale.h
 @@ -41,12 +41,18 @@
  #include <clocale>
  #include <cstring>   // get std::strlen
@@ -22,8 +29,10 @@
  
    // Convert numeric value of type _Tv to string and return length of
    // string.  If snprintf is available use it, otherwise fall back to
---- gcc-4.1.2/libstdc++-v3/config/os/gnu-linux/ctype_base.h.orig	2007-03-20 12:43:29.000000000 +0100
-+++ gcc-4.1.2/libstdc++-v3/config/os/gnu-linux/ctype_base.h	2007-03-20 12:46:16.000000000 +0100
+Index: gcc-4.1.2/libstdc++-v3/config/os/gnu-linux/ctype_base.h
+===================================================================
+--- gcc-4.1.2.orig/libstdc++-v3/config/os/gnu-linux/ctype_base.h
++++ gcc-4.1.2/libstdc++-v3/config/os/gnu-linux/ctype_base.h
 @@ -31,7 +31,9 @@
  //
  // ISO C++ 14882: 22.1  Locales
