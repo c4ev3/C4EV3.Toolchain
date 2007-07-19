@@ -11,10 +11,14 @@
 # inspired by:
 # http://www.openembedded.org/repo/org.openembedded.dev/packages/gcc/gcc-4.1.1/zecke-no-host-includes.patch
 #
-Index: gcc-4.1.1/gcc/c-incpath.c
+---
+# gcc/c-incpath.c |   28 ++++++++++++++++++++++++++++
+# 1 file changed, 28 insertions(+)
+#
+Index: gcc-4.1.2/gcc/c-incpath.c
 ===================================================================
---- gcc-4.1.1.orig/gcc/c-incpath.c
-+++ gcc-4.1.1/gcc/c-incpath.c
+--- gcc-4.1.2.orig/gcc/c-incpath.c
++++ gcc-4.1.2/gcc/c-incpath.c
 @@ -350,6 +350,34 @@ add_path (char *path, int chain, int cxx
    p->construct = 0;
    p->user_supplied_p = user_supplied_p;
