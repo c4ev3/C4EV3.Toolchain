@@ -38,6 +38,12 @@ config CROSS_GCC_LANG
 	string
 	prompt "languages"
 	default "c,c++"
+	help
+	  As GCC is a compiler collection, you can enable various languages
+	  within this menu entry. Possible values are:
+	  'c' for standard C language
+	  'c++' for C++ language
+	  Delimiter is ','
 
 config CROSS_GCC_EXTRA_CONFIG
 	depends on CROSS_GCC_FIRST

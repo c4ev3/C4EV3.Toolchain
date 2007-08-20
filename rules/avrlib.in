@@ -1,0 +1,14 @@
+menuconfig AVR8LIB
+	bool
+	select CROSS_GCC_FIRST
+	prompt "AVR libc                    "
+	help
+	  Build the multi C library for the harvard based AVR architecture
+
+config AVR8LIB_VERSION
+	depends on AVR8LIB
+	string
+	prompt "avr libc version"
+	default "1.0.5"
+	help
+	  Specify the AVR libc version here.

@@ -66,7 +66,6 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 #
 CROSS_GCC_AUTOCONF_COMMON := \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-sysroot=$(SYSROOT) \
 	--with-gmp=$(PTX_PREFIX_HOST) \
 	--with-mpfr=$(PTX_PREFIX_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
@@ -75,10 +74,14 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	$(PTXCONF_CROSS_GCC_HEADERS) \
 	\
         --disable-nls \
-	--disable-multilib \
 	--enable-symvers=gnu \
 	--disable-libunwind-exceptions
 
+# for other architectures than AVR its not usefull to have multilib,
+# but we need a sysroot for them
+ifndef PTXCONF_ARCH_AVR
+CROSS_GCC_AUTOCONF_COMMON += --disable-multilib --with-sysroot=$(SYSROOT)
+endif
 #
 # the host hack (or trick) is broken with gcc-4.3+
 #

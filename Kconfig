@@ -35,6 +35,10 @@ if LIBC_NEWLIB
 source "workspace/rules/newlib.in"
 endif
 
+if LIBC_AVR_8
+source "workspace/rules/avrlib.in"
+endif
+
 if LIBC_MINGW
 source "workspace/rules/mingw-runtime.in"
 source "workspace/rules/mingw-runtime-headers.in"
@@ -67,6 +71,9 @@ choice
 
 	config ARCH_I386
 		bool "i368   "
+
+	config ARCH_AVR
+		bool "AVR-8  "
 
 	help
 	  This option specifies the toolchain architecture. It corresponds to
@@ -132,7 +139,7 @@ config PREFIX_TCID
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_UCLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}" if LIBC_MINGW
-
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVR8LIB_VERSION}" if LIBC_AVR_8
 
 config PREFIX_SECOND
 	string

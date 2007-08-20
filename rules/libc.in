@@ -38,4 +38,11 @@ choice
 		bool
 		prompt "mingw"
 
+	config LIBC_AVR_8
+		bool
+		prompt "AVR-8 libc"
+		help
+		  This is the special C library for various 8 bit AVR
+		  microcontrollers (harvard architecture)
+
 endchoice
