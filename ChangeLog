@@ -1,3 +1,11 @@
+2007-08-21 Juergen Beisert <jbe@pengutronix.de>
+
+	* new architecture: AVR support added (8 bit devices)
+	* new configurations: Various compiler/libc revisions added
+	   gcc-3.4.2/libc-1.0.5: known working combination
+	   gcc-4.1.2/libc-1.4.6: untested yet
+	   gcc 4.2.1/libc-1.4.6: support for current AT90USB devices
+
 2006-12-11 Marc Kleine-Budde <mkl@pengutronix.de>
 
 	* general: opened maintenance-only branch for 1.0
