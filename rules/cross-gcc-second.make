@@ -56,14 +56,10 @@ CROSS_GCC_SECOND_AUTOCONF = \
 	--prefix=$(PTXCONF_PREFIX) \
 	\
 	--enable-languages=$(PTXCONF_CROSS_GCC_LANG) \
+	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--enable-c99 \
 	--enable-long-long \
 	--enable-libstdcxx-debug
-
-# for AVR architecture there is no thread support
-ifndef PTXCONF_ARCH_AVR
-CROSS_GCC_SECOND_AUTOCONF += --enable-threads=$(PTXCONF_CROSS_GCC_THREADS)
-endif
 
 ifdef PTXCONF_CROSS_GCC_SHARED
 CROSS_GCC_SECOND_AUTOCONF += \

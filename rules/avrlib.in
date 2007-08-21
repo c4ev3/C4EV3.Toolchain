@@ -1,6 +1,8 @@
 menuconfig AVR8LIB
 	bool
 	select CROSS_GCC_FIRST
+# we do not support any threads in this environment
+	select CROSS_GCC_THREADS_SINGLE
 	prompt "AVR libc                    "
 	help
 	  Build the multi C library for the harvard based AVR architecture
