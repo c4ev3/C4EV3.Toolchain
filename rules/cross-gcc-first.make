@@ -73,7 +73,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	$(CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
 	$(PTXCONF_CROSS_GCC_HEADERS) \
 	\
-        --disable-nls \
+	--disable-nls \
 	--enable-symvers=gnu \
 	--disable-libunwind-exceptions
 
@@ -91,8 +91,8 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(CROSS_GCC_FIRST_PREFIX) \
 	\
-        --disable-shared \
-        --enable-languages=c \
+	--disable-shared \
+	--enable-languages=c \
 	\
 	--with-ld=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld \
 	--with-as=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as \
@@ -101,7 +101,6 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	--disable-libmudflap \
 	--disable-libssp \
 	--disable-libgomp
-
 
 $(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo, $@)
