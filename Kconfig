@@ -63,6 +63,9 @@ choice
         config ARCH_ARM
                 bool "arm    "
 
+	config ARCH_M68K
+		bool "m68k   "
+
 	config ARCH_MIPS
 		bool "mips   "
 
@@ -84,9 +87,11 @@ endchoice
 config ARCH
 	string
 	default "arm" if ARCH_ARM
+	default "m68k" if ARCH_M68K
 	default "mips" if ARCH_MIPS
 	default "powerpc" if ARCH_POWERPC
 	default "i386" if ARCH_I386
+    default "avr" if ARCH_AVR
 
 config GNU_TARGET
 	string

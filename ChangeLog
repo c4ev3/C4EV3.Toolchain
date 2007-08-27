@@ -1,3 +1,20 @@
+2007-08-27 Carsten Schlote <c.schlote@konzeptpark.de>
+
+	* general: Added simple check to fixup_ptxconfigs.sh, which
+	   prevents changes to non glibc configs
+	* general: Added some output to 'oldconfig' script printing the name
+	   of the currently processed ptxconfig. Seems to be useful in
+	   case that oldconfig requests input for new kconfig options
+	* ptxconfigs: Updated all ptxconfigs with 'oldconfig' script. Now uses
+	   ptxdist '1.svn' version for configuration.
+	* general: Added kconfig define ARCH for avr-8 target. There was no
+	   default config set for this arch.
+
+2007-08-24 Carsten Schlote <c.schlote@konzeptpark.de>
+
+	* general: new architecture: m68k support added to kconfigs
+	* ptxconfigs: added some experimental configs for m68k/coldfire
+
 2007-08-21 Juergen Beisert <jbe@pengutronix.de>
 
 	* new architecture: AVR support added (8 bit devices)
