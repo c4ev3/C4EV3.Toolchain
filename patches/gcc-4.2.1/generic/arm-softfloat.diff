@@ -21,10 +21,10 @@
  gcc/config/arm/t-linux     |    5 ++++-
  2 files changed, 6 insertions(+), 3 deletions(-)
 
-Index: gcc-4.1.2/gcc/config/arm/linux-elf.h
+Index: gcc-4.2.1/gcc/config/arm/linux-elf.h
 ===================================================================
---- gcc-4.1.2.orig/gcc/config/arm/linux-elf.h
-+++ gcc-4.1.2/gcc/config/arm/linux-elf.h
+--- gcc-4.2.1.orig/gcc/config/arm/linux-elf.h	2007-08-27 17:06:15.000000000 +0200
++++ gcc-4.2.1/gcc/config/arm/linux-elf.h	2007-08-27 17:07:12.000000000 +0200
 @@ -54,7 +54,7 @@
  
  #undef  MULTILIB_DEFAULTS
@@ -41,13 +41,13 @@ Index: gcc-4.1.2/gcc/config/arm/linux-elf.h
 -#define LIBGCC_SPEC "%{msoft-float:-lfloat} %{mfloat-abi=soft*:-lfloat} -lgcc"
 +#define LIBGCC_SPEC "-lgcc"
  
- #define LINUX_TARGET_INTERPRETER "/lib/ld-linux.so.2"
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
  
-Index: gcc-4.1.2/gcc/config/arm/t-linux
+Index: gcc-4.2.1/gcc/config/arm/t-linux
 ===================================================================
---- gcc-4.1.2.orig/gcc/config/arm/t-linux
-+++ gcc-4.1.2/gcc/config/arm/t-linux
-@@ -4,7 +4,10 @@ TARGET_LIBGCC2_CFLAGS = -fomit-frame-poi
+--- gcc-4.2.1.orig/gcc/config/arm/t-linux	2004-05-15 14:41:35.000000000 +0200
++++ gcc-4.2.1/gcc/config/arm/t-linux	2007-08-27 17:07:12.000000000 +0200
+@@ -4,7 +4,10 @@
  LIBGCC2_DEBUG_CFLAGS = -g0
  
  LIB1ASMSRC = arm/lib1funcs.asm

@@ -16,10 +16,10 @@
 # gcc/config/arm/linux-gas.h |   16 ++++++++++++++++
 # 1 file changed, 16 insertions(+)
 #
-Index: gcc-4.1.2/gcc/config/arm/linux-gas.h
+Index: gcc-4.2.1/gcc/config/arm/linux-gas.h
 ===================================================================
---- gcc-4.1.2.orig/gcc/config/arm/linux-gas.h
-+++ gcc-4.1.2/gcc/config/arm/linux-gas.h
+--- gcc-4.2.1.orig/gcc/config/arm/linux-gas.h	2007-04-16 22:16:13.000000000 +0200
++++ gcc-4.2.1/gcc/config/arm/linux-gas.h	2007-08-27 17:09:11.000000000 +0200
 @@ -44,6 +44,7 @@
  
  /* Clear the instruction cache from `beg' to `end'.  This makes an

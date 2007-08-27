@@ -5,12 +5,12 @@
  libstdc++-v3/src/Makefile.in |   10 +++++++++-
  2 files changed, 15 insertions(+), 1 deletion(-)
 
-Index: gcc-4.1.2/libstdc++-v3/src/Makefile.am
+Index: gcc-4.2.1/libstdc++-v3/src/Makefile.am
 ===================================================================
---- gcc-4.1.2.orig/libstdc++-v3/src/Makefile.am
-+++ gcc-4.1.2/libstdc++-v3/src/Makefile.am
-@@ -234,6 +234,12 @@ CXXLINK = $(LIBTOOL) --tag CXX --mode=li
- 	  $(OPT_LDFLAGS) $(SECTION_LDFLAGS) $(AM_CXXFLAGS) $(LDFLAGS) -o $@
+--- gcc-4.2.1.orig/libstdc++-v3/src/Makefile.am	2006-07-28 06:57:34.000000000 +0200
++++ gcc-4.2.1/libstdc++-v3/src/Makefile.am	2007-08-27 17:40:09.000000000 +0200
+@@ -257,6 +257,12 @@
+ 	  $(OPT_LDFLAGS) $(SECTION_LDFLAGS) $(AM_CXXFLAGS) $(LTLDFLAGS) -o $@
  
  
 +install-exec-local:
@@ -22,11 +22,11 @@ Index: gcc-4.1.2/libstdc++-v3/src/Makefile.am
  # Added bits to build debug library.
  if GLIBCXX_BUILD_DEBUG
  all-local: build_debug
-Index: gcc-4.1.2/libstdc++-v3/src/Makefile.in
+Index: gcc-4.2.1/libstdc++-v3/src/Makefile.in
 ===================================================================
---- gcc-4.1.2.orig/libstdc++-v3/src/Makefile.in
-+++ gcc-4.1.2/libstdc++-v3/src/Makefile.in
-@@ -627,7 +627,7 @@ info-am:
+--- gcc-4.2.1.orig/libstdc++-v3/src/Makefile.in	2006-10-16 21:08:22.000000000 +0200
++++ gcc-4.2.1/libstdc++-v3/src/Makefile.in	2007-08-27 17:40:09.000000000 +0200
+@@ -657,7 +657,7 @@
  
  install-data-am: install-data-local
  
@@ -35,7 +35,7 @@ Index: gcc-4.1.2/libstdc++-v3/src/Makefile.in
  
  install-info: install-info-am
  
-@@ -660,6 +660,7 @@ uninstall-am: uninstall-info-am uninstal
+@@ -690,6 +690,7 @@
  	distclean-libtool distclean-tags distdir dvi dvi-am html \
  	html-am info info-am install install-am install-data \
  	install-data-am install-data-local install-exec \
@@ -43,7 +43,7 @@ Index: gcc-4.1.2/libstdc++-v3/src/Makefile.in
  	install-exec-am install-info install-info-am install-man \
  	install-strip install-toolexeclibLTLIBRARIES installcheck \
  	installcheck-am installdirs maintainer-clean \
-@@ -760,6 +761,13 @@ build_debug: stamp-debug
+@@ -799,6 +800,13 @@
  install_debug:
  	(cd ${debugdir} && $(MAKE) \
  	toolexeclibdir=$(glibcxx_toolexeclibdir)/debug install)

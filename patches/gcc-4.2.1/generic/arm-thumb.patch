@@ -17,11 +17,11 @@
 # gcc/config/arm/t-linux       |    1 +
 # 2 files changed, 18 insertions(+), 1 deletion(-)
 #
-Index: gcc-4.1.2/gcc/config/arm/lib1funcs.asm
+Index: gcc-4.2.1/gcc/config/arm/lib1funcs.asm
 ===================================================================
---- gcc-4.1.2.orig/gcc/config/arm/lib1funcs.asm
-+++ gcc-4.1.2/gcc/config/arm/lib1funcs.asm
-@@ -995,10 +995,24 @@ LSYM(Lover12):
+--- gcc-4.2.1.orig/gcc/config/arm/lib1funcs.asm	2006-01-18 21:39:17.000000000 +0100
++++ gcc-4.2.1/gcc/config/arm/lib1funcs.asm	2007-08-27 17:08:15.000000000 +0200
+@@ -995,10 +995,24 @@
  	.code	32
  	FUNC_START div0
  
@@ -46,7 +46,7 @@ Index: gcc-4.1.2/gcc/config/arm/lib1funcs.asm
  
  	FUNC_END div0
  	
-@@ -1141,11 +1155,12 @@ LSYM(Lover12):
+@@ -1146,11 +1160,12 @@
     code here switches to the correct mode before executing the function.  */
  	
  	.text
@@ -60,7 +60,7 @@ Index: gcc-4.1.2/gcc/config/arm/lib1funcs.asm
  
  	bx	\register
  	nop
-@@ -1242,6 +1257,7 @@ _arm_return_r11:
+@@ -1247,6 +1262,7 @@
  	.code	16
  
  	THUMB_FUNC_START _interwork_call_via_\register
@@ -68,11 +68,11 @@ Index: gcc-4.1.2/gcc/config/arm/lib1funcs.asm
  
  	bx	pc
  	nop
-Index: gcc-4.1.2/gcc/config/arm/t-linux
+Index: gcc-4.2.1/gcc/config/arm/t-linux
 ===================================================================
---- gcc-4.1.2.orig/gcc/config/arm/t-linux
-+++ gcc-4.1.2/gcc/config/arm/t-linux
-@@ -7,6 +7,7 @@ LIB1ASMSRC = arm/lib1funcs.asm
+--- gcc-4.2.1.orig/gcc/config/arm/t-linux	2007-08-27 17:07:12.000000000 +0200
++++ gcc-4.2.1/gcc/config/arm/t-linux	2007-08-27 17:08:15.000000000 +0200
+@@ -7,6 +7,7 @@
  LIB1ASMFUNCS = _udivsi3 _divsi3 _umodsi3 _modsi3 _dvmd_lnx \
  	_negdf2 _addsubdf3 _muldivdf3 _cmpdf2 _unorddf2 _fixdfsi _fixunsdfsi \
  	_truncdfsf2 _negsf2 _addsubsf3 _muldivsf3 _cmpsf2 _unordsf2 \
