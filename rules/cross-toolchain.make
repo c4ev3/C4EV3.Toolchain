@@ -70,7 +70,12 @@ $(STATEDIR)/cross-toolchain.install:
 	@$(call targetinfo, $@)
 	rm -f ${PTXCONF_PREFIX}/bin/ptxconfig
 	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX}/bin/ptxconfig
-	@$(call touch, $@)
+
+	# carsten.schlote: Setup a symbolic link to installation dir
+	# FIXME: find better place for this link?
+	-rm state/toolchain-install-dir
+	ln -s ${PTXCONF_PREFIX} state/toolchain-install-dir       
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
