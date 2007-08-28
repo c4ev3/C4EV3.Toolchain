@@ -2,6 +2,9 @@
 # This is some wrapper to call the makefile fragment, which builds all toolchains
 # - might be a good place for common preparations and final postprocessing
 
+# -- Update current SVN workcopy
+svn update
+
 # -- Start make, which check dependencies on the ptxconfig files stored in gstate
 # -- For each updated ptxconfig the toolchain is recompiled
 # -- Finaly a status file suitable for parsing is generated and stored in
@@ -11,7 +14,7 @@ nice -n 5 make -f build_all.mk
 
 # -- Dump status file
 echo -n "\n\n"
-cat gstate/OSELAS-BuildAll-Status.txt 
+cat gstate/OSELAS-BuildAll-Status.txt
 
 # -- ToDos:
 
@@ -23,3 +26,4 @@ cat gstate/OSELAS-BuildAll-Status.txt
 #       sudo password only once, when this script started the first time.
 # [ ] Remove link to installation directory from cross-toolchain.make?
 #       We need some way to determine the installation path from outside ptxdist...
+
