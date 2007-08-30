@@ -2,6 +2,10 @@
 # This is some wrapper to call the makefile fragment, which builds all toolchains
 # - might be a good place for common preparations and final postprocessing
 
+# Add some similiar line to your crontab (e.g. crontab -e)
+# 0,5,10,15,20,25,30,35,40,45,50,55 *    * * * [ -f /home/csc/src/OSELAS.Toolchain-trunk/build_all.sh ] && \
+#    ( cd /home/csc/src/OSELAS.Toolchain-trunk/ && ISCRON=yes bash build_all.sh )
+
 BUILDLOG=build_all_logs/build_all.log-`date +%y%m%d-%H%M`
 #set -x
 if test -z ${ISCRON}; then set -x; 
