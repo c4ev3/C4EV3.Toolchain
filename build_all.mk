@@ -44,15 +44,16 @@ $(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkd
 
 	echo -n "Build" > $(GSTATE_DIR)/$(1)$(STATTAG)
 	echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG)
+	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
+	echo -n "$(BLDDATE)" > $$@
+	
 	$(call UpdateStatusPage)
 
-	echo "ptxdist go" ; \
+	@echo "ptxdist go" ; \
 	if ptxdist go; then \
 	  echo -n "Success" > $(GSTATE_DIR)/$(1)$(STATTAG); \
-	  echo -n "$(BLDDATE)" > $$@; \
 	else \
 	  echo -n "Failed" > $(GSTATE_DIR)/$(1)$(STATTAG); \
-	  touch $$@; \
 	  echo -e "\n!!! BUILD FAILED !!!\n\n"; \
 	fi
 
@@ -83,7 +84,7 @@ define UpdateStatusPage
 	@if test -e build_all.lock; then echo -e "# -- Build script active --"; fi >> $(STATUSPAGE).tmp
 	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(STATUSPAGE).tmp
 	@for i in $(PTXCONFIGS); do \
-	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "n.a."; fi; \
+	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "000000-0000"; fi; \
 	   echo -en "\t"; \
 	   if test -e $(GSTATE_DIR)/$$i$(REVTAG); then cat $(GSTATE_DIR)/$$i$(REVTAG); else echo -n "n.a."; fi; \
 	   echo -en "\t"; \
@@ -112,6 +113,7 @@ mkdistdir :
 
 $(GSTATE_DIR)/laststatus : $(GSTATE_TAGS)
 	@echo "Toolchain Status Changed - Status Page updated"
+	$(call UpdateStatusPage)
 	@touch $@
 
 updatestatpage: $(GSTATE_DIR)/laststatus

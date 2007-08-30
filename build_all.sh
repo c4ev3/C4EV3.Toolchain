@@ -36,9 +36,8 @@ if test ! -e build_all.lock; then
 
 	# -- Dump status file info
 	#echo -e "\n\nStatus stored in gstate/OSELAS-BuildAll-Status.txt"
-	rm -f build_all.lock
 	make -f build_all.mk updatestatpage_forced
-	
+	rm -f build_all.lock
 else
 	#Don't output things - causes mail flooding with cron
 	#echo "Build script still active ? (Remove lock build_all.lock otherwise)"
@@ -46,6 +45,8 @@ else
 fi
 
 # -- ToDo ---------------------------------------------------------------------
+# [ ] Fix creation of new install dirs - create a script to setup them all at once
+#     (sudo hack for mkdir and NOPASSWD: ?)
 # [ ] Checkout a new working copy of trunk for each chain, and do building in parallel
 # [ ] Create a nice HTML output for the status showing the actual status of each chain
 # [ ] Add checks to ensure consitency of ptxconfig files and install locations -
