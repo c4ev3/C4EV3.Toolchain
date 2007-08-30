@@ -5,9 +5,9 @@
 # -- start this fragment with 'make -f build_all.mk' or the supplied wrapper script!
 
 # -- Defines and Lists --------------------------------------------------------
-BLDDATE = $(shell date)
+BLDDATE = $(shell date +%y%m%d-%H%M)
 BLDDATETAG = blddate
-SVNREV := ($(strip $(shell svnversion)))
+SVNREV := $(strip $(shell svnversion))
 
 PTXCONFIGS_DIR = ptxconfigs
 PTXCONFIGS = $(basename $(notdir $(wildcard $(PTXCONFIGS_DIR)/*.ptxconfig)))
@@ -41,16 +41,16 @@ $(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkd
 
 	ptxdist select $$<
 
-	echo -n "*** Building ***" > $(GSTATE_DIR)/$(1)$(STATTAG)
+	echo -n "Build" > $(GSTATE_DIR)/$(1)$(STATTAG)
 	$(call UpdateStatusPage)
 
 	echo "ptxdist go" ; \
 	if ptxdist go; then \
 	  echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG); \
-	  echo -n "Build successful." > $(GSTATE_DIR)/$(1)$(STATTAG); \
+	  echo -n "Success" > $(GSTATE_DIR)/$(1)$(STATTAG); \
 	  echo -n "$(BLDDATE)" > $$@; \
 	else \
-	  echo -n "Build failed" > $(GSTATE_DIR)/$(1)$(STATTAG); \
+	  echo -n "Failed" > $(GSTATE_DIR)/$(1)$(STATTAG); \
 	  touch $$@; \
 	  echo -e "\n!!! BUILD FAILED !!!\n\n"; \
 	fi
@@ -80,15 +80,15 @@ define UpdateStatusPage
 	@echo -e "# Script started `cat $(GSTATE_DIR)/$(BLDDATETAG)` on SVN $(SVNREV)" >> $(STATUSPAGE).tmp
 	@echo -e "# Status page updated : `date`" >> $(STATUSPAGE).tmp
 	@if test -e build_all.lock; then echo -e "# -- Build script active --"; fi >> $(STATUSPAGE).tmp
-	@echo -e "# <toolchain>:<last build date>:<svn revision>:<build status>" >> $(STATUSPAGE).tmp
+	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(STATUSPAGE).tmp
 	@for i in $(PTXCONFIGS); do \
-	   echo -n "$$i/"; \
-	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "Unknown"; fi; \
-	   echo -n "/"; \
-	   if test -e $(GSTATE_DIR)/$$i$(REVTAG); then cat $(GSTATE_DIR)/$$i$(REVTAG); else echo -n "Unknown"; fi; \
-	   echo -n "/"; \
-	   if test -e $(GSTATE_DIR)/$$i$(STATTAG); then cat $(GSTATE_DIR)/$$i$(STATTAG); else echo -n "Unknown"; fi; \
-	   echo "/"; \
+	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "n.a."; fi; \
+	   echo -en "\t"; \
+	   if test -e $(GSTATE_DIR)/$$i$(REVTAG); then cat $(GSTATE_DIR)/$$i$(REVTAG); else echo -n "n.a."; fi; \
+	   echo -en "\t"; \
+	   if test -e $(GSTATE_DIR)/$$i$(STATTAG); then cat $(GSTATE_DIR)/$$i$(STATTAG); else echo -n "n.a."; fi; \
+	   echo -en "\t"; \
+	   echo "$$i"; \
 	done >> $(STATUSPAGE).tmp
 	@mv $(STATUSPAGE).tmp $(STATUSPAGE)
 endef
@@ -109,8 +109,12 @@ mkgstatedir :
 mkdistdir :
 	@mkdir -p $(DIST_DIR)
 
-updatestatpage:
+$(GSTATE_DIR)/laststatus : $(GSTATE_TAGS)
 	$(call UpdateStatusPage)
+	@echo "Toolchain Status Changed - Status Page updated"
+	@touch $@
+
+updatestatpage: $(GSTATE_DIR)/laststatus
 
 mkblddatetag:
 	echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)

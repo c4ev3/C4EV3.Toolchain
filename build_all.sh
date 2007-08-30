@@ -4,7 +4,12 @@
 
 BUILDLOG=build_all_logs/build_all.log-`date +%y%m%d-%H%M`
 #set -x
-if test -z ${ISCRON}; then set -x; fi
+if test -z ${ISCRON}; then set -x; 
+else 
+	# If ISCRON is not zero, setup some paths for ptxdist and other tools
+	export PATH=/usr/bin:/usr/sbin/:/usr/local/bin:/usr/local/sbin:$PATH
+	echo $PATH; 
+fi
 
 if test ! -e build_all.lock; then
 	touch build_all.lock
@@ -26,8 +31,9 @@ if test ! -e build_all.lock; then
 	if test -z "`cat $BUILDLOG`"; then rm $BUILDLOG; fi
 
 	# -- Dump status file info
-	echo -e "\n\nStatus stored in gstate/OSELAS-BuildAll-Status.txt"
+	#echo -e "\n\nStatus stored in gstate/OSELAS-BuildAll-Status.txt"
 	rm -f build_all.lock
+	make -f build_all.mk updatestatpage
 	
 else
 	#Don't output things - causes mail flooding with cron
