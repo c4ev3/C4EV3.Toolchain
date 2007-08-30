@@ -19,7 +19,7 @@ if test ! -e build_all.lock; then
 	touch build_all.lock
 	
 	# -- Update current SVN workcopy
-	svn update > /dev/null
+	svn update -q
 
 	# -- Start make, which check dependencies on the ptxconfig files stored in gstate
 	# -- For each updated ptxconfig the toolchain is recompiled
