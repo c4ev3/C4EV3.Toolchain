@@ -95,7 +95,7 @@ endef
 
 # -- Targets ------------------------------------------------------------------
 
-.PHONY : all mkgstatedir mkdistdir updatestatpage mkblddatetag clean distclean
+.PHONY : all mkgstatedir mkdistdir updatestatpage updatestatpage_forced mkblddatetag clean distclean
 
 all : mkblddatetag $(GSTATE_TAGS)
 	$(call UpdateStatusPage)
@@ -110,11 +110,13 @@ mkdistdir :
 	@mkdir -p $(DIST_DIR)
 
 $(GSTATE_DIR)/laststatus : $(GSTATE_TAGS)
-	$(call UpdateStatusPage)
 	@echo "Toolchain Status Changed - Status Page updated"
 	@touch $@
 
 updatestatpage: $(GSTATE_DIR)/laststatus
+
+updatestatpage_forced:
+	$(call UpdateStatusPage)
 
 mkblddatetag:
 	echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)

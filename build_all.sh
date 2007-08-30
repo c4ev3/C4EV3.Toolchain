@@ -8,14 +8,14 @@ if test -z ${ISCRON}; then set -x;
 else 
 	# If ISCRON is not zero, setup some paths for ptxdist and other tools
 	export PATH=/usr/bin:/usr/sbin/:/usr/local/bin:/usr/local/sbin:$PATH
-	echo $PATH; 
+	#echo $PATH;
 fi
 
 if test ! -e build_all.lock; then
 	touch build_all.lock
 	
 	# -- Update current SVN workcopy
-	svn update
+	svn update > /dev/null
 
 	# -- Start make, which check dependencies on the ptxconfig files stored in gstate
 	# -- For each updated ptxconfig the toolchain is recompiled
@@ -28,12 +28,12 @@ if test ! -e build_all.lock; then
 	else
 		nice -n 5 make -f build_all.mk 
 	fi
-	if test -z "`cat $BUILDLOG`"; then rm $BUILDLOG; fi
+	if test -e $BUILDLOG; then if test -z "`cat $BUILDLOG`"; then rm $BUILDLOG; fi; fi
 
 	# -- Dump status file info
 	#echo -e "\n\nStatus stored in gstate/OSELAS-BuildAll-Status.txt"
 	rm -f build_all.lock
-	make -f build_all.mk updatestatpage
+	make -f build_all.mk updatestatpage_forced
 	
 else
 	#Don't output things - causes mail flooding with cron
