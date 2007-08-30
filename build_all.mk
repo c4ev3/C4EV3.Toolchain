@@ -6,6 +6,7 @@
 
 # -- Defines and Lists --------------------------------------------------------
 BLDDATE = $(shell date)
+BLDDATETAG = blddate
 SVNREV := ($(strip $(shell svnversion)))
 
 PTXCONFIGS_DIR = ptxconfigs
@@ -35,9 +36,15 @@ define CompileChain
 
 $(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkdistdir
 	$(call ShowHeader, Rebuild toolchain $(1))
+
 	ptxdist distclean
+
 	ptxdist select $$<
-	@echo "ptxdist go" ; \
+
+	echo -n "*** Building ***" > $(GSTATE_DIR)/$(1)$(STATTAG)
+	$(call UpdateStatusPage)
+
+	echo "ptxdist go" ; \
 	if ptxdist go; then \
 	  echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG); \
 	  echo -n "Build successful." > $(GSTATE_DIR)/$(1)$(STATTAG); \
@@ -58,9 +65,10 @@ $(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkd
 	else \
 	  echo "No symbolic link to install dir found - no archive created."; \
 	fi
+	$(call UpdateStatusPage)
 
 $(DIST_DIR)/$(1)$(DISTTAG) : $(GSTATE_DIR)/$(1)$(BLDTAG)
-	@echo "BROKEN - needs some way to derive install location from ptxconfig"
+	@echo "BROKEN FIXME - needs some way to derive install location from ptxconfig"
 
 build_$(1) : $(GSTATE_DIR)/$(1)$(BLDTAG)
 	$(call UpdateStatusPage)
@@ -68,26 +76,28 @@ build_$(1) : $(GSTATE_DIR)/$(1)$(BLDTAG)
 endef
 
 define UpdateStatusPage
-	@echo -e "# OSELAS Toolchain Build All Status" > $(STATUSPAGE)
-	@echo -e "# $(BLDDATE) / $(SVNREV)" >> $(STATUSPAGE)
-	@echo -e "# <toolchain>:<last build date>:<svn revision>:<build status>" >> $(STATUSPAGE)
+	@echo -e "# OSELAS Toolchain Build All Status" > $(STATUSPAGE).tmp
+	@echo -e "# Script started `cat $(GSTATE_DIR)/$(BLDDATETAG)` on SVN $(SVNREV)" >> $(STATUSPAGE).tmp
+	@echo -e "# Status page updated : `date`" >> $(STATUSPAGE).tmp
+	@if test -e build_all.lock; then echo -e "# -- Build script active --"; fi >> $(STATUSPAGE).tmp
+	@echo -e "# <toolchain>:<last build date>:<svn revision>:<build status>" >> $(STATUSPAGE).tmp
 	@for i in $(PTXCONFIGS); do \
-	   echo -n "$$i:"; \
+	   echo -n "$$i/"; \
 	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "Unknown"; fi; \
-	   echo -n ":"; \
+	   echo -n "/"; \
 	   if test -e $(GSTATE_DIR)/$$i$(REVTAG); then cat $(GSTATE_DIR)/$$i$(REVTAG); else echo -n "Unknown"; fi; \
-	   echo -n ":"; \
+	   echo -n "/"; \
 	   if test -e $(GSTATE_DIR)/$$i$(STATTAG); then cat $(GSTATE_DIR)/$$i$(STATTAG); else echo -n "Unknown"; fi; \
-	   echo ":"; \
-	done >> $(STATUSPAGE)
-	@echo -e "# \$$Id\$$" >> $(STATUSPAGE)
+	   echo "/"; \
+	done >> $(STATUSPAGE).tmp
+	@mv $(STATUSPAGE).tmp $(STATUSPAGE)
 endef
 
 # -- Targets ------------------------------------------------------------------
 
-.PHONY : all mkgstatedir mkdistdir updatestatpage clean distclean
+.PHONY : all mkgstatedir mkdistdir updatestatpage mkblddatetag clean distclean
 
-all : $(GSTATE_TAGS)
+all : mkblddatetag $(GSTATE_TAGS)
 	$(call UpdateStatusPage)
 
 dist :  $(DISTS)
@@ -101,6 +111,9 @@ mkdistdir :
 
 updatestatpage:
 	$(call UpdateStatusPage)
+
+mkblddatetag:
+	echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)
 
 clean :
 	-rm -rf $(GSTATE_DIR)
