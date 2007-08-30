@@ -11,6 +11,7 @@ SVNREV := $(strip $(shell svnversion))
 
 PTXCONFIGS_DIR = ptxconfigs
 PTXCONFIGS = $(basename $(notdir $(wildcard $(PTXCONFIGS_DIR)/*.ptxconfig)))
+PTXCONFIG_TAGS := $(wildcard $(PTXCONFIGS_DIR)/*.ptxconfig)
 
 GSTATE_DIR = gstate
 BLDTAG = .buildtag
@@ -42,11 +43,11 @@ $(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkd
 	ptxdist select $$<
 
 	echo -n "Build" > $(GSTATE_DIR)/$(1)$(STATTAG)
+	echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG)
 	$(call UpdateStatusPage)
 
 	echo "ptxdist go" ; \
 	if ptxdist go; then \
-	  echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG); \
 	  echo -n "Success" > $(GSTATE_DIR)/$(1)$(STATTAG); \
 	  echo -n "$(BLDDATE)" > $$@; \
 	else \
@@ -118,8 +119,10 @@ updatestatpage: $(GSTATE_DIR)/laststatus
 updatestatpage_forced:
 	$(call UpdateStatusPage)
 
-mkblddatetag:
-	echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)
+$(GSTATE_DIR)/$(BLDDATETAG) : $(PTXCONFIG_TAGS)
+	@echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)
+
+mkblddatetag: $(GSTATE_DIR)/$(BLDDATETAG)
 
 clean :
 	-rm -rf $(GSTATE_DIR)

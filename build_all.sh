@@ -8,7 +8,7 @@
 
 BUILDLOG=build_all_logs/build_all.log-`date +%y%m%d-%H%M`
 #set -x
-if test -z ${ISCRON}; then set -x; 
+if test -z "${ISCRON}"; then set -x; 
 else 
 	# If ISCRON is not zero, setup some paths for ptxdist and other tools
 	export PATH=/usr/bin:/usr/sbin/:/usr/local/bin:/usr/local/sbin:$PATH
@@ -27,7 +27,7 @@ if test ! -e build_all.lock; then
 	# --   gstate/OSELAS-BuildAll-Status.txt
 	# -- The make process is started with via nice to avoid cpu-load on compile host
 	mkdir -p build_all_logs
-	if test ${ISCRON}; then
+	if test -n "${ISCRON}"; then
 		nice -n 5 make -f build_all.mk > $BUILDLOG
 	else
 		nice -n 5 make -f build_all.mk 
