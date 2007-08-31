@@ -59,8 +59,6 @@ define SetupInstallDirs
 	    echo "Creating install dir : $$i"; \
 	    sudo mkdir -p $$i; \
 	    sudo chown $(USER) $$i; \
-	  else \
-	    echo "Skipping install dir : $$i"; \
 	  fi; \
 	done
 endef
@@ -77,11 +75,11 @@ define RemoveInstallDirs
 endef
 
 define BuildChain
-	$(call PrintHeaderMsg, Rebuild toolchain $(1))
+	$(call PrintHeaderMsg, Rebuild toolchain $(1) )
 	ptxdist distclean  
 	ptxdist select $$<
 
-	@instdir=$(shell . ptxconfig && echo $${PTXCONF_PREFIX}); \
+	@instdir=. ptxconfig && echo $${PTXCONF_PREFIX}; \
 	if [ -d $$instdir ]; then \
 	   echo "Removing existing toolchain files in $$instdir"; echo rm -rf "$$instdir/*"; \
 	fi;
@@ -93,7 +91,9 @@ define BuildChain
 	echo -n "$(subversionrev)" > $(gstatedir)/$(1)$(suffix_buildrevision)
 	$(call UpdateStatusPage)
 
-	@(echo "ptxdist go" ; if ptxdist go; then echo -n "Success"; else echo -n "Failed"; fi) > $(gstatedir)/$(1)$(suffix_buildstatus)
+	@echo "ptxdist go" ; \
+	if ptxdist go; then echo -n "Success" > $(gstatedir)/$(1)$(suffix_buildstatus); \
+	else echo -n "Failed" > $(gstatedir)/$(1)$(suffix_buildstatus); fi
 
 	$(call PrintHeaderMsg, Saving logs for toolchain $(1))
 	@if test -e logfile; then cp -v logfile $(distdir)/$(1)-logfile; else echo "No logfile?";  fi
@@ -155,7 +155,7 @@ distclean : clean
 
 define BuildChainRules
 $(gstatedir)/$(1).buildtag : $(configdir)/$(1).ptxconfig | mkgstatedir mkdistdir
-	$(call BuildChain) 
+	$(call BuildChain,$(1)) 
 
 $(distdir)/$(1)$(suffix_distarc) : $(gstatedir)/$(1).buildtag
 	@echo "BROKEN FIXME - needs some way to derive install location from ptxconfig"
