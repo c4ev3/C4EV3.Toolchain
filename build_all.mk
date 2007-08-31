@@ -78,10 +78,9 @@ build_$(1) : $(GSTATE_DIR)/$(1)$(BLDTAG)
 endef
 
 define UpdateStatusPage
-	@echo -e "# OSELAS Toolchain Build All Status" > $(STATUSPAGE).tmp
+	@echo -e "# OSELAS Toolchain Build All Status " > $(STATUSPAGE).tmp
 	@echo -e "# Script started `cat $(GSTATE_DIR)/$(BLDDATETAG)` on SVN $(SVNREV)" >> $(STATUSPAGE).tmp
 	@echo -e "# Status page updated : `date`" >> $(STATUSPAGE).tmp
-	@if test -e build_all.lock; then echo -e "# -- Build script active --"; fi >> $(STATUSPAGE).tmp
 	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(STATUSPAGE).tmp
 	@for i in $(PTXCONFIGS); do \
 	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "000000-0000"; fi; \
