@@ -5,133 +5,129 @@
 # -- start this fragment with 'make -f build_all.mk' or the supplied wrapper script!
 
 # -- Defines and Lists --------------------------------------------------------
-BLDDATE = $(shell date +%y%m%d-%H%M)
-BLDDATETAG = blddate
-SVNREV := $(strip $(shell svnversion))
 
-PTXCONFIGS_DIR = ptxconfigs
-PTXCONFIGS = $(basename $(notdir $(wildcard $(PTXCONFIGS_DIR)/*.ptxconfig)))
-PTXCONFIG_TAGS := $(wildcard $(PTXCONFIGS_DIR)/*.ptxconfig)
+builddate = $(shell date +%y%m%d-%H%M)
+subversionrev = $(strip $(shell svnversion))
 
-GSTATE_DIR = gstate
-BLDTAG = .buildtag
-STATTAG = .status
-REVTAG = .svnrev
-GSTATE_TAGS := $(addprefix $(GSTATE_DIR)/,$(addsuffix $(BLDTAG),$(PTXCONFIGS)))
+configdir = ptxconfigs
+configfiles = $(wildcard $(configdir)/*.ptxconfig)
+configs = $(basename $(notdir $(wildcard $(configdir)/*.ptxconfig)))
 
-DIST_DIR = dists
-DISTTAG = .tar.bz2
-DISTS := $(addprefix $(DIST_DIR)/,$(addsuffix $(DISTTAG),$(PTXCONFIGS)))
+gstatedir = gstate
+suffix_buildtime = .buildtag
+suffix_buildstatus = .status
+suffix_buildrevision = .svnrev
+gstatefiles = $(addprefix $(gstatedir)/,$(addsuffix $(suffix_buildtime),$(configs)))
 
-STATUSPAGE = $(GSTATE_DIR)/OSELAS-BuildAll-Status.txt
+distdir = dists
+suffix_distarc = .tar.bz2
+distfiles = $(addprefix $(distdir)/,$(addsuffix $(suffix_distarc),$(configs)))
+
+statuspagefile = $(gstatedir)/OSELAS-BuildAll-Status.txt
 
 # -- Macros -------------------------------------------------------------------
 
-define ShowHeader
+define PrintHeaderMsg
 	@echo -en "\n\n---------------------------------------------------------------------\n"
 	@echo -en "-- $(1)"
 	@echo -en "\n---------------------------------------------------------------------\n\n"
 endef
 
-define CompileChain
+define UpdateStatusPage
+	@echo -e "# OSELAS Toolchain Build All Status " > $(statuspagefile).tmp
+	@echo -e "# Script started $(cat $(gstatedir)/lastbuilddate) on SVN $(subversionrev)" >> $(statuspagefile).tmp
+	@echo -e "# Status page updated : `date`" >> $(statuspagefile).tmp
+	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(statuspagefile).tmp
+	@for i in $(configs); do \
+	   if test -e $(gstatedir)/$$i$(suffix_buildtime); then cat $(gstatedir)/$$i$(suffix_buildtime); else echo -n "000000-0000"; fi; \
+	   echo -en "\t"; \
+	   if test -e $(gstatedir)/$$i$(suffix_buildrevision); then cat $(gstatedir)/$$i$(suffix_buildrevision); else echo -n "n.a."; fi; \
+	   echo -en "\t"; \
+	   if test -e $(gstatedir)/$$i$(suffix_buildstatus); then cat $(gstatedir)/$$i$(suffix_buildstatus); else echo -n "n.a."; fi; \
+	   echo -en "\t"; \
+	   echo "$$i"; \
+	done >> $(statuspagefile).tmp
+	@mv $(statuspagefile).tmp $(statuspagefile)
+endef
 
-$(GSTATE_DIR)/$(1)$(BLDTAG) : $(PTXCONFIGS_DIR)/$(1).ptxconfig | mkgstatedir mkdistdir
-	$(call ShowHeader, Rebuild toolchain $(1))
-
+define BuildChain
+	$(call PrintHeaderMsg, Rebuild toolchain $(1))
 	ptxdist distclean
-
 	ptxdist select $$<
 
-	echo -n "Build" > $(GSTATE_DIR)/$(1)$(STATTAG)
-	echo -n "$(SVNREV)" > $(GSTATE_DIR)/$(1)$(REVTAG)
 	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
-	echo -n "$(BLDDATE)" > $$@
-	
+	# -- Update status output
+	echo -n "$(builddate)" > $$@
+	echo -n "Build" > $(gstatedir)/$(1)$(suffix_buildstatus)
+	echo -n "$(subversionrev)" > $(gstatedir)/$(1)$(suffix_buildrevision)
 	$(call UpdateStatusPage)
 
-	@echo "ptxdist go" ; \
-	if ptxdist go; then \
-	  echo -n "Success" > $(GSTATE_DIR)/$(1)$(STATTAG); \
-	else \
-	  echo -n "Failed" > $(GSTATE_DIR)/$(1)$(STATTAG); \
-	  echo -e "\n!!! BUILD FAILED !!!\n\n"; \
-	fi
+	@(echo "ptxdist go" ; if ptxdist go; then echo -n "Success"; else echo -n "Failed"; fi) > $(gstatedir)/$(1)$(suffix_buildstatus)
 
-	$(call ShowHeader, Saving logs for toolchain $(1))
-	@if test -e logfile; then cp -v logfile $(DIST_DIR)/$(1)-logfile; else echo "No logfile?";  fi
-	@if test -e deptree.ps; then cp -v deptree.ps $(DIST_DIR)/$(1)-depends.ps; else echo "No deptree.ps?";  fi
+	$(call PrintHeaderMsg, Saving logs for toolchain $(1))
+	@if test -e logfile; then cp -v logfile $(distdir)/$(1)-logfile; else echo "No logfile?";  fi
+	@if test -e deptree.ps; then cp -v deptree.ps $(distdir)/$(1)-deptree.ps; else echo "No deptree.ps?";  fi
 
-	$(call ShowHeader, Create archive for toolchain $(1))
+	$(call PrintHeaderMsg, Create archive for toolchain $(1))
 	@if test -L state/toolchain-install-dir; then \
-	  echo tar cjf $(DIST_DIR)/$(1).tar.bz2 -C `readlink state/toolchain-install-dir`; \
+	  echo tar cjf $(distdir)/$(1).tar.bz2 -C `readlink state/toolchain-install-dir`; \
 	else \
 	  echo "No symbolic link to install dir found - no archive created."; \
 	fi
+
 	$(call UpdateStatusPage)
-
-$(DIST_DIR)/$(1)$(DISTTAG) : $(GSTATE_DIR)/$(1)$(BLDTAG)
-	@echo "BROKEN FIXME - needs some way to derive install location from ptxconfig"
-
-build_$(1) : $(GSTATE_DIR)/$(1)$(BLDTAG)
-	$(call UpdateStatusPage)
-
 endef
 
-define UpdateStatusPage
-	@echo -e "# OSELAS Toolchain Build All Status " > $(STATUSPAGE).tmp
-	@echo -e "# Script started `cat $(GSTATE_DIR)/$(BLDDATETAG)` on SVN $(SVNREV)" >> $(STATUSPAGE).tmp
-	@echo -e "# Status page updated : `date`" >> $(STATUSPAGE).tmp
-	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(STATUSPAGE).tmp
-	@for i in $(PTXCONFIGS); do \
-	   if test -e $(GSTATE_DIR)/$$i$(BLDTAG); then cat $(GSTATE_DIR)/$$i$(BLDTAG); else echo -n "000000-0000"; fi; \
-	   echo -en "\t"; \
-	   if test -e $(GSTATE_DIR)/$$i$(REVTAG); then cat $(GSTATE_DIR)/$$i$(REVTAG); else echo -n "n.a."; fi; \
-	   echo -en "\t"; \
-	   if test -e $(GSTATE_DIR)/$$i$(STATTAG); then cat $(GSTATE_DIR)/$$i$(STATTAG); else echo -n "n.a."; fi; \
-	   echo -en "\t"; \
-	   echo "$$i"; \
-	done >> $(STATUSPAGE).tmp
-	@mv $(STATUSPAGE).tmp $(STATUSPAGE)
-endef
 
 # -- Targets ------------------------------------------------------------------
 
 .PHONY : all mkgstatedir mkdistdir updatestatpage updatestatpage_forced mkblddatetag clean distclean
 
-all : mkblddatetag $(GSTATE_TAGS)
-	$(call UpdateStatusPage)
+all : mkblddatetag $(gstatefiles) updatestatpage
 
-dist :  $(DISTS)
-	$(call UpdateStatusPage)
+dist :  $(distfiles)
 
 mkgstatedir :
-	@mkdir -p $(GSTATE_DIR)
+	@mkdir -p $(gstatedir)
 
 mkdistdir :
-	@mkdir -p $(DIST_DIR)
+	@mkdir -p $(distdir)
 
-$(GSTATE_DIR)/laststatus : $(GSTATE_TAGS)
+$(gstatedir)/laststatus : $(gstatefiles)
 	@echo "Toolchain Status Changed - Status Page updated"
 	$(call UpdateStatusPage)
 	@touch $@
 
-updatestatpage: $(GSTATE_DIR)/laststatus
+updatestatpage: $(gstatedir)/laststatus
 
 updatestatpage_forced:
 	$(call UpdateStatusPage)
 
-$(GSTATE_DIR)/$(BLDDATETAG) : $(PTXCONFIG_TAGS)
-	@echo -n "$(BLDDATE)" > $(GSTATE_DIR)/$(BLDDATETAG)
+$(gstatedir)/lastbuilddate : $(configfiles)
+	@echo -n "$(builddate)" > $(gstatedir)/lastbuilddate
 
-mkblddatetag: $(GSTATE_DIR)/$(BLDDATETAG)
+mkblddatetag: $(gstatedir)/lastbuilddate
 
 clean :
-	-rm -rf $(GSTATE_DIR)
+	-rm -rf $(gstatedir)
 
 distclean : clean
-	-rm -rf $(DIST_DIR)
+	-rm -rf $(distdir)
 
 # -- Rules --------------------------------------------------------------------
 
-$(foreach CFG,$(PTXCONFIGS),$(eval $(call CompileChain,$(CFG))))
+define BuildChainRules
+$(gstatedir)/$(1).buildtag : $(configdir)/$(1).ptxconfig | mkgstatedir mkdistdir
+	$(call BuildChain) 
+
+$(distdir)/$(1)$(suffix_distarc) : $(gstatedir)/$(1).buildtag
+	@echo "BROKEN FIXME - needs some way to derive install location from ptxconfig"
+
+build_$(1) : $(gstatedir)/$(1).buildtag updatestatpage
+
+endef
+
+$(foreach CFG,$(configs),$(eval $(call CompileChain,$(CFG))))
+
+
 
