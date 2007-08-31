@@ -3,11 +3,18 @@ Adds support for arm*b-linux* big-endian ARM targets
 
 See http://gcc.gnu.org/PR16350
 
-Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
+---
+ gcc/config.gcc              |    5 +++++
+ gcc/config/arm/bpabi.h      |   12 +++++++++++-
+ gcc/config/arm/linux-eabi.h |   13 ++++++++++++-
+ gcc/config/arm/linux-elf.h  |   22 ++++++++++++++++++----
+ 4 files changed, 46 insertions(+), 6 deletions(-)
+
+Index: gcc-4.3-20070817/gcc/config/arm/linux-elf.h
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config/arm/linux-elf.h
-+++ gcc-4.2-20061031/gcc/config/arm/linux-elf.h
-@@ -28,19 +28,33 @@
+--- gcc-4.3-20070817.orig/gcc/config/arm/linux-elf.h	2007-08-28 12:13:39.000000000 +0200
++++ gcc-4.3-20070817/gcc/config/arm/linux-elf.h	2007-08-28 12:14:02.000000000 +0200
+@@ -27,19 +27,33 @@
  #undef  TARGET_VERSION
  #define TARGET_VERSION  fputs (" (ARM GNU/Linux with ELF)", stderr);
  
@@ -44,7 +51,7 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
  
  /* Now we define the strings used to build the spec file.  */
  #undef  LIB_SPEC
-@@ -61,7 +75,7 @@
+@@ -60,7 +74,7 @@
     %{rdynamic:-export-dynamic} \
     %{!dynamic-linker:-dynamic-linker " LINUX_DYNAMIC_LINKER "} \
     -X \
@@ -53,11 +60,11 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
     SUBTARGET_EXTRA_LINK_SPEC
  
  #undef  LINK_SPEC
-Index: gcc-4.2-20061031/gcc/config.gcc
+Index: gcc-4.3-20070817/gcc/config.gcc
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config.gcc
-+++ gcc-4.2-20061031/gcc/config.gcc
-@@ -697,6 +697,11 @@ arm*-*-netbsd*)
+--- gcc-4.3-20070817.orig/gcc/config.gcc	2007-08-28 12:13:39.000000000 +0200
++++ gcc-4.3-20070817/gcc/config.gcc	2007-08-28 12:14:02.000000000 +0200
+@@ -724,6 +724,11 @@
  	;;
  arm*-*-linux*)			# ARM GNU/Linux with ELF
  	tm_file="dbxelf.h elfos.h linux.h arm/elf.h arm/linux-gas.h arm/linux-elf.h"
@@ -69,13 +76,13 @@ Index: gcc-4.2-20061031/gcc/config.gcc
  	tmake_file="${tmake_file} t-linux arm/t-arm"
  	case ${target} in
  	arm*-*-linux-*eabi)
-Index: gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
+Index: gcc-4.3-20070817/gcc/config/arm/linux-eabi.h
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config/arm/linux-eabi.h
-+++ gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
-@@ -20,6 +20,17 @@
-    the Free Software Foundation, 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.  */
+--- gcc-4.3-20070817.orig/gcc/config/arm/linux-eabi.h	2007-08-28 12:13:39.000000000 +0200
++++ gcc-4.3-20070817/gcc/config/arm/linux-eabi.h	2007-08-28 12:14:02.000000000 +0200
+@@ -19,6 +19,17 @@
+    along with GCC; see the file COPYING3.  If not see
+    <http://www.gnu.org/licenses/>.  */
  
 +/*
 + * 'config.gcc' defines TARGET_BIG_ENDIAN_DEFAULT as 1 for arm*b-*
@@ -91,7 +98,7 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
  /* On EABI GNU/Linux, we want both the BPABI builtins and the
     GNU/Linux builtins.  */
  #undef TARGET_OS_CPP_BUILTINS
-@@ -48,7 +59,7 @@
+@@ -47,7 +58,7 @@
  #define SUBTARGET_CPU_DEFAULT TARGET_CPU_arm10tdmi
  
  #undef SUBTARGET_EXTRA_LINK_SPEC
@@ -100,11 +107,11 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-eabi.h
  
  /* Use ld-linux.so.3 so that it will be possible to run "classic"
     GNU/Linux binaries on an EABI system.  */
-Index: gcc-4.2-20061031/gcc/config/arm/bpabi.h
+Index: gcc-4.3-20070817/gcc/config/arm/bpabi.h
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config/arm/bpabi.h
-+++ gcc-4.2-20061031/gcc/config/arm/bpabi.h
-@@ -33,9 +33,19 @@
+--- gcc-4.3-20070817.orig/gcc/config/arm/bpabi.h	2007-08-28 12:13:39.000000000 +0200
++++ gcc-4.3-20070817/gcc/config/arm/bpabi.h	2007-08-28 12:14:02.000000000 +0200
+@@ -32,9 +32,19 @@
  #undef FPUTYPE_DEFAULT
  #define FPUTYPE_DEFAULT FPUTYPE_VFP
  

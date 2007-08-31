@@ -1,7 +1,2 @@
 sysdeps_mips_mips32_Makefile-bootstrap.diff
-avoid_using_asm_procinfo.diff
-arm-memcpy.patch
 
-sysdeps_unix_sysv_linux_arm_kernel-features_h-remove-i386-fix.diff -p0
-sysdeps_unix_sysv_linux_arm-and-mips_bits_fcntl_h-splice-update.diff -p0
-sysdeps_unix_sysv_linux_arm_eabi_nptl_sysdep-cancel_h-unwind-fix.diff -p0

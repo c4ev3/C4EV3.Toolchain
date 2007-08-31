@@ -1,8 +1,13 @@
-Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
+---
+ gcc/config/arm/linux-elf.h |    4 ++--
+ gcc/config/arm/t-linux     |    5 ++++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+Index: gcc-4.3-20070817/gcc/config/arm/linux-elf.h
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config/arm/linux-elf.h
-+++ gcc-4.2-20061031/gcc/config/arm/linux-elf.h
-@@ -54,7 +54,7 @@
+--- gcc-4.3-20070817.orig/gcc/config/arm/linux-elf.h	2007-08-28 12:14:02.000000000 +0200
++++ gcc-4.3-20070817/gcc/config/arm/linux-elf.h	2007-08-28 12:14:08.000000000 +0200
+@@ -53,7 +53,7 @@
  
  #undef  MULTILIB_DEFAULTS
  #define MULTILIB_DEFAULTS \
@@ -11,7 +16,7 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
  
  /* Now we define the strings used to build the spec file.  */
  #undef  LIB_SPEC
-@@ -63,7 +63,7 @@
+@@ -62,7 +62,7 @@
     %{shared:-lc} \
     %{!shared:%{profile:-lc_p}%{!profile:-lc}}"
  
@@ -20,12 +25,12 @@ Index: gcc-4.2-20061031/gcc/config/arm/linux-elf.h
  
  #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
  
-Index: gcc-4.2-20061031/gcc/config/arm/t-linux
+Index: gcc-4.3-20070817/gcc/config/arm/t-linux
 ===================================================================
---- gcc-4.2-20061031.orig/gcc/config/arm/t-linux
-+++ gcc-4.2-20061031/gcc/config/arm/t-linux
-@@ -4,7 +4,10 @@ TARGET_LIBGCC2_CFLAGS = -fomit-frame-poi
- LIBGCC2_DEBUG_CFLAGS = -g0
+--- gcc-4.3-20070817.orig/gcc/config/arm/t-linux	2007-08-28 12:13:38.000000000 +0200
++++ gcc-4.3-20070817/gcc/config/arm/t-linux	2007-08-28 12:14:08.000000000 +0200
+@@ -3,7 +3,10 @@
+ TARGET_LIBGCC2_CFLAGS = -fomit-frame-pointer -fPIC
  
  LIB1ASMSRC = arm/lib1funcs.asm
 -LIB1ASMFUNCS = _udivsi3 _divsi3 _umodsi3 _modsi3 _dvmd_lnx

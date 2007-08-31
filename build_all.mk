@@ -3,6 +3,7 @@
 # -- Carsten Schlote <c.schlote@konzeptpark.de>
 
 # -- start this fragment with 'make -f build_all.mk' or the supplied wrapper script!
+SHELL=/bin/bash
 
 # -- Defines and Lists --------------------------------------------------------
 
@@ -18,6 +19,8 @@ suffix_buildtime = .buildtag
 suffix_buildstatus = .status
 suffix_buildrevision = .svnrev
 gstatefiles = $(addprefix $(gstatedir)/,$(addsuffix $(suffix_buildtime),$(configs)))
+
+instdirs = $(foreach i,$(configfiles),$(shell . $i && echo $${PTXCONF_PREFIX} ))
 
 distdir = dists
 suffix_distarc = .tar.bz2
@@ -50,11 +53,39 @@ define UpdateStatusPage
 	@mv $(statuspagefile).tmp $(statuspagefile)
 endef
 
+define SetupInstallDirs 
+	@dirs=""; for i in $(instdirs); do \
+	  if [ ! -d "$$i" ]; then \
+	    echo "Creating install dir : $$i"; \
+	    sudo mkdir -p $$i; \
+	    sudo chown $(USER) $$i; \
+	  else \
+	    echo "Skipping install dir : $$i"; \
+	  fi; \
+	done
+endef
+
+define RemoveInstallDirs
+	@dirs=""; for i in $(instdirs); do \
+	  if [ -d "$$i" ]; then \
+	    echo "Remove install dir contents : $$i"; \
+	    rm -rf $$i/*; \
+	  else \
+	    echo "Skipping non-existing install dir : $$i"; \
+	  fi; \
+	done
+endef
+
 define BuildChain
 	$(call PrintHeaderMsg, Rebuild toolchain $(1))
-	ptxdist distclean
+	ptxdist distclean  
 	ptxdist select $$<
 
+	@instdir=$(shell . ptxconfig && echo $${PTXCONF_PREFIX}); \
+	if [ -d $$instdir ]; then \
+	   echo "Removing existing toolchain files in $$instdir"; echo rm -rf "$$instdir/*"; \
+	fi;
+        
 	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
 	# -- Update status output
 	echo -n "$(builddate)" > $$@
@@ -83,7 +114,7 @@ endef
 
 .PHONY : all mkgstatedir mkdistdir updatestatpage updatestatpage_forced mkblddatetag clean distclean
 
-all : mkblddatetag $(gstatefiles) updatestatpage
+all : mkblddatetag mkinstdirs $(gstatefiles) updatestatpage
 
 dist :  $(distfiles)
 
@@ -91,19 +122,25 @@ mkgstatedir :
 	@mkdir -p $(gstatedir)
 
 mkdistdir :
-	@mkdir -p $(distdir)
+	@mkdir -p $(distdir)   
+
+mkinstdirs :
+	$(call SetupInstallDirs)
+
+rminstdirs :
+	$(call RemoveInstallDirs)
 
 $(gstatedir)/laststatus : $(gstatefiles)
 	@echo "Toolchain Status Changed - Status Page updated"
 	$(call UpdateStatusPage)
 	@touch $@
 
-updatestatpage: $(gstatedir)/laststatus
+updatestatpage: mkgstatedir $(gstatedir)/laststatus
 
-updatestatpage_forced:
+updatestatpage_forced: mkgstatedir
 	$(call UpdateStatusPage)
 
-$(gstatedir)/lastbuilddate : $(configfiles)
+$(gstatedir)/lastbuilddate : mkgstatedir $(configfiles)
 	@echo -n "$(builddate)" > $(gstatedir)/lastbuilddate
 
 mkblddatetag: $(gstatedir)/lastbuilddate

@@ -5,17 +5,46 @@
 # Add some similiar line to your crontab (e.g. crontab -e)
 # 0,5,10,15,20,25,30,35,40,45,50,55 *    * * * [ -f /home/csc/src/OSELAS.Toolchain-trunk/build_all.sh ] && \
 #    ( cd /home/csc/src/OSELAS.Toolchain-trunk/ && ISCRON=yes bash build_all.sh )
+#
+# Modify sudoers file to allow mkdir and chown to be called without password,
+#   unattented builds are possible for new configs
 
 buildlogfile=build_all_logs/build_all.log-`date +%y%m%d-%H%M`
 lockfile=build_all.lock
 
 set -e
 
+# -- Get options ---------------------------------------------------------------
+
+while getopts ":Bb:CIRh" Option
+do
+  case $Option in
+    B ) makeoptions=-B ;;
+    b ) maketargets=build_$OPTARG ;;
+    I ) maketargets=mkinstdirs ;;
+    R ) maketargets=rminstdirs ;;
+    C ) make -f build_all.mk distclean; exit 0; ;;
+    h ) 
+      echo " -B         Unconditionally build all";
+      echo " -b config  Build single config (without ptxconfig suffix)";
+      echo " -I         Create all install dirs at once";
+      echo " -R         Clean all install dirs at once";
+      echo " -C         Distclean autoclean system";
+      ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+#echo $makeoptions $maketargets
+#exit 0
+
 if [ -z "${ISCRON}" ]; then set -x; 
 else 
 	# If ISCRON is not zero, setup some paths for ptxdist and other tools
 	export PATH=/usr/bin:/usr/sbin/:/usr/local/bin:/usr/local/sbin:$PATH
 fi
+
+# -- Get lockfile and process builds -------------------------------------------
 
 if ( set -o noclobber; echo "$$" > "$lockfile") 2> /dev/null; 
 then
@@ -31,9 +60,9 @@ then
 	# -- The make process is started with via 'nice' to avoid high cpu-load on compile host
 	mkdir -p build_all_logs
 	if [ -n "${ISCRON}" ]; then
-		nice -n 5 make -f build_all.mk > $buildlogfile
+		nice -n 5 make -f build_all.mk $makeoptions $maketargets > $buildlogfile
 	else
-		nice -n 5 make -f build_all.mk 
+		nice -n 5 make -f build_all.mk $makeoptions $maketargets  
 	fi 
 	
 	# -- Delete empty logfiles 
@@ -54,13 +83,13 @@ fi
 # -- ToDo ---------------------------------------------------------------------
 # T=testing, X=done
 #
-# [ ] Fix creation of new install dirs - create a script to setup them all at once
+# [T] Fix creation of new install dirs - create a script to setup them all at once
 #     (sudo hack for mkdir and NOPASSWD: ?)
 # [ ] Checkout a new working copy of trunk for each chain, and do building in parallel
 # [ ] Create a nice HTML output for the status showing the actual status of each chain
 # [ ] Add checks to ensure consitency of ptxconfig files and install locations -
 #       apply fixup-ptxconfigs.sh?
-# [ ] Add code to create all install directory at once - so you have to enter the
+# [T] Add code to create all install directory at once - so you have to enter the
 #       sudo password only once, when this script started the first time.
 # [ ] Remove link to installation directory from cross-toolchain.make?
 #       We need some way to determine the installation path from outside ptxdist...
