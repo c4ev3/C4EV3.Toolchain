@@ -164,7 +164,7 @@ build_$(1) : $(gstatedir)/$(1).buildtag updatestatpage
 
 endef
 
-$(foreach CFG,$(configs),$(eval $(call CompileChain,$(CFG))))
+$(foreach CFG,$(configs),$(eval $(call BuildChainRules,$(CFG))))
 
 
 
