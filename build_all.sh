@@ -16,7 +16,7 @@ set -e
 
 # -- Get options ---------------------------------------------------------------
 
-while getopts ":Bb:CIRh" Option
+while getopts ":Bb:CIRuh" Option
 do
   case $Option in
     B ) makeoptions=-B ;;
@@ -24,12 +24,14 @@ do
     I ) maketargets=mkinstdirs ;;
     R ) maketargets=rminstdirs ;;
     C ) make -f build_all.mk distclean; exit 0; ;;
+    u ) make -f build_all.mk updatestatpage_forced; exit 0; ;;
     h ) 
       echo " -B         Unconditionally build all";
       echo " -b config  Build single config (without ptxconfig suffix)";
       echo " -I         Create all install dirs at once";
       echo " -R         Clean all install dirs at once";
       echo " -C         Distclean autoclean system";
+      echo " -u         Update status page";
       ;;
   esac
 done
@@ -78,6 +80,7 @@ then
 else
 	# -- Normally don't output things - causes mail flooding with cron. Debug stuff.
 	echo "Build script running - lockfile \"$lockfile\" held by process $(cat $lockfile)"
+	make -f build_all.mk updatestatpage_forced
 fi
 
 # -- ToDo ---------------------------------------------------------------------

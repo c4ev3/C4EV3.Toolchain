@@ -89,7 +89,6 @@ define BuildChain
 	echo -n "$(builddate)" > $$@
 	echo -n "Build" > $(gstatedir)/$(1)$(suffix_buildstatus)
 	echo -n "$(subversionrev)" > $(gstatedir)/$(1)$(suffix_buildrevision)
-	$(call UpdateStatusPage)
 
 	@echo "ptxdist go" ; \
 	if ptxdist go; then echo -n "Success" > $(gstatedir)/$(1)$(suffix_buildstatus); \
@@ -105,16 +104,14 @@ define BuildChain
 	else \
 	  echo "No symbolic link to install dir found - no archive created."; \
 	fi
-
-	$(call UpdateStatusPage)
 endef
 
 
 # -- Targets ------------------------------------------------------------------
 
-.PHONY : all mkgstatedir mkdistdir updatestatpage updatestatpage_forced mkblddatetag clean distclean
+.PHONY : all dist mkgstatedir mkdistdir updatestatpage updatestatpage_forced mkblddatetag clean distclean
 
-all : mkblddatetag mkinstdirs $(gstatefiles) updatestatpage
+all : updatestatpage
 
 dist :  $(distfiles)
 
@@ -130,17 +127,17 @@ mkinstdirs :
 rminstdirs :
 	$(call RemoveInstallDirs)
 
-$(gstatedir)/laststatus : $(gstatefiles)
+$(gstatedir)/laststatus : mkblddatetag mkinstdirs $(gstatefiles) 
 	@echo "Toolchain Status Changed - Status Page updated"
 	$(call UpdateStatusPage)
 	@touch $@
 
-updatestatpage: mkgstatedir $(gstatedir)/laststatus
+updatestatpage: $(gstatedir)/laststatus
 
 updatestatpage_forced: mkgstatedir
 	$(call UpdateStatusPage)
 
-$(gstatedir)/lastbuilddate : mkgstatedir $(configfiles)
+$(gstatedir)/lastbuilddate :  $(configfiles) | mkgstatedir
 	@echo -n "$(builddate)" > $(gstatedir)/lastbuilddate
 
 mkblddatetag: $(gstatedir)/lastbuilddate
@@ -154,7 +151,7 @@ distclean : clean
 # -- Rules --------------------------------------------------------------------
 
 define BuildChainRules
-$(gstatedir)/$(1).buildtag : $(configdir)/$(1).ptxconfig | mkgstatedir mkdistdir
+$(gstatedir)/$(1).buildtag : $(configdir)/$(1).ptxconfig | mkgstatedir mkdistdir updatestatpage_forced
 	$(call BuildChain,$(1)) 
 
 $(distdir)/$(1)$(suffix_distarc) : $(gstatedir)/$(1).buildtag
