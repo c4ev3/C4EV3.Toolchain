@@ -38,7 +38,7 @@ endef
 
 define UpdateStatusPage
 	@echo -e "# OSELAS Toolchain Build All Status " > $(statuspagefile).tmp
-	@echo -e "# Script started $(cat $(gstatedir)/lastbuilddate) on SVN $(subversionrev)" >> $(statuspagefile).tmp
+	@echo -e "# Script started $(if $(cat $(gstatedir)/lastbuilddate),$(cat $(gstatedir)/lastbuilddate),$(builddate)) on SVN $(subversionrev)" >> $(statuspagefile).tmp
 	@echo -e "# Status page updated : `date`" >> $(statuspagefile).tmp
 	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(statuspagefile).tmp
 	@for i in $(configs); do \
