@@ -1,4 +1,4 @@
-menuconfig AVRLIB
+menuconfig AVR8LIB
 	bool
 	select CROSS_GCC_FIRST
 # we do not support any threads in this environment
@@ -7,8 +7,8 @@ menuconfig AVRLIB
 	help
 	  Build the multi C library for the harvard based AVR architecture
 
-config AVRLIB_VERSION
-	depends on AVRLIB
+config AVR8LIB_VERSION
+	depends on AVR8LIB
 	string
 	prompt "avr libc version"
 	default "1.0.5"
