@@ -9,7 +9,8 @@
 # Modify sudoers file to allow mkdir and chown to be called without password,
 #   unattented builds are possible for new configs
 
-buildlogfile=build_all_logs/build_all.log-`date +%y%m%d-%H%M`
+builddate=`date +%y%m%d-%H%M`
+buildlogfile=build_all_logs/build_all.log-$builddate
 lockfile=build_all.lock
 
 set -e
@@ -70,31 +71,30 @@ then
 	# -- Delete empty logfiles 
 	if [ -e $buildlogfile ]; then if test -z "$(cat $buildlogfile)"; then rm $buildlogfile; fi; fi
 
-	# -- Dump status file info
-	#echo -e "\n\nStatus stored in gstate/OSELAS-BuildAll-Status.txt"
-	make -f build_all.mk updatestatpage_forced
-	
 	# -- Remove lockfile
 	rm -f $lockfile
 	trap - INT TERM EXIT
-else
+#else
 	# -- Normally don't output things - causes mail flooding with cron. Debug stuff.
-	echo "Build script running - lockfile \"$lockfile\" held by process $(cat $lockfile)"
-	make -f build_all.mk updatestatpage_forced
+	#echo "Build script running - lockfile \"$lockfile\" held by process $(cat $lockfile)"
 fi
+
+# -- Dump status file info, save to be called outside critical section aboce
+make -f build_all.mk updatestatpage_forced
+
 
 # -- ToDo ---------------------------------------------------------------------
 # T=testing, X=done
 #
-# [T] Fix creation of new install dirs - create a script to setup them all at once
-#     (sudo hack for mkdir and NOPASSWD: ?)
+# [X] Fix creation of new install dirs - create a script to setup them all at once
+#     (sudo hack for mkdir and NOPASSWD: - seems to work, see man sudoers)
 # [ ] Checkout a new working copy of trunk for each chain, and do building in parallel
 # [ ] Create a nice HTML output for the status showing the actual status of each chain
 # [ ] Add checks to ensure consitency of ptxconfig files and install locations -
 #       apply fixup-ptxconfigs.sh?
-# [T] Add code to create all install directory at once - so you have to enter the
+# [X] Add code to create all install directory at once - so you have to enter the
 #       sudo password only once, when this script started the first time.
 # [ ] Remove link to installation directory from cross-toolchain.make?
 #       We need some way to determine the installation path from outside ptxdist...
-# [T] Add lock file for cron triggered operation
+# [X] Add lock file for cron triggered operation
 

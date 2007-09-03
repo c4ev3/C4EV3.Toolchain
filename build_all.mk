@@ -38,8 +38,10 @@ endef
 
 define UpdateStatusPage
 	@echo -e "# OSELAS Toolchain Build All Status " > $(statuspagefile).tmp
-	@echo -e "# Script started $(if $(cat $(gstatedir)/lastbuilddate),$(cat $(gstatedir)/lastbuilddate),$(builddate)) on SVN $(subversionrev)" >> $(statuspagefile).tmp
-	@echo -e "# Status page updated : `date`" >> $(statuspagefile).tmp
+	@echo -en "# Last build run was $(if $(shell cat $(gstatedir)/lastbuilddate),$(shell cat $(gstatedir)/lastbuilddate),$(builddate)) - " >> $(statuspagefile).tmp
+	@echo -e "$(if $(shell cat $(gstatedir)/laststatus),$(shell cat $(gstatedir)/laststatus),$(builddate)) on SVN $(subversionrev)" >> $(statuspagefile).tmp
+	@echo -e "# Status page updated : `date` " >> $(statuspagefile).tmp
+	@bldpid=$$(cat build_all.lock); if [ -n "$$bldpid" ]; then echo "# Build process running ($$bldpid)"; fi >> $(statuspagefile).tmp
 	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(statuspagefile).tmp
 	@for i in $(configs); do \
 	   if test -e $(gstatedir)/$$i$(suffix_buildtime); then cat $(gstatedir)/$$i$(suffix_buildtime); else echo -n "000000-0000"; fi; \
@@ -87,7 +89,7 @@ define BuildChain
 	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
 	# -- Update status output
 	echo -n "$(builddate)" > $$@
-	echo -n "Build" > $(gstatedir)/$(1)$(suffix_buildstatus)
+	echo -n "?????" > $(gstatedir)/$(1)$(suffix_buildstatus)
 	echo -n "$(subversionrev)" > $(gstatedir)/$(1)$(suffix_buildrevision)
 
 	@echo "ptxdist go" ; \
@@ -127,10 +129,10 @@ mkinstdirs :
 rminstdirs :
 	$(call RemoveInstallDirs)
 
-$(gstatedir)/laststatus : mkblddatetag mkinstdirs $(gstatefiles) 
+$(gstatedir)/laststatus : $(gstatefiles) | mkblddatetag mkinstdirs
 	@echo "Toolchain Status Changed - Status Page updated"
+	@date +%y%m%d-%H%M > $@
 	$(call UpdateStatusPage)
-	@touch $@
 
 updatestatpage: $(gstatedir)/laststatus
 
