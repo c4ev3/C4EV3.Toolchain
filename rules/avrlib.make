@@ -71,7 +71,10 @@ AVR8LIB_ENV 	:= \
 # newer libs (at least 1.4.6) forces --host=avr!
 #
 AVR8LIB_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+	--prefix=$(PTXCONF_PREFIX) \
+	--build=$(GNU_BUILD) \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--host=$(PTXCONF_GNU_TARGET) \
 	--enable-multilib
 
 $(STATEDIR)/avrlib.prepare: $(avrlib_prepare_deps_default)
@@ -102,7 +105,7 @@ avrlib_install: $(STATEDIR)/avrlib.install
 $(STATEDIR)/avrlib.install: $(avrlib_install_deps_default)
 	@$(call targetinfo, $@)
 	cd $(AVR8LIB_BUILDDIR) && \
-		$(AVR8LIB_PATH) $(MAKE) install DESTDIR=$(SYSROOT)
+		$(AVR8LIB_PATH) $(MAKE) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
