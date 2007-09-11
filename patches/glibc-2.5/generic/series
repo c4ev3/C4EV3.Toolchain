@@ -5,4 +5,5 @@ configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
 sysdeps_unix_sysv_linux_getcwd_c-include-sys_param_h.diff
+cross_timezone.diff
 #local-2.6.19-linux-libc-dev.diff
