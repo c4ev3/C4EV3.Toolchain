@@ -41,7 +41,7 @@ define UpdateStatusPage
 	@echo -en "# Last build run was $(if $(shell cat $(gstatedir)/lastbuilddate),$(shell cat $(gstatedir)/lastbuilddate),$(builddate)) - " >> $(statuspagefile).tmp
 	@echo -e "$(if $(shell cat $(gstatedir)/laststatus),$(shell cat $(gstatedir)/laststatus),$(builddate)) on SVN $(subversionrev)" >> $(statuspagefile).tmp
 	@echo -e "# Status page updated : `date` " >> $(statuspagefile).tmp
-	@bldpid=$$(cat build_all.lock); if [ -n "$$bldpid" ]; then echo "# Build process running ($$bldpid)"; fi >> $(statuspagefile).tmp
+	@if [ -e build_all.lock ]; then bldpid=$$(cat build_all.lock); if [ -n "$$bldpid" ]; then echo "# Build process running ($$bldpid)"; fi; fi >> $(statuspagefile).tmp
 	@echo -e "# Build date\tSVNRev\tStatus\tToolchain" >> $(statuspagefile).tmp
 	@for i in $(configs); do \
 	   if test -e $(gstatedir)/$$i$(suffix_buildtime); then cat $(gstatedir)/$$i$(suffix_buildtime); else echo -n "000000-0000"; fi; \
