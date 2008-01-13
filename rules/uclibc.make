@@ -77,8 +77,8 @@ UCLIBC_MAKEVARS	:= \
 
 $(STATEDIR)/uclibc.prepare:
 	@$(call targetinfo, $@)
-	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/ptxconfig > $(UCLIBC_DIR)/.config
-	perl -i -p -e 's/PTXCONF_UC_//g' $(UCLIBC_DIR)/.config
+	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/ptxconfig | \
+		sed -e 's/PTXCONF_UC_//g' > $(UCLIBC_DIR)/.config
 	@$(call uclibc_fix_config, $(UCLIBC_DIR)/.config)
 	yes "" | $(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) \
 		$(UCLIBC_MAKEVARS) \
