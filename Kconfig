@@ -55,7 +55,7 @@ source "workspace/rules/host-gmp.in"
 source "workspace/rules/host-mpfr.in"
 source "workspace/rules/host-dejagnu.in"
 
-comment "                  "
+comment "------------------"
 
 choice
 	prompt "architecture      "
