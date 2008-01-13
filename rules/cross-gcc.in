@@ -67,6 +67,7 @@ config CROSS_GCC_ENABLE_CXA_ATEXIT
 
 config CROSS_GCC_SECOND
 	bool
+	select CROSS_GCC_FIRST
 	select LIBC_FIRST
 	select CROSS_BINUTILS
 	prompt "gcc (second)"

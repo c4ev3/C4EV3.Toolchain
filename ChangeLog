@@ -1,3 +1,11 @@
+2008-01-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* uclibc: add uclibc target for i586. make an explicit
+	dependency between cross-gcc-first and the second step, which
+	somehow wasn't there before. Patch by Andrea Fino.
+
+	Signed-off-by:Andrea Fino <af@faino.org>
+
 2007-08-27 Carsten Schlote <c.schlote@konzeptpark.de>
 
         * Updated
