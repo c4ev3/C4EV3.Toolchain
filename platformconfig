@@ -1,0 +1,80 @@
+#
+# Automatically generated make config: don't edit
+# PTXdist version: 1.99.svn
+# Mon Mar  3 21:41:24 2008
+#
+
+#
+# ------------------------------------
+#
+
+#
+# Target Platform Configuration 
+#
+
+#
+# ------------------------------------
+#
+# PTXCONF_ARCH_ALPHA is not set
+# PTXCONF_ARCH_ARM is not set
+# PTXCONF_ARCH_BLACKFIN is not set
+# PTXCONF_ARCH_X86 is not set
+# PTXCONF_ARCH_PPC is not set
+PTXCONF_ARCH_M68K=y
+# PTXCONF_ARCH_SPARC is not set
+# PTXCONF_ARCH_MIPS is not set
+# PTXCONF_ARCH_CRIS is not set
+# PTXCONF_ARCH_PARISC is not set
+# PTXCONF_ARCH_SH is not set
+PTXCONF_ENDIAN_BIG=y
+PTXCONF_HAS_MMU=y
+PTXCONF_ARCH_STRING="m68k"
+PTXCONF_ARCH_USERSPACE_STRING="m68k"
+
+#
+# extra toolchain options       
+#
+PTXCONF_TARGET_EXTRA_CPPFLAGS=""
+PTXCONF_TARGET_EXTRA_CFLAGS=""
+PTXCONF_TARGET_EXTRA_CXXFLAGS=""
+PTXCONF_TARGET_EXTRA_LDFLAGS=""
+
+#
+# paths & directories           
+#
+PTXCONF_PREFIX="${PTXDIST_WORKSPACE}/local"
+PTXCONF_HOST_PREFIX="${PTXCONF_PREFIX}-host"
+PTXCONF_CROSS_PREFIX="${PTXCONF_PREFIX}-cross"
+
+#
+# toolchain identification      
+#
+PTXCONF_CROSSCHAIN_VENDOR=""
+PTXCONF_CROSSCHAIN_CHECK=""
+PTXCONF_GNU_TARGET=""
+PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
+
+#
+# ------------------------------------
+#
+
+#
+# Kernel Configuration                
+#
+
+#
+# ------------------------------------
+#
+PTXCONF_KERNEL_VERSION=""
+PTXCONF_ARCH_KERNEL_STRING="m68k"
+
+#
+# patching & configuration      
+#
+PTXCONF_KERNEL_SERIES=""
+PTXCONF_KERNEL_CONFIG="kernelconfig.target"
+PTXCONF_KERNEL_IMAGE_BZ=y
+# PTXCONF_KERNEL_IMAGE_Z is not set
+# PTXCONF_KERNEL_IMAGE_U is not set
+# PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+PTXCONF_KERNEL_IMAGE="bzImage"
