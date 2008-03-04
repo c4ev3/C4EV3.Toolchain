@@ -73,7 +73,7 @@ choice
                 bool "powerpc"
 
 	config ARCH_I386
-		bool "i368   "
+		bool "i386   "
 
 	config ARCH_AVR
 		bool "AVR-8  "
