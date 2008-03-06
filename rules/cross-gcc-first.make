@@ -178,6 +178,10 @@ $(STATEDIR)/cross-gcc-first.install:
 	ln -sfv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_s/'`
+
+	# FIXME - fix copy target
+#	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(CROSS_GCC_FIRST_PREFIX)/lib/gcc/$(PTXCONF_GNU_TARGET)/4.3.0/include/limits.h
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
