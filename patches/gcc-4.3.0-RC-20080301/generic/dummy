@@ -1,0 +1,9 @@
+Index: gcc-4.3.0-RC-20080301/README
+===================================================================
+--- gcc-4.3.0-RC-20080301.orig/README	2008-03-05 23:58:24.000000000 +0100
++++ gcc-4.3.0-RC-20080301/README	2008-03-05 23:58:45.000000000 +0100
+@@ -15,3 +15,4 @@
+ version of the manual is in the files gcc/doc/gcc.info*.
+ 
+ See http://gcc.gnu.org/bugs.html for how to report bugs usefully.
++
