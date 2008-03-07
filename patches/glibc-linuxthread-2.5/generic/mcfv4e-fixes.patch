@@ -1,0 +1,23 @@
+[m68k] Adaptions for Coldfire V4e
+
+Hacked m68k/m68020 port of glibc to get it compiling for Coldfire V4e. 
+
+Index: glibc-2.5/linuxthreads/sysdeps/m68k/pt-machine.h
+===================================================================
+--- glibc-2.5.orig/linuxthreads/sysdeps/m68k/pt-machine.h	2008-03-07 20:28:26.000000000 +0100
++++ glibc-2.5/linuxthreads/sysdeps/m68k/pt-machine.h	2008-03-07 21:46:37.000000000 +0100
+@@ -49,6 +49,7 @@
+ #define CURRENT_STACK_FRAME  stack_pointer
+ register char * stack_pointer __asm__ ("%sp");
+ 
++#if !defined __mcfv4e__ && !defined __mcfv4m__
+ 
+ /* Compare-and-swap for semaphores. */
+ 
+@@ -65,5 +66,6 @@
+ 
+   return ret;
+ }
++#endif
+ 
+ #endif /* pt-machine.h */

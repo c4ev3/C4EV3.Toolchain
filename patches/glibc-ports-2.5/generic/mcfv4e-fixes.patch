@@ -1,0 +1,47 @@
+[m68k] Adaptions for Coldfire V4e
+
+Hacked m68k/m68020 port of glibc to get it compiling for Coldfire V4e. 
+
+Index: glibc-2.5/ports/sysdeps/m68k/bits/byteswap.h
+===================================================================
+--- glibc-2.5.orig/ports/sysdeps/m68k/bits/byteswap.h	2008-03-07 21:28:02.000000000 +0100
++++ glibc-2.5/ports/sysdeps/m68k/bits/byteswap.h	2008-03-07 21:47:11.000000000 +0100
+@@ -35,7 +35,7 @@
+   ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >>  8) | \
+    (((x) & 0x0000ff00) <<  8) | (((x) & 0x000000ff) << 24))
+ 
+-#if defined __GNUC__ && __GNUC__ >= 2
++#if defined __GNUC__ && __GNUC__ >= 2 && !defined __mcfv4e__ && !defined __mcfv4m__
+ # define __bswap_32(x) \
+   __extension__							\
+   ({ unsigned int __bswap_32_v;					\
+Index: glibc-2.5/ports/sysdeps/m68k/m68020/bits/atomic.h
+===================================================================
+--- glibc-2.5.orig/ports/sysdeps/m68k/m68020/bits/atomic.h	2008-03-07 21:35:48.000000000 +0100
++++ glibc-2.5/ports/sysdeps/m68k/m68020/bits/atomic.h	2008-03-07 21:50:49.000000000 +0100
+@@ -19,6 +19,7 @@
+ 
+ #include <stdint.h>
+ 
++#if !defined __mcfv4e__ && ! defined __mcfv4m__
+ 
+ typedef int8_t atomic8_t;
+ typedef uint8_t uatomic8_t;
+@@ -252,3 +253,6 @@
+ 		       : "=dm" (__result), "+m" (*(mem))		      \
+ 		       : "di" (sizeof (*(mem)) * 8 - (bit) - 1));	      \
+      __result; })
++
++#endif
++
+Index: glibc-2.5/ports/sysdeps/m68k/Implies
+===================================================================
+--- glibc-2.5.orig/ports/sysdeps/m68k/Implies	2008-03-07 22:20:49.000000000 +0100
++++ glibc-2.5/ports/sysdeps/m68k/Implies	2008-03-07 22:21:36.000000000 +0100
+@@ -1,5 +1,5 @@
+ wordsize-32
+ # 68k uses IEEE 754 floating point.
+-ieee754/ldbl-96
++# Can't use that on Coldfire : ieee754/ldbl-96
+ ieee754/dbl-64
+ ieee754/flt-32

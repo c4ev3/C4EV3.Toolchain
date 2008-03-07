@@ -1,19 +1,58 @@
-Index: glibc-2.5/linuxthreads/sysdeps/m68k/pt-machine.h
+[m68k] Adaptions for Coldfire V4e
+
+Hacked m68k/m68020 port of glibc to get it compiling for Coldfire V4e. 
+
+Index: glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c
 ===================================================================
---- glibc-2.5.orig/linuxthreads/sysdeps/m68k/pt-machine.h	2008-03-07 20:28:26.000000000 +0100
-+++ glibc-2.5/linuxthreads/sysdeps/m68k/pt-machine.h	2008-03-07 20:28:40.000000000 +0100
-@@ -49,6 +49,7 @@
- #define CURRENT_STACK_FRAME  stack_pointer
- register char * stack_pointer __asm__ ("%sp");
+--- glibc-2.5.orig/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 21:53:46.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 21:57:17.000000000 +0100
+@@ -23,6 +23,7 @@
+ #include "math.h"
+ #include "math_private.h"
  
-+#ifdef __m68020__
- 
- /* Compare-and-swap for semaphores. */
- 
-@@ -65,5 +66,6 @@
- 
-   return ret;
- }
++#if ! __GNUC_PREREQ (4, 0)
+ #ifdef __STDC__
+ 	double __copysign(double x, double y)
+ #else
+@@ -41,3 +42,5 @@
+ strong_alias (__copysign, __copysignl)
+ weak_alias (__copysign, copysignl)
+ #endif
 +#endif
++
+Index: glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 21:58:39.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 21:59:15.000000000 +0100
+@@ -26,6 +26,7 @@
+ #include "math.h"
+ #include "math_private.h"
  
- #endif /* pt-machine.h */
++#if !__GNUC_PREREQ (4, 0)
+ #ifdef __STDC__
+ 	float __copysignf(float x, float y)
+ #else
+@@ -40,3 +41,5 @@
+         return x;
+ }
+ weak_alias (__copysignf, copysignf)
++#endif
++
+Index: glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 22:00:23.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 22:00:45.000000000 +0100
+@@ -27,6 +27,7 @@
+ #include "math.h"
+ #include "math_private.h"
+ 
++#if !__GNUC_PREREQ (4, 0)
+ #ifdef __STDC__
+ 	long double __copysignl(long double x, long double y)
+ #else
+@@ -41,3 +42,5 @@
+         return x;
+ }
+ weak_alias (__copysignl, copysignl)
++#endif
++
