@@ -179,9 +179,11 @@ $(STATEDIR)/cross-gcc-first.install:
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_s/'`
 
+ ifdef PTXCONF_CROSS_GCC_43
 	# FIXME - fix copy target
-#	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(CROSS_GCC_FIRST_PREFIX)/lib/gcc/$(PTXCONF_GNU_TARGET)/4.3.0/include/limits.h
-
+	#cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(CROSS_GCC_FIRST_PREFIX)/lib/gcc/$(PTXCONF_GNU_TARGET)/4.3.0/include/limits.h
+	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(SYSROOT)/usr/include/limits.h
+ endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

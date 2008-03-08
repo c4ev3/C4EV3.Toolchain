@@ -1,11 +1,14 @@
-[m68k] Adaptions for Coldfire V4e
+[m68k] Adaptions to glibc core (gcc 4.3 releated)
 
-Hacked m68k/m68020 port of glibc to get it compiling for Coldfire V4e. 
+Generic patches to fix several errors thrown with gcc 4.3 (I presume).
+(Redefinitions of extern inline code)
+
+Patch by schlote@vhanaus.net.
 
 Index: glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 21:53:46.000000000 +0100
-+++ glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 21:57:17.000000000 +0100
+--- glibc-2.5.orig/sysdeps/ieee754/dbl-64/s_copysign.c	1999-07-14 01:51:30.000000000 +0200
++++ glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 23:29:41.000000000 +0100
 @@ -23,6 +23,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -22,8 +25,8 @@ Index: glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c
 +
 Index: glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 21:58:39.000000000 +0100
-+++ glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 21:59:15.000000000 +0100
+--- glibc-2.5.orig/sysdeps/ieee754/flt-32/s_copysignf.c	1999-07-14 02:00:43.000000000 +0200
++++ glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 23:29:41.000000000 +0100
 @@ -26,6 +26,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -40,8 +43,8 @@ Index: glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c
 +
 Index: glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 22:00:23.000000000 +0100
-+++ glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 22:00:45.000000000 +0100
+--- glibc-2.5.orig/sysdeps/ieee754/ldbl-96/s_copysignl.c	1999-07-14 02:13:21.000000000 +0200
++++ glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 23:29:41.000000000 +0100
 @@ -27,6 +27,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -56,3 +59,254 @@ Index: glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c
  weak_alias (__copysignl, copysignl)
 +#endif
 +
+Index: glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/ieee754/ldbl-128/s_copysignl.c	2008-03-08 00:05:38.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c	2008-03-08 00:06:41.000000000 +0100
+@@ -26,6 +26,7 @@
+ #include "math.h"
+ #include "math_private.h"
+ 
++#if !__GNUC_PREREQ (4, 0)
+ #ifdef __STDC__
+ 	long double __copysignl(long double x, long double y)
+ #else
+@@ -41,3 +42,4 @@
+         return x;
+ }
+ weak_alias (__copysignl, copysignl)
++#endif
+Index: glibc-2.5/stdlib/atol.c
+===================================================================
+--- glibc-2.5.orig/stdlib/atol.c	2008-03-08 00:13:51.000000000 +0100
++++ glibc-2.5/stdlib/atol.c	2008-03-08 00:21:14.000000000 +0100
+@@ -20,6 +20,7 @@
+ 
+ #undef	atol
+ 
++#ifndef __USE_EXTERN_INLINES
+ 
+ /* Convert a string to a long int.  */
+ long int
+@@ -27,3 +28,5 @@
+ {
+   return strtol (nptr, (char **) NULL, 10);
+ }
++#endif
++
+Index: glibc-2.5/stdlib/atof.c
+===================================================================
+--- glibc-2.5.orig/stdlib/atof.c	2008-03-08 00:22:19.000000000 +0100
++++ glibc-2.5/stdlib/atof.c	2008-03-08 00:22:34.000000000 +0100
+@@ -20,6 +20,7 @@
+ 
+ #undef	atof
+ 
++#ifndef __USE_EXTERN_INLINES
+ 
+ /* Convert a string to a double.  */
+ double
+@@ -27,3 +28,4 @@
+ {
+   return strtod (nptr, (char **) NULL);
+ }
++#endif
+Index: glibc-2.5/stdlib/atoll.c
+===================================================================
+--- glibc-2.5.orig/stdlib/atoll.c	2008-03-08 00:21:45.000000000 +0100
++++ glibc-2.5/stdlib/atoll.c	2008-03-08 00:22:00.000000000 +0100
+@@ -20,6 +20,7 @@
+ 
+ #undef	atoll
+ 
++#ifndef __USE_EXTERN_INLINES
+ 
+ /* Convert a string to a long long int.  */
+ long long int
+@@ -27,3 +28,5 @@
+ {
+   return strtoll (nptr, (char **) NULL, 10);
+ }
++
++#endif
+Index: glibc-2.5/stdlib/atoi.c
+===================================================================
+--- glibc-2.5.orig/stdlib/atoi.c	2008-03-08 00:23:29.000000000 +0100
++++ glibc-2.5/stdlib/atoi.c	2008-03-08 00:23:44.000000000 +0100
+@@ -20,6 +20,7 @@
+ 
+ #undef	atoi
+ 
++#ifndef __USE_EXTERN_INLINES
+ 
+ /* Convert a string to an int.  */
+ int
+@@ -27,3 +28,4 @@
+ {
+   return (int) strtol (nptr, (char **) NULL, 10);
+ }
++#endif
+Index: glibc-2.5/stdlib/strtol.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtol.c	2008-03-08 00:24:38.000000000 +0100
++++ glibc-2.5/stdlib/strtol.c	2008-03-08 00:25:19.000000000 +0100
+@@ -100,7 +100,7 @@
+ }
+ libc_hidden_def (INTERNAL (strtol))
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ INT
+ strtol (nptr, endptr, base)
+      const STRING_TYPE *nptr;
+@@ -109,3 +109,4 @@
+ {
+   return INTERNAL (__strtol_l) (nptr, endptr, base, 0, _NL_CURRENT_LOCALE);
+ }
++#endif
+Index: glibc-2.5/stdlib/strtoll.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtoll.c	2008-03-08 00:26:37.000000000 +0100
++++ glibc-2.5/stdlib/strtoll.c	2008-03-08 00:28:29.000000000 +0100
+@@ -30,5 +30,8 @@
+ #  endif
+ 
+ # endif
++#ifndef __USE_EXTERN_INLINES
+ weak_alias (strtoll, strtoq)
+ #endif
++#endif
++
+Index: glibc-2.5/stdlib/strtol_l.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtol_l.c	2008-03-08 00:29:36.000000000 +0100
++++ glibc-2.5/stdlib/strtol_l.c	2008-03-08 00:30:38.000000000 +0100
+@@ -548,7 +548,7 @@
+ 			       int base));
+ #endif
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ INT
+ #ifdef weak_function
+ weak_function
+@@ -562,3 +562,4 @@
+   return INTERNAL (__strtol_l) (nptr, endptr, base, 0, loc);
+ }
+ weak_alias (__strtol_l, strtol_l)
++#endif
+Index: glibc-2.5/stdlib/strtoull.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtoull.c	2008-03-08 00:36:33.000000000 +0100
++++ glibc-2.5/stdlib/strtoull.c	2008-03-08 00:36:58.000000000 +0100
+@@ -30,5 +30,7 @@
+ #  endif
+ 
+ # endif
++#ifndef __USE_EXTERN_INLINES
+ weak_alias (strtoull, strtouq)
+ #endif
++#endif
+Index: glibc-2.5/stdlib/strtod.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtod.c	2008-03-08 00:38:02.000000000 +0100
++++ glibc-2.5/stdlib/strtod.c	2008-03-08 00:38:48.000000000 +0100
+@@ -58,7 +58,7 @@
+ libc_hidden_def (INTERNAL (STRTOF))
+ #endif
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ FLOAT
+ #ifdef weak_function
+ weak_function
+@@ -69,6 +69,7 @@
+ {
+   return INTERNAL(STRTOF_L) (nptr, endptr, 0, _NL_CURRENT_LOCALE);
+ }
++#endif
+ 
+ #ifdef LONG_DOUBLE_COMPAT
+ # if LONG_DOUBLE_COMPAT(libc, GLIBC_2_0)
+Index: glibc-2.5/stdlib/strtod_l.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtod_l.c	2008-03-08 00:39:23.000000000 +0100
++++ glibc-2.5/stdlib/strtod_l.c	2008-03-08 00:39:56.000000000 +0100
+@@ -1566,6 +1566,7 @@
+ 
+ /* External user entry point.  */
+ 
++#ifndef __USE_EXTERN_INLINES
+ FLOAT
+ #ifdef weak_function
+ weak_function
+@@ -1578,6 +1579,7 @@
+   return ____STRTOF_INTERNAL (nptr, endptr, 0, loc);
+ }
+ weak_alias (__STRTOF, STRTOF)
++#endif
+ 
+ #ifdef LONG_DOUBLE_COMPAT
+ # if LONG_DOUBLE_COMPAT(libc, GLIBC_2_1)
+Index: glibc-2.5/sysdeps/wordsize-32/strtoimax.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/wordsize-32/strtoimax.c	2008-03-08 01:01:04.000000000 +0100
++++ glibc-2.5/sysdeps/wordsize-32/strtoimax.c	2008-03-08 01:01:09.000000000 +0100
+@@ -21,8 +21,10 @@
+ #include <inttypes.h>
+ #include <stdlib.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ intmax_t
+ strtoimax (const char *__restrict nptr, char **__restrict endptr, int base)
+ {
+   return __strtoll_internal (nptr, endptr, base, 0);
+ }
++#endif
+Index: glibc-2.5/sysdeps/wordsize-32/strtoumax.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/wordsize-32/strtoumax.c	2008-03-08 01:01:51.000000000 +0100
++++ glibc-2.5/sysdeps/wordsize-32/strtoumax.c	2008-03-08 01:02:11.000000000 +0100
+@@ -21,8 +21,10 @@
+ #include <inttypes.h>
+ #include <stdlib.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ uintmax_t
+ strtoumax (const char *__restrict nptr, char **__restrict endptr, int base)
+ {
+   return __strtoull_internal (nptr, endptr, base, 0);
+ }
++#endif
+Index: glibc-2.5/sysdeps/wordsize-32/wcstoimax.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/wordsize-32/wcstoimax.c	2008-03-08 01:02:37.000000000 +0100
++++ glibc-2.5/sysdeps/wordsize-32/wcstoimax.c	2008-03-08 01:03:23.000000000 +0100
+@@ -21,9 +21,11 @@
+ #include <inttypes.h>
+ #include <wchar.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ intmax_t
+ wcstoimax (const wchar_t *__restrict nptr, wchar_t **__restrict endptr,
+ 	   int base)
+ {
+   return __wcstoll_internal (nptr, endptr, base, 0);
+ }
++#endif
+Index: glibc-2.5/sysdeps/wordsize-32/wcstoumax.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/wordsize-32/wcstoumax.c	2008-03-08 01:02:46.000000000 +0100
++++ glibc-2.5/sysdeps/wordsize-32/wcstoumax.c	2008-03-08 01:03:07.000000000 +0100
+@@ -21,9 +21,11 @@
+ #include <inttypes.h>
+ #include <wchar.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ uintmax_t
+ wcstoumax (const wchar_t *__restrict nptr, wchar_t **__restrict endptr,
+ 	   int base)
+ {
+   return __wcstoull_internal (nptr, endptr, base, 0);
+ }
++#endif
