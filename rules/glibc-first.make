@@ -71,7 +71,9 @@ glibc-first_prepare: $(STATEDIR)/glibc-first.prepare
 
 GLIBC_FIRST_PATH := PATH=$(CROSS_PATH)
 GLIBC_FIRST_ENV := \
+	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC) \
+	ac_cv_path_GREP=grep \
 	libc_cv_forced_unwind=yes \
 	libc_cv_c_cleanup=yes
 GLIBC_FIRST_MAKEVARS := AUTOCONF=no
