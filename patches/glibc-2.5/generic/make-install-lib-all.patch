@@ -15,9 +15,9 @@
 # --- T2-COPYRIGHT-NOTE-END ---
 Index: glibc-2.5/Makerules
 ===================================================================
---- glibc-2.5.orig/Makerules
-+++ glibc-2.5/Makerules
-@@ -864,6 +864,13 @@ endef
+--- glibc-2.5.orig/Makerules	2008-03-08 10:27:55.000000000 +0100
++++ glibc-2.5/Makerules	2008-03-08 10:27:59.000000000 +0100
+@@ -875,6 +875,13 @@
  installed-libcs := $(foreach o,$(filter-out .os,$(object-suffixes-for-libc)),\
  			     $(inst_libdir)/$(patsubst %,$(libtype$o),\
  						     $(libprefix)$(libc-name)))
@@ -31,7 +31,7 @@ Index: glibc-2.5/Makerules
  install: $(installed-libcs)
  $(installed-libcs): $(inst_libdir)/lib$(libprefix)%: lib $(+force)
  	$(make-target-directory)
-@@ -887,6 +894,7 @@ endef
+@@ -898,6 +905,7 @@
  install-lib.so := $(filter %.so,$(install-lib:%_pic.a=%.so))
  install-lib := $(filter-out %.so %_pic.a,$(install-lib))
  

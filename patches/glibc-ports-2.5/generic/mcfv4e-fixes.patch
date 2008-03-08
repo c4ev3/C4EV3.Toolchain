@@ -2,23 +2,34 @@
 
 Hacked m68k/m68020 port of glibc to get it compiling for Coldfire V4e. 
 
-Index: glibc-2.5/ports/sysdeps/m68k/bits/byteswap.h
+Index: sysdeps/m68k/Implies
 ===================================================================
---- glibc-2.5.orig/ports/sysdeps/m68k/bits/byteswap.h	2008-03-07 21:28:02.000000000 +0100
-+++ glibc-2.5/ports/sysdeps/m68k/bits/byteswap.h	2008-03-07 21:47:11.000000000 +0100
+--- sysdeps/m68k/Implies.orig	2000-09-17 00:59:10.000000000 +0200
++++ sysdeps/m68k/Implies	2008-03-07 23:01:00.000000000 +0100
+@@ -1,5 +1,5 @@
+ wordsize-32
+ # 68k uses IEEE 754 floating point.
+-ieee754/ldbl-96
++# Can't use that on Coldfire : ieee754/ldbl-96
+ ieee754/dbl-64
+ ieee754/flt-32
+Index: sysdeps/m68k/bits/byteswap.h
+===================================================================
+--- sysdeps/m68k/bits/byteswap.h.orig	2002-01-08 11:19:33.000000000 +0100
++++ sysdeps/m68k/bits/byteswap.h	2008-03-08 01:41:36.000000000 +0100
 @@ -35,7 +35,7 @@
    ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >>  8) | \
     (((x) & 0x0000ff00) <<  8) | (((x) & 0x000000ff) << 24))
  
 -#if defined __GNUC__ && __GNUC__ >= 2
-+#if defined __GNUC__ && __GNUC__ >= 2 && !defined __mcfv4e__ && !defined __mcfv4m__
++#if defined __GNUC__ && __GNUC__ >= 2 && !defined(__mcoldfire__)
  # define __bswap_32(x) \
    __extension__							\
    ({ unsigned int __bswap_32_v;					\
-Index: glibc-2.5/ports/sysdeps/m68k/m68020/bits/atomic.h
+Index: sysdeps/m68k/m68020/bits/atomic.h
 ===================================================================
---- glibc-2.5.orig/ports/sysdeps/m68k/m68020/bits/atomic.h	2008-03-07 21:35:48.000000000 +0100
-+++ glibc-2.5/ports/sysdeps/m68k/m68020/bits/atomic.h	2008-03-07 21:50:49.000000000 +0100
+--- sysdeps/m68k/m68020/bits/atomic.h.orig	2004-05-23 12:22:47.000000000 +0200
++++ sysdeps/m68k/m68020/bits/atomic.h	2008-03-07 23:01:00.000000000 +0100
 @@ -19,6 +19,7 @@
  
  #include <stdint.h>
@@ -34,14 +45,540 @@ Index: glibc-2.5/ports/sysdeps/m68k/m68020/bits/atomic.h
 +
 +#endif
 +
-Index: glibc-2.5/ports/sysdeps/m68k/Implies
+Index: sysdeps/m68k/Makefile
 ===================================================================
---- glibc-2.5.orig/ports/sysdeps/m68k/Implies	2008-03-07 22:20:49.000000000 +0100
-+++ glibc-2.5/ports/sysdeps/m68k/Implies	2008-03-07 22:21:36.000000000 +0100
-@@ -1,5 +1,5 @@
- wordsize-32
- # 68k uses IEEE 754 floating point.
--ieee754/ldbl-96
-+# Can't use that on Coldfire : ieee754/ldbl-96
- ieee754/dbl-64
- ieee754/flt-32
+--- sysdeps/m68k/Makefile.orig	2008-03-08 01:57:25.000000000 +0100
++++ sysdeps/m68k/Makefile	2008-03-08 01:58:51.000000000 +0100
+@@ -30,8 +30,9 @@
+ # Make sure setjmp.c is compiled with a frame pointer
+ CFLAGS-setjmp.c := -fno-omit-frame-pointer
+ 
+-# The 68k `long double' is a distinct type we support.
+-long-double-fcts = yes
++# The 68k `long double' is a distinct type we don't support.
++# on Coldfire
++# long-double-fcts = yes
+ 
+ ifeq ($(subdir),elf)
+ CFLAGS-rtld.c += -Wno-uninitialized -Wno-unused
+Index: sysdeps/m68k/__longjmp.c
+===================================================================
+--- sysdeps/m68k/__longjmp.c.orig	2008-03-08 01:57:24.000000000 +0100
++++ sysdeps/m68k/__longjmp.c	2008-03-08 01:59:09.000000000 +0100
+@@ -31,6 +31,9 @@
+   /* Restore the floating-point registers.  */
+   asm volatile("fmovem%.x %0, %/fp0-%/fp7" :
+ 	       /* No outputs.  */ : "g" (env[0].__fpregs[0]));
++#elif defined (__mcffpu__)
++  asm volatile("fmovem %0, %/fp0-%/fp7" :
++	       /* No outputs.  */ : "m" (env[0].__fpregs[0]));
+ #endif
+ 
+   /* Put VAL in D0.  */
+Index: sysdeps/m68k/asm-syntax.h
+===================================================================
+--- sysdeps/m68k/asm-syntax.h.orig	2008-03-08 01:57:24.000000000 +0100
++++ sysdeps/m68k/asm-syntax.h	2008-03-08 02:00:36.000000000 +0100
+@@ -93,7 +93,9 @@
+ #define cmpl cmp.l
+ #define orl or.l
+ #define clrl clr.l
++#define andw and.w
+ #define eorw eor.w
++#define andl and.l
+ #define lsrl lsr.l
+ #define lsll lsl.l
+ #define roxrl roxr.l
+@@ -103,7 +105,10 @@
+ #define addql addq.l
+ #define subl sub.l
+ #define subxl subx.l
++#define subqw subq.w
+ #define subql subq.l
+ #define negl neg.l
+ #define mulul mulu.l
++#define tstw tst.w
++#define tstl tst.l
+ #endif
+Index: sysdeps/m68k/dl-machine.h
+===================================================================
+--- sysdeps/m68k/dl-machine.h.orig	2008-03-08 01:57:24.000000000 +0100
++++ sysdeps/m68k/dl-machine.h	2008-03-08 02:02:22.000000000 +0100
+@@ -23,6 +23,7 @@
+ #define ELF_MACHINE_NAME "m68k"
+ 
+ #include <sys/param.h>
++#include <sysdep.h>
+ 
+ /* Return nonzero iff ELF header is compatible with the running host.  */
+ static inline int
+@@ -48,7 +49,7 @@
+ elf_machine_load_address (void)
+ {
+   Elf32_Addr addr;
+-  asm ("lea _dl_start(%%pc), %0\n\t"
++  asm (PCREL_OP ("lea", "_dl_start", "%0", "%0", "%%pc") "\n\t"
+        "sub.l _dl_start@GOT.w(%%a5), %0"
+        : "=a" (addr));
+   return addr;
+@@ -130,7 +131,7 @@
+ 	move.l %d0, %a4\n\
+ 	| See if we were run as a command with the executable file\n\
+ 	| name as an extra leading argument.\n\
+-	move.l _dl_skip_args(%pc), %d0\n\
++	" PCREL_OP ("move.l", "_dl_skip_args", "%d0", "%d0", "%pc") "\n\
+ 	| Pop the original argument count\n\
+ 	move.l (%sp)+, %d1\n\
+ 	| Subtract _dl_skip_args from it.\n\
+@@ -143,12 +144,12 @@
+ 	pea 8(%sp, %d1*4)\n\
+ 	pea 8(%sp)\n\
+ 	move.l %d1, -(%sp)\n\
+-	move.l _rtld_local(%pc), -(%sp)\n\
++	" PCREL_OP ("move.l", "_rtld_local", "-(%sp)", "%d0", "%pc") "\n\
+ 	jbsr _dl_init_internal@PLTPC\n\
+ 	addq.l #8, %sp\n\
+ 	addq.l #8, %sp\n\
+ 	| Pass our finalizer function to the user in %a1.\n\
+-	lea _dl_fini(%pc), %a1\n\
++	" PCREL_OP ("lea", "_dl_fini", "%a1", "%a1", "%pc") "\n\
+ 	| Initialize %fp with the stack pointer.\n\
+ 	move.l %sp, %fp\n\
+ 	| Jump to the user's entry point.\n\
+Index: sysdeps/m68k/dl-trampoline.S
+===================================================================
+--- sysdeps/m68k/dl-trampoline.S.orig	2008-03-08 01:57:24.000000000 +0100
++++ sysdeps/m68k/dl-trampoline.S	2008-03-08 02:04:36.000000000 +0100
+@@ -34,7 +34,12 @@
+ 	| Pop parameters
+ 	addq.l #8, %sp
+ 	| Call real function.
++#ifdef __mcoldfire__
++	move.l %d0,-(%sp)
++	rts
++#else
+ 	jmp (%d0)
++#endif
+ 	.size _dl_runtime_resolve, . - _dl_runtime_resolve
+ 
+ 	.text
+@@ -64,7 +69,12 @@
+ 	move.l (%sp)+, %a1
+ 	lea 12(%sp), %sp
+ 	| Call real function.
++#ifdef __mcoldfire__
++	move.l %d0,-(%sp)
++	rts
++#else
+ 	jmp (%d0)
++#endif
+ 
+ 	/*
+ 	    +24     return address
+@@ -79,15 +89,24 @@
+ 	move.l %sp, %a2
+ 	move.l %sp, %a0
+ 	lea 28(%sp), %a1
+-	| Round framesize up to even
+-	addq.l #1, %d1
+-	lsr #1, %d1
+-	sub.l %d1, %a0
++	| Round framesize up to longword alignment
++	addq.l #3, %d1
++	and.l #-3, %d1
+ 	sub.l %d1, %a0
+ 	move.l %a0, %sp
++#ifdef __mcoldfire__
++	tst.l %d1
++	beq 2f
++1:	move.l (%a0)+, (%a1)+
++	subq.l #4,%d1
++	bne 1b
++2:
++#else
++	lsr.l #2,%d1
+ 	jra 2f
+-1:	move.w (%a1)+, (%a0)+
++1:	move.l (%a1)+, (%a0)+
+ 2:	dbra %d1,1b
++#endif
+ 	/*
+ 	   %a2+24  return address
+ 	   %a2+20  PLT1
+@@ -101,7 +120,14 @@
+ 
+ 	move.l 4(%a2), %a0
+ 	move.l 8(%a2), %a1
++#ifdef __mcoldfire__
++	pea 2f(%pc)
++	move.l %d0,-(%sp)
++	rts
++2:
++#else
+ 	jsr (%d0)
++#endif
+ 	move.l %a2, %sp
+ 	move.l (%sp)+, %a2
+ 	/*
+@@ -112,18 +138,40 @@
+ 	    +4      %a1
+ 	   %sp      %a0
+ 	*/
++#if !defined (__mcoldfire__)
+ 	fmove.x %fp0, -(%sp)
++#elif defined (__mcffpu__)
++	fmove.l %fp0, -(%sp)
++#else
++	clr.l -(%sp)
++	clr.l -(%sp)
++#endif
++	move.l %a0, -(%sp)
+ 	move.l %d1, -(%sp)
+ 	move.l %d0, -(%sp)
+ 	pea (%sp)
+-	pea 20(%sp)
++#ifdef __mcoldfire__
++	pea 24(%sp)
+ 	move.l 40(%sp), -(%sp)
+ 	move.l 40(%sp), -(%sp)
++#else
++	pea 28(%sp)
++	move.l 44(%sp), -(%sp)
++	move.l 44(%sp), -(%sp)
++#endif
+ 	jbsr _dl_call_pltexit
+ 	lea 16(%sp), %sp
+ 	move.l (%sp)+, %d0
+ 	move.l (%sp)+, %d1
++	move.l (%sp)+, %a0
++#if !defined (__mcoldfire__)
+ 	fmove.x (%sp)+, %fp0
+ 	lea 20(%sp), %sp
++#elif defined (__mcffpu__)
++	fmove.l (%sp)+, %fp0
++	lea 20(%sp), %sp
++#else
++	lea 28(%sp), %sp
++#endif
+ 	rts
+ 	.size _dl_runtime_profile, . - _dl_runtime_profile
+Index: sysdeps/m68k/fpu/fegetenv.c
+===================================================================
+--- sysdeps/m68k/fpu/fegetenv.c.orig	2008-03-08 01:50:27.000000000 +0100
++++ sysdeps/m68k/fpu/fegetenv.c	2008-03-08 01:50:38.000000000 +0100
+@@ -23,7 +23,13 @@
+ int
+ __fegetenv (fenv_t *envp)
+ {
++#ifdef __mcoldfire__
++  __asm__ ("fmove%.l %/fpcr,%0" : "=dm" (envp->__control_register));
++  __asm__ ("fmove%.l %/fpsr,%0" : "=dm" (envp->__status_register));
++  __asm__ ("fmove%.l %/fpiar,%0" : "=dm" (envp->__instruction_address));
++#else
+   __asm__ ("fmovem%.l %/fpcr/%/fpsr/%/fpiar,%0" : "=m" (*envp));
++#endif
+ 
+   /* Success.  */
+   return 0;
+Index: sysdeps/m68k/fpu/feholdexcpt.c
+===================================================================
+--- sysdeps/m68k/fpu/feholdexcpt.c.orig	2008-03-08 01:50:56.000000000 +0100
++++ sysdeps/m68k/fpu/feholdexcpt.c	2008-03-08 01:51:16.000000000 +0100
+@@ -26,7 +26,13 @@
+   fexcept_t fpcr, fpsr;
+ 
+   /* Store the environment.  */
++#ifdef __mcoldfire__
++  __asm__ ("fmove%.l %/fpcr,%0" : "=dm" (envp->__control_register));
++  __asm__ ("fmove%.l %/fpsr,%0" : "=dm" (envp->__status_register));
++  __asm__ ("fmove%.l %/fpiar,%0" : "=dm" (envp->__instruction_address));
++#else
+   __asm__ ("fmovem%.l %/fpcr/%/fpsr/%/fpiar,%0" : "=m" (*envp));
++#endif
+ 
+   /* Now clear all exceptions.  */
+   fpsr = envp->__status_register & ~FE_ALL_EXCEPT;
+@@ -37,3 +43,4 @@
+ 
+   return 0;
+ }
++libm_hidden_def (feholdexcept);
+Index: sysdeps/m68k/fpu/fesetenv.c
+===================================================================
+--- sysdeps/m68k/fpu/fesetenv.c.orig	2008-03-08 01:51:31.000000000 +0100
++++ sysdeps/m68k/fpu/fesetenv.c	2008-03-08 01:52:03.000000000 +0100
+@@ -29,7 +29,13 @@
+      values which we do not want to come from the saved environment.
+      Therefore, we get the current environment and replace the values
+      we want to use from the environment specified by the parameter.  */
++#ifdef __mcoldfire__
++  __asm__ ("fmove%.l %/fpcr,%0" : "=dm" (temp.__control_register));
++  __asm__ ("fmove%.l %/fpsr,%0" : "=dm" (temp.__status_register));
++  __asm__ ("fmove%.l %/fpiar,%0" : "=dm" (temp.__instruction_address));
++#else
+   __asm__ ("fmovem%.l %/fpcr/%/fpsr/%/fpiar,%0" : "=m" (*&temp));
++#endif
+ 
+   temp.__status_register &= ~FE_ALL_EXCEPT;
+   temp.__control_register &= ~((FE_ALL_EXCEPT << 6) | FE_UPWARD);
+@@ -44,7 +50,16 @@
+       temp.__status_register |= envp->__status_register & FE_ALL_EXCEPT;
+     }
+ 
++#ifdef __mcoldfire__
++  __asm__ __volatile__ ("fmove%.l %0,%/fpiar"
++			:: "dm" (temp.__instruction_address));
++  __asm__ __volatile__ ("fmove%.l %0,%/fpcr"
++			:: "dm" (temp.__control_register));
++  __asm__ __volatile__ ("fmove%.l %0,%/fpsr"
++			:: "dm" (temp.__status_register));
++#else
+   __asm__ __volatile__ ("fmovem%.l %0,%/fpcr/%/fpsr/%/fpiar" : : "m" (*&temp));
++#endif
+ 
+   /* Success.  */
+   return 0;
+Index: sysdeps/m68k/fpu/fesetround.c
+===================================================================
+--- sysdeps/m68k/fpu/fesetround.c.orig	2008-03-08 01:52:14.000000000 +0100
++++ sysdeps/m68k/fpu/fesetround.c	2008-03-08 01:52:46.000000000 +0100
+@@ -36,3 +36,4 @@
+ 
+   return 0;
+ }
++libm_hidden_def (fesetround);
+Index: sysdeps/m68k/fpu_control.h
+===================================================================
+--- sysdeps/m68k/fpu_control.h.orig	2008-03-08 01:57:24.000000000 +0100
++++ sysdeps/m68k/fpu_control.h	2008-03-08 02:06:19.000000000 +0100
+@@ -30,9 +30,9 @@
+  * 12     -> enable trap for OVFL exception
+  * 11     -> enable trap for UNFL exception
+  * 10     -> enable trap for DZ exception
+- *  9     -> enable trap for INEX2 exception
+- *  8     -> enable trap for INEX1 exception
+- *  7-6   -> Precision Control
++ *  9     -> enable trap for INEX2 exception (INEX on Coldfire)
++ *  8     -> enable trap for INEX1 exception (IDE on Coldfire)
++ *  7-6   -> Precision Control (only bit 6 is used on Coldfire)
+  *  5-4   -> Rounding Control
+  *  3-0   -> zero (read as 0, write as 0)
+  *
+@@ -54,6 +54,15 @@
+ 
+ #include <features.h>
+ 
++#if defined (__mcoldfire__) && !defined (__mcffpu__)
++
++#define _FPU_RESERVED 0xffffffff
++#define _FPU_DEFAULT  0x00000000
++#define _FPU_GETCW(cw) ((cw) = 0)
++#define _FPU_SETCW(cw) ((void)(cw))
++
++#else
++
+ /* masking of interrupts */
+ #define _FPU_MASK_BSUN  0x8000
+ #define _FPU_MASK_SNAN  0x4000
+@@ -65,8 +74,12 @@
+ #define _FPU_MASK_INEX2 0x0100
+ 
+ /* precision control */
++#ifdef __mcoldfire__
++#define _FPU_DOUBLE   0x00
++#else
+ #define _FPU_EXTENDED 0x00   /* RECOMMENDED */
+ #define _FPU_DOUBLE   0x80
++#endif
+ #define _FPU_SINGLE   0x40     /* DO NOT USE */
+ 
+ /* rounding control */
+@@ -75,7 +88,11 @@
+ #define _FPU_RC_DOWN    0x20
+ #define _FPU_RC_UP      0x30
+ 
++#ifdef __mcoldfire__
++#define _FPU_RESERVED 0xFFFF800F
++#else
+ #define _FPU_RESERVED 0xFFFF000F  /* Reserved bits in fpucr */
++#endif
+ 
+ 
+ /* Now two recommended fpucr */
+@@ -88,14 +105,14 @@
+    that __setfpucw works.  This bit will be ignored.  */
+ #define _FPU_IEEE     0x00000001
+ 
+-/* Type of the control word.  */
+-typedef unsigned int fpu_control_t __attribute__ ((__mode__ (__SI__)));
+-
+ /* Macros for accessing the hardware control word.  */
+ #define _FPU_GETCW(cw) __asm__ ("fmove%.l %!, %0" : "=dm" (cw))
+ #define _FPU_SETCW(cw) __asm__ volatile ("fmove%.l %0, %!" : : "dm" (cw))
++#endif
++
++/* Type of the control word.  */
++typedef unsigned int fpu_control_t __attribute__ ((__mode__ (__SI__)));
+ 
+ /* Default control word set at startup.  */
+ extern fpu_control_t __fpu_control;
+-
+ #endif /* _M68K_FPU_CONTROL_H */
+Index: sysdeps/m68k/memchr.S
+===================================================================
+--- sysdeps/m68k/memchr.S.orig	2008-03-08 01:57:25.000000000 +0100
++++ sysdeps/m68k/memchr.S	2008-03-08 02:07:58.000000000 +0100
+@@ -26,7 +26,13 @@
+ 	TEXT
+ ENTRY(__memchr)
+ 	/* Save the callee-saved registers we use.  */
++#ifdef __mcoldfire__
++	movel	R(d2),MEM_PREDEC(sp)
++	movel	R(d3),MEM_PREDEC(sp)
++	movel	R(d4),MEM_PREDEC(sp)
++#else
+ 	moveml	R(d2)-R(d4),MEM_PREDEC(sp)
++#endif
+ 
+ 	/* Get string pointer, character and length.  */
+ 	movel	MEM_DISP(sp,16),R(a0)
+@@ -34,9 +40,15 @@
+ 	movel	MEM_DISP(sp,24),R(d4)
+ 
+ 	/* Check if at least four bytes left to search.  */
++#ifdef __mcoldfire__
++	subql	#4,R(d4)
++	bcs	L(L6)
++	addql	#4,R(d4)
++#else
+ 	moveql	#4,R(d1)
+ 	cmpl	R(d1),R(d4)
+ 	bcs	L(L6)
++#endif
+ 
+ 	/* Distribute the character to all bytes of a longword.  */
+ 	movel	R(d0),R(d1)
+@@ -49,7 +61,11 @@
+ 	/* First search for the character one byte at a time until the
+ 	   pointer is aligned to a longword boundary.  */
+ 	movel	R(a0),R(d1)
++#ifdef __mcoldfire__
++	andl	#3,R(d1)
++#else
+ 	andw	#3,R(d1)
++#endif
+ 	beq	L(L1)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+@@ -57,8 +73,11 @@
+ 	subql	#1,R(d4)
+ 	beq	L(L7)
+ 
+-	movel	R(a0),R(d1)
+-	andw	#3,R(d1)
++#ifdef __mcoldfire__
++	subql	#3,R(d1)
++#else
++	subqw	#3,R(d1)
++#endif
+ 	beq	L(L1)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+@@ -66,8 +85,11 @@
+ 	subql	#1,R(d4)
+ 	beq	L(L7)
+ 
+-	movel	R(a0),R(d1)
+-	andw	#3,R(d1)
++#ifdef __mcoldfire__
++	addql	#1,R(d1)
++#else
++	addqw	#1,R(d1)
++#endif
+ 	beq	L(L1)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+@@ -177,19 +199,31 @@
+ 
+ L(L6:)
+ 	/* Search one byte at a time in the remaining less than 4 bytes.  */
++#ifdef __mcoldfire__
++	addql	#4,R(d4)
++#else
+ 	andw	#3,R(d4)
++#endif
+ 	beq	L(L7)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+ 	addql	#1,R(a0)
+ 
++#ifdef __mcoldfire__
++	subql	#1,R(d4)
++#else
+ 	subqw	#1,R(d4)
++#endif
+ 	beq	L(L7)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+ 	addql	#1,R(a0)
+ 
++#ifdef __mcoldfire__
++	subql	#1,R(d4)
++#else
+ 	subqw	#1,R(d4)
++#endif
+ 	beq	L(L7)
+ 	cmpb	MEM(a0),R(d0)
+ 	beq	L(L9)
+@@ -198,7 +232,13 @@
+ 	/* Return NULL.  */
+ 	clrl	R(d0)
+ 	movel	R(d0),R(a0)
++#ifdef __mcoldfire__
++	movel	MEM_POSTINC(sp),R(d4)
++	movel	MEM_POSTINC(sp),R(d3)
++	movel	MEM_POSTINC(sp),R(d2)
++#else
+ 	moveml	MEM_POSTINC(sp),R(d2)-R(d4)
++#endif
+ 	rts
+ 
+ L(L8:)
+@@ -221,7 +261,13 @@
+ 	/* Otherwise the fourth byte must equal C.  */
+ L(L9:)
+ 	movel	R(a0),R(d0)
++#ifdef __mcoldfire__
++	movel	MEM_POSTINC(sp),R(d4)
++	movel	MEM_POSTINC(sp),R(d3)
++	movel	MEM_POSTINC(sp),R(d2)
++#else
+ 	moveml	MEM_POSTINC(sp),R(d2)-R(d4)
++#endif
+ 	rts
+ END(__memchr)
+ 
+Index: sysdeps/m68k/preconfigure
+===================================================================
+--- sysdeps/m68k/preconfigure.orig	2008-03-08 01:57:25.000000000 +0100
++++ sysdeps/m68k/preconfigure	2008-03-08 02:08:58.000000000 +0100
+@@ -1,6 +1,17 @@
+ # This fragment canonicalizes the machine names for m68k variants.
+ 
+ case "$machine" in
+-m680?0)		base_machine=m68k machine=m68k/$machine ;;
+-m68k)		base_machine=m68k machine=m68k/m68020 ;;
++m680?0)		base_machine=m68k machine=m68k/m680x0/$machine ;;
++m68k)		variant=`(echo "#ifdef __mcoldfire__"
++			  echo "coldfire"
++			  echo "#else"
++			  echo "m680x0/m68020"
++			  echo "#endif") |
++			 $CC $CFLAGS $CPPFLAGS -E - |
++			 grep '^[a-z]'`
++		if test -z "$variant"; then
++		  echo >&2 "Cannot determine m68k processor variant"
++		  exit 1
++		fi
++		base_machine=m68k machine=m68k/$variant ;;
+ esac

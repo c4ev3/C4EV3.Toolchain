@@ -12,9 +12,9 @@ checking version of /usr/libexec/gcc/darwin/ppc/as...
 
 Index: glibc-2.5/configure
 ===================================================================
---- glibc-2.5.orig/configure
-+++ glibc-2.5/configure
-@@ -4039,7 +4039,7 @@ else
+--- glibc-2.5.orig/configure	2008-03-08 10:27:55.000000000 +0100
++++ glibc-2.5/configure	2008-03-08 10:28:12.000000000 +0100
+@@ -4041,7 +4041,7 @@
    # Found it, now check the version.
    echo "$as_me:$LINENO: checking version of $AS" >&5
  echo $ECHO_N "checking version of $AS... $ECHO_C" >&6
@@ -22,8 +22,8 @@ Index: glibc-2.5/configure
 +  ac_prog_version=`$AS -v </dev/null 2>&1 | sed -n 's/^.*GNU assembler.* \([0-9]*\.[0-9.]*\).*$/\1/p'`
    case $ac_prog_version in
      '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
-     2.1[3-9]*)
-@@ -4050,7 +4050,7 @@ echo $ECHO_N "checking version of $AS...
+     2.1[7-9]* | 2.[2-9][0-9]* | [3-9].*)
+@@ -4052,7 +4052,7 @@
    echo "$as_me:$LINENO: result: $ac_prog_version" >&5
  echo "${ECHO_T}$ac_prog_version" >&6
  fi
@@ -31,8 +31,8 @@ Index: glibc-2.5/configure
 +if test $ac_verc_fail = yes -a -z "$enable_hacker_mode"; then
    AS=: critic_missing="$critic_missing as"
  fi
-
-@@ -4111,7 +4111,7 @@ echo $ECHO_N "checking version of $LD...
+ 
+@@ -4113,7 +4113,7 @@
    echo "$as_me:$LINENO: result: $ac_prog_version" >&5
  echo "${ECHO_T}$ac_prog_version" >&6
  fi
@@ -40,4 +40,4 @@ Index: glibc-2.5/configure
 +if test $ac_verc_fail = yes -a -z "$enable_hacker_mode"; then
    LD=: critic_missing="$critic_missing ld"
  fi
-
+ 

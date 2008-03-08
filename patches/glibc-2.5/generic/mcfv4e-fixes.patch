@@ -8,7 +8,7 @@ Patch by schlote@vhanaus.net.
 Index: glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c
 ===================================================================
 --- glibc-2.5.orig/sysdeps/ieee754/dbl-64/s_copysign.c	1999-07-14 01:51:30.000000000 +0200
-+++ glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-07 23:29:41.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c	2008-03-08 11:49:02.000000000 +0100
 @@ -23,6 +23,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -26,7 +26,7 @@ Index: glibc-2.5/sysdeps/ieee754/dbl-64/s_copysign.c
 Index: glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c
 ===================================================================
 --- glibc-2.5.orig/sysdeps/ieee754/flt-32/s_copysignf.c	1999-07-14 02:00:43.000000000 +0200
-+++ glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-07 23:29:41.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c	2008-03-08 11:49:02.000000000 +0100
 @@ -26,6 +26,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -44,7 +44,7 @@ Index: glibc-2.5/sysdeps/ieee754/flt-32/s_copysignf.c
 Index: glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c
 ===================================================================
 --- glibc-2.5.orig/sysdeps/ieee754/ldbl-96/s_copysignl.c	1999-07-14 02:13:21.000000000 +0200
-+++ glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-07 23:29:41.000000000 +0100
++++ glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c	2008-03-08 11:49:02.000000000 +0100
 @@ -27,6 +27,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -61,8 +61,8 @@ Index: glibc-2.5/sysdeps/ieee754/ldbl-96/s_copysignl.c
 +
 Index: glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/ieee754/ldbl-128/s_copysignl.c	2008-03-08 00:05:38.000000000 +0100
-+++ glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c	2008-03-08 00:06:41.000000000 +0100
+--- glibc-2.5.orig/sysdeps/ieee754/ldbl-128/s_copysignl.c	1999-07-14 02:08:21.000000000 +0200
++++ glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c	2008-03-08 11:49:02.000000000 +0100
 @@ -26,6 +26,7 @@
  #include "math.h"
  #include "math_private.h"
@@ -78,8 +78,8 @@ Index: glibc-2.5/sysdeps/ieee754/ldbl-128/s_copysignl.c
 +#endif
 Index: glibc-2.5/stdlib/atol.c
 ===================================================================
---- glibc-2.5.orig/stdlib/atol.c	2008-03-08 00:13:51.000000000 +0100
-+++ glibc-2.5/stdlib/atol.c	2008-03-08 00:21:14.000000000 +0100
+--- glibc-2.5.orig/stdlib/atol.c	2001-07-06 06:55:41.000000000 +0200
++++ glibc-2.5/stdlib/atol.c	2008-03-08 11:49:02.000000000 +0100
 @@ -20,6 +20,7 @@
  
  #undef	atol
@@ -96,8 +96,8 @@ Index: glibc-2.5/stdlib/atol.c
 +
 Index: glibc-2.5/stdlib/atof.c
 ===================================================================
---- glibc-2.5.orig/stdlib/atof.c	2008-03-08 00:22:19.000000000 +0100
-+++ glibc-2.5/stdlib/atof.c	2008-03-08 00:22:34.000000000 +0100
+--- glibc-2.5.orig/stdlib/atof.c	2001-07-06 06:55:41.000000000 +0200
++++ glibc-2.5/stdlib/atof.c	2008-03-08 11:49:02.000000000 +0100
 @@ -20,6 +20,7 @@
  
  #undef	atof
@@ -113,8 +113,8 @@ Index: glibc-2.5/stdlib/atof.c
 +#endif
 Index: glibc-2.5/stdlib/atoll.c
 ===================================================================
---- glibc-2.5.orig/stdlib/atoll.c	2008-03-08 00:21:45.000000000 +0100
-+++ glibc-2.5/stdlib/atoll.c	2008-03-08 00:22:00.000000000 +0100
+--- glibc-2.5.orig/stdlib/atoll.c	2001-07-06 06:55:41.000000000 +0200
++++ glibc-2.5/stdlib/atoll.c	2008-03-08 11:49:02.000000000 +0100
 @@ -20,6 +20,7 @@
  
  #undef	atoll
@@ -131,8 +131,8 @@ Index: glibc-2.5/stdlib/atoll.c
 +#endif
 Index: glibc-2.5/stdlib/atoi.c
 ===================================================================
---- glibc-2.5.orig/stdlib/atoi.c	2008-03-08 00:23:29.000000000 +0100
-+++ glibc-2.5/stdlib/atoi.c	2008-03-08 00:23:44.000000000 +0100
+--- glibc-2.5.orig/stdlib/atoi.c	2001-07-06 06:55:41.000000000 +0200
++++ glibc-2.5/stdlib/atoi.c	2008-03-08 11:49:02.000000000 +0100
 @@ -20,6 +20,7 @@
  
  #undef	atoi
@@ -148,8 +148,8 @@ Index: glibc-2.5/stdlib/atoi.c
 +#endif
 Index: glibc-2.5/stdlib/strtol.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtol.c	2008-03-08 00:24:38.000000000 +0100
-+++ glibc-2.5/stdlib/strtol.c	2008-03-08 00:25:19.000000000 +0100
+--- glibc-2.5.orig/stdlib/strtol.c	2005-12-14 12:13:42.000000000 +0100
++++ glibc-2.5/stdlib/strtol.c	2008-03-08 11:49:02.000000000 +0100
 @@ -100,7 +100,7 @@
  }
  libc_hidden_def (INTERNAL (strtol))
@@ -166,8 +166,8 @@ Index: glibc-2.5/stdlib/strtol.c
 +#endif
 Index: glibc-2.5/stdlib/strtoll.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtoll.c	2008-03-08 00:26:37.000000000 +0100
-+++ glibc-2.5/stdlib/strtoll.c	2008-03-08 00:28:29.000000000 +0100
+--- glibc-2.5.orig/stdlib/strtoll.c	2005-12-14 12:14:26.000000000 +0100
++++ glibc-2.5/stdlib/strtoll.c	2008-03-08 11:49:02.000000000 +0100
 @@ -30,5 +30,8 @@
  #  endif
  
@@ -179,8 +179,8 @@ Index: glibc-2.5/stdlib/strtoll.c
 +
 Index: glibc-2.5/stdlib/strtol_l.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtol_l.c	2008-03-08 00:29:36.000000000 +0100
-+++ glibc-2.5/stdlib/strtol_l.c	2008-03-08 00:30:38.000000000 +0100
+--- glibc-2.5.orig/stdlib/strtol_l.c	2006-08-08 17:51:05.000000000 +0200
++++ glibc-2.5/stdlib/strtol_l.c	2008-03-08 11:49:02.000000000 +0100
 @@ -548,7 +548,7 @@
  			       int base));
  #endif
@@ -197,8 +197,8 @@ Index: glibc-2.5/stdlib/strtol_l.c
 +#endif
 Index: glibc-2.5/stdlib/strtoull.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtoull.c	2008-03-08 00:36:33.000000000 +0100
-+++ glibc-2.5/stdlib/strtoull.c	2008-03-08 00:36:58.000000000 +0100
+--- glibc-2.5.orig/stdlib/strtoull.c	2005-12-14 12:15:32.000000000 +0100
++++ glibc-2.5/stdlib/strtoull.c	2008-03-08 11:49:02.000000000 +0100
 @@ -30,5 +30,7 @@
  #  endif
  
@@ -209,8 +209,8 @@ Index: glibc-2.5/stdlib/strtoull.c
 +#endif
 Index: glibc-2.5/stdlib/strtod.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtod.c	2008-03-08 00:38:02.000000000 +0100
-+++ glibc-2.5/stdlib/strtod.c	2008-03-08 00:38:48.000000000 +0100
+--- glibc-2.5.orig/stdlib/strtod.c	2006-01-14 13:09:09.000000000 +0100
++++ glibc-2.5/stdlib/strtod.c	2008-03-08 11:49:02.000000000 +0100
 @@ -58,7 +58,7 @@
  libc_hidden_def (INTERNAL (STRTOF))
  #endif
@@ -230,9 +230,9 @@ Index: glibc-2.5/stdlib/strtod.c
  # if LONG_DOUBLE_COMPAT(libc, GLIBC_2_0)
 Index: glibc-2.5/stdlib/strtod_l.c
 ===================================================================
---- glibc-2.5.orig/stdlib/strtod_l.c	2008-03-08 00:39:23.000000000 +0100
-+++ glibc-2.5/stdlib/strtod_l.c	2008-03-08 00:39:56.000000000 +0100
-@@ -1566,6 +1566,7 @@
+--- glibc-2.5.orig/stdlib/strtod_l.c	2008-03-08 11:28:09.000000000 +0100
++++ glibc-2.5/stdlib/strtod_l.c	2008-03-08 11:49:02.000000000 +0100
+@@ -1580,6 +1580,7 @@
  
  /* External user entry point.  */
  
@@ -240,7 +240,7 @@ Index: glibc-2.5/stdlib/strtod_l.c
  FLOAT
  #ifdef weak_function
  weak_function
-@@ -1578,6 +1579,7 @@
+@@ -1592,6 +1593,7 @@
    return ____STRTOF_INTERNAL (nptr, endptr, 0, loc);
  }
  weak_alias (__STRTOF, STRTOF)
@@ -250,8 +250,8 @@ Index: glibc-2.5/stdlib/strtod_l.c
  # if LONG_DOUBLE_COMPAT(libc, GLIBC_2_1)
 Index: glibc-2.5/sysdeps/wordsize-32/strtoimax.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/wordsize-32/strtoimax.c	2008-03-08 01:01:04.000000000 +0100
-+++ glibc-2.5/sysdeps/wordsize-32/strtoimax.c	2008-03-08 01:01:09.000000000 +0100
+--- glibc-2.5.orig/sysdeps/wordsize-32/strtoimax.c	2001-07-06 06:56:23.000000000 +0200
++++ glibc-2.5/sysdeps/wordsize-32/strtoimax.c	2008-03-08 11:49:02.000000000 +0100
 @@ -21,8 +21,10 @@
  #include <inttypes.h>
  #include <stdlib.h>
@@ -265,8 +265,8 @@ Index: glibc-2.5/sysdeps/wordsize-32/strtoimax.c
 +#endif
 Index: glibc-2.5/sysdeps/wordsize-32/strtoumax.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/wordsize-32/strtoumax.c	2008-03-08 01:01:51.000000000 +0100
-+++ glibc-2.5/sysdeps/wordsize-32/strtoumax.c	2008-03-08 01:02:11.000000000 +0100
+--- glibc-2.5.orig/sysdeps/wordsize-32/strtoumax.c	2001-07-06 06:56:23.000000000 +0200
++++ glibc-2.5/sysdeps/wordsize-32/strtoumax.c	2008-03-08 11:49:02.000000000 +0100
 @@ -21,8 +21,10 @@
  #include <inttypes.h>
  #include <stdlib.h>
@@ -280,8 +280,8 @@ Index: glibc-2.5/sysdeps/wordsize-32/strtoumax.c
 +#endif
 Index: glibc-2.5/sysdeps/wordsize-32/wcstoimax.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/wordsize-32/wcstoimax.c	2008-03-08 01:02:37.000000000 +0100
-+++ glibc-2.5/sysdeps/wordsize-32/wcstoimax.c	2008-03-08 01:03:23.000000000 +0100
+--- glibc-2.5.orig/sysdeps/wordsize-32/wcstoimax.c	2001-07-06 06:56:23.000000000 +0200
++++ glibc-2.5/sysdeps/wordsize-32/wcstoimax.c	2008-03-08 11:49:02.000000000 +0100
 @@ -21,9 +21,11 @@
  #include <inttypes.h>
  #include <wchar.h>
@@ -296,8 +296,8 @@ Index: glibc-2.5/sysdeps/wordsize-32/wcstoimax.c
 +#endif
 Index: glibc-2.5/sysdeps/wordsize-32/wcstoumax.c
 ===================================================================
---- glibc-2.5.orig/sysdeps/wordsize-32/wcstoumax.c	2008-03-08 01:02:46.000000000 +0100
-+++ glibc-2.5/sysdeps/wordsize-32/wcstoumax.c	2008-03-08 01:03:07.000000000 +0100
+--- glibc-2.5.orig/sysdeps/wordsize-32/wcstoumax.c	2001-07-06 06:56:23.000000000 +0200
++++ glibc-2.5/sysdeps/wordsize-32/wcstoumax.c	2008-03-08 11:49:02.000000000 +0100
 @@ -21,9 +21,11 @@
  #include <inttypes.h>
  #include <wchar.h>
@@ -308,5 +308,537 @@ Index: glibc-2.5/sysdeps/wordsize-32/wcstoumax.c
  	   int base)
  {
    return __wcstoull_internal (nptr, endptr, base, 0);
+ }
++#endif
+Index: glibc-2.5/stdlib/strtold_l.c
+===================================================================
+--- glibc-2.5.orig/stdlib/strtold_l.c	2008-03-08 11:51:01.000000000 +0100
++++ glibc-2.5/stdlib/strtold_l.c	2008-03-08 11:52:50.000000000 +0100
+@@ -49,6 +49,7 @@
+ libc_hidden_def (INTERNAL (__STRTOLD))
+ #endif
+ 
++#ifndef __USE_EXTERN_INLINES
+ long double
+ weak_function
+ __STRTOLD (const STRING_TYPE *nptr, STRING_TYPE **endptr, __locale_t loc)
+@@ -56,3 +57,4 @@
+   return INTERNAL (__STRTOD) (nptr, endptr, 0, loc);
+ }
+ weak_alias (__STRTOLD, STRTOLD)
++#endif
+Index: glibc-2.5/stdio-common/getline.c
+===================================================================
+--- glibc-2.5.orig/stdio-common/getline.c	2008-03-08 11:54:35.000000000 +0100
++++ glibc-2.5/stdio-common/getline.c	2008-03-08 11:55:05.000000000 +0100
+@@ -27,6 +27,8 @@
+ #define ssize_t _IO_ssize_t
+ #define __getdelim _IO_getdelim
+ 
++#ifndef __USE_EXTERN_INLINES
++
+ /* Like getdelim, but always looks for a newline.  */
+ ssize_t
+ __getline (char **lineptr, size_t *n, FILE *stream)
+@@ -35,3 +37,4 @@
+ }
+ 
+ weak_alias (__getline, getline)
++#endif
+Index: glibc-2.5/libio/putchar.c
+===================================================================
+--- glibc-2.5.orig/libio/putchar.c	2008-03-08 11:56:43.000000000 +0100
++++ glibc-2.5/libio/putchar.c	2008-03-08 12:04:13.000000000 +0100
+@@ -21,6 +21,8 @@
+ 
+ #undef putchar
+ 
++#ifndef __USE_EXTERN_INLINES
++
+ int
+ putchar (c)
+      int c;
+@@ -36,3 +38,4 @@
+ #undef putchar_unlocked
+ weak_alias (putchar, putchar_unlocked)
+ #endif
++#endif
+Index: glibc-2.5/libio/putchar_u.c
+===================================================================
+--- glibc-2.5.orig/libio/putchar_u.c	2008-03-08 12:04:53.000000000 +0100
++++ glibc-2.5/libio/putchar_u.c	2008-03-08 12:05:06.000000000 +0100
+@@ -21,6 +21,7 @@
+ 
+ #undef putchar_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ putchar_unlocked (c)
+      int c;
+@@ -28,3 +29,4 @@
+   CHECK_FILE (_IO_stdout, EOF);
+   return _IO_putc_unlocked (c, _IO_stdout);
+ }
++#endif
+Index: glibc-2.5/libio/feof.c
+===================================================================
+--- glibc-2.5.orig/libio/feof.c	2008-03-08 12:07:20.000000000 +0100
++++ glibc-2.5/libio/feof.c	2008-03-08 12:07:47.000000000 +0100
+@@ -28,6 +28,7 @@
+ #include "libioP.h"
+ #include "stdio.h"
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ _IO_feof (fp)
+      _IO_FILE* fp;
+@@ -48,3 +49,4 @@
+ weak_alias (_IO_feof, feof_unlocked)
+ #endif
+ #endif
++#endif
+Index: glibc-2.5/libio/getchar.c
+===================================================================
+--- glibc-2.5.orig/libio/getchar.c	2008-03-08 12:06:01.000000000 +0100
++++ glibc-2.5/libio/getchar.c	2008-03-08 12:06:23.000000000 +0100
+@@ -30,6 +30,7 @@
+ 
+ #undef getchar
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ getchar ()
+ {
+@@ -44,3 +45,4 @@
+ #undef getchar_unlocked
+ weak_alias (getchar, getchar_unlocked)
+ #endif
++#endif
+Index: glibc-2.5/libio/feof_u.c
+===================================================================
+--- glibc-2.5.orig/libio/feof_u.c	2008-03-08 12:08:27.000000000 +0100
++++ glibc-2.5/libio/feof_u.c	2008-03-08 12:08:41.000000000 +0100
+@@ -30,6 +30,7 @@
+ 
+ #undef feof_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ feof_unlocked (fp)
+      _IO_FILE* fp;
+@@ -37,3 +38,4 @@
+   CHECK_FILE (fp, EOF);
+   return _IO_feof_unlocked (fp);
+ }
++#endif
+Index: glibc-2.5/libio/ferror_u.c
+===================================================================
+--- glibc-2.5.orig/libio/ferror_u.c	2008-03-08 12:32:58.000000000 +0100
++++ glibc-2.5/libio/ferror_u.c	2008-03-08 12:33:21.000000000 +0100
+@@ -30,6 +30,7 @@
+ 
+ #undef ferror_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ ferror_unlocked (fp)
+      _IO_FILE* fp;
+@@ -37,3 +38,4 @@
+   CHECK_FILE (fp, EOF);
+   return _IO_ferror_unlocked (fp);
+ }
++#endif 
+Index: glibc-2.5/libio/fputc_u.c
+===================================================================
+--- glibc-2.5.orig/libio/fputc_u.c	2008-03-08 12:34:08.000000000 +0100
++++ glibc-2.5/libio/fputc_u.c	2008-03-08 12:34:28.000000000 +0100
+@@ -30,6 +30,7 @@
+ 
+ #undef fputc_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ fputc_unlocked (c, fp)
+      int c;
+@@ -38,3 +39,4 @@
+   CHECK_FILE (fp, EOF);
+   return _IO_putc_unlocked (c, fp);
+ }
++#endif
+Index: glibc-2.5/libio/getc_u.c
+===================================================================
+--- glibc-2.5.orig/libio/getc_u.c	2008-03-08 12:35:27.000000000 +0100
++++ glibc-2.5/libio/getc_u.c	2008-03-08 12:35:45.000000000 +0100
+@@ -30,6 +30,7 @@
+ 
+ #undef getc_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ __getc_unlocked (FILE *fp)
+ {
+@@ -39,3 +40,4 @@
+ 
+ weak_alias (__getc_unlocked, getc_unlocked)
+ weak_alias (__getc_unlocked, fgetc_unlocked)
++#endif
+Index: glibc-2.5/libio/putc_u.c
+===================================================================
+--- glibc-2.5.orig/libio/putc_u.c	2008-03-08 12:36:54.000000000 +0100
++++ glibc-2.5/libio/putc_u.c	2008-03-08 12:37:05.000000000 +0100
+@@ -21,6 +21,7 @@
+ 
+ #undef putc_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ putc_unlocked (c, fp)
+      int c;
+@@ -29,3 +30,4 @@
+   CHECK_FILE (fp, EOF);
+   return _IO_putc_unlocked (c, fp);
+ }
++#endif
+\ No newline at end of file
+Index: glibc-2.5/libio/getchar_u.c
+===================================================================
+--- glibc-2.5.orig/libio/getchar_u.c	2008-03-08 12:37:51.000000000 +0100
++++ glibc-2.5/libio/getchar_u.c	2008-03-08 12:38:07.000000000 +0100
+@@ -30,8 +30,10 @@
+ 
+ #undef getchar_unlocked
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ getchar_unlocked ()
+ {
+   return _IO_getc_unlocked (_IO_stdin);
+ }
++#endif
+\ No newline at end of file
+Index: glibc-2.5/string/argz-next.c
+===================================================================
+--- glibc-2.5.orig/string/argz-next.c	2008-03-08 12:40:27.000000000 +0100
++++ glibc-2.5/string/argz-next.c	2008-03-08 12:40:42.000000000 +0100
+@@ -21,6 +21,7 @@
+ #include <argz.h>
+ #include <string.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ char *
+ __argz_next (const char *argz, size_t argz_len, const char *entry)
+ {
+@@ -38,3 +39,4 @@
+       return NULL;
+ }
+ weak_alias (__argz_next, argz_next)
++#endif
+\ No newline at end of file
+Index: glibc-2.5/wcsmbs/btowc.c
+===================================================================
+--- glibc-2.5.orig/wcsmbs/btowc.c	2008-03-08 12:43:49.000000000 +0100
++++ glibc-2.5/wcsmbs/btowc.c	2008-03-08 12:44:05.000000000 +0100
+@@ -28,7 +28,7 @@
+ 
+ #include <sysdep.h>
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ wint_t
+ __btowc (c)
+      int c;
+@@ -101,3 +101,4 @@
+     }
+ }
+ weak_alias (__btowc, btowc)
++#endif
+Index: glibc-2.5/wcsmbs/wctob.c
+===================================================================
+--- glibc-2.5.orig/wcsmbs/wctob.c	2008-03-08 12:42:23.000000000 +0100
++++ glibc-2.5/wcsmbs/wctob.c	2008-03-08 12:43:06.000000000 +0100
+@@ -26,7 +26,7 @@
+ 
+ #include <sysdep.h>
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ int
+ wctob (c)
+      wint_t c;
+@@ -83,3 +83,4 @@
+ 
+   return buf[0];
+ }
++#endif
+Index: glibc-2.5/wcsmbs/mbrlen.c
+===================================================================
+--- glibc-2.5.orig/wcsmbs/mbrlen.c	2008-03-08 12:44:43.000000000 +0100
++++ glibc-2.5/wcsmbs/mbrlen.c	2008-03-08 12:45:01.000000000 +0100
+@@ -23,7 +23,7 @@
+    the PS parameter is NULL.  */
+ static mbstate_t internal;
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ size_t
+ __mbrlen (s, n, ps)
+      const char *s;
+@@ -34,3 +34,4 @@
+ }
+ libc_hidden_def (__mbrlen)
+ weak_alias (__mbrlen, mbrlen)
++#endif
+Index: glibc-2.5/wcsmbs/wcstoull.c
+===================================================================
+--- glibc-2.5.orig/wcsmbs/wcstoull.c	2008-03-08 12:48:03.000000000 +0100
++++ glibc-2.5/wcsmbs/wcstoull.c	2008-03-08 12:48:27.000000000 +0100
+@@ -22,4 +22,6 @@
+ 
+ #include "wcstoul.c"
+ 
++#ifndef __USE_EXTERN_INLINES
+ weak_alias (wcstoull, wcstouq)
++#endif
+Index: glibc-2.5/wcsmbs/wcstoll.c
+===================================================================
+--- glibc-2.5.orig/wcsmbs/wcstoll.c	2008-03-08 12:49:08.000000000 +0100
++++ glibc-2.5/wcsmbs/wcstoll.c	2008-03-08 12:49:21.000000000 +0100
+@@ -22,4 +22,6 @@
+ 
+ #include "wcstol.c"
+ 
++#ifndef __USE_EXTERN_INLINES
+ weak_alias (wcstoll, wcstoq)
++#endif
+Index: glibc-2.5/io/stat.c
+===================================================================
+--- glibc-2.5.orig/io/stat.c	2008-03-08 12:51:55.000000000 +0100
++++ glibc-2.5/io/stat.c	2008-03-08 12:53:03.000000000 +0100
+@@ -45,6 +45,7 @@
+    all callers.  */
+ 
+ #undef stat
++#ifndef __USE_EXTERN_INLINES
+ int
+ __stat (const char *file, struct stat *buf)
+ {
+@@ -52,6 +53,7 @@
+ }
+ 
+ weak_alias (__stat, stat)
++#endif
+ 
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+Index: glibc-2.5/io/fstat.c
+===================================================================
+--- glibc-2.5.orig/io/fstat.c	2008-03-08 12:53:58.000000000 +0100
++++ glibc-2.5/io/fstat.c	2008-03-08 12:54:20.000000000 +0100
+@@ -46,6 +46,7 @@
+ 
+ #undef fstat
+ #undef __fstat
++#ifndef __USE_EXTERN_INLINES
+ int
+ __fstat (int fd, struct stat *buf)
+ {
+@@ -53,7 +54,7 @@
+ }
+ 
+ weak_alias (__fstat, fstat)
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/lstat.c
+===================================================================
+--- glibc-2.5.orig/io/lstat.c	2008-03-08 12:54:43.000000000 +0100
++++ glibc-2.5/io/lstat.c	2008-03-08 12:55:03.000000000 +0100
+@@ -46,6 +46,7 @@
+ 
+ #undef lstat
+ #undef __lstat
++#ifndef __USE_EXTERN_INLINES
+ int
+ __lstat (const char *file, struct stat *buf)
+ {
+@@ -53,7 +54,7 @@
+ }
+ 
+ weak_alias (__lstat, lstat)
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/fstat64.c
+===================================================================
+--- glibc-2.5.orig/io/fstat64.c	2008-03-08 12:55:56.000000000 +0100
++++ glibc-2.5/io/fstat64.c	2008-03-08 12:56:32.000000000 +0100
+@@ -45,12 +45,13 @@
+    all callers.  */
+ 
+ #undef fstat64
++#ifndef __USE_EXTERN_INLINES
+ int
+ fstat64 (int fd, struct stat64 *buf)
+ {
+   return __fxstat64 (_STAT_VER, fd, buf);
+ }
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/lstat64.c
+===================================================================
+--- glibc-2.5.orig/io/lstat64.c	2008-03-08 12:55:50.000000000 +0100
++++ glibc-2.5/io/lstat64.c	2008-03-08 12:56:46.000000000 +0100
+@@ -45,12 +45,13 @@
+    all callers.  */
+ 
+ #undef lstat64
++#ifndef __USE_EXTERN_INLINES
+ int
+ lstat64 (const char *file, struct stat64 *buf)
+ {
+   return __lxstat64 (_STAT_VER, file, buf);
+ }
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/fstatat.c
+===================================================================
+--- glibc-2.5.orig/io/fstatat.c	2008-03-08 12:58:17.000000000 +0100
++++ glibc-2.5/io/fstatat.c	2008-03-08 12:58:36.000000000 +0100
+@@ -45,12 +45,13 @@
+    all callers.  */
+ 
+ #undef fstatat
++#ifndef __USE_EXTERN_INLINES
+ int
+ fstatat (int fd, const char *file, struct stat *buf, int flag)
+ {
+   return __fxstatat (_STAT_VER, fd, file, buf, flag);
+ }
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/stat64.c
+===================================================================
+--- glibc-2.5.orig/io/stat64.c	2008-03-08 12:57:42.000000000 +0100
++++ glibc-2.5/io/stat64.c	2008-03-08 12:58:00.000000000 +0100
+@@ -45,12 +45,13 @@
+    all callers.  */
+ 
+ #undef stat64
++#ifndef __USE_EXTERN_INLINES
+ int
+ stat64 (const char *file, struct stat64 *buf)
+ {
+   return __xstat64 (_STAT_VER, file, buf);
+ }
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/fstatat64.c
+===================================================================
+--- glibc-2.5.orig/io/fstatat64.c	2008-03-08 12:59:14.000000000 +0100
++++ glibc-2.5/io/fstatat64.c	2008-03-08 12:59:33.000000000 +0100
+@@ -45,12 +45,13 @@
+    all callers.  */
+ 
+ #undef fstatat64
++#ifndef __USE_EXTERN_INLINES
+ int
+ fstatat64 (int fd, const char *file, struct stat64 *buf, int flag)
+ {
+   return __fxstatat64 (_STAT_VER, fd, file, buf, flag);
+ }
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/mknod.c
+===================================================================
+--- glibc-2.5.orig/io/mknod.c	2008-03-08 13:00:24.000000000 +0100
++++ glibc-2.5/io/mknod.c	2008-03-08 13:00:44.000000000 +0100
+@@ -46,6 +46,7 @@
+    functions in the shared library can adapt without needing to recompile
+    all callers.  */
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ __mknod (const char *path, mode_t mode, dev_t dev)
+ {
+@@ -53,7 +54,7 @@
+ }
+ 
+ weak_alias (__mknod, mknod)
+-
++#endif
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+ #ifdef HAVE_DOT_HIDDEN
+Index: glibc-2.5/io/mknodat.c
+===================================================================
+--- glibc-2.5.orig/io/mknodat.c	2008-03-08 13:01:27.000000000 +0100
++++ glibc-2.5/io/mknodat.c	2008-03-08 13:01:47.000000000 +0100
+@@ -46,12 +46,13 @@
+    functions in the shared library can adapt without needing to recompile
+    all callers.  */
+ 
++#ifndef __USE_EXTERN_INLINES
+ int
+ mknodat (int fd, const char *path, mode_t mode, dev_t dev)
+ {
+   return __xmknodat (_MKNOD_VER, fd, path, mode, &dev);
+ }
+-
++#endif
+ 
+ /* Hide the symbol so that no definition but the one locally in the
+    executable or DSO is used.  */
+Index: glibc-2.5/sysdeps/unix/sysv/linux/makedev.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/makedev.c	2008-03-08 13:03:23.000000000 +0100
++++ glibc-2.5/sysdeps/unix/sysv/linux/makedev.c	2008-03-08 13:03:55.000000000 +0100
+@@ -20,6 +20,7 @@
+ #include <endian.h>
+ #include <sys/sysmacros.h>
+ 
++#ifndef __USE_EXTERN_INLINES
+ unsigned int
+ gnu_dev_major (unsigned long long int dev)
+ {
+@@ -39,3 +40,4 @@
+ 	  | (((unsigned long long int) (minor & ~0xff)) << 12)
+ 	  | (((unsigned long long int) (major & ~0xfff)) << 32));
+ }
++#endif
+Index: glibc-2.5/sysdeps/unix/sysv/linux/cmsg_nxthdr.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/cmsg_nxthdr.c	2008-03-08 13:05:11.000000000 +0100
++++ glibc-2.5/sysdeps/unix/sysv/linux/cmsg_nxthdr.c	2008-03-08 13:05:30.000000000 +0100
+@@ -19,7 +19,7 @@
+ 
+ #include <sys/socket.h>
+ 
+-
++#ifndef __USE_EXTERN_INLINES
+ struct cmsghdr *
+ __cmsg_nxthdr (struct msghdr *mhdr, struct cmsghdr *cmsg)
+ {
+@@ -37,3 +37,4 @@
+     return NULL;
+   return cmsg;
  }
 +#endif

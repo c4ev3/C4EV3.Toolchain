@@ -1,6 +1,8 @@
---- glibc-2.5.orig/configure
-+++ glibc-2.5/configure
-@@ -5488,6 +5488,92 @@ _ACEOF
+Index: glibc-2.5/configure
+===================================================================
+--- glibc-2.5.orig/configure	2008-03-08 10:28:18.000000000 +0100
++++ glibc-2.5/configure	2008-03-08 10:28:31.000000000 +0100
+@@ -5491,6 +5491,92 @@
      fi
    fi
  
@@ -93,7 +95,7 @@
    echo "$as_me:$LINENO: checking for .preinit_array/.init_array/.fini_array support" >&5
  echo $ECHO_N "checking for .preinit_array/.init_array/.fini_array support... $ECHO_C" >&6
  if test "${libc_cv_initfini_array+set}" = set; then
-@@ -5507,7 +5593,7 @@ EOF
+@@ -5510,7 +5596,7 @@
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then
@@ -102,7 +104,7 @@
        libc_cv_initfini_array=yes
      else
        libc_cv_initfini_array=no
-@@ -5801,7 +5887,7 @@ EOF
+@@ -5804,7 +5890,7 @@
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then
