@@ -1,0 +1,10 @@
+Index: glibc-ports-2.7/README
+===================================================================
+--- glibc-ports-2.7.orig/README	2008-03-10 18:34:42.000000000 +0100
++++ glibc-ports-2.7/README	2008-03-10 18:35:22.000000000 +0100
+@@ -41,3 +41,4 @@
+ 
+ 
+ $Id: README,v 1.2 2006/02/28 08:23:38 roland Exp $
++-- ptxdist port for Coldfire 2008-03-10
+\ No newline at end of file
