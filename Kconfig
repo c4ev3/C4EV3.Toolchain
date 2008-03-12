@@ -1,3 +1,4 @@
+
 #
 # Kconfig: Main menu structure definition
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005, 2006
@@ -87,11 +88,12 @@ endchoice
 config ARCH
 	string
 	default "arm" if ARCH_ARM
+	default "avr" if ARCH_AVR
 	default "m68k" if ARCH_M68K
+	default "x86" if CROSS_GCC_43 && ARCH_I386
+	default "i386" if ARCH_I386
 	default "mips" if ARCH_MIPS
 	default "powerpc" if ARCH_POWERPC
-	default "i386" if ARCH_I386
-    default "avr" if ARCH_AVR
 
 config GNU_TARGET
 	string
