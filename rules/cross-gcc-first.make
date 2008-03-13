@@ -20,9 +20,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC_FIRST) += cross-gcc-first
 CROSS_GCC_FIRST_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
 CROSS_GCC_FIRST			:= gcc-$(CROSS_GCC_FIRST_VERSION)
 CROSS_GCC_FIRST_SUFFIX	 	:= tar.bz2
-#CROSS_GCC_FIRST_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
-CROSS_GCC_FIRST_URL	 	:= ftp://ftp.gwdg.de/pub/misc/gnu/ftp/gnu/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
-
+CROSS_GCC_FIRST_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
 CROSS_GCC_FIRST_SOURCE		:= $(SRCDIR)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
 CROSS_GCC_FIRST_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC_FIRST)
 CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-first-build
@@ -82,7 +80,9 @@ CROSS_GCC_AUTOCONF_COMMON := \
 # for other architectures than AVR its not usefull to have multilib,
 # but we need a sysroot for them
 ifndef PTXCONF_ARCH_AVR
-CROSS_GCC_AUTOCONF_COMMON += --disable-multilib --with-sysroot=$(SYSROOT)
+CROSS_GCC_AUTOCONF_COMMON += \
+	--disable-multilib \
+	--with-sysroot=$(SYSROOT)
 endif
 #
 # the host hack (or trick) is broken with gcc-4.3+
@@ -181,11 +181,10 @@ $(STATEDIR)/cross-gcc-first.install:
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_s/'`
 
- ifdef PTXCONF_CROSS_GCC_43
+ifdef PTXCONF_CROSS_GCC_43
 	# FIXME - fix copy target
-	#cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(CROSS_GCC_FIRST_PREFIX)/lib/gcc/$(PTXCONF_GNU_TARGET)/4.3.0/include/limits.h
 	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(SYSROOT)/usr/include/limits.h
- endif
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
