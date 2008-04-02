@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2007, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GDB) += cross-gdb
 #
 # Paths and names
 #
-CROSS_GDB_VERSION	:= 6.6
+CROSS_GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GDB_VERSION))
 CROSS_GDB		:= gdb-$(CROSS_GDB_VERSION)
 CROSS_GDB_SUFFIX	:= tar.bz2
 CROSS_GDB_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)

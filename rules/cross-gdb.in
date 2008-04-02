@@ -1,5 +1,5 @@
-config CROSS_GDB
-	bool "cross gdb"
+menuconfig CROSS_GDB
+	bool "cross gdb                   "
 	select LIBC_SECOND
 	help
 	GDB is a source-level debugger, capable of breaking programs
@@ -7,3 +7,11 @@ config CROSS_GDB
 	determining where errors occurred. Currently, it works for C,
 	C++, Fortran, Modula 2 and Java programs. A must-have for any
 	serious programmer.
+
+config CROSS_GDB_VERSION
+	depends on CROSS_GDB
+	string
+	prompt "gdb version"
+	default "6.8"
+	help
+	  Specify the version of gdb here.
