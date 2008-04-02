@@ -69,7 +69,7 @@ cross-toolchain_install: $(STATEDIR)/cross-toolchain.install
 $(STATEDIR)/cross-toolchain.install:
 	@$(call targetinfo, $@)
 	-rm -f ${PTXCONF_PREFIX}/bin/ptxconfig
-	mkdir -p ${PTXCONF_PREFIX}/bin
+	#mkdir -p ${PTXCONF_PREFIX}/bin
 	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX}/bin/ptxconfig
 
 	# carsten.schlote: Setup a symbolic link to installation dir
