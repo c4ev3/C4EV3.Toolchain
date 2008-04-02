@@ -1,4 +1,0 @@
-gcc-4.1.1_gcc_c_incpath-no-host-includes.diff
-
-gcc-4.2-arm-bigendian.patch
-arm-softfloat.diff
