@@ -17,10 +17,3 @@ config MINGW_RUNTIME_VERSION
 	help
 	  Specify the mingw-runtime version here.
 
-config MINGW_RUNTIME_RELEASE
-	depends on MINGW_RUNTIME
-	string
-	prompt "mingw-runtime release"
-	default "20061202-1"
-	help
-	  Specify the mingw-runtime version here.
