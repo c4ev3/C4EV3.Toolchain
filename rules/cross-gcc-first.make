@@ -29,34 +29,28 @@ CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-first-build
 # Get
 # ----------------------------------------------------------------------------
 
-cross-gcc-first_get: $(STATEDIR)/cross-gcc-first.get
-
 $(STATEDIR)/cross-gcc-first.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 $(CROSS_GCC_FIRST_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CROSS_GCC_FIRST)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-gcc-first_extract: $(STATEDIR)/cross-gcc-first.extract
-
 $(STATEDIR)/cross-gcc-first.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_GCC_FIRST_DIR))
 	@$(call extract, CROSS_GCC_FIRST, $(BUILDDIR_CROSS_DEBUG))
 	@$(call patchin, CROSS_GCC_FIRST, $(CROSS_GCC_FIRST_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cross-gcc-first_prepare: $(STATEDIR)/cross-gcc-first.prepare
 
 CROSS_GCC_FIRST_PATH	:= PATH=$(CROSS_PATH)
 CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
@@ -66,12 +60,11 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 #
 CROSS_GCC_AUTOCONF_COMMON := \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-gmp=$(PTX_PREFIX_HOST) \
-	--with-mpfr=$(PTX_PREFIX_HOST) \
+	--with-gmp=$(PTXCONF_SYSROOT_HOST) \
+	--with-mpfr=$(PTXCONF_SYSROOT_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
-	$(CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
-	$(PTXCONF_CROSS_GCC_HEADERS) \
+	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
 	\
 	--disable-nls \
 	--enable-symvers=gnu \
@@ -84,10 +77,6 @@ CROSS_GCC_AUTOCONF_COMMON += \
 	--disable-multilib \
 	--with-sysroot=$(SYSROOT)
 endif
-#
-# the host hack (or trick) is broken with gcc-4.3+
-#
-#	--host=$(GNU_HOST)
 
 CROSS_GCC_FIRST_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
@@ -96,8 +85,8 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	--disable-shared \
 	--enable-languages=c \
 	\
-	--with-ld=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld \
-	--with-as=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as \
+	--with-ld=$(PTXCONF_SYSROOT_CROSS)/bin/$(PTXCONF_GNU_TARGET)-ld \
+	--with-as=$(PTXCONF_SYSROOT_CROSS)/bin/$(PTXCONF_GNU_TARGET)-as \
 	--disable-checking \
 	\
 	--disable-libmudflap \
@@ -105,22 +94,20 @@ CROSS_GCC_FIRST_AUTOCONF := \
 	--disable-libgomp
 
 $(STATEDIR)/cross-gcc-first.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
 	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		eval $(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
+		$(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-gcc-first_compile: $(STATEDIR)/cross-gcc-first.compile
-
 $(STATEDIR)/cross-gcc-first.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 # 	export $(CROSS_GCC_FIRST_PATH); \
 # 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
@@ -162,16 +149,14 @@ $(STATEDIR)/cross-gcc-first.compile:
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) #all-gcc
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-gcc-first_install: $(STATEDIR)/cross-gcc-first.install
-
 $(STATEDIR)/cross-gcc-first.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		$(CROSS_GCC_FIRST_PATH) $(MAKE) install #install-gcc
 	ln -sfv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
@@ -185,7 +170,7 @@ ifdef PTXCONF_CROSS_GCC_43
 	# FIXME - fix copy target
 	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(SYSROOT)/usr/include/limits.h
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

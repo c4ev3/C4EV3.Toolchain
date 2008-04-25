@@ -28,44 +28,34 @@ KERNEL_HEADERS_DIR	:= $(BUILDDIR)/$(KERNEL_HEADERS)
 # Get
 # ----------------------------------------------------------------------------
 
-kernel-headers_get: $(STATEDIR)/kernel-headers.get
-
-$(STATEDIR)/kernel-headers.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(KERNEL_HEADERS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, KERNEL_HEADERS)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-kernel-headers_extract: $(STATEDIR)/kernel-headers.extract
-
 $(STATEDIR)/kernel-headers.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(KERNEL_HEADERS_DIR))
 	@$(call extract, KERNEL_HEADERS)
 	@$(call patchin, KERNEL_HEADERS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-kernel-headers_prepare: $(STATEDIR)/kernel-headers.prepare
 
 KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
 KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH) $(PARALLELMFLAGS)
 
 $(STATEDIR)/kernel-headers.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cp $(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL_HEADERS_CONFIG) \
 		$(KERNEL_HEADERS_DIR)/.config
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -74,7 +64,7 @@ $(STATEDIR)/kernel-headers.prepare:
 kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
 
 $(STATEDIR)/kernel-headers.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
 #
 # this is used to generate asm and asm/mach links for arm
@@ -85,16 +75,14 @@ $(STATEDIR)/kernel-headers.compile:
 # if the include/asm link is missing, it's really fatal
 #
 	test -L $(KERNEL_HEADERS_DIR)/include/asm || exit 1
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-kernel-headers_install: $(STATEDIR)/kernel-headers.install
-
 $(STATEDIR)/kernel-headers.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 ifdef PTXCONF_KERNEL_HEADERS_SANIZIZED
 	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) headers_install INSTALL_HDR_PATH=$(SYSROOT)/usr
@@ -105,17 +93,15 @@ else
 	cp -r $(KERNEL_HEADERS_DIR)/include/asm-generic $(SYSROOT)/usr/include/asm-generic
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-kernel-headers_targetinstall: $(STATEDIR)/kernel-headers.targetinstall
-
 $(STATEDIR)/kernel-headers.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

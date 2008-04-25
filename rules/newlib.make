@@ -29,36 +29,26 @@ NEWLIB_BUILDDIR	:= $(BUILDDIR)/$(NEWLIB)-build
 # Get
 # ----------------------------------------------------------------------------
 
-newlib_get: $(STATEDIR)/newlib.get
-
-$(STATEDIR)/newlib.get: $(newlib_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NEWLIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, NEWLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-newlib_extract: $(STATEDIR)/newlib.extract
-
-$(STATEDIR)/newlib.extract: $(newlib_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/newlib.extract:
+	@$(call targetinfo)
 	@$(call clean, $(NEWLIB_DIR))
 	@$(call clean, $(NEWLIB_BUILDDIR))
 	@$(call extract, NEWLIB, $(BUILDDIR_DEBUG))
 	@$(call patchin, NEWLIB, $(NEWLIB_DIR))
 	mkdir -p $(NEWLIB_BUILDDIR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-newlib_prepare: $(STATEDIR)/newlib.prepare
 
 NEWLIB_PATH := PATH=$(CROSS_PATH)
 NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
@@ -67,7 +57,7 @@ NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 # autoconf
 #
 NEWLIB_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(PTXCONF_SYSROOT_TARGET) \
 	--build=$(GNU_BUILD) \
 	--target=$(PTXCONF_GNU_TARGET) \
         --disable-shared \
@@ -75,46 +65,40 @@ NEWLIB_AUTOCONF := \
 	--with-newlib
 
 
-$(STATEDIR)/newlib.prepare: $(newlib_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/newlib.prepare:
+	@$(call targetinfo)
 	cd $(NEWLIB_BUILDDIR) && eval \
 		$(NEWLIB_ENV) $(NEWLIB_PATH) \
 		$(NEWLIB_DIR)/configure $(NEWLIB_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-newlib_compile: $(STATEDIR)/newlib.compile
-
-$(STATEDIR)/newlib.compile: $(newlib_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/newlib.compile:
+	@$(call targetinfo)
 	cd $(NEWLIB_BUILDDIR) && $(NEWLIB_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-newlib_install: $(STATEDIR)/newlib.install
-
-$(STATEDIR)/newlib.install: $(newlib_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/newlib.install:
+	@$(call targetinfo)
 	cd $(NEWLIB_BUILDDIR) && \
 		$(NEWLIB_PATH) $(MAKE) install
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-newlib_targetinstall: $(STATEDIR)/newlib.targetinstall
-
-$(STATEDIR)/newlib.targetinstall: $(newlib_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/newlib.targetinstall:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

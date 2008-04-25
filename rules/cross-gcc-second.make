@@ -23,27 +23,21 @@ CROSS_GCC_SECOND_BUILDDIR	= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-second-build
 # Get
 # ----------------------------------------------------------------------------
 
-cross-gcc-second_get: $(STATEDIR)/cross-gcc-second.get
-
 $(STATEDIR)/cross-gcc-second.get: $(STATEDIR)/cross-gcc-first.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-gcc-second_extract: $(STATEDIR)/cross-gcc-second.extract
-
 $(STATEDIR)/cross-gcc-second.extract: $(STATEDIR)/cross-gcc-first.extract
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cross-gcc-second_prepare: $(STATEDIR)/cross-gcc-second.prepare
 
 CROSS_GCC_SECOND_PATH	:= PATH=$(CROSS_PATH)
 CROSS_GCC_SECOND_ENV	:= $(HOSTCC_ENV)
@@ -53,57 +47,47 @@ CROSS_GCC_SECOND_ENV	:= $(HOSTCC_ENV)
 #
 CROSS_GCC_SECOND_AUTOCONF = \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	\
 	--enable-languages=$(PTXCONF_CROSS_GCC_LANG) \
 	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--enable-c99 \
 	--enable-long-long \
-	--enable-libstdcxx-debug
-
-ifdef PTXCONF_CROSS_GCC_SHARED
-CROSS_GCC_SECOND_AUTOCONF += \
-	--enable-shared
-else
-CROSS_GCC_SECOND_AUTOCONF += \
-	--disable-shared
-endif
+	--enable-libstdcxx-debug \
+	\
+	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
 
 $(STATEDIR)/cross-gcc-second.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_GCC_SECOND_BUILDDIR))
 	mkdir -p $(CROSS_GCC_SECOND_BUILDDIR)
-	cd $(CROSS_GCC_SECOND_BUILDDIR) && eval \
+	cd $(CROSS_GCC_SECOND_BUILDDIR) && \
 		$(CROSS_GCC_SECOND_PATH) $(CROSS_GCC_SECOND_ENV) \
 		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_SECOND_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-gcc-second_compile: $(STATEDIR)/cross-gcc-second.compile
-
 $(STATEDIR)/cross-gcc-second.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && $(CROSS_GCC_SECOND_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-gcc-second_install: $(STATEDIR)/cross-gcc-second.install
-
 $(STATEDIR)/cross-gcc-second.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(CROSS_GCC_SECOND_BUILDDIR) && \
 		$(CROSS_GCC_SECOND_PATH) $(MAKE) install
-	@find $(PTXCONF_PREFIX) -name "*.la" | while read la_file; do	\
-		rm -v $${la_file};					\
+	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do	\
+		rm -v $${la_file};						\
 	done
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

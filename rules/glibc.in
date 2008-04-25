@@ -1,19 +1,27 @@
 # config for glibc
 
-menuconfig GLIBC_FIRST
+config GLIBC_CRT
 	bool
 	select CROSS_GCC_FIRST
-#	select GLIBC_CRT
-	select GLIBC_PORTS if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
-	select GLIBC_LINUXTHREADS if GLIBC_ADDON_LINUXTHREADS
 
+config GLIBC_FIRST
+	bool
+	select CROSS_GCC_FIRST
+
+menuconfig GLIBC
+	bool
+#	select GLIBC_CRT
+	select GLIBC_PORTS		if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
+	select GLIBC_LINUXTHREADS	if GLIBC_ADDON_LINUXTHREADS
+
+	select CROSS_GCC_SECOND
 	select CROSS_GCC_SHARED
 	select CROSS_GCC_THREADS_POSIX
 	select CROSS_GCC_ENABLE_CXA_ATEXIT
 	prompt "glibc                       "
 
 config GLIBC_VERSION
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	string
 	prompt "glibc version"
 	default "2.5"
@@ -21,38 +29,39 @@ config GLIBC_VERSION
 	  Specify the glibc version here.
 
 config GLIBC_SERIES
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	string
 	prompt "glibc patch series file"
 
-config GLIBC_FIRST_SERIES
-	depends on GLIBC_FIRST
+config GLIBC_SERIES
+	depends on GLIBC
 	string
 	default "${PTXCONF_GLIBC_SERIES}"
 
 config GLIBC_ENABLE_KERNEL
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	string
 	prompt "mininum kernel version"
 	default "2.6.16"
 
 config GLIBC_EXTRA_CONFIG
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	string
 	prompt "extra configure options"
 	help
 	  Add these extra options to glibc's configure script.
 
 config GLIBC_HEADERS_FAKE_CROSS
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	string
 	prompt "fake cross args"
+	default "-D__ARM_EABI__" if ARCH_ARM
 	help
 	  Add these args to fake a crosscompiler during glibc-header extraction stage.
 
 choice
 	prompt "Thread implementation"
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	default GLIBC_ADDON_NPTL
 
 	config GLIBC_ADDON_LINUXTHREADS
@@ -70,15 +79,8 @@ choice
 endchoice
 
 config GLIBC_TLS
-	depends on GLIBC_FIRST
+	depends on GLIBC
 	bool
 	prompt "enable TLS"
 	help
 	  Activate Thread Local Storage.
-
-config GLIBC_CRT
-	bool
-	select CROSS_GCC_FIRST
-
-config GLIBC_SECOND
-	bool

@@ -12,7 +12,7 @@ config KERNEL_HEADERS_VERSION
 	help
 	  Specify the kernel version here.
 
-config KERNEL_HEADERS_SANIZIZED
+config KERNEL_HEADERS_SANITIZED
 	depends on KERNEL_HEADERS
 	bool
 	prompt "use sanitized headers"

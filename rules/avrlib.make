@@ -17,47 +17,37 @@ PACKAGES-$(PTXCONF_AVR8LIB) += avrlib
 #
 # Paths and names
 #
-AVR8LIB_VERSION	:= $(call remove_quotes,$(PTXCONF_AVR8LIB_VERSION))
-AVR8LIB		:= avr-libc-$(AVR8LIB_VERSION)
-AVR8LIB_SUFFIX	:= tar.bz2
-AVR8LIB_URL	:= http://download.savannah.gnu.org/releases/avr-libc/$(AVR8LIB).$(AVR8LIB_SUFFIX)
-AVR8LIB_SOURCE	:= $(SRCDIR)/$(AVR8LIB).$(AVR8LIB_SUFFIX)
-AVR8LIB_DIR	:= $(BUILDDIR)/$(AVR8LIB)
+AVR8LIB_VERSION		:= $(call remove_quotes,$(PTXCONF_AVR8LIB_VERSION))
+AVR8LIB			:= avr-libc-$(AVR8LIB_VERSION)
+AVR8LIB_SUFFIX		:= tar.bz2
+AVR8LIB_URL		:= http://download.savannah.gnu.org/releases/avr-libc/$(AVR8LIB).$(AVR8LIB_SUFFIX)
+AVR8LIB_SOURCE		:= $(SRCDIR)/$(AVR8LIB).$(AVR8LIB_SUFFIX)
+AVR8LIB_DIR		:= $(BUILDDIR)/$(AVR8LIB)
 AVR8LIB_BUILDDIR	:= $(BUILDDIR)/$(AVR8LIB)-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-avrlib_get: $(STATEDIR)/avrlib.get
-
-$(STATEDIR)/avrlib.get: $(avrlib_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(AVR8LIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, AVR8LIB)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-avrlib_extract: $(STATEDIR)/avrlib.extract
-
-$(STATEDIR)/avrlib.extract: $(avrlib_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/avrlib.extract:
+	@$(call targetinfo)
 	@$(call clean, $(AVR8LIB_DIR))
 	@$(call extract, AVR8LIB)
 	@$(call patchin, AVR8LIB)
 	mkdir -p $(AVR8LIB_BUILDDIR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-avrlib_prepare: $(STATEDIR)/avrlib.prepare
 
 AVR8LIB_PATH	:= PATH=$(CROSS_PATH)
 AVR8LIB_ENV 	:= \
@@ -71,52 +61,46 @@ AVR8LIB_ENV 	:= \
 # newer libs (at least 1.4.6) forces --host=avr!
 #
 AVR8LIB_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(PTXCONF_SYSROOT_TARGET) \
 	--build=$(GNU_BUILD) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--enable-multilib
 
-$(STATEDIR)/avrlib.prepare: $(avrlib_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/avrlib.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(AVR8LIB_BUILDDIR)/config.cache)
 	cd $(AVR8LIB_BUILDDIR) && \
 		$(AVR8LIB_PATH) $(AVR8LIB_ENV) \
 		$(AVR8LIB_DIR)/configure $(AVR8LIB_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-avrlib_compile: $(STATEDIR)/avrlib.compile
-
-$(STATEDIR)/avrlib.compile: $(avrlib_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/avrlib.compile:
+	@$(call targetinfo)
 	cd $(AVR8LIB_BUILDDIR) && $(AVR8LIB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-avrlib_install: $(STATEDIR)/avrlib.install
-
-$(STATEDIR)/avrlib.install: $(avrlib_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/avrlib.install:
+	@$(call targetinfo)
 	cd $(AVR8LIB_BUILDDIR) && \
 		$(AVR8LIB_PATH) $(MAKE) install
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-avrlib_targetinstall: $(STATEDIR)/avrlib.targetinstall
-
-$(STATEDIR)/avrlib.targetinstall: $(avrlib_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/avrlib.targetinstall:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

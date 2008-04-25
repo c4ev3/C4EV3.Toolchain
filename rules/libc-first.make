@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_LIBC_FIRST) += libc-first
 libc-first_get: $(STATEDIR)/libc-first.get
 
 $(STATEDIR)/libc-first.get: $(libc-first_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -31,8 +31,8 @@ $(STATEDIR)/libc-first.get: $(libc-first_get_deps_default)
 libc-first_extract: $(STATEDIR)/libc-first.extract
 
 $(STATEDIR)/libc-first.extract: $(libc-first_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,8 +41,8 @@ $(STATEDIR)/libc-first.extract: $(libc-first_extract_deps_default)
 libc-first_prepare: $(STATEDIR)/libc-first.prepare
 
 $(STATEDIR)/libc-first.prepare: $(libc-first_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -51,8 +51,8 @@ $(STATEDIR)/libc-first.prepare: $(libc-first_prepare_deps_default)
 libc-first_compile: $(STATEDIR)/libc-first.compile
 
 $(STATEDIR)/libc-first.compile: $(libc-first_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -61,8 +61,8 @@ $(STATEDIR)/libc-first.compile: $(libc-first_compile_deps_default)
 libc-first_install: $(STATEDIR)/libc-first.install
 
 $(STATEDIR)/libc-first.install: $(libc-first_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -71,8 +71,8 @@ $(STATEDIR)/libc-first.install: $(libc-first_install_deps_default)
 libc-first_targetinstall: $(STATEDIR)/libc-first.targetinstall
 
 $(STATEDIR)/libc-first.targetinstall: $(libc-first_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

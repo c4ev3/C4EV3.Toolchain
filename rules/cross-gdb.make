@@ -28,34 +28,24 @@ CROSS_GDB_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 # Get
 # ----------------------------------------------------------------------------
 
-cross-gdb_get: $(STATEDIR)/cross-gdb.get
-
-$(STATEDIR)/cross-gdb.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CROSS_GDB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CROSS_GDB)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-gdb_extract: $(STATEDIR)/cross-gdb.extract
-
 $(STATEDIR)/cross-gdb.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_GDB_DIR))
 	@$(call extract, CROSS_GDB, $(CROSS_BUILDDIR))
 	@$(call patchin, CROSS_GDB, $(CROSS_GDB_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cross-gdb_prepare: $(STATEDIR)/cross-gdb.prepare
 
 CROSS_GDB_PATH	:= PATH=$(CROSS_PATH)
 CROSS_GDB_ENV 	:= $(HOST_ENV)
@@ -64,7 +54,7 @@ CROSS_GDB_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 CROSS_GDB_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--build=$(GNU_HOST) \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
@@ -78,34 +68,30 @@ CROSS_GDB_AUTOCONF += --with-sysroot=$(SYSROOT)
 endif
 
 $(STATEDIR)/cross-gdb.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_GDB_DIR)/config.cache)
 	cd $(CROSS_GDB_DIR) && \
 		$(CROSS_GDB_PATH) $(CROSS_GDB_ENV) \
 		./configure $(CROSS_GDB_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-gdb_compile: $(STATEDIR)/cross-gdb.compile
-
 $(STATEDIR)/cross-gdb.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(CROSS_GDB_DIR) && $(CROSS_GDB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-gdb_install: $(STATEDIR)/cross-gdb.install
-
 $(STATEDIR)/cross-gdb.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, CROSS_GDB,,h)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

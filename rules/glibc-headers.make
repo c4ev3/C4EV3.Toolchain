@@ -17,29 +17,23 @@ PACKAGES-$(PTXCONF_GLIBC_HEADERS) += glibc-headers
 #
 # Paths and names
 #
-GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC_FIRST)-headers
+GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-glibc-headers_get: $(STATEDIR)/glibc-headers.get
-
-$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc-first.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-glibc-headers_extract: $(STATEDIR)/glibc-headers.extract
-
-$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc-first.extract
-	@$(call targetinfo, $@)
-	@$(call clean, $(GLIBC_HEADERS_DIR))
-	mkdir -p $(GLIBC_HEADERS_DIR)
-	@$(call touch, $@)
+$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc.extract
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -56,7 +50,7 @@ GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
 #
 GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
-	CC="$${CC} -DBOOTSTRAP_GCC $(call remove_quotes, $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS))" \
+	CC="$${CC} -DBOOTSTRAP_GCC $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS)" \
 	\
 	libc_cv_initfini_array=yes \
 	\
@@ -81,11 +75,13 @@ GLIBC_HEADERS_AUTOCONF = \
 	--enable-hacker-mode
 
 $(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
+	@$(call clean, $(GLIBC_HEADERS_DIR))
+	mkdir -p $(GLIBC_HEADERS_DIR)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(GLIBC_FIRST_DIR)/configure $(GLIBC_HEADERS_AUTOCONF)
-	@$(call touch, $@)
+		$(GLIBC_DIR)/configure $(GLIBC_HEADERS_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -94,14 +90,14 @@ $(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
 glibc-headers_compile: $(STATEDIR)/glibc-headers.compile
 
 $(STATEDIR)/glibc-headers.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
 		$(MAKE) sysdeps/gnu/errlist.c
 
 	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
 	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +106,7 @@ $(STATEDIR)/glibc-headers.compile:
 glibc-headers_install: $(STATEDIR)/glibc-headers.install
 
 $(STATEDIR)/glibc-headers.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
 		$(MAKE) compiling=yes install_root=$(SYSROOT) install-headers
@@ -118,9 +114,9 @@ $(STATEDIR)/glibc-headers.install:
 	mkdir -p $(SYSROOT)/usr/include/gnu
 	touch $(SYSROOT)/usr/include/gnu/stubs.h
 
-	cp $(GLIBC_FIRST_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
+	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
 	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,8 +125,8 @@ $(STATEDIR)/glibc-headers.install:
 glibc-headers_targetinstall: $(STATEDIR)/glibc-headers.targetinstall
 
 $(STATEDIR)/glibc-headers.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
