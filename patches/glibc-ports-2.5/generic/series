@@ -7,5 +7,7 @@ sysdeps_unix_sysv_linux_arm_kernel-features_h-remove-i386-fix.diff
 sysdeps_unix_sysv_linux_arm-and-mips_bits_fcntl_h-splice-update.diff
 sysdeps_unix_sysv_linux_arm_eabi_nptl_sysdep-cancel_h-unwind-fix.diff
 
-gentoo/6230_all_arm-glibc-2.5-no-page-header.patch
+gentoo/6220_all_glibc-2.4-arm-cirrus-ep93xx-maverick-crunch-fpu.patch
 gentoo/6225_all_arm-glibc-2.5-fix-network-assert.patch
+gentoo/6230_all_arm-glibc-2.5-no-page-header.patch
+
