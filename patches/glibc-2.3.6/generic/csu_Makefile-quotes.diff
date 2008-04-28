@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: works now on ubuntu, where bin dash in /bin/sh
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ csu/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.3.6/csu/Makefile
+===================================================================
+--- glibc-2.3.6.orig/csu/Makefile
++++ glibc-2.3.6/csu/Makefile
+@@ -241,7 +241,7 @@ $(objpfx)version-info.h: $(common-objpfx
+ 	 esac; \
+ 	 files="$(all-Banner-files)";				\
+ 	 if test -n "$$files"; then				\
+-	   echo "\"Available extensions:\\n\"";			\
++	   echo '"Available extensions:\\n"';			\
+ 	   sed -e '/^#/d' -e 's/^[[:space:]]*/	/'		\
+ 	       -e 's/^\(.*\)$$/\"\1\\n\"/' $$files;		\
+ 	 fi) > $@T
