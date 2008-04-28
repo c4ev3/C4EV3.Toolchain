@@ -54,6 +54,9 @@ CROSS_GCC_SECOND_AUTOCONF = \
 	--enable-c99 \
 	--enable-long-long \
 	--enable-libstdcxx-debug \
+	--enable-profile \
+	\
+	--enable-intermodule \
 	\
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
 

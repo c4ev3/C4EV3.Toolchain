@@ -106,8 +106,10 @@ GLIBC_AUTOCONF := \
 	\
 	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
         --enable-debug \
+	--enable-profile \
 	--without-gd \
-        --enable-shared
+        --enable-shared \
+	--enable-static-nss
 
 $(STATEDIR)/glibc.prepare:
 	@$(call targetinfo)
