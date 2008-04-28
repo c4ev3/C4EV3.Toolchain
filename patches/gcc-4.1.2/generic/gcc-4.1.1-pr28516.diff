@@ -16,10 +16,10 @@
  gcc/testsuite/gcc.dg/nested-func-5.c |   13 +++++++++++++
  2 files changed, 22 insertions(+)
 
-Index: gcc/config/arm/arm.c
+Index: gcc-4.1.2/gcc/config/arm/arm.c
 ===================================================================
---- gcc/config/arm/arm.c.orig
-+++ gcc/config/arm/arm.c
+--- gcc-4.1.2.orig/gcc/config/arm/arm.c
++++ gcc-4.1.2/gcc/config/arm/arm.c
 @@ -15371,6 +15371,15 @@ arm_unwind_emit_set (FILE * asm_out_file
  	  /* Move from sp to reg.  */
  	  asm_fprintf (asm_out_file, "\t.movsp %r\n", REGNO (e0));
@@ -36,10 +36,10 @@ Index: gcc/config/arm/arm.c
        else
  	abort ();
        break;
-Index: gcc/testsuite/gcc.dg/nested-func-5.c
+Index: gcc-4.1.2/gcc/testsuite/gcc.dg/nested-func-5.c
 ===================================================================
 --- /dev/null
-+++ gcc/testsuite/gcc.dg/nested-func-5.c
++++ gcc-4.1.2/gcc/testsuite/gcc.dg/nested-func-5.c
 @@ -0,0 +1,13 @@
 +/* { dg-do compile } */
 +/* { dg-options "-fexceptions" } */
