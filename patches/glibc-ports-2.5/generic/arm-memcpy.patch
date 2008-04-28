@@ -13,9 +13,15 @@ written by Nicolas Pitre.
 	* sysdeps/arm/memcpy.S: New file.
 	* sysdeps/arm/memmove.S: Likewise.
 
-diff -rupN ports.orig/sysdeps/arm/memcpy.S ports/sysdeps/arm/memcpy.S
---- ports.orig/sysdeps/arm/memcpy.S	1970-01-01 00:00:00.000000000 +0000
-+++ ports/sysdeps/arm/memcpy.S	2006-10-19 01:50:45.000000000 +0000
+---
+ sysdeps/arm/memcpy.S  |  227 +++++++++++++++++++++++++++++++++++++++++++++++
+ sysdeps/arm/memmove.S |  237 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 464 insertions(+)
+
+Index: glibc-ports-2.5/sysdeps/arm/memcpy.S
+===================================================================
+--- /dev/null
++++ glibc-ports-2.5/sysdeps/arm/memcpy.S
 @@ -0,0 +1,227 @@
 +/* Copyright (C) 2006 Free Software Foundation, Inc.
 +   This file is part of the GNU C Library.
@@ -244,9 +250,10 @@ diff -rupN ports.orig/sysdeps/arm/memcpy.S ports/sysdeps/arm/memcpy.S
 +
 +END(memcpy)
 +libc_hidden_builtin_def (memcpy)
-diff -rupN ports.orig/sysdeps/arm/memmove.S ports/sysdeps/arm/memmove.S
---- ports.orig/sysdeps/arm/memmove.S	1970-01-01 00:00:00.000000000 +0000
-+++ ports/sysdeps/arm/memmove.S	2006-10-19 01:50:45.000000000 +0000
+Index: glibc-ports-2.5/sysdeps/arm/memmove.S
+===================================================================
+--- /dev/null
++++ glibc-ports-2.5/sysdeps/arm/memmove.S
 @@ -0,0 +1,237 @@
 +/* Copyright (C) 2006 Free Software Foundation, Inc.
 +   This file is part of the GNU C Library.
@@ -485,8 +492,3 @@ diff -rupN ports.orig/sysdeps/arm/memmove.S ports/sysdeps/arm/memmove.S
 +
 +END(memmove)
 +libc_hidden_builtin_def (memmove)
-
--- 
-Joseph S. Myers
-joseph_at_codesourcery_dot_com
-

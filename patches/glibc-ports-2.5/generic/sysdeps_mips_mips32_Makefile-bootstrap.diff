@@ -22,6 +22,10 @@ mailing list. Here is the link off of my FTP site:
 
 [Note: BOOTSTRAP_GCC is set by crosstool.sh when invoking make install-headers]
 
+---
+ sysdeps/mips/mips32/Makefile |    4 ++++
+ 1 file changed, 4 insertions(+)
+
 Index: glibc-ports-2.5/sysdeps/mips/mips32/Makefile
 ===================================================================
 --- glibc-ports-2.5.orig/sysdeps/mips/mips32/Makefile

@@ -44,10 +44,10 @@ added (am33, cris, m68k).
  sysdeps/unix/sysv/linux/mips/bits/fcntl.h |    3 ++-
  2 files changed, 4 insertions(+), 2 deletions(-)
 
-Index: sysdeps/unix/sysv/linux/arm/bits/fcntl.h
+Index: glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/bits/fcntl.h
 ===================================================================
---- sysdeps/unix/sysv/linux/arm/bits/fcntl.h.orig
-+++ sysdeps/unix/sysv/linux/arm/bits/fcntl.h
+--- glibc-ports-2.5.orig/sysdeps/unix/sysv/linux/arm/bits/fcntl.h
++++ glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/bits/fcntl.h
 @@ -223,7 +223,8 @@ extern int vmsplice (int __fdout, const 
  		     unsigned int __flags);
  
@@ -58,10 +58,10 @@ Index: sysdeps/unix/sysv/linux/arm/bits/fcntl.h
      __THROW;
  
  /* In-kernel implementation of tee for pipe buffers.  */
-Index: sysdeps/unix/sysv/linux/mips/bits/fcntl.h
+Index: glibc-ports-2.5/sysdeps/unix/sysv/linux/mips/bits/fcntl.h
 ===================================================================
---- sysdeps/unix/sysv/linux/mips/bits/fcntl.h.orig
-+++ sysdeps/unix/sysv/linux/mips/bits/fcntl.h
+--- glibc-ports-2.5.orig/sysdeps/unix/sysv/linux/mips/bits/fcntl.h
++++ glibc-ports-2.5/sysdeps/unix/sysv/linux/mips/bits/fcntl.h
 @@ -237,7 +237,8 @@ extern int vmsplice (int __fdout, const 
  		     unsigned int __flags);
  
