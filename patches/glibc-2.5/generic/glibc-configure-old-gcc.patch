@@ -1,8 +1,12 @@
+---
+ configure |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: glibc-2.5/configure
 ===================================================================
---- glibc-2.5.orig/configure	2008-03-08 10:28:12.000000000 +0100
-+++ glibc-2.5/configure	2008-03-08 10:28:18.000000000 +0100
-@@ -4229,7 +4229,7 @@
+--- glibc-2.5.orig/configure
++++ glibc-2.5/configure
+@@ -4226,7 +4226,7 @@ echo $ECHO_N "checking version of $CC...
    echo "$as_me:$LINENO: result: $ac_prog_version" >&5
  echo "${ECHO_T}$ac_prog_version" >&6
  fi
