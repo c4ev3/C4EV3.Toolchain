@@ -1,14 +1,16 @@
 # config for kernel-headers
 
-menuconfig KERNEL_HEADERS
+menu "kernel                      "
+	depends on KERNEL_HEADERS
+
+config KERNEL_HEADERS
 	bool
-	prompt "kernel                      "
 
 config KERNEL_HEADERS_VERSION
 	depends on KERNEL_HEADERS
 	string
 	prompt "kernel version"
-	default "2.6.18"
+	default "2.6.25"
 	help
 	  Specify the kernel version here.
 
@@ -27,3 +29,5 @@ config KERNEL_HEADERS_CONFIG
 	prompt "kernel config file"
 	help
 	  This kernel .config file is being used.
+
+endmenu

@@ -1,5 +1,10 @@
 # config for glibc
 
+config GLIBC_HEADERS
+	bool
+	select CROSS_BINUTILS
+	select KERNEL_HEADERS
+
 config GLIBC_CRT
 	bool
 	select CROSS_GCC_FIRST
@@ -25,7 +30,7 @@ config GLIBC_VERSION
 	depends on GLIBC
 	string
 	prompt "glibc version"
-	default "2.5"
+	default "2.7"
 	help
 	  Specify the glibc version here.
 
@@ -43,7 +48,7 @@ config GLIBC_ENABLE_KERNEL
 	depends on GLIBC
 	string
 	prompt "mininum kernel version"
-	default "2.6.16"
+	default "2.6.23"
 
 config GLIBC_EXTRA_CONFIG
 	depends on GLIBC

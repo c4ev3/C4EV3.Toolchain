@@ -1,3 +1,6 @@
+config LIBC_KERNEL_HEADERS
+	bool
+
 config LIBC_HEADERS
 	bool
 	select GLIBC_HEADERS		if LIBC_GLIBC

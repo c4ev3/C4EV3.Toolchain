@@ -1,7 +1,0 @@
-# config for glibc-headers
-
-config GLIBC_HEADERS
-	bool
-	# no prompt
-	select CROSS_BINUTILS
-	select KERNEL_HEADERS
