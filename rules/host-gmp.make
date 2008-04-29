@@ -36,8 +36,6 @@ $(HOST_GMP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-gmp_prepare: $(STATEDIR)/host-gmp.prepare
-
 HOST_GMP_PATH	:= PATH=$(HOST_PATH)
 HOST_GMP_ENV 	:= $(HOST_ENV)
 

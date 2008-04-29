@@ -1,15 +1,14 @@
 # config for cross-gcc-first
 
-menuconfig CROSS_GCC_FIRST
+menuconfig CROSS_GCC
 	bool
-	prompt "gcc (first)                 "
+	prompt "gcc                         "
+	bool
 	select CROSS_BINUTILS
-	select LIBC_HEADERS
-        select HOST_GMP if CROSS_GCC_43
-        select HOST_MPFR if CROSS_GCC_43
+	select LIBC_FIRST
 
 config CROSS_GCC_VERSION
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "gcc version"
 	default "4.1.2"
@@ -17,24 +16,24 @@ config CROSS_GCC_VERSION
 	  Specify the version of gcc here.
 
 config CROSS_GCC_43
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	bool
 	prompt "additional deps for gcc-4.3"
 	help
 	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
 config CROSS_GCC_SERIES
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "gcc patch series file"
 
-config CROSS_GCC_FIRST_SERIES
-	depends on CROSS_GCC_FIRST
+config CROSS_GCC_SERIES
+	depends on CROSS_GCC
 	string
 	default "${PTXCONF_CROSS_GCC_SERIES}"
 
 config CROSS_GCC_LANG
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "languages"
 	default "c,c++"
@@ -46,7 +45,7 @@ config CROSS_GCC_LANG
 	  Delimiter is ','
 
 config CROSS_GCC_EXTRA_CONFIG
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "extra configure options"
 	help
@@ -99,12 +98,11 @@ config CROSS_GCC_THREADS
 	default "win32" if CROSS_GCC_THREADS_WIN32
 
 ###
-### second
+### first
 ###
-config CROSS_GCC_SECOND
+config CROSS_GCC_FIRST
 	bool
 	select CROSS_BINUTILS
-	select CROSS_GCC_FIRST
-	select LIBC_FIRST
-	prompt "gcc (second)"
-
+	select LIBC_HEADERS
+        select HOST_GMP if CROSS_GCC_43
+        select HOST_MPFR if CROSS_GCC_43

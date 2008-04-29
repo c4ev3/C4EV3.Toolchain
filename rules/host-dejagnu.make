@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2007 by Marc Kleine-Budde
+# Copyright (C) 2007, 2008 by Marc Kleine-Budde
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,34 +28,13 @@ HOST_DEJAGNU_DIR	:= $(HOST_BUILDDIR)/$(HOST_DEJAGNU)
 # Get
 # ----------------------------------------------------------------------------
 
-host-dejagnu_get: $(STATEDIR)/host-dejagnu.get
-
-$(STATEDIR)/host-dejagnu.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HOST_DEJAGNU_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_DEJAGNU)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-host-dejagnu_extract: $(STATEDIR)/host-dejagnu.extract
-
-$(STATEDIR)/host-dejagnu.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_DEJAGNU_DIR))
-	@$(call extract, HOST_DEJAGNU, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_DEJAGNU, $(HOST_DEJAGNU_DIR))
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-dejagnu_prepare: $(STATEDIR)/host-dejagnu.prepare
 
 HOST_DEJAGNU_PATH	:= PATH=$(HOST_PATH)
 HOST_DEJAGNU_ENV 	:= $(HOST_ENV)
@@ -65,35 +44,14 @@ HOST_DEJAGNU_ENV 	:= $(HOST_ENV)
 #
 HOST_DEJAGNU_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-dejagnu.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_DEJAGNU_DIR)/config.cache)
-	cd $(HOST_DEJAGNU_DIR) && \
-		$(HOST_DEJAGNU_PATH) $(HOST_DEJAGNU_ENV) \
-		./configure $(HOST_DEJAGNU_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-dejagnu_compile: $(STATEDIR)/host-dejagnu.compile
-
-$(STATEDIR)/host-dejagnu.compile:
-	@$(call targetinfo, $@)
-	cd $(HOST_DEJAGNU_DIR) && $(HOST_DEJAGNU_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-host-dejagnu_install: $(STATEDIR)/host-dejagnu.install
-
 $(STATEDIR)/host-dejagnu.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, HOST_DEJAGNU,,h)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

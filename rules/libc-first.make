@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@ppengutronix.de>
+# Copyright (C) 2006-2008 by Marc Kleine-Budde <mkl@ppengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,9 +18,7 @@ PACKAGES-$(PTXCONF_LIBC_FIRST) += libc-first
 # Get
 # ----------------------------------------------------------------------------
 
-libc-first_get: $(STATEDIR)/libc-first.get
-
-$(STATEDIR)/libc-first.get: $(libc-first_get_deps_default)
+$(STATEDIR)/libc-first.get:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -28,9 +26,7 @@ $(STATEDIR)/libc-first.get: $(libc-first_get_deps_default)
 # Extract
 # ----------------------------------------------------------------------------
 
-libc-first_extract: $(STATEDIR)/libc-first.extract
-
-$(STATEDIR)/libc-first.extract: $(libc-first_extract_deps_default)
+$(STATEDIR)/libc-first.extract:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -38,9 +34,7 @@ $(STATEDIR)/libc-first.extract: $(libc-first_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-libc-first_prepare: $(STATEDIR)/libc-first.prepare
-
-$(STATEDIR)/libc-first.prepare: $(libc-first_prepare_deps_default)
+$(STATEDIR)/libc-first.prepare:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -48,9 +42,7 @@ $(STATEDIR)/libc-first.prepare: $(libc-first_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-libc-first_compile: $(STATEDIR)/libc-first.compile
-
-$(STATEDIR)/libc-first.compile: $(libc-first_compile_deps_default)
+$(STATEDIR)/libc-first.compile:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -58,9 +50,7 @@ $(STATEDIR)/libc-first.compile: $(libc-first_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-libc-first_install: $(STATEDIR)/libc-first.install
-
-$(STATEDIR)/libc-first.install: $(libc-first_install_deps_default)
+$(STATEDIR)/libc-first.install:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -68,9 +58,7 @@ $(STATEDIR)/libc-first.install: $(libc-first_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libc-first_targetinstall: $(STATEDIR)/libc-first.targetinstall
-
-$(STATEDIR)/libc-first.targetinstall: $(libc-first_targetinstall_deps_default)
+$(STATEDIR)/libc-first.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 

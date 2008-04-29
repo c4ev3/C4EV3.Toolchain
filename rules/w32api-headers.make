@@ -23,63 +23,51 @@ W32API_HEADERS_DIR	= $(BUILDDIR)/$(W32API)-headers
 # Get
 # ----------------------------------------------------------------------------
 
-w32api-headers_get: $(STATEDIR)/w32api-headers.get
-
 $(STATEDIR)/w32api-headers.get: $(STATEDIR)/w32api.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-w32api-headers_extract: $(STATEDIR)/w32api-headers.extract
-
 $(STATEDIR)/w32api-headers.extract: $(STATEDIR)/w32api.extract
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-w32api-headers_prepare: $(STATEDIR)/w32api-headers.prepare
-
 $(STATEDIR)/w32api-headers.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-w32api-headers_compile: $(STATEDIR)/w32api-headers.compile
-
 $(STATEDIR)/w32api-headers.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-w32api-headers_install: $(STATEDIR)/w32api-headers.install 
-
 $(STATEDIR)/w32api-headers.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	mkdir -p $(SYSROOT)/mingw/include
-	cp -r $(W32API_BUILDDIR)/include/* $(SYSROOT)/mingw/include/
-	@$(call touch, $@)
+	cp -r $(W32API_BUILDDIR)/include/* $(SYSROOT)/mingw/include
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-w32api-headers_targetinstall: $(STATEDIR)/w32api-headers.targetinstall
-
 $(STATEDIR)/w32api-headers.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

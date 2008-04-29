@@ -39,8 +39,6 @@ $(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc.extract
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc-headers_prepare: $(STATEDIR)/glibc-headers.prepare
-
 GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
 #
 # these various env variables are necessary, because we are using the host compiler
@@ -74,7 +72,7 @@ GLIBC_HEADERS_AUTOCONF = \
 	\
 	--enable-hacker-mode
 
-$(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
+$(STATEDIR)/glibc-headers.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(GLIBC_HEADERS_DIR))
 	mkdir -p $(GLIBC_HEADERS_DIR)
@@ -86,8 +84,6 @@ $(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-glibc-headers_compile: $(STATEDIR)/glibc-headers.compile
 
 $(STATEDIR)/glibc-headers.compile:
 	@$(call targetinfo)
@@ -102,8 +98,6 @@ $(STATEDIR)/glibc-headers.compile:
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-glibc-headers_install: $(STATEDIR)/glibc-headers.install
 
 $(STATEDIR)/glibc-headers.install:
 	@$(call targetinfo)
@@ -121,8 +115,6 @@ $(STATEDIR)/glibc-headers.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-glibc-headers_targetinstall: $(STATEDIR)/glibc-headers.targetinstall
 
 $(STATEDIR)/glibc-headers.targetinstall:
 	@$(call targetinfo)

@@ -11,7 +11,7 @@ config LIBC_FIRST
 
 config LIBC
 	bool
-	select CROSS_GCC_SECOND
+	select CROSS_GCC
 	select GLIBC			if LIBC_GLIBC
 	select UCLIBC			if LIBC_UCLIBC
 	select NEWLIB			if LIBC_NEWLIB

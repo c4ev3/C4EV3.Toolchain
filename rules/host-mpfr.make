@@ -36,7 +36,7 @@ $(HOST_MPFR_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-mpfr.extract: $(host-mpfr_extract_deps_default)
+$(STATEDIR)/host-mpfr.extract:
 	@$(call targetinfo)
 	@$(call clean, $(HOST_MPFR_DIR))
 	@$(call extract, HOST_MPFR, $(HOST_BUILDDIR))
@@ -46,8 +46,6 @@ $(STATEDIR)/host-mpfr.extract: $(host-mpfr_extract_deps_default)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-mpfr_prepare: $(STATEDIR)/host-mpfr.prepare
 
 HOST_MPFR_PATH	:= PATH=$(HOST_PATH)
 HOST_MPFR_ENV 	:= $(HOST_ENV)

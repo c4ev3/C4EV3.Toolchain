@@ -62,10 +62,10 @@ GLIBC_PATH := PATH=$(CROSS_PATH)
 GLIBC_ENV := \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC) \
-	ac_cv_path_GREP=grep \
-	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes \
 	ac_cv_sizeof_long_double=8
+# 	ac_cv_path_GREP=grep \
+# 	libc_cv_forced_unwind=yes \
+# 	libc_cv_c_cleanup=yes \
 GLIBC_MAKEVARS := AUTOCONF=no
 
 #

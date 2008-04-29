@@ -17,35 +17,22 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC_FIRST) += cross-gcc-first
 #
 # Paths and names
 #
-CROSS_GCC_FIRST_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
-CROSS_GCC_FIRST			:= gcc-$(CROSS_GCC_FIRST_VERSION)
-CROSS_GCC_FIRST_SUFFIX	 	:= tar.bz2
-CROSS_GCC_FIRST_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC_FIRST)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
-CROSS_GCC_FIRST_SOURCE		:= $(SRCDIR)/$(CROSS_GCC_FIRST).$(CROSS_GCC_FIRST_SUFFIX)
-CROSS_GCC_FIRST_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC_FIRST)
 CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC_FIRST)-first-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cross-gcc-first.get:
+$(STATEDIR)/cross-gcc-first.get:  $(STATEDIR)/cross-gcc.get
 	@$(call targetinfo)
 	@$(call touch)
-
-$(CROSS_GCC_FIRST_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CROSS_GCC_FIRST)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cross-gcc-first.extract:
+$(STATEDIR)/cross-gcc-first.extract: $(STATEDIR)/cross-gcc.extract
 	@$(call targetinfo)
-	@$(call clean, $(CROSS_GCC_FIRST_DIR))
-	@$(call extract, CROSS_GCC_FIRST, $(BUILDDIR_CROSS_DEBUG))
-	@$(call patchin, CROSS_GCC_FIRST, $(CROSS_GCC_FIRST_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -58,26 +45,6 @@ CROSS_GCC_FIRST_ENV	:= $(HOSTCC_ENV)
 #
 # autoconf
 #
-CROSS_GCC_AUTOCONF_COMMON := \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--with-gmp=$(PTXCONF_SYSROOT_HOST) \
-	--with-mpfr=$(PTXCONF_SYSROOT_HOST) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
-	\
-	--disable-nls \
-	--enable-symvers=gnu \
-	--disable-libunwind-exceptions
-
-# for other architectures than AVR its not usefull to have multilib,
-# but we need a sysroot for them
-ifndef PTXCONF_ARCH_AVR
-CROSS_GCC_AUTOCONF_COMMON += \
-	--disable-multilib \
-	--with-sysroot=$(SYSROOT)
-endif
-
 CROSS_GCC_FIRST_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(CROSS_GCC_FIRST_PREFIX) \
@@ -99,7 +66,7 @@ $(STATEDIR)/cross-gcc-first.prepare:
 	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		$(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
-		$(CROSS_GCC_FIRST_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)
+		$(CROSS_GCC_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -111,7 +78,7 @@ $(STATEDIR)/cross-gcc-first.compile:
 
 # 	export $(CROSS_GCC_FIRST_PATH); \
 # 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-# 		if test -d $(CROSS_GCC_FIRST_DIR)/libdecnumber; then \
+# 		if test -d $(CROSS_GCC_DIR)/libdecnumber; then \
 # 			$(MAKE) configure-libdecnumber && \
 # 			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
 # 		fi
@@ -166,10 +133,10 @@ $(STATEDIR)/cross-gcc-first.install:
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_s/'`
 
-ifdef PTXCONF_CROSS_GCC_43
-	# FIXME - fix copy target
-	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(SYSROOT)/usr/include/limits.h
-endif
+#ifdef PTXCONF_CROSS_GCC_43
+#	# FIXME - fix copy target
+#	cp $(CROSS_GCC_FIRST_BUILDDIR)/gcc/include-fixed/limits.h $(SYSROOT)/usr/include/limits.h
+#endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -178,7 +145,6 @@ endif
 
 cross-gcc-first_clean:
 	rm -rf $(STATEDIR)/cross-gcc-first.*
-	rm -rf $(CROSS_GCC_FIRST_DIR)
 	rm -rf $(CROSS_GCC_FIRST_BUILDDIR)
 
 # vim: syntax=make

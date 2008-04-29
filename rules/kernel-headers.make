@@ -61,8 +61,6 @@ $(STATEDIR)/kernel-headers.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
-
 $(STATEDIR)/kernel-headers.compile:
 	@$(call targetinfo)
 	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig

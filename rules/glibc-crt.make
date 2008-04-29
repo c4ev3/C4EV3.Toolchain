@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GLIBC_CRT) += glibc-crt
 #
 # Paths and names
 #
-GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt
+GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -42,8 +42,10 @@ $(STATEDIR)/glibc-crt.extract: $(STATEDIR)/glibc.extract
 GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
 GLIBC_CRT_ENV := \
 	BUILD_CC=$(HOSTCC) \
+	ac_cv_path_GREP=grep \
 	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes
+	libc_cv_c_cleanup=yes \
+	ac_cv_sizeof_long_double=8
 
 #
 # autoconf
