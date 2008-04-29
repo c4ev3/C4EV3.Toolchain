@@ -10,16 +10,19 @@ config LIBC_HEADERS
 
 config LIBC_FIRST
 	bool
+	select CROSS_GCC_FIRST
+	
 	select GLIBC_FIRST		if LIBC_GLIBC
-
-config LIBC
-	bool
-	select CROSS_GCC
-	select GLIBC			if LIBC_GLIBC
 	select UCLIBC			if LIBC_UCLIBC
 	select NEWLIB			if LIBC_NEWLIB
 	select W32API			if LIBC_MINGW
 	select MINGW_RUNTIME		if LIBC_MINGW
+
+config LIBC
+	bool
+	default y
+	select CROSS_GCC
+	select GLIBC			if LIBC_GLIBC
 
 choice
 	prompt "C library"

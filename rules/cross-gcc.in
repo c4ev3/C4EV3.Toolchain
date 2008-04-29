@@ -1,4 +1,4 @@
-# config for cross-gcc-first
+# config for cross-gcc
 
 menuconfig CROSS_GCC
 	bool
@@ -93,9 +93,9 @@ config CROSS_GCC_THREADS_WIN32
 
 config CROSS_GCC_THREADS
 	string
-	default "posix" if CROSS_GCC_THREADS_POSIX
-	default "single" if CROSS_GCC_THREADS_SINGLE
-	default "win32" if CROSS_GCC_THREADS_WIN32
+	default "posix"		if CROSS_GCC_THREADS_POSIX
+	default "single"	if CROSS_GCC_THREADS_SINGLE
+	default "win32"		if CROSS_GCC_THREADS_WIN32
 
 ###
 ### first
@@ -104,5 +104,5 @@ config CROSS_GCC_FIRST
 	bool
 	select CROSS_BINUTILS
 	select LIBC_HEADERS
-        select HOST_GMP if CROSS_GCC_43
-        select HOST_MPFR if CROSS_GCC_43
+        select HOST_GMP		if CROSS_GCC_43
+        select HOST_MPFR	if CROSS_GCC_43

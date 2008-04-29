@@ -13,7 +13,6 @@ config GLIBC_FIRST
 	bool
 	select CROSS_GCC_FIRST
 
-
 menuconfig GLIBC
 	bool
 	select GLIBC_CRT
