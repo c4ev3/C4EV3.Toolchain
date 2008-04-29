@@ -5,6 +5,7 @@ configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
 glibc-2.5_stdlib_longlong.h
+cross_timezone.diff
 
 gentoo/0030_all_glibc-respect-env-CPPFLAGS.patch
 gentoo/1010_all_glibc-cvs-update-MINOR.patch
@@ -21,5 +22,3 @@ gentoo/1120_all_glibc-2.5-strict-aliasing.patch
 gentoo/1130_all_glibc-2.4-undefine-__i686.patch
 gentoo/1160_all_glibc-2.5-filter-files-for-headers-test.patch
 gentoo/1600_all_glibc-hwcap-mask-secure.patch
-
-cross_timezone.diff
