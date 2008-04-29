@@ -1,0 +1,13 @@
+http://sourceware.org/bugzilla/show_bug.cgi?id=4987
+
+--- binutils-2.18/binutils/resrc.c
++++ binutils-2.18/binutils/resrc.c
+@@ -437,7 +437,7 @@ read_rc_file (const char *filename, cons
+   const char *fnquotes = (filename_need_quotes (filename) ? "\"" : "");
+ 
+   /* Setup the default resource import path taken from input file.  */
+-  if (strchr (filename, '/') != NULL || strchr (filename, '\\') != NULL)
++  if (filename != NULL && (strchr (filename, '/') != NULL || strchr (filename, '\\') != NULL))
+     {
+       char *e, *c;
+ 

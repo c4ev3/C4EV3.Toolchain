@@ -1,0 +1,3 @@
+gentoo/07_all_binutils-2.18-windres.patch
+gentoo/18_all_binutils-makeinfo-version.patch
+gentoo/42_all_012_check_ldrunpath_length.patch

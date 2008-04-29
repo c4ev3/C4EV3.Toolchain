@@ -1,0 +1,35 @@
+http://bugs.gentoo.org/195074
+
+2007-09-15  Alan Modra  <amodra@bigpond.net.au>
+
+	* configure.ac: Correct makeinfo version check.
+	* configure: Regenerate.
+
+Index: configure.ac
+===================================================================
+RCS file: /cvs/src/src/configure.ac,v
+retrieving revision 1.25
+retrieving revision 1.26
+diff -u -p -r1.25 -r1.26
+--- configure.ac	14 Sep 2007 14:51:36 -0000	1.25
++++ configure.ac	14 Sep 2007 15:47:01 -0000	1.26
+@@ -2462,7 +2462,7 @@ changequote(,)
+     # For an installed makeinfo, we require it to be from texinfo 4.4 or
+     # higher, else we use the "missing" dummy.
+     if ${MAKEINFO} --version \
+-       | egrep 'texinfo[^0-9]*([1-3][0-9]|4\.[4-9]|[5-9])' >/dev/null 2>&1; then
++       | egrep 'texinfo[^0-9]*(4\.([4-9]|[1-9][0-9])|[5-9]|[1-9][0-9])' >/dev/null 2>&1; then
+       :
+     else
+       MAKEINFO="$MISSING makeinfo"
+--- configure
++++ configure
+@@ -2462,7 +2462,7 @@ changequote(,)
+     # For an installed makeinfo, we require it to be from texinfo 4.4 or
+     # higher, else we use the "missing" dummy.
+     if ${MAKEINFO} --version \
+-       | egrep 'texinfo[^0-9]*([1-3][0-9]|4\.[4-9]|[5-9])' >/dev/null 2>&1; then
++       | egrep 'texinfo[^0-9]*(4\.([4-9]|[1-9][0-9])|[5-9]|[1-9][0-9])' >/dev/null 2>&1; then
+       :
+     else
+       MAKEINFO="$MISSING makeinfo"
