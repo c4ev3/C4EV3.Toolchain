@@ -5,15 +5,16 @@ http://bugs.gentoo.org/195074
 	* configure.ac: Correct makeinfo version check.
 	* configure: Regenerate.
 
-Index: configure.ac
+---
+ configure    |    2 +-
+ configure.ac |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: binutils-2.18/configure.ac
 ===================================================================
-RCS file: /cvs/src/src/configure.ac,v
-retrieving revision 1.25
-retrieving revision 1.26
-diff -u -p -r1.25 -r1.26
---- configure.ac	14 Sep 2007 14:51:36 -0000	1.25
-+++ configure.ac	14 Sep 2007 15:47:01 -0000	1.26
-@@ -2462,7 +2462,7 @@ changequote(,)
+--- binutils-2.18.orig/configure.ac
++++ binutils-2.18/configure.ac
+@@ -2403,7 +2403,7 @@ changequote(,)
      # For an installed makeinfo, we require it to be from texinfo 4.4 or
      # higher, else we use the "missing" dummy.
      if ${MAKEINFO} --version \
@@ -22,9 +23,11 @@ diff -u -p -r1.25 -r1.26
        :
      else
        MAKEINFO="$MISSING makeinfo"
---- configure
-+++ configure
-@@ -2462,7 +2462,7 @@ changequote(,)
+Index: binutils-2.18/configure
+===================================================================
+--- binutils-2.18.orig/configure
++++ binutils-2.18/configure
+@@ -6128,7 +6128,7 @@ case " $build_configdirs " in
      # For an installed makeinfo, we require it to be from texinfo 4.4 or
      # higher, else we use the "missing" dummy.
      if ${MAKEINFO} --version \
