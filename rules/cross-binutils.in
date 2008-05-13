@@ -8,6 +8,6 @@ config CROSS_BINUTILS_VERSION
 	depends on CROSS_BINUTILS
 	string
 	prompt "binutils version"
-	default "2.17"
+	default "2.18"
 	help
 	  Specify the binutils version here.

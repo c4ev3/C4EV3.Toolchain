@@ -1,1 +1,8 @@
-quilt-dummy.patch
+make-install-lib-all.patch
+glibc-configure-apple-as.patch
+glibc-configure-old-gcc.patch
+configure_in-sane_readelf.diff
+configure-sane_readelf.diff
+
+glibc-2.5_stdlib_longlong.h
+cross_timezone.diff

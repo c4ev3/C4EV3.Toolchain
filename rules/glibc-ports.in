@@ -11,4 +11,4 @@ config GLIBC_PORTS_SERIES
 	depends on GLIBC_PORTS
 	string
 	prompt "glibc-ports patch series file"
-	default "series_${PTXCONF_GLIBC_VERSION}"
+	default "series"

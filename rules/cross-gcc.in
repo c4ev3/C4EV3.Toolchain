@@ -11,7 +11,7 @@ config CROSS_GCC_VERSION
 	depends on CROSS_GCC
 	string
 	prompt "gcc version"
-	default "4.1.2"
+	default "4.2.3"
 	help
 	  Specify the version of gcc here.
 

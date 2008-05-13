@@ -41,7 +41,7 @@ config GLIBC_SERIES
 config GLIBC_SERIES
 	depends on GLIBC
 	string
-	default "${PTXCONF_GLIBC_SERIES}"
+	default "series"
 
 config GLIBC_ENABLE_KERNEL
 	depends on GLIBC
