@@ -1,7 +1,7 @@
 
 #
 # Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005, 2006
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2008
 #
 
 config BUILD_TOOLCHAIN
@@ -53,7 +53,7 @@ source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-gmp.in"
 source "workspace/rules/host-mpfr.in"
-source "workspace/rules/host-dejagnu.in"
+#source "workspace/rules/host-dejagnu.in"
 
 comment "------------------"
 
@@ -78,6 +78,9 @@ choice
 	config ARCH_AVR
 		bool "AVR-8  "
 
+	config ARCH_AVR32
+		bool "AVR-32 "
+
 	help
 	  This option specifies the toolchain architecture. It corresponds to
 	  the arch/ directory of the Linux kernel.
@@ -86,13 +89,13 @@ endchoice
 
 config ARCH
 	string
-	default "arm" if ARCH_ARM
-	default "avr" if ARCH_AVR
-	default "m68k" if ARCH_M68K
-	default "x86" if ARCH_I386
-	default "i386" if ARCH_I386
-	default "mips" if ARCH_MIPS
-	default "powerpc" if ARCH_POWERPC
+	default "arm"		if ARCH_ARM
+	default "avr"		if ARCH_AVR
+	default "avr32"		if ARCH_AVR32
+	default "m68k"		if ARCH_M68K
+	default "i386"		if ARCH_I386
+	default "mips"		if ARCH_MIPS
+	default "powerpc"	if ARCH_POWERPC
 
 config GNU_TARGET
 	string
@@ -142,7 +145,7 @@ config PREFIX_TCID
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_UCLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}" if LIBC_MINGW
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVR8LIB_VERSION}" if LIBC_AVR_8
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVRLIB_VERSION}" if LIBC_AVR
 
 config SYSROOT_HOST
 	string

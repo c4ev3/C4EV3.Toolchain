@@ -53,7 +53,10 @@ GLIBC_FIRST_ENV := \
 
 GLIBC_FIRST_MAKEVARS := AUTOCONF=no
 
-GLIBC_FIRST_AUTOCONF = $(GLIBC_AUTOCONF)
+GLIBC_FIRST_AUTOCONF = \
+	$(GLIBC_AUTOCONF_COMMON) \
+	--disable-debug \
+	--disable-profile \
 
 $(STATEDIR)/glibc-first.prepare:
 	@$(call targetinfo)

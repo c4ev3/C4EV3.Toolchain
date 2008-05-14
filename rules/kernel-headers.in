@@ -22,12 +22,4 @@ config KERNEL_HEADERS_SANITIZED
 	  If selected we use the sanitized kernel headers instead of the
 	  original kernel headers.
 
-config KERNEL_HEADERS_CONFIG
-	depends on KERNEL_HEADERS
-	string
-	default "kernelconfigs/kernelconfig-${PTXCONF_KERNEL_HEADERS_VERSION}.${PTXCONF_ARCH}"
-	prompt "kernel config file"
-	help
-	  This kernel .config file is being used.
-
 endmenu

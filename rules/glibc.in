@@ -37,10 +37,6 @@ config GLIBC_SERIES
 	depends on GLIBC
 	string
 	prompt "glibc patch series file"
-
-config GLIBC_SERIES
-	depends on GLIBC
-	string
 	default "series"
 
 config GLIBC_ENABLE_KERNEL

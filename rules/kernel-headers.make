@@ -53,8 +53,10 @@ KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH) $(PARALLELMFLAGS)
 
 $(STATEDIR)/kernel-headers.prepare:
 	@$(call targetinfo)
-	cp $(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL_HEADERS_CONFIG) \
-		$(KERNEL_HEADERS_DIR)/.config
+
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) defconfig
+	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,7 +65,6 @@ $(STATEDIR)/kernel-headers.prepare:
 
 $(STATEDIR)/kernel-headers.compile:
 	@$(call targetinfo)
-	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
 #
 # this is used to generate asm and asm/mach links for arm
 # but fails on ppc/powerpc, thus the '-' and '-k'
