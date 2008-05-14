@@ -1,0 +1,35 @@
+http://bugs.gentoo.org/200790
+
+http://sources.redhat.com/bugzilla/show_bug.cgi?id=5439
+
+---
+ sysdeps/unix/sysv/linux/Makefile       |    2 +-
+ sysdeps/unix/sysv/linux/sys/signalfd.h |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: glibc-2.7/sysdeps/unix/sysv/linux/sys/signalfd.h
+===================================================================
+--- glibc-2.7.orig/sysdeps/unix/sysv/linux/sys/signalfd.h
++++ glibc-2.7/sysdeps/unix/sysv/linux/sys/signalfd.h
+@@ -51,7 +51,7 @@ __BEGIN_DECLS
+ /* Request notification for delivery of signals in MASK to be
+    performed using descriptor FD.*/
+ extern int signalfd (int __fd, const sigset_t *__mask, int __flags)
+-  __nonnull (2) __THROW;
++  __nonnull ((2)) __THROW;
+ 
+ __END_DECLS
+ 
+Index: glibc-2.7/sysdeps/unix/sysv/linux/Makefile
+===================================================================
+--- glibc-2.7.orig/sysdeps/unix/sysv/linux/Makefile
++++ glibc-2.7/sysdeps/unix/sysv/linux/Makefile
+@@ -25,7 +25,7 @@ sysdep_headers += sys/mount.h sys/acct.h
+ 		  sys/quota.h sys/fsuid.h \
+ 		  scsi/sg.h scsi/scsi.h scsi/scsi_ioctl.h sys/pci.h \
+ 		  sys/ultrasound.h sys/raw.h sys/personality.h sys/epoll.h \
+-		  bits/a.out.h sys/inotify.h
++		  bits/a.out.h sys/inotify.h sys/signalfd.h sys/eventfd.h
+ 
+ install-others += $(inst_includedir)/bits/syscall.h
+ 

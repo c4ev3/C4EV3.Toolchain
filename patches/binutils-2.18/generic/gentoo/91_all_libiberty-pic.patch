@@ -1,0 +1,16 @@
+---
+ libiberty/Makefile.in |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: binutils-2.18/libiberty/Makefile.in
+===================================================================
+--- binutils-2.18.orig/libiberty/Makefile.in
++++ binutils-2.18/libiberty/Makefile.in
+@@ -225,6 +225,7 @@ $(TARGETLIB): $(REQUIRED_OFILES) $(EXTRA
+ 	  $(AR) $(AR_FLAGS) $(TARGETLIB) \
+ 	    $(REQUIRED_OFILES) $(EXTRA_OFILES) $(LIBOBJS); \
+ 	  $(RANLIB) $(TARGETLIB); \
++	  cp $(TARGETLIB) ../ ; \
+ 	  cd ..; \
+ 	else true; fi
+ 

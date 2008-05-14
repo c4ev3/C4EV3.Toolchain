@@ -1,0 +1,75 @@
+textrels are bad for forcing copy-on-write (this affects everyone),
+and for security/runtime code generation, this affects security ppl.
+But in either case, it doesn't matter who needs textrels, it's
+the very fact that they're needed at all.
+
+2006-06-10  Ned Ludd  <solar@gentoo.org>, Mike Frysinger <vapier@gentoo.org>
+
+	* bfd/elflink.c (bfd_elf_final_link): Check all objects for TEXTRELs.
+	* ld/ldmain.c (main): Change textrel warning default to true.
+	* ld/testsuite/lib/ld-lib.exp (default_ld_simple_link): Scrub TEXTREL
+	warnings from ld output.
+
+---
+ bfd/elflink.c               |    8 +++-----
+ ld/ldmain.c                 |    1 +
+ ld/testsuite/lib/ld-lib.exp |    4 ++++
+ 3 files changed, 8 insertions(+), 5 deletions(-)
+
+Index: binutils-2.18/bfd/elflink.c
+===================================================================
+--- binutils-2.18.orig/bfd/elflink.c
++++ binutils-2.18/bfd/elflink.c
+@@ -10914,14 +10914,12 @@ bfd_elf_final_link (bfd *abfd, struct bf
+ 	goto error_return;
+ 
+       /* Check for DT_TEXTREL (late, in case the backend removes it).  */
+-      if (info->warn_shared_textrel && info->shared)
++      o = bfd_get_section_by_name (dynobj, ".dynamic");
++      if (info->warn_shared_textrel && o != NULL)
+ 	{
+ 	  bfd_byte *dyncon, *dynconend;
+ 
+ 	  /* Fix up .dynamic entries.  */
+-	  o = bfd_get_section_by_name (dynobj, ".dynamic");
+-	  BFD_ASSERT (o != NULL);
+-
+ 	  dyncon = o->contents;
+ 	  dynconend = o->contents + o->size;
+ 	  for (; dyncon < dynconend; dyncon += bed->s->sizeof_dyn)
+@@ -10933,7 +10931,7 @@ bfd_elf_final_link (bfd *abfd, struct bf
+ 	      if (dyn.d_tag == DT_TEXTREL)
+ 		{
+ 		 info->callbacks->einfo 
+-		    (_("%P: warning: creating a DT_TEXTREL in a shared object.\n"));
++		    (_("%P: warning: creating a DT_TEXTREL in object.\n"));
+ 		  break;
+ 		}
+ 	    }
+Index: binutils-2.18/ld/ldmain.c
+===================================================================
+--- binutils-2.18.orig/ld/ldmain.c
++++ binutils-2.18/ld/ldmain.c
+@@ -280,6 +280,7 @@ main (int argc, char **argv)
+   emulation = get_emulation (argc, argv);
+   ldemul_choose_mode (emulation);
+   default_target = ldemul_choose_target (argc, argv);
++  link_info.warn_shared_textrel = TRUE;
+   lang_init ();
+   ldemul_before_parse ();
+   lang_has_input_file = FALSE;
+Index: binutils-2.18/ld/testsuite/lib/ld-lib.exp
+===================================================================
+--- binutils-2.18.orig/ld/testsuite/lib/ld-lib.exp
++++ binutils-2.18/ld/testsuite/lib/ld-lib.exp
+@@ -194,6 +194,10 @@ proc default_ld_simple_link { ld target 
+     # symbol, since the default linker script might use ENTRY.
+     regsub -all "(^|\n)(\[^\n\]*: warning: cannot find entry symbol\[^\n\]*\n?)" $exec_output "\\1" exec_output
+ 
++    # Gentoo tweak:
++    # We want to ignore TEXTREL warnings since we force enable them by default
++    regsub -all "^lt-ld-new: warning: creating a DT_TEXTREL in object\." $exec_output "\\1" exec_output
++
+     if [string match "" $exec_output] then {
+ 	return 1
+     } else {

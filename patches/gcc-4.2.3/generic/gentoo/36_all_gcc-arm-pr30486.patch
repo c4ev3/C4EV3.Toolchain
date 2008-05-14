@@ -1,0 +1,25 @@
+http://bugs.gentoo.org/194975
+http://gcc.gnu.org/PR30486
+
+---
+ gcc/fortran/trans-types.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+Index: gcc-4.2.3/gcc/fortran/trans-types.c
+===================================================================
+--- gcc-4.2.3.orig/gcc/fortran/trans-types.c
++++ gcc-4.2.3/gcc/fortran/trans-types.c
+@@ -1799,6 +1799,13 @@ gfc_type_for_size (unsigned bits, int un
+ 	  if (type && bits == TYPE_PRECISION (type))
+ 	    return type;
+ 	}
++
++      /* Handle TImode as a special case because it is used by some backends
++         (eg. ARM) even though it is not available for normal use.  */
++#if HOST_BITS_PER_WIDE_INT >= 64
++      if (bits == TYPE_PRECISION (intTI_type_node))
++	return intTI_type_node;
++#endif
+     }
+   else
+     {

@@ -27,7 +27,7 @@ Index: binutils-2.18/configure
 ===================================================================
 --- binutils-2.18.orig/configure
 +++ binutils-2.18/configure
-@@ -6128,7 +6128,7 @@ case " $build_configdirs " in
+@@ -6129,7 +6129,7 @@ case " $build_configdirs " in
      # For an installed makeinfo, we require it to be from texinfo 4.4 or
      # higher, else we use the "missing" dummy.
      if ${MAKEINFO} --version \

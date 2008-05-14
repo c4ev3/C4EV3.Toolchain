@@ -1,0 +1,34 @@
+use this one pending a real fix committed to upstream repo
+
+http://sourceware.org/ml/libc-alpha/2007-10/msg00054.html
+http://bugs.gentoo.org/196926
+
+2007-10-21  Nix  <nix@esperi.org.uk>
+
+	* sysdeps/i386/i486/bits/string.h (memmove): New macro.
+	Function of that name renamed to...
+	* sysdeps/i386/i486/bits/string.h (__memmove_g): ... this.
+
+---
+ sysdeps/i386/i486/bits/string.h |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: glibc-2.7/sysdeps/i386/i486/bits/string.h
+===================================================================
+--- glibc-2.7.orig/sysdeps/i386/i486/bits/string.h
++++ glibc-2.7/sysdeps/i386/i486/bits/string.h
+@@ -143,10 +143,13 @@ __memcpy_g (void *__dest, __const void *
+ 
+ #define _HAVE_STRING_ARCH_memmove 1
+ #ifndef _FORCE_INLINES
++#define memmove(dest, src, n) \
++  __memmove_g ((dest), (src), (n))
++
+ /* Copy N bytes of SRC to DEST, guaranteeing
+    correct behavior for overlapping strings.  */
+ __STRING_INLINE void *
+-memmove (void *__dest, __const void *__src, size_t __n)
++__memmove_g (void *__dest, __const void *__src, size_t __n)
+ {
+   register unsigned long int __d0, __d1, __d2;
+   register void *__tmp = __dest;

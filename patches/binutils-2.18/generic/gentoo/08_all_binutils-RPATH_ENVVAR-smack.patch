@@ -1,0 +1,19 @@
+http://sourceware.org/ml/binutils/2007-07/msg00401.html
+http://sourceware.org/bugzilla/show_bug.cgi?id=4970
+
+---
+ configure |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: binutils-2.18/configure
+===================================================================
+--- binutils-2.18.orig/configure
++++ binutils-2.18/configure
+@@ -5369,6 +5369,7 @@ case "${host}" in
+   *-*-darwin* | *-*-rhapsody* ) RPATH_ENVVAR=DYLD_LIBRARY_PATH ;;
+   *) RPATH_ENVVAR=LD_LIBRARY_PATH ;;
+ esac
++RPATH_ENVVAR="cant_touch_this_nah_nah_nah"
+ 
+ # Record target_configdirs and the configure arguments for target and
+ # build configuration in Makefile.

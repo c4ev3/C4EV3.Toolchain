@@ -1,0 +1,22 @@
+---
+ bfd/elf64-ppc.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+Index: binutils-2.18/bfd/elf64-ppc.c
+===================================================================
+--- binutils-2.18.orig/bfd/elf64-ppc.c
++++ binutils-2.18/bfd/elf64-ppc.c
+@@ -10979,7 +10979,12 @@ ppc64_elf_relocate_section (bfd *output_
+ 	      else if (!SYMBOL_REFERENCES_LOCAL (info, &h->elf)
+ 		       && !is_opd
+ 		       && r_type != R_PPC64_TOC)
+-		outrel.r_info = ELF64_R_INFO (h->elf.dynindx, r_type);
++		{
++		  outrel.r_info = ELF64_R_INFO (h->elf.dynindx, r_type);
++		  if (h->elf.dynindx == -1
++		      && h->elf.root.type == bfd_link_hash_undefweak)
++		  memset (&outrel, 0, sizeof outrel);
++		}
+ 	      else
+ 		{
+ 		  /* This symbol is local, or marked to become local,

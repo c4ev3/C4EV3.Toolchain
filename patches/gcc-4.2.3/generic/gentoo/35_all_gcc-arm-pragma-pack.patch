@@ -1,0 +1,76 @@
+http://gcc.gnu.org/ml/gcc-patches/2006-10/msg01115.html
+
+From: Paul Brook <paul@codesourcery.com>
+Sender: gcc-patches-owner@gcc.gnu.org
+To: gcc-patches@gcc.gnu.org
+Subject: [patch] #pragma pack vs. STRUCTURE_SIZE_BOUNDARY
+Date: Sun, 22 Oct 2006 16:32:31 +0100
+
+Currently STRUCTURE_SIZE_BOUNDARY is obeyed even when
+#pragma pack(1) is in effect. By contrast __attribute__((packed)) overrides 
+STRUCTURE_SIZE_BOUNDARY.
+
+This matters when odd sized packed structs are nested inside each other.
+
+Given the purpose of #pragma pack is for compatibility with Win32, I think 
+#pragma pack(1) act the same as __attribute__((packed)).
+
+The patch below fixes this.
+Tested with cross to arm-none-eabi.
+Ok?
+
+Paul
+
+2006-10-22  Paul Brook  <paul@codesourcery.com>
+
+	gcc/
+	* stor-layout.c (start_record_layout): maximum_field_alignment
+	overrides STRUCTURE_SIZE_BOUNDARY.
+
+	gcc/testsuite/
+	* gcc.dg/pragma-pack-4.c: New test.
+
+---
+ gcc/stor-layout.c                    |   10 +++++++++-
+ gcc/testsuite/gcc.dg/pragma-pack-4.c |   10 ++++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+
+Index: gcc-4.2.3/gcc/stor-layout.c
+===================================================================
+--- gcc-4.2.3.orig/gcc/stor-layout.c
++++ gcc-4.2.3/gcc/stor-layout.c
+@@ -530,7 +530,15 @@ start_record_layout (tree t)
+ #ifdef STRUCTURE_SIZE_BOUNDARY
+   /* Packed structures don't need to have minimum size.  */
+   if (! TYPE_PACKED (t))
+-    rli->record_align = MAX (rli->record_align, (unsigned) STRUCTURE_SIZE_BOUNDARY);
++    {
++      unsigned tmp;
++
++      /* #pragma pack overrides STRUCTURE_SIZE_BOUNDARY.  */
++      tmp = (unsigned) STRUCTURE_SIZE_BOUNDARY;
++      if (maximum_field_alignment != 0)
++	tmp = MIN (tmp, maximum_field_alignment);
++      rli->record_align = MAX (rli->record_align, tmp);
++    }
+ #endif
+ 
+   rli->offset = size_zero_node;
+Index: gcc-4.2.3/gcc/testsuite/gcc.dg/pragma-pack-4.c
+===================================================================
+--- gcc-4.2.3.orig/gcc/testsuite/gcc.dg/pragma-pack-4.c
++++ gcc-4.2.3/gcc/testsuite/gcc.dg/pragma-pack-4.c
+@@ -1,3 +1,13 @@
++/* Check that pragma pack overrides STRUCTURE_SIZE_BOUNDARY.  */
++/* { dg-do compile } */
++
++#pragma pack(1)
++struct S
++{
++  char a;
++};
++
++int test[sizeof(struct S) == 1 ? 1: -1];
+ /* PR c/28286 */
+ /* { dg-do compile } */
+ 
