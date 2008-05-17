@@ -58,7 +58,7 @@ $(STATEDIR)/w32api-headers.compile:
 $(STATEDIR)/w32api-headers.install:
 	@$(call targetinfo)
 	mkdir -p $(SYSROOT)/mingw/include
-	cp -r $(W32API_BUILDDIR)/include/* $(SYSROOT)/mingw/include
+	cp -r $(W32API_DIR)/include/* $(SYSROOT)/mingw/include
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

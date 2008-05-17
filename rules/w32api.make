@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_W32API) += w32api
 # Paths and names
 #
 W32API_VERSION  := $(call remove_quotes,$(PTXCONF_W32API_VERSION))
-W32API          := w32api-$(W32API_VERSION)-src
+W32API          := w32api-$(W32API_VERSION)
 W32API_SUFFIX   := tar.gz
-W32API_URL      := $(PTXCONF_SETUP_SFMIRROR)/mingw/$(W32API).$(W32API_SUFFIX)
-W32API_SOURCE   := $(SRCDIR)/$(W32API).$(W32API_SUFFIX)
+W32API_URL      := $(PTXCONF_SETUP_SFMIRROR)/mingw/$(W32API)-src.$(W32API_SUFFIX)
+W32API_SOURCE   := $(SRCDIR)/$(W32API)-src.$(W32API_SUFFIX)
 W32API_DIR      := $(BUILDDIR)/$(W32API)
-W32API_BUILDDIR	:= $(BUILDDIR)/w32api-$(W32API_VERSION)
+W32API_BUILDDIR	:= $(BUILDDIR)/$(W32API)-build
 
 
 # ----------------------------------------------------------------------------
@@ -41,9 +41,8 @@ $(W32API_SOURCE):
 $(STATEDIR)/w32api.extract:
 	@$(call targetinfo)
 	@$(call clean, $(W32API_DIR))
-	@$(call clean, $(W32API_BUILDDIR))
 	@$(call extract, W32API)
-	@$(call patchin, W32API, $(W32API_DIR))
+	@$(call patchin, W32API)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -61,8 +60,10 @@ W32API_AUTOCONF := \
 
 $(STATEDIR)/w32api.prepare:
 	@$(call targetinfo)
+	@$(call clean, $(W32API_BUILDDIR))
+	mkdir -p $(W32API_BUILDDIR)
 	cd $(W32API_BUILDDIR) && $(W32API_ENV) $(W32API_PATH) \
-		./configure $(W32API_AUTOCONF)
+		$(W32API_DIR)/configure $(W32API_AUTOCONF)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

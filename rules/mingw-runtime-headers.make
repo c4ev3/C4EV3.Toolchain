@@ -53,7 +53,7 @@ $(STATEDIR)/mingw-runtime-headers.compile:
 $(STATEDIR)/mingw-runtime-headers.install:
 	@$(call targetinfo)
 	mkdir -p $(SYSROOT)/mingw/include
-	cp -r $(MINGW_RUNTIME_BUILDDIR)/include/* $(SYSROOT)/mingw/include
+	cp -r $(MINGW_RUNTIME_DIR)/include/* $(SYSROOT)/mingw/include
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
