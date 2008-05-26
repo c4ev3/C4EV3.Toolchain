@@ -76,45 +76,8 @@ $(STATEDIR)/cross-gcc-first.prepare:
 $(STATEDIR)/cross-gcc-first.compile:
 	@$(call targetinfo)
 
-# 	export $(CROSS_GCC_FIRST_PATH); \
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-# 		if test -d $(CROSS_GCC_DIR)/libdecnumber; then \
-# 			$(MAKE) configure-libdecnumber && \
-# 			$(MAKE) $(PARALLELMFLAGS) all-libdecnumber; \
-# 		fi
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) configure-gcc
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) configure-libcpp
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) configure-build-libiberty
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) $(PARALLELMFLAGS) all-libcpp
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) $(PARALLELMFLAGS) all-build-libiberty
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) $(PARALLELMFLAGS) libgcc.mk
-
-
-# 	if test '!' -f $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; then \
-# 		cp -p $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk \
-# 			$(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG; \
-# 	fi
-
-# 	sed 's@-lc@@g' < $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk-ORIG \
-# 		> $(CROSS_GCC_FIRST_BUILDDIR)/gcc/libgcc.mk
-
-# 	cd $(CROSS_GCC_FIRST_BUILDDIR)/gcc && $(CROSS_GCC_FIRST_PATH) \
-# 		$(MAKE) tree-check.h
-
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) #all-gcc
+		$(MAKE) $(PARALLELMFLAGS)
 
 	@$(call touch)
 

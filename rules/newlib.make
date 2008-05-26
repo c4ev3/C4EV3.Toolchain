@@ -40,10 +40,8 @@ $(NEWLIB_SOURCE):
 $(STATEDIR)/newlib.extract:
 	@$(call targetinfo)
 	@$(call clean, $(NEWLIB_DIR))
-	@$(call clean, $(NEWLIB_BUILDDIR))
 	@$(call extract, NEWLIB, $(BUILDDIR_DEBUG))
 	@$(call patchin, NEWLIB, $(NEWLIB_DIR))
-	mkdir -p $(NEWLIB_BUILDDIR)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -58,16 +56,16 @@ NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 #
 NEWLIB_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_TARGET) \
-	--build=$(GNU_BUILD) \
 	--target=$(PTXCONF_GNU_TARGET) \
         --disable-shared \
 	--disable-newlib-supplied-syscalls \
 	--with-newlib
 
-
 $(STATEDIR)/newlib.prepare:
 	@$(call targetinfo)
-	cd $(NEWLIB_BUILDDIR) && eval \
+	@$(call clean, $(NEWLIB_BUILDDIR))
+	mkdir -p $(NEWLIB_BUILDDIR)
+	cd $(NEWLIB_BUILDDIR) && \
 		$(NEWLIB_ENV) $(NEWLIB_PATH) \
 		$(NEWLIB_DIR)/configure $(NEWLIB_AUTOCONF)
 	@$(call touch)

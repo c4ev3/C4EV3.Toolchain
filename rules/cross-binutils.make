@@ -91,6 +91,21 @@ $(STATEDIR)/cross-binutils.compile:
 $(STATEDIR)/cross-binutils.install:
 	@$(call targetinfo)
 	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
+
+	mkdir -p $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	for file in \
+		ar \
+		as \
+		ld \
+		nm \
+		objcopy \
+		objdump \
+		ranlib \
+		strip \
+		; do \
+		ln -sf ../../../$(PTXCONF_GNU_TARGET)/bin/$$file $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/$$file; \
+	done
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

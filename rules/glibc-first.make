@@ -34,8 +34,6 @@ $(STATEDIR)/glibc-first.get: $(STATEDIR)/glibc.get
 
 $(STATEDIR)/glibc-first.extract: $(STATEDIR)/glibc.extract
 	@$(call targetinfo)
-	@$(call clean, $(GLIBC_FIRST_BUILDDIR))
-	mkdir -p $(GLIBC_FIRST_BUILDDIR)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -60,6 +58,8 @@ GLIBC_FIRST_AUTOCONF = \
 
 $(STATEDIR)/glibc-first.prepare:
 	@$(call targetinfo)
+	@$(call clean, $(GLIBC_FIRST_BUILDDIR))
+	mkdir -p $(GLIBC_FIRST_BUILDDIR)
 	cd $(GLIBC_FIRST_BUILDDIR) && \
 		$(GLIBC_FIRST_ENV) $(GLIBC_FIRST_PATH) \
 		$(GLIBC_DIR)/configure $(GLIBC_FIRST_AUTOCONF)
@@ -100,6 +100,6 @@ $(STATEDIR)/glibc-first.targetinstall:
 glibc-first_clean:
 	rm -rf $(STATEDIR)/glibc-first.*
 	rm -rf $(IMAGEDIR)/glibc-first_*
-	rm -rf $(GLIBC_FIRST_DIR)
+	rm -rf $(GLIBC_FIRST_BUILDDIR)
 
 # vim: syntax=make

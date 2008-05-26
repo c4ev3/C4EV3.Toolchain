@@ -56,15 +56,38 @@ CROSS_GCC_ENV	:= $(HOSTCC_ENV)
 #
 CROSS_GCC_AUTOCONF_COMMON := \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-gmp=$(PTXCONF_SYSROOT_HOST) \
-	--with-mpfr=$(PTXCONF_SYSROOT_HOST) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
 	\
 	--disable-nls \
+	--disable-decimal-float \
+	--disable-fixed-point \
+	--disable-win32-registry \
 	--enable-symvers=gnu \
-	--disable-libunwind-exceptions
+	\
+	--with-pkgversion="${PTXCONF_PROJECT}" \
+	--with-bugurl="bugs@pengutronix.de"
+
+ifdef HOST_GMP
+CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
+endif
+
+ifdef HOST_MPFR
+CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
+endif
+
+
+#   --enable-tls            enable or disable generation of tls code
+#                           overriding the assembler check for tls support
+#   --enable-initfini-array       use .init_array/.fini_array sections
+#   --enable-sjlj-exceptions
+#                           arrange to use setjmp/longjmp exception handling
+#   --enable-version-specific-runtime-libs
+#                           specify that runtime libraries should be
+#                           installed in a compiler-specific directory
+#   --with-long-double-128  Use 128-bit long double by default.
+
 
 # for other architectures than AVR its not usefull to have multilib,
 # but we need a sysroot for them
@@ -84,6 +107,7 @@ CROSS_GCC_AUTOCONF := \
 	--enable-long-long \
 	--enable-libstdcxx-debug \
 	--enable-profile \
+	--enable-checking=release \
 	\
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
 

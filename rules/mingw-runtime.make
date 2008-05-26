@@ -53,11 +53,10 @@ MINGW_RUNTIME_ENV := $(CROSS_ENV)
 
 MINGW_RUNTIME_AUTOCONF := \
 	--prefix=$(SYSROOT)/mingw \
-	--build=$(GNU_BUILD) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET) \
 
-$(STATEDIR)/mingw-runtime.prepare: $(mingw-runtime_prepare_deps_default)
+$(STATEDIR)/mingw-runtime.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(MINGW_RUNTIME_BUILDDIR))
 	mkdir -p $(MINGW_RUNTIME_BUILDDIR)

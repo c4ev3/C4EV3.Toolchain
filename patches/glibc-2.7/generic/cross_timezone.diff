@@ -11,7 +11,7 @@ Description: Adds native compile support to the build system then uses that
              for creating the locale-archive.
 
 ---
- Makeconfig                     |   14 ++++++++++++++
+ Makeconfig                     |   13 +++++++++++++
  Makerules                      |    9 ++++++++-
  Rules                          |    9 ++++++++-
  iconv/Makefile                 |    4 ++++
@@ -20,15 +20,16 @@ Description: Adds native compile support to the build system then uses that
  include-native/config.h        |    1 +
  include-native/gnu/stubs.h     |    1 +
  include-native/intl/loadinfo.h |    4 ++++
- include-native/libintl.h       |   13 +++++++++++++
+ include-native/libintl.h       |   11 +++++++++++
  include-native/symbol-hacks.h  |    1 +
+ include-native/sys/types.h     |    9 +++++++++
  include-native/tls.h           |   11 +++++++++++
  locale/Makefile                |    9 +++++++++
  localedata/Makefile            |    5 +++++
  malloc/Makefile                |    5 -----
  sunrpc/Makefile                |   23 ++++++++++++++++++-----
  timezone/Makefile              |   14 ++++++++++----
- 17 files changed, 120 insertions(+), 24 deletions(-)
+ 18 files changed, 126 insertions(+), 24 deletions(-)
 
 Index: glibc-2.7/iconv/Makefile
 ===================================================================
@@ -123,9 +124,7 @@ Index: glibc-2.7/include-native/libintl.h
 ===================================================================
 --- /dev/null
 +++ glibc-2.7/include-native/libintl.h
-@@ -0,0 +1,13 @@
-+#include_next <libintl.h>
-+
+@@ -0,0 +1,11 @@
 +#ifndef _
 +#define _(X) (X)
 +#endif
@@ -208,21 +207,20 @@ Index: glibc-2.7/Makeconfig
 ===================================================================
 --- glibc-2.7.orig/Makeconfig
 +++ glibc-2.7/Makeconfig
-@@ -445,6 +445,13 @@ ifndef +link-static
+@@ -445,6 +445,12 @@ ifndef +link-static
  			   $(common-objpfx)libc% $(+postinit),$^) \
  	      $(link-extra-libs-static) $(link-libc-static) $(+postctor) $(+postinit)
  endif
 +# Command for linking programs against the host system.
 +ifndef +link-native
-++link-native = $(BUILD_CC) -static -g -o $@ $^ \
+++link-native = $(BUILD_CC) -g -o $@ $^ \
 +              $(LDFLAGS) $(LDFLAGS-$(@F)) \
-+              $(combreloc-LDFLAGS) $(relro-LDFLAGS) \
 +              $(link-extra-libs)
 +endif
  # Command for statically linking bounded-pointer programs with the C library.
  ifndef +link-bounded
  +link-bounded = $(CC) -nostdlib -nostartfiles -static -fbounded-pointers -o $@ \
-@@ -658,6 +665,8 @@ endif	# $(+cflags) == ""
+@@ -658,6 +664,8 @@ endif	# $(+cflags) == ""
  	    $(+sysdep-includes) $(includes) \
  	    $(patsubst %/,-I%,$(..)) $(libio-include) -I. $(sysincludes)
  
@@ -231,7 +229,7 @@ Index: glibc-2.7/Makeconfig
  # Since libio has several internal header files, we use a -I instead
  # of many little headers in the include directory.
  libio-include = -I$(..)libio
-@@ -672,10 +681,15 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+incl
+@@ -672,10 +680,15 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+incl
  	   $(foreach lib,$(libof-$(basename $(@F))) \
  		         $(libof-$(<F)) $(libof-$(@F)),$(CPPFLAGS-$(lib))) \
  	   $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
@@ -475,3 +473,17 @@ Index: glibc-2.7/timezone/Makefile
  
  tz-cflags = -DTZDIR='"$(zonedir)"' \
  	    -DTZDEFAULT='"$(localtime-file)"' \
+Index: glibc-2.7/include-native/sys/types.h
+===================================================================
+--- /dev/null
++++ glibc-2.7/include-native/sys/types.h
+@@ -0,0 +1,9 @@
++#include_next <sys/types.h>
++
++#ifndef __u_char_defined
++# define __u_char_defined
++#endif
++#ifndef __daddr_t_defined
++# define __daddr_t_defined
++#endif
++

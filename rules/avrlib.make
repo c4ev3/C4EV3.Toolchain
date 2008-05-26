@@ -61,7 +61,6 @@ AVRLIB_ENV 	:= \
 #
 AVRLIB_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_TARGET) \
-	--build=$(GNU_BUILD) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--enable-multilib

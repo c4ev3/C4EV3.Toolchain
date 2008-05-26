@@ -2,7 +2,6 @@
 
 config GLIBC_HEADERS
 	bool
-	select CROSS_BINUTILS
 	select KERNEL_HEADERS
 
 config GLIBC_CRT

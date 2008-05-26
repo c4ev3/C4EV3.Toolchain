@@ -54,7 +54,6 @@ W32API_ENV := $(CROSS_ENV)
 
 W32API_AUTOCONF := \
 	--prefix=$(SYSROOT)/mingw \
-	--build=$(GNU_BUILD) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET)
 
