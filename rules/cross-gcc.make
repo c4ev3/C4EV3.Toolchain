@@ -69,11 +69,11 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--with-pkgversion="${PTXCONF_PROJECT}" \
 	--with-bugurl="bugs@pengutronix.de"
 
-ifdef HOST_GMP
+ifdef PTXCONF_HOST_GMP
 CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
 endif
 
-ifdef HOST_MPFR
+ifdef PTXCONF_HOST_MPFR
 CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
 endif
 

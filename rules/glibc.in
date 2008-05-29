@@ -55,7 +55,8 @@ config GLIBC_HEADERS_FAKE_CROSS
 	depends on GLIBC
 	string
 	prompt "fake cross args"
-	default "-D__ARM_EABI__" if ARCH_ARM
+	default "-D__ARM_EABI__"	if ARCH_ARM
+	default "-DBOOTSTRAP_GCC"	if ARCH_MIPS
 	help
 	  Add these args to fake a crosscompiler during glibc-header extraction stage.
 

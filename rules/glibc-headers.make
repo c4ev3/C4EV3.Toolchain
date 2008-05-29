@@ -48,7 +48,7 @@ GLIBC_HEADERS_PATH := PATH=$(CROSS_PATH)
 #
 GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
-	CC="$${CC} -DBOOTSTRAP_GCC $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS)" \
+	CC="$${CC} $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS)" \
 	\
 	libc_cv_asm_symver_directive=yes \
 	libc_cv_asm_protected_directive=yes \
@@ -62,8 +62,8 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_gcc___thread=yes \
 	\
 	libc_cv_386_tls=yes \
-	\
 	libc_cv_arm_tls=yes \
+	libc_cv_mips_tls=yes \
 	\
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
