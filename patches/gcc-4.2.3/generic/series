@@ -39,8 +39,8 @@ gentoo/59_all_gcc-4-pr32893.patch
 gentoo/62_all_gcc4-noteGNUstack.patch
 gentoo/74_all_sh-pr24836.patch
 gentoo/85_all_gcc-ca-translation-typo.patch
-gentoo/90_all_mips-add-march-r10k.patch
-gentoo/91_all_mips-ip28_cache_barriers-v4.patch
+#gentoo/90_all_mips-add-march-r10k.patch
+#gentoo/91_all_mips-ip28_cache_barriers-v4.patch
 gentoo/92_all_mips-pthread-with-shared.patch
 
 # from oe
