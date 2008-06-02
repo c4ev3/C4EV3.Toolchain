@@ -43,11 +43,15 @@ $(STATEDIR)/glibc-first.extract: $(STATEDIR)/glibc.extract
 GLIBC_FIRST_PATH := PATH=$(CROSS_PATH)
 GLIBC_FIRST_ENV := \
 	CC=$(CROSS_CC) \
+	CXX=false \
 	BUILD_CC=$(HOSTCC) \
-	ac_cv_path_GREP=grep \
+	\
 	libc_cv_forced_unwind=yes \
 	libc_cv_c_cleanup=yes \
-	ac_cv_sizeof_long_double=8
+	libc_cv_fpie=yes \
+	libc_cv_ssp=yes \
+	\
+	ac_cv_sizeof_long_double=8 \
 
 GLIBC_FIRST_MAKEVARS := AUTOCONF=no
 
