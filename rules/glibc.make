@@ -88,8 +88,9 @@ GLIBC_AUTOCONF_COMMON := \
 	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
 	\
 	--without-cvs \
-	--disable-sanity-checks \
+	--without-gd \
 	--without-selinux \
+	--disable-sanity-checks \
 	\
 	$(PTXCONF_GLIBC_EXTRA_CONFIG)
 
@@ -103,11 +104,10 @@ GLIBC_AUTOCONF := \
 	$(GLIBC_AUTOCONF_COMMON) \
 	\
 	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
-        --enable-debug \
+	--enable-debug \
 	--enable-profile \
-        --enable-shared \
-	--enable-static-nss \
-	--without-gd
+	--enable-shared \
+	--enable-static-nss
 
 $(STATEDIR)/glibc.prepare:
 	@$(call targetinfo)
