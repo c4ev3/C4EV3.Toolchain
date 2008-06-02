@@ -62,14 +62,17 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_gcc___thread=yes \
 	\
 	libc_cv_386_tls=yes \
-	libc_cv_arm_tls=yes \
-	libc_cv_mips_tls=yes \
 	\
+	libc_cv_arm_tls=yes \
+	\
+	libc_cv_mips_tls=yes \
+	libc_cv_have_sdata_section=yes \
+	\
+	libc_cv_powerpc32_tls=yes \
+	libc_cv_powerpc64_tls=yes \
 	libc_cv_mlong_double_128ibm=set \
 	libc_cv_mlong_double_128=set \
 	libc_cv_ppc_machine=yes \
-	libc_cv_powerpc32_tls=yes \
-	libc_cv_powerpc64_tls=yes \
 	\
 	ac_cv_path_GREP=grep
 
