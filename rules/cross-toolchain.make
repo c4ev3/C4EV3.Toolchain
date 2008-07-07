@@ -53,7 +53,7 @@ $(STATEDIR)/cross-toolchain.compile:
 $(STATEDIR)/cross-toolchain.install:
 	@$(call targetinfo)
 	-rm -f ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
-	cp ${PTXDIST_WORKSPACE}/ptxconfig ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
+	cp ${PTXDIST_PTXCONFIG} ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
 
 # carsten.schlote: Setup a symbolic link to installation dir
 # FIXME: find better place for this link?
