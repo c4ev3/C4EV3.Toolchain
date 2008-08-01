@@ -66,7 +66,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--disable-win32-registry \
 	--enable-symvers=gnu \
 	\
-	--with-pkgversion="${PTXCONF_PROJECT}" \
+	--with-pkgversion=${PTXCONF_PROJECT} \
 	--with-bugurl="bugs@pengutronix.de"
 
 ifdef PTXCONF_HOST_GMP
