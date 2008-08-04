@@ -28,54 +28,43 @@ KERNEL_HEADERS_DIR	:= $(BUILDDIR)/$(KERNEL_HEADERS)
 # Get
 # ----------------------------------------------------------------------------
 
-kernel-headers_get: $(STATEDIR)/kernel-headers.get
-
-$(STATEDIR)/kernel-headers.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(KERNEL_HEADERS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, KERNEL_HEADERS)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-kernel-headers_extract: $(STATEDIR)/kernel-headers.extract
-
 $(STATEDIR)/kernel-headers.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(KERNEL_HEADERS_DIR))
 	@$(call extract, KERNEL_HEADERS)
 	@$(call patchin, KERNEL_HEADERS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-kernel-headers_prepare: $(STATEDIR)/kernel-headers.prepare
 
 KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
 KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH) $(PARALLELMFLAGS)
 
 $(STATEDIR)/kernel-headers.prepare:
-	@$(call targetinfo, $@)
-	cp $(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL_HEADERS_CONFIG) \
-		$(KERNEL_HEADERS_DIR)/.config
-	@$(call touch, $@)
+	@$(call targetinfo)
+
+	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) defconfig
+	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-kernel-headers_compile: $(STATEDIR)/kernel-headers.compile
-
 $(STATEDIR)/kernel-headers.compile:
-	@$(call targetinfo, $@)
-	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
+	@$(call targetinfo)
 #
 # this is used to generate asm and asm/mach links for arm
 # but fails on ppc/powerpc, thus the '-' and '-k'
@@ -85,37 +74,33 @@ $(STATEDIR)/kernel-headers.compile:
 # if the include/asm link is missing, it's really fatal
 #
 	test -L $(KERNEL_HEADERS_DIR)/include/asm || exit 1
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-kernel-headers_install: $(STATEDIR)/kernel-headers.install
-
 $(STATEDIR)/kernel-headers.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
-ifdef PTXCONF_KERNEL_HEADERS_SANIZIZED
+ifdef PTXCONF_KERNEL_HEADERS_SANITIZED
 	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) headers_install INSTALL_HDR_PATH=$(SYSROOT)/usr
 else
 	mkdir -p $(SYSROOT)/usr/include
 	cp -r $(KERNEL_HEADERS_DIR)/include/linux $(SYSROOT)/usr/include
-	cp -r $(KERNEL_HEADERS_DIR)/include/asm-$(PTXCONF_ARCH) $(SYSROOT)/usr/include/asm
+	cp -r $(KERNEL_HEADERS_DIR)/include/asm/* $(SYSROOT)/usr/include/asm
 	cp -r $(KERNEL_HEADERS_DIR)/include/asm-generic $(SYSROOT)/usr/include/asm-generic
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-kernel-headers_targetinstall: $(STATEDIR)/kernel-headers.targetinstall
-
 $(STATEDIR)/kernel-headers.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

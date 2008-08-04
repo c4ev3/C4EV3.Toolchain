@@ -1,0 +1,58 @@
+http://gcc.gnu.org/PR32177
+
+2007-06-08  Jakub Jelinek  <jakub@redhat.com>
+
+	PR c++/32177
+	* semantics.c (finish_omp_for): Call fold_build_cleanup_point_expr
+	on init, the non-decl cond operand and increment value.
+
+---
+ gcc/cp/semantics.c |   27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+Index: gcc-4.2.3/gcc/cp/semantics.c
+===================================================================
+--- gcc-4.2.3.orig/gcc/cp/semantics.c
++++ gcc-4.2.3/gcc/cp/semantics.c
+@@ -3780,6 +3780,8 @@ tree
+ finish_omp_for (location_t locus, tree decl, tree init, tree cond,
+ 		tree incr, tree body, tree pre_body)
+ {
++  tree omp_for;
++
+   if (decl == NULL)
+     {
+       if (init != NULL)
+@@ -3857,8 +3859,31 @@ finish_omp_for (location_t locus, tree d
+       add_stmt (pre_body);
+       pre_body = NULL;
+     }
++
++  init = fold_build_cleanup_point_expr (TREE_TYPE (init), init);
+   init = build_modify_expr (decl, NOP_EXPR, init);
+-  return c_finish_omp_for (locus, decl, init, cond, incr, body, pre_body);
++  if (cond && TREE_SIDE_EFFECTS (cond) && COMPARISON_CLASS_P (cond))
++    {
++      int n = TREE_SIDE_EFFECTS (TREE_OPERAND (cond, 1)) != 0;
++      tree t = TREE_OPERAND (cond, n);
++
++      TREE_OPERAND (cond, n)
++	= fold_build_cleanup_point_expr (TREE_TYPE (t), t);
++    }
++  omp_for = c_finish_omp_for (locus, decl, init, cond, incr, body, pre_body);
++  if (omp_for != NULL
++      && TREE_CODE (OMP_FOR_INCR (omp_for)) == MODIFY_EXPR
++      && TREE_SIDE_EFFECTS (TREE_OPERAND (OMP_FOR_INCR (omp_for), 1))
++      && BINARY_CLASS_P (TREE_OPERAND (OMP_FOR_INCR (omp_for), 1)))
++    {
++      tree t = TREE_OPERAND (OMP_FOR_INCR (omp_for), 1);
++      int n = TREE_SIDE_EFFECTS (TREE_OPERAND (t, 1)) != 0;
++
++      TREE_OPERAND (t, n)
++	= fold_build_cleanup_point_expr (TREE_TYPE (TREE_OPERAND (t, n)),
++					 TREE_OPERAND (t, n));
++    }
++  return omp_for;
+ }
+ 
+ void

@@ -91,6 +91,22 @@ with the exported headers.
 	* sysdeps/arm/eabi/ftestexcept.c: Likewise.
 	* sysdeps/arm/eabi/setfpucw.c: Likewise.
 
+---
+ sysdeps/arm/eabi/fclrexcpt.c    |    4 ++--
+ sysdeps/arm/eabi/fedisblxcpt.c  |    4 ++--
+ sysdeps/arm/eabi/feenablxcpt.c  |    4 ++--
+ sysdeps/arm/eabi/fegetenv.c     |    4 ++--
+ sysdeps/arm/eabi/fegetexcept.c  |    4 ++--
+ sysdeps/arm/eabi/fegetround.c   |    4 ++--
+ sysdeps/arm/eabi/feholdexcpt.c  |    4 ++--
+ sysdeps/arm/eabi/fesetenv.c     |    4 ++--
+ sysdeps/arm/eabi/fesetround.c   |    4 ++--
+ sysdeps/arm/eabi/fraiseexcpt.c  |    4 ++--
+ sysdeps/arm/eabi/fsetexcptflg.c |    4 ++--
+ sysdeps/arm/eabi/ftestexcept.c  |    4 ++--
+ sysdeps/arm/eabi/setfpucw.c     |    4 ++--
+ 13 files changed, 26 insertions(+), 26 deletions(-)
+
 Index: glibc-ports-2.5/sysdeps/arm/eabi/fclrexcpt.c
 ===================================================================
 --- glibc-ports-2.5.orig/sysdeps/arm/eabi/fclrexcpt.c

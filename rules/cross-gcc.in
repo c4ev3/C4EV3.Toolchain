@@ -1,40 +1,38 @@
-# config for cross-gcc-first
+# config for cross-gcc
 
-menuconfig CROSS_GCC_FIRST
+menuconfig CROSS_GCC
 	bool
-	prompt "gcc (first)                 "
+	prompt "gcc                         "
+	bool
 	select CROSS_BINUTILS
-	select LIBC_HEADERS
-        select HOST_GMP if CROSS_GCC_43
-        select HOST_MPFR if CROSS_GCC_43
+	select LIBC_FIRST
+        select HOST_GMP		if CROSS_GCC_43
+        select HOST_MPFR	if CROSS_GCC_43
 
 config CROSS_GCC_VERSION
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "gcc version"
-	default "4.1.2"
+	default "4.2.3"
 	help
 	  Specify the version of gcc here.
 
 config CROSS_GCC_43
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	bool
 	prompt "additional deps for gcc-4.3"
 	help
 	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
+
 config CROSS_GCC_SERIES
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
+	default "series"
 	prompt "gcc patch series file"
 
-config CROSS_GCC_FIRST_SERIES
-	depends on CROSS_GCC_FIRST
-	string
-	default "${PTXCONF_CROSS_GCC_SERIES}"
-
 config CROSS_GCC_LANG
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "languages"
 	default "c,c++"
@@ -46,7 +44,7 @@ config CROSS_GCC_LANG
 	  Delimiter is ','
 
 config CROSS_GCC_EXTRA_CONFIG
-	depends on CROSS_GCC_FIRST
+	depends on CROSS_GCC
 	string
 	prompt "extra configure options"
 	help
@@ -56,33 +54,33 @@ config CROSS_GCC_EXTRA_CONFIG_LIBC
 	string
 	default "--with-newlib" if LIBC_NEWLIB
 
-config CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT
-	string
-	default "--enable-__cxa_atexit" if CROSS_GCC_ENABLE_CXA_ATEXIT
-	default "--disable-__cxa_atexit" if !CROSS_GCC_ENABLE_CXA_ATEXIT
-
+###
+### ___cxa_atexit
+###
 config CROSS_GCC_ENABLE_CXA_ATEXIT
 	bool
 
+config CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT
+	string
+	default "--enable-__cxa_atexit"		if CROSS_GCC_ENABLE_CXA_ATEXIT
+	default "--disable-__cxa_atexit"	if !CROSS_GCC_ENABLE_CXA_ATEXIT
 
-config CROSS_GCC_SECOND
-	bool
-	select CROSS_GCC_FIRST
-	select LIBC_FIRST
-	select CROSS_BINUTILS
-	prompt "gcc (second)"
 
-#config CROSS_GCC_WITHOUT_HEADERS
-#	bool
-#
-#config CROSS_GCC_HEADERS
-#	string
-#	default "--without-headers" if CROSS_GCC_WITHOUT_HEADERS
-
+###
+### shared
+###
 config CROSS_GCC_SHARED
 	bool
 
+config CROSS_GCC_EXTRA_CONFIG_SHARED
+       string
+       default "--enable-shared"	if CROSS_GCC_SHARED
+       default "--disable-shared"	if !CROSS_GCC_SHARED
 
+
+###
+### threads
+###
 config CROSS_GCC_THREADS_SINGLE
 	bool
 
@@ -94,6 +92,16 @@ config CROSS_GCC_THREADS_WIN32
 
 config CROSS_GCC_THREADS
 	string
-	default "posix" if CROSS_GCC_THREADS_POSIX
-	default "single" if CROSS_GCC_THREADS_SINGLE
-	default "win32" if CROSS_GCC_THREADS_WIN32
+	default "posix"		if CROSS_GCC_THREADS_POSIX
+	default "single"	if CROSS_GCC_THREADS_SINGLE
+	default "win32"		if CROSS_GCC_THREADS_WIN32
+
+###
+### first
+###
+config CROSS_GCC_FIRST
+	bool
+	select CROSS_BINUTILS
+	select LIBC_HEADERS
+        select HOST_GMP		if CROSS_GCC_43
+        select HOST_MPFR	if CROSS_GCC_43

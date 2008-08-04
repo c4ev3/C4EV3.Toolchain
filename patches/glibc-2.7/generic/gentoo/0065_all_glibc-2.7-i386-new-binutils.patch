@@ -1,0 +1,27 @@
+http://bugs.gentoo.org/209629
+http://sourceware.org/ml/libc-alpha/2008-01/msg00017.html
+
+revision 1.6
+date: 2008/01/22 18:36:15;  author: drepper;  state: Exp;  lines: +1 -1
+(fetestexcept): Use short for fnstsw.
+
+RCS file: /cvs/glibc/libc/sysdeps/i386/fpu/ftestexcept.c,v
+retrieving revision 1.5
+retrieving revision 1.6
+---
+ sysdeps/i386/fpu/ftestexcept.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.7/sysdeps/i386/fpu/ftestexcept.c
+===================================================================
+--- glibc-2.7.orig/sysdeps/i386/fpu/ftestexcept.c
++++ glibc-2.7/sysdeps/i386/fpu/ftestexcept.c
+@@ -26,7 +26,7 @@
+ int
+ fetestexcept (int excepts)
+ {
+-  int temp;
++  short temp;
+   int xtemp = 0;
+ 
+   /* Get current exceptions.  */

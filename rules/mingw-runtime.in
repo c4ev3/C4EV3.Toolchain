@@ -13,7 +13,7 @@ config MINGW_RUNTIME_VERSION
 	depends on MINGW_RUNTIME
 	string
 	prompt "mingw-runtime version"
-	default "3.11"
+	default "3.14"
 	help
 	  Specify the mingw-runtime version here.
 

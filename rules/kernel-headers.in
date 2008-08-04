@@ -1,18 +1,20 @@
 # config for kernel-headers
 
-menuconfig KERNEL_HEADERS
+menu "kernel                      "
+	depends on KERNEL_HEADERS
+
+config KERNEL_HEADERS
 	bool
-	prompt "kernel                      "
 
 config KERNEL_HEADERS_VERSION
 	depends on KERNEL_HEADERS
 	string
 	prompt "kernel version"
-	default "2.6.18"
+	default "2.6.25"
 	help
 	  Specify the kernel version here.
 
-config KERNEL_HEADERS_SANIZIZED
+config KERNEL_HEADERS_SANITIZED
 	depends on KERNEL_HEADERS
 	bool
 	prompt "use sanitized headers"
@@ -20,10 +22,4 @@ config KERNEL_HEADERS_SANIZIZED
 	  If selected we use the sanitized kernel headers instead of the
 	  original kernel headers.
 
-config KERNEL_HEADERS_CONFIG
-	depends on KERNEL_HEADERS
-	string
-	default "kernelconfigs/kernelconfig-${PTXCONF_KERNEL_HEADERS_VERSION}.${PTXCONF_ARCH}"
-	prompt "kernel config file"
-	help
-	  This kernel .config file is being used.
+endmenu

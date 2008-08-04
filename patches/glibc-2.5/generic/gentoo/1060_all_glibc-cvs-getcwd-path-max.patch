@@ -1,0 +1,18 @@
+http://sourceware.org/ml/libc-alpha/2006-06/msg00068.html
+
+---
+ sysdeps/unix/sysv/linux/getcwd.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: glibc-2.5/sysdeps/unix/sysv/linux/getcwd.c
+===================================================================
+--- glibc-2.5.orig/sysdeps/unix/sysv/linux/getcwd.c
++++ glibc-2.5/sysdeps/unix/sysv/linux/getcwd.c
+@@ -24,6 +24,7 @@
+ #include <limits.h>
+ #include <stdlib.h>
+ #include <unistd.h>
++#include <sys/param.h>
+ 
+ #include <sysdep.h>
+ #include <sys/syscall.h>

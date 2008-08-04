@@ -1,1 +1,4 @@
 tc-arm.diff
+
+uclibc/100-uclibc-conf.patch
+uclibc/110-arm-eabi-conf.patch

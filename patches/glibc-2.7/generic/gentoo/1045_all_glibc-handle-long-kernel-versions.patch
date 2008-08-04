@@ -1,0 +1,24 @@
+http://sourceware.org/ml/libc-alpha/2007-07/msg00023.html
+
+2007-07-07  Mike Frysinger  <vapier@gentoo.org>
+
+	* sysdeps/unix/sysv/linux/dl-osinfo.h (_dl_discover_osversion): Break
+	after reading the first 3 parts of the kernel version.
+
+---
+ sysdeps/unix/sysv/linux/dl-osinfo.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.7/sysdeps/unix/sysv/linux/dl-osinfo.h
+===================================================================
+--- glibc-2.7.orig/sysdeps/unix/sysv/linux/dl-osinfo.h
++++ glibc-2.7/sysdeps/unix/sysv/linux/dl-osinfo.h
+@@ -107,7 +107,7 @@ _dl_discover_osversion (void)
+   version = 0;
+   parts = 0;
+   cp = buf;
+-  while ((*cp >= '0') && (*cp <= '9'))
++  while ((*cp >= '0') && (*cp <= '9') && parts < 3)
+     {
+       unsigned int here = *cp++ - '0';
+ 

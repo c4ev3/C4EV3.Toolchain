@@ -1,13 +1,24 @@
-mcfv4e-codesourcery.patch
-
 make-install-lib-all.patch
 glibc-configure-apple-as.patch
 glibc-configure-old-gcc.patch
 configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
-#sysdeps_unix_sysv_linux_getcwd_c-include-sys_param_h.diff
-cross_timezone.diff -p0
-#local-2.6.19-linux-libc-dev.diff
-mcfv4e-fixes.patch
+glibc-2.5_stdlib_longlong.h
+cross_timezone.diff
 
+gentoo/0030_all_glibc-respect-env-CPPFLAGS.patch
+gentoo/1010_all_glibc-cvs-update-MINOR.patch
+gentoo/1015_all_glibc-2.5-realloc-assert.patch
+gentoo/1025_all_glibc-2.5-getusershell-fixes.patch
+gentoo/1035_all_glibc-cvs-fix-fork-handler-refcount-in-child.patch
+gentoo/1050_all_glibc-fix-printf-overflow-with-large-precisions.patch
+gentoo/1055_all_glibc-resolv-dynamic.patch
+gentoo/1060_all_glibc-cvs-getcwd-path-max.patch
+gentoo/1075_all_glibc-section-comments.patch
+gentoo/1090_all_glibc-2.3.6-fix-pr631.patch
+gentoo/1100_all_glibc-2.3.3-china.patch
+gentoo/1120_all_glibc-2.5-strict-aliasing.patch
+gentoo/1130_all_glibc-2.4-undefine-__i686.patch
+gentoo/1160_all_glibc-2.5-filter-files-for-headers-test.patch
+gentoo/1600_all_glibc-hwcap-mask-secure.patch

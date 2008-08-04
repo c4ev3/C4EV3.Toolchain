@@ -28,14 +28,8 @@ GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC_PORTS)
 # Get
 # ----------------------------------------------------------------------------
 
-glibc-ports_get: $(STATEDIR)/glibc-ports.get
-
-$(STATEDIR)/glibc-ports.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GLIBC_PORTS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GLIBC_PORTS)
 
 # ----------------------------------------------------------------------------
@@ -43,57 +37,47 @@ $(GLIBC_PORTS_SOURCE):
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_GLIBC_PORTS
-$(STATEDIR)/glibc-first.extract: $(STATEDIR)/glibc-ports.extract
+$(STATEDIR)/glibc.extract: $(STATEDIR)/glibc-ports.extract
 endif
 
-glibc-ports_extract: $(STATEDIR)/glibc-ports.extract
-
 $(STATEDIR)/glibc-ports.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(GLIBC_PORTS_DIR))
 	@$(call extract, GLIBC_PORTS, $(BUILDDIR))
 	@$(call patchin, GLIBC_PORTS, $(GLIBC_PORTS_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc-ports_prepare: $(STATEDIR)/glibc-ports.prepare
-
 $(STATEDIR)/glibc-ports.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-glibc-ports_compile: $(STATEDIR)/glibc-ports.compile
-
 $(STATEDIR)/glibc-ports.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-glibc-ports_install: $(STATEDIR)/glibc-ports.install
-
 $(STATEDIR)/glibc-ports.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc-ports_targetinstall: $(STATEDIR)/glibc-ports.targetinstall
-
 $(STATEDIR)/glibc-ports.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,0 +1,75 @@
+http://sourceware.org/ml/binutils/2007-08/msg00411.html
+
+forcing CFLAGS against C++ builds causes false failures
+
+---
+ ld/testsuite/lib/ld-lib.exp |   21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+Index: binutils-2.18/ld/testsuite/lib/ld-lib.exp
+===================================================================
+--- binutils-2.18.orig/ld/testsuite/lib/ld-lib.exp
++++ binutils-2.18/ld/testsuite/lib/ld-lib.exp
+@@ -206,6 +206,7 @@ proc default_ld_simple_link { ld target 
+ #
+ proc default_ld_compile { cc source object } {
+     global CFLAGS
++    global CXXFLAGS
+     global srcdir
+     global subdir
+     global host_triplet
+@@ -222,7 +223,11 @@ proc default_ld_compile { cc source obje
+ 
+     catch "exec rm -f $object" exec_output
+ 
+-    set flags "-I$srcdir/$subdir $CFLAGS"
++    if {[string match "*.cc" $source]} then {
++	set flags "-I$srcdir/$subdir $CXXFLAGS"
++    } else {
++	set flags "-I$srcdir/$subdir $CFLAGS"
++    }
+ 
+     # If we are compiling with gcc, we want to add gcc_gas_flag to
+     # flags.  Rather than determine this in some complex way, we guess
+@@ -1282,6 +1287,7 @@ proc run_ld_link_exec_tests { targets_to
+     global CC
+     global CXX
+     global CFLAGS
++    global CXXFLAGS
+     global errcnt
+     global exec_output
+ 
+@@ -1316,7 +1322,11 @@ proc run_ld_link_exec_tests { targets_to
+ 	    # We ignore warnings since some compilers may generate
+ 	    # incorrect section attributes and the assembler will warn
+ 	    # them.
+-	    ld_compile "$CC -c $CFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    if { [ string match "c++" $lang ] } {
++		ld_compile "$CXX -c $CXXFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    } else {
++		ld_compile "$CC -c $CFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    }
+ 
+ 	    # We have to use $CC to build PIE and shared library.
+ 	    if { [ string match "c" $lang ] } {
+@@ -1408,6 +1418,7 @@ proc run_cc_link_tests { ldtests } {
+     global CC
+     global CXX
+     global CFLAGS
++    global CXXFLAGS
+ 
+     foreach testitem $ldtests {
+ 	set testname [lindex $testitem 0]
+@@ -1429,7 +1440,11 @@ proc run_cc_link_tests { ldtests } {
+ 	    # We ignore warnings since some compilers may generate
+ 	    # incorrect section attributes and the assembler will warn
+ 	    # them.
+-	    ld_compile "$CC -c $CFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    if { [ string match "c++" $lang ] } {
++		ld_compile "$CXX -c $CXXFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    } else {
++		ld_compile "$CC -c $CFLAGS $cflags" $srcdir/$subdir/$src_file $objfile
++	    }
+ 	}
+ 
+ 	# Clear error and warning counts.

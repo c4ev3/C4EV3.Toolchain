@@ -38,10 +38,10 @@ and sendto.  This patch fixes those test failures.
  sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h
+Index: glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h
 ===================================================================
---- sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h.orig
-+++ sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h
+--- glibc-ports-2.5.orig/sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h
++++ glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/eabi/nptl/sysdep-cancel.h
 @@ -94,7 +94,7 @@
  # define UNDOCARGS_5	ldmfd sp!, {r0, r1, r2, r3}; .fnend; .fnstart; .save {r4}; .save {r7, lr}; .pad #4
  # define RESTORE_LR_5	ldmfd sp!, {r4, r7, lr}

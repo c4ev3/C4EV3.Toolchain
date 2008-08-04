@@ -1,0 +1,38 @@
+http://gcc.gnu.org/ml/gcc-patches/2006-06/msg00357.html
+
+2006-06-12  Mark Shinwell  <shinwell@codesourcery.com>
+
+	* builtins.c (expand_builtin_return_addr): Only use
+	frame_pointer_rtx when count == 0 and we are expanding
+	__builtin_return_address.
+
+---
+ gcc/builtins.c |   14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+Index: gcc-4.1.2/gcc/builtins.c
+===================================================================
+--- gcc-4.1.2.orig/gcc/builtins.c
++++ gcc-4.1.2/gcc/builtins.c
+@@ -541,12 +541,16 @@ expand_builtin_return_addr (enum built_i
+ #else
+   rtx tem;
+ 
+-  /* For a zero count, we don't care what frame address we return, so frame
+-     pointer elimination is OK, and using the soft frame pointer is OK.
+-     For a non-zero count, we require a stable offset from the current frame
+-     pointer to the previous one, so we must use the hard frame pointer, and
++  /* For a zero count with __builtin_return_address, we don't care what
++     frame address we return, because target-specific definitions will
++     override us.  Therefore frame pointer elimination is OK, and using
++     the soft frame pointer is OK.
++
++     For a non-zero count, or a zero count with __builtin_frame_address,
++     we require a stable offset from the current frame pointer to the
++     previous one, so we must use the hard frame pointer, and
+      we must disable frame pointer elimination.  */
+-  if (count == 0)
++  if (count == 0 && fndecl_code == BUILT_IN_RETURN_ADDRESS)
+     tem = frame_pointer_rtx;
+   else 
+     {

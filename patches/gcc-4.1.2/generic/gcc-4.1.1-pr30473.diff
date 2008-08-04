@@ -1,0 +1,50 @@
+http://gcc.gnu.org/PR30473
+http://bugs.gentoo.org/163623
+
+2007-02-02  Jakub Jelinek  <jakub@redhat.com>
+
+	PR middle-end/30473
+	* builtins.c (fold_builtin_sprintf): Do not attempt to optimize
+	sprintf (str, "%s").  Do not optimize sprintf (str, "nopercent", p++).
+
+---
+ gcc/builtins.c |   11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+Index: gcc-4.1.2/gcc/builtins.c
+===================================================================
+--- gcc-4.1.2.orig/gcc/builtins.c
++++ gcc-4.1.2/gcc/builtins.c
+@@ -9935,6 +9935,7 @@ fold_builtin_sprintf (tree arglist, int 
+   /* Get the destination string and the format specifier.  */
+   dest = TREE_VALUE (arglist);
+   fmt = TREE_VALUE (TREE_CHAIN (arglist));
++  arglist = TREE_CHAIN (TREE_CHAIN (arglist));
+ 
+   /* Check whether the format is a literal string constant.  */
+   fmt_str = c_getstr (fmt);
+@@ -9955,6 +9956,10 @@ fold_builtin_sprintf (tree arglist, int 
+       if (!fn)
+ 	return NULL_TREE;
+ 
++      /* Don't optimize sprintf (buf, "abc", ptr++).  */
++      if (arglist)
++	return NULL_TREE;
++
+       /* Convert sprintf (str, fmt) into strcpy (str, fmt) when
+ 	 'format' is known to contain no % formats.  */
+       arglist = build_tree_list (NULL_TREE, fmt);
+@@ -9973,8 +9978,12 @@ fold_builtin_sprintf (tree arglist, int 
+       if (!fn)
+ 	return NULL_TREE;
+ 
++      /* Don't crash on sprintf (str1, "%s").  */
++      if (!arglist)
++	return NULL_TREE;
++
+       /* Convert sprintf (str1, "%s", str2) into strcpy (str1, str2).  */
+-      orig = TREE_VALUE (TREE_CHAIN (TREE_CHAIN (arglist)));
++      orig = TREE_VALUE (arglist);
+       arglist = build_tree_list (NULL_TREE, orig);
+       arglist = tree_cons (NULL_TREE, dest, arglist);
+       if (!ignored)

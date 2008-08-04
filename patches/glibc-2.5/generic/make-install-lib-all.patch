@@ -13,11 +13,15 @@
 # Foundation; either version 2 of the License, or (at your option) any later
 # version.
 # --- T2-COPYRIGHT-NOTE-END ---
+---
+# Makerules |    8 ++++++++
+# 1 file changed, 8 insertions(+)
+#
 Index: glibc-2.5/Makerules
 ===================================================================
---- glibc-2.5.orig/Makerules	2008-03-08 10:27:55.000000000 +0100
-+++ glibc-2.5/Makerules	2008-03-08 10:27:59.000000000 +0100
-@@ -875,6 +875,13 @@
+--- glibc-2.5.orig/Makerules
++++ glibc-2.5/Makerules
+@@ -864,6 +864,13 @@ endef
  installed-libcs := $(foreach o,$(filter-out .os,$(object-suffixes-for-libc)),\
  			     $(inst_libdir)/$(patsubst %,$(libtype$o),\
  						     $(libprefix)$(libc-name)))
@@ -31,7 +35,7 @@ Index: glibc-2.5/Makerules
  install: $(installed-libcs)
  $(installed-libcs): $(inst_libdir)/lib$(libprefix)%: lib $(+force)
  	$(make-target-directory)
-@@ -898,6 +905,7 @@
+@@ -887,6 +894,7 @@ endef
  install-lib.so := $(filter %.so,$(install-lib:%_pic.a=%.so))
  install-lib := $(filter-out %.so %_pic.a,$(install-lib))
  

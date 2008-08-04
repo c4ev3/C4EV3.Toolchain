@@ -1,0 +1,56 @@
+r10231 | lethal | 2005-05-02 09:58:00 -0400 (Mon, 02 May 2005) | 13 lines
+
+Likewise, binutils has no idea about any of these new targets either, so we 
+fix that up too.. now we're able to actually build a real toolchain for 
+sh2a_nofpu- and other more ineptly named toolchains (and yes, there are more 
+inept targets than that one, really. Go look, I promise).
+
+---
+ configure    |    4 ++--
+ configure.ac |    4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+Index: binutils-2.18/configure
+===================================================================
+--- binutils-2.18.orig/configure
++++ binutils-2.18/configure
+@@ -2206,7 +2206,7 @@ case "${target}" in
+   am33_2.0-*-linux*)
+     noconfigdirs="$noconfigdirs ${libgcj} target-newlib target-libgloss"
+     ;;
+-  sh-*-linux*)
++  sh*-*-linux*)
+     noconfigdirs="$noconfigdirs ${libgcj} target-newlib target-libgloss"
+     ;;
+   sh*-*-pe|mips*-*-pe|*arm-wince-pe)
+@@ -2504,7 +2504,7 @@ case "${target}" in
+   romp-*-*)
+     noconfigdirs="$noconfigdirs bfd binutils ld gas opcodes target-libgloss ${libgcj}"
+     ;;
+-  sh-*-* | sh64-*-*)
++  sh*-*-* | sh64-*-*)
+     case "${host}" in
+       i[3456789]86-*-vsta) ;; # don't add gprof back in
+       i[3456789]86-*-go32*) ;; # don't add gprof back in
+Index: binutils-2.18/configure.ac
+===================================================================
+--- binutils-2.18.orig/configure.ac
++++ binutils-2.18/configure.ac
+@@ -484,7 +484,7 @@ case "${target}" in
+   am33_2.0-*-linux*)
+     noconfigdirs="$noconfigdirs ${libgcj} target-newlib target-libgloss"
+     ;;
+-  sh-*-linux*)
++  sh*-*-linux*)
+     noconfigdirs="$noconfigdirs ${libgcj} target-newlib target-libgloss"
+     ;;    
+   sh*-*-pe|mips*-*-pe|*arm-wince-pe)
+@@ -782,7 +782,7 @@ case "${target}" in
+   romp-*-*)
+     noconfigdirs="$noconfigdirs bfd binutils ld gas opcodes target-libgloss ${libgcj}"
+     ;;
+-  sh-*-* | sh64-*-*)
++  sh*-*-* | sh64-*-*)
+     case "${host}" in
+       i[[3456789]]86-*-vsta) ;; # don't add gprof back in
+       i[[3456789]]86-*-go32*) ;; # don't add gprof back in

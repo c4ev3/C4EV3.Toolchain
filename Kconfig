@@ -1,7 +1,7 @@
 
 #
 # Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005, 2006
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2008
 #
 
 config BUILD_TOOLCHAIN
@@ -22,7 +22,6 @@ source "workspace/rules/libc.in"
 
 if LIBC_GLIBC
 source "workspace/rules/glibc.in"
-source "workspace/rules/glibc-headers.in"
 source "workspace/rules/glibc-ports.in"
 source "workspace/rules/glibc-linuxthreads.in"
 endif
@@ -54,7 +53,7 @@ source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-gmp.in"
 source "workspace/rules/host-mpfr.in"
-source "workspace/rules/host-dejagnu.in"
+#source "workspace/rules/host-dejagnu.in"
 
 comment "------------------"
 
@@ -79,6 +78,9 @@ choice
 	config ARCH_AVR
 		bool "AVR-8  "
 
+	config ARCH_AVR32
+		bool "AVR-32 "
+
 	help
 	  This option specifies the toolchain architecture. It corresponds to
 	  the arch/ directory of the Linux kernel.
@@ -87,13 +89,13 @@ endchoice
 
 config ARCH
 	string
-	default "arm" if ARCH_ARM
-	default "avr" if ARCH_AVR
-	default "m68k" if ARCH_M68K
-	default "x86" if CROSS_GCC_43 && ARCH_I386
-	default "i386" if ARCH_I386
-	default "mips" if ARCH_MIPS
-	default "powerpc" if ARCH_POWERPC
+	default "arm"		if ARCH_ARM
+	default "avr"		if ARCH_AVR
+	default "avr32"		if ARCH_AVR32
+	default "m68k"		if ARCH_M68K
+	default "i386"		if ARCH_I386
+	default "mips"		if ARCH_MIPS
+	default "powerpc"	if ARCH_POWERPC
 
 config GNU_TARGET
 	string
@@ -119,26 +121,23 @@ menu "misc                        "
 config CONFIGFILE_VERSION
 	string
 	prompt "ptxdist version"
-	default "0.10.7"
+	default "1.99"
 	help
 	  Specify the PTXdist version this configuration was tested with
 	  here. This is an additional sanity check to make sure that
 	  only tested versions are built.
 
+config PREFIX
+	string
+	prompt "prefix for installation"
+	default "/opt"
+	help
+	  Your toolchain will be installed under $PREFIX
+
 config PREFIX_KERNEL
 	string
-	depends on KERNEL_HEADERS_SANIZIZED
+	depends on KERNEL_HEADERS_SANITIZED
 	default "-sanitized"
-
-config PREFIX_FIRST
-	string
-	prompt "first prefix"
-	default "/opt/${PTXCONF_PROJECT}"
-	help
-	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
-	  The intention behind this is that you can change the installation
-	  directory with PREFIX_FIRST while keeping the directory which
-	  describes what kind of toolchain you have (PREFIX_SECOND)
 
 config PREFIX_TCID
 	string
@@ -146,23 +145,18 @@ config PREFIX_TCID
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_UCLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}" if LIBC_MINGW
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVR8LIB_VERSION}" if LIBC_AVR_8
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVRLIB_VERSION}" if LIBC_AVR
 
-config PREFIX_SECOND
+config SYSROOT_HOST
 	string
-	default "${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
-	help
-	  Your toolchain will be installed under PREFIX_FIRST/PREFIX_SECOND
-	  The intention behind this is that you can change the installation
-	  directory with PREFIX_FIRST while keeping the directory which
-	  describes what kind of toolchain you have (PREFIX_SECOND)
+	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
 
-config PREFIX
+config SYSROOT_CROSS
 	string
-	default "${PTXCONF_PREFIX_FIRST}/${PTXCONF_PREFIX_SECOND}"
+	default "${PTXCONF_PREFIX}/${PTXCONF_PROJECT}/${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
 
-config HOST_PREFIX
+config SYSROOT_TARGET
 	string
-	default "${PTXCONF_PREFIX}"
+	default "${PTXCONF_SYSROOT_CROSS}/sysroot-${PTXCONF_GNU_TARGET}"
 
 endmenu

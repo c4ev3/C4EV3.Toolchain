@@ -1,0 +1,33 @@
+From: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/301-missing-execinfo_h.patch
+
+Path: 301-missing-execinfo_h.patch
+Name: 301-missing-execinfo_h.patch
+URL: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/301-missing-execinfo_h.patch
+Repository Root: svn://uclibc.org
+Repository UUID: 69ca8d6d-28ef-0310-b511-8ec308f3f277
+Revision: 21884
+Node Kind: file
+Schedule: normal
+Last Changed Author: sjhill
+Last Changed Rev: 10249
+Last Changed Date: 2005-05-05 05:17:15 +0200 (Thu, 05 May 2005)
+Text Last Updated: 2008-03-27 14:45:05 +0100 (Thu, 27 Mar 2008)
+Checksum: a1a72ecb9890db3e59ea40274a054a4b
+
+---
+ boehm-gc/include/gc.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: gcc-4.1.2/boehm-gc/include/gc.h
+===================================================================
+--- gcc-4.1.2.orig/boehm-gc/include/gc.h
++++ gcc-4.1.2/boehm-gc/include/gc.h
+@@ -500,7 +500,7 @@ GC_API GC_PTR GC_malloc_atomic_ignore_of
+ #ifdef __linux__
+ # include <features.h>
+ # if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 1 || __GLIBC__ > 2) \
+-     && !defined(__ia64__)
++     && !defined(__ia64__) && !defined(__UCLIBC__)
+ #   ifndef GC_HAVE_BUILTIN_BACKTRACE
+ #     define GC_HAVE_BUILTIN_BACKTRACE
+ #   endif

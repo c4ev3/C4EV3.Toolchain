@@ -1,0 +1,31 @@
+---
+ Makefile.in  |    2 +-
+ Makefile.tpl |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: gcc-4.2.3/Makefile.in
+===================================================================
+--- gcc-4.2.3.orig/Makefile.in
++++ gcc-4.2.3/Makefile.in
+@@ -346,7 +346,7 @@ SYSROOT_CFLAGS_FOR_TARGET = @SYSROOT_CFL
+ CXXFLAGS_FOR_TARGET = $(CXXFLAGS) $(SYSROOT_CFLAGS_FOR_TARGET)
+ LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
+ LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
+-LDFLAGS_FOR_TARGET = 
++LDFLAGS_FOR_TARGET = @LDFLAGS@ 
+ PICFLAG_FOR_TARGET = 
+ 
+ # ------------------------------------
+Index: gcc-4.2.3/Makefile.tpl
+===================================================================
+--- gcc-4.2.3.orig/Makefile.tpl
++++ gcc-4.2.3/Makefile.tpl
+@@ -349,7 +349,7 @@ SYSROOT_CFLAGS_FOR_TARGET = @SYSROOT_CFL
+ CXXFLAGS_FOR_TARGET = $(CXXFLAGS) $(SYSROOT_CFLAGS_FOR_TARGET)
+ LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
+ LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
+-LDFLAGS_FOR_TARGET = 
++LDFLAGS_FOR_TARGET = @LDFLAGS@ 
+ PICFLAG_FOR_TARGET = 
+ 
+ # ------------------------------------

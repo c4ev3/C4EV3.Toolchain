@@ -1,3 +1,19 @@
+From: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/100-uclibc-conf.patch
+
+Path: 100-uclibc-conf.patch
+Name: 100-uclibc-conf.patch
+URL: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/100-uclibc-conf.patch
+Repository Root: svn://uclibc.org
+Repository UUID: 69ca8d6d-28ef-0310-b511-8ec308f3f277
+Revision: 21884
+Node Kind: file
+Schedule: normal
+Last Changed Author: vapier
+Last Changed Rev: 14420
+Last Changed Date: 2006-03-02 06:25:36 +0100 (Thu, 02 Mar 2006)
+Text Last Updated: 2008-03-27 14:45:05 +0100 (Thu, 27 Mar 2008)
+Checksum: 1b5adcd4819efe62f47e5c8d67d97d7a
+
 ---
  boehm-gc/configure             |    5 +++++
  configure                      |    2 +-

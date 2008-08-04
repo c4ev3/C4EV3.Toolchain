@@ -14,69 +14,52 @@
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_TOOLCHAIN) += cross-toolchain
 
-#
-# Paths and names
-#
-CROSS_TOOLCHAIN			:= toolchain-$(CROSS_TOOLCHAIN_VERSION)
-CROSS_TOOLCHAIN_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_TOOLCHAIN)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-cross-toolchain_get: $(STATEDIR)/cross-toolchain.get
-
 $(STATEDIR)/cross-toolchain.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-toolchain_extract: $(STATEDIR)/cross-toolchain.extract
-
 $(STATEDIR)/cross-toolchain.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-cross-toolchain_prepare: $(STATEDIR)/cross-toolchain.prepare
-
 $(STATEDIR)/cross-toolchain.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-toolchain_compile: $(STATEDIR)/cross-toolchain.compile
-
 $(STATEDIR)/cross-toolchain.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-toolchain_install: $(STATEDIR)/cross-toolchain.install
-
 $(STATEDIR)/cross-toolchain.install:
-	@$(call targetinfo, $@)
-	-rm -f ${PTXCONF_PREFIX}/bin/ptxconfig
-	#mkdir -p ${PTXCONF_PREFIX}/bin
-	cat ${PTXDIST_WORKSPACE}/ptxconfig > ${PTXCONF_PREFIX}/bin/ptxconfig
+	@$(call targetinfo)
+	-rm -f ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
+	cp ${PTXDIST_PTXCONFIG} ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
 
-	# carsten.schlote: Setup a symbolic link to installation dir
-	# FIXME: find better place for this link?
+# carsten.schlote: Setup a symbolic link to installation dir
+# FIXME: find better place for this link?
 	-rm state/toolchain-install-dir
-	ln -s ${PTXCONF_PREFIX} state/toolchain-install-dir
-	$(call touch, $@)
+	ln -s ${PTXCONF_SYSROOT_CROSS} $(STATEDIR)/toolchain-install-dir
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -84,7 +67,5 @@ $(STATEDIR)/cross-toolchain.install:
 
 cross-toolchain_clean:
 	rm -rf $(STATEDIR)/cross-toolchain.*
-	rm -rf $(IMAGEDIR)/cross-toolchain_*
-	rm -rf $(CROSS_TOOLCHAIN_DIR)
 
 # vim: syntax=make

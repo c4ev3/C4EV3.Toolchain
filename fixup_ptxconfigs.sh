@@ -11,7 +11,7 @@ fixup() {
        -e "s/\(PTXCONF_CROSS_GCC_VERSION\)=.*/\1=\"${GCC}\"/" \
        -e "s/\(PTXCONF_GLIBC_VERSION\)=.*/\1=\"${GLIBC}\"/" \
        -e "s/\(PTXCONF_KERNEL_HEADERS_VERSION\)=.*/\1=\"${LINUX}\"/" \
-       -e "s:\(PTXCONF_PREFIX_FIRST\)=.*:\1=\"/opt/\${PTXCONF_PROJECT}\":" \
+       -e "s:\(PTXCONF_PREFIX\)=.*:\1=\"/opt\":" \
        ${1}
     fi
 }

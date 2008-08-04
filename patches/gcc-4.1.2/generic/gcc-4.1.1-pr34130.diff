@@ -1,0 +1,95 @@
+Author:	doko
+Date: 	Thu Nov 29 00:32:58 2007 UTC (8 days, 14 hours ago)
+Log Message: 	
+
+gcc/
+2007-11-29  Matthias Klose  <doko@ubuntu.com>
+
+       Backport from mainline:
+       2007-11-17  Richard Guenther  <rguenther@suse.de>
+
+       PR middle-end/34130
+       * fold-const.c (extract_muldiv_1): Do not move negative
+       constants inside ABS_EXPR.
+
+gcc/testsuite/
+
+2007-11-29  Matthias Klose  <doko@ubuntu.com>
+
+       Backport from mainline:
+       2007-11-17  Richard Guenther  <rguenther@suse.de>
+
+       PR middle-end/34130
+       * gcc.c-torture/execute/pr34130.c: New testcase.
+
+---
+ gcc/ChangeLog                                 |    9 +++++++++
+ gcc/fold-const.c                              |    3 +++
+ gcc/testsuite/ChangeLog                       |    8 ++++++++
+ gcc/testsuite/gcc.c-torture/execute/pr34130.c |   12 ++++++++++++
+ 4 files changed, 32 insertions(+)
+
+Index: gcc-4.1.2/gcc/fold-const.c
+===================================================================
+--- gcc-4.1.2.orig/gcc/fold-const.c
++++ gcc-4.1.2/gcc/fold-const.c
+@@ -5339,6 +5339,9 @@ extract_muldiv_1 (tree t, tree c, enum t
+             }
+           break;
+         }
++      /* If the constant is negative, we cannot simplify this.  */
++      if (tree_int_cst_sgn (c) == -1)
++        break;
+       /* FALLTHROUGH */
+     case NEGATE_EXPR:
+       if ((t1 = extract_muldiv (op0, c, code, wide_type)) != 0)
+Index: gcc-4.1.2/gcc/ChangeLog
+===================================================================
+--- gcc-4.1.2.orig/gcc/ChangeLog
++++ gcc-4.1.2/gcc/ChangeLog
+@@ -1,3 +1,12 @@
++2007-11-29  Matthias Klose  <doko@ubuntu.com>
++
++	Backport from mainline:
++	2007-11-17  Richard Guenther  <rguenther@suse.de>
++
++	PR middle-end/34130
++	* fold-const.c (extract_muldiv_1): Do not move negative
++	constants inside ABS_EXPR.
++
+ 2007-02-13  Release Manager
+ 
+ 	* GCC 4.1.2 released.
+Index: gcc-4.1.2/gcc/testsuite/gcc.c-torture/execute/pr34130.c
+===================================================================
+--- /dev/null
++++ gcc-4.1.2/gcc/testsuite/gcc.c-torture/execute/pr34130.c
+@@ -0,0 +1,12 @@
++extern void abort (void);
++int foo (int i)
++{
++  return -2 * __builtin_abs(i - 2);
++}
++int main()
++{
++  if (foo(1) != -2
++      || foo(3) != -2)
++    abort ();
++  return 0;
++}
+Index: gcc-4.1.2/gcc/testsuite/ChangeLog
+===================================================================
+--- gcc-4.1.2.orig/gcc/testsuite/ChangeLog
++++ gcc-4.1.2/gcc/testsuite/ChangeLog
+@@ -1,3 +1,11 @@
++2007-11-29  Matthias Klose  <doko@ubuntu.com>
++
++	Backport from mainline:
++	2007-11-17  Richard Guenther  <rguenther@suse.de>
++
++	PR middle-end/34130
++	* gcc.c-torture/execute/pr34130.c: New testcase.
++
+ 2007-02-13  Release Manager
+ 
+ 	* GCC 4.1.2 released.

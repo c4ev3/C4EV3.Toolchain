@@ -20,7 +20,7 @@ suffix_buildstatus = .status
 suffix_buildrevision = .svnrev
 gstatefiles = $(addprefix $(gstatedir)/,$(addsuffix $(suffix_buildtime),$(configs)))
 
-instdirs = $(foreach i,$(configfiles),$(shell . $i && echo $${PTXCONF_PREFIX} ))
+instdirs = $(foreach i,$(configfiles),$(shell . $i && echo $${PTXCONF_SYSROOT_CROSS} ))
 
 distdir = dists
 suffix_distarc = .tar.bz2
@@ -55,7 +55,7 @@ define UpdateStatusPage
 	@mv $(statuspagefile).tmp $(statuspagefile)
 endef
 
-define SetupInstallDirs 
+define SetupInstallDirs
 	@dirs=""; for i in $(instdirs); do \
 	  if [ ! -d "$$i" ]; then \
 	    echo "Creating install dir : $$i"; \
@@ -78,14 +78,14 @@ endef
 
 define BuildChain
 	$(call PrintHeaderMsg, Rebuild toolchain $(1) )
-	ptxdist distclean  
-	ptxdist select $$<
+	ptxdist distclean
+	sed -e "s:\(PTXCONF_PREFIX\)=\"\(.*\)\":\1=\"\$\${PWD}/inst\2\":" $$< > ptxconfig
 
-	@instdir=. ptxconfig && echo $${PTXCONF_PREFIX}; \
+	@instdir=. ptxconfig && echo $${PTXCONF_SYSROOT_CROSS}; \
 	if [ -d $$instdir ]; then \
 	   echo "Removing existing toolchain files in $$instdir"; echo rm -rf "$$instdir/*"; \
 	fi;
-        
+
 	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
 	# -- Update status output
 	echo -n "$(builddate)" > $$@
@@ -121,7 +121,7 @@ mkgstatedir :
 	@mkdir -p $(gstatedir)
 
 mkdistdir :
-	@mkdir -p $(distdir)   
+	@mkdir -p $(distdir)
 
 mkinstdirs :
 	$(call SetupInstallDirs)
@@ -154,7 +154,7 @@ distclean : clean
 
 define BuildChainRules
 $(gstatedir)/$(1).buildtag : $(configdir)/$(1).ptxconfig | mkgstatedir mkdistdir updatestatpage_forced
-	$(call BuildChain,$(1)) 
+	$(call BuildChain,$(1))
 
 $(distdir)/$(1)$(suffix_distarc) : $(gstatedir)/$(1).buildtag
 	@echo "BROKEN FIXME - needs some way to derive install location from ptxconfig"

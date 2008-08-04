@@ -1,0 +1,75 @@
+From: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/300-libstdc++-pic.patch
+
+Path: 300-libstdc++-pic.patch
+Name: 300-libstdc++-pic.patch
+URL: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/300-libstdc++-pic.patch
+Repository Root: svn://uclibc.org
+Repository UUID: 69ca8d6d-28ef-0310-b511-8ec308f3f277
+Revision: 21884
+Node Kind: file
+Schedule: normal
+Last Changed Author: vapier
+Last Changed Rev: 15469
+Last Changed Date: 2006-06-21 21:46:28 +0200 (Wed, 21 Jun 2006)
+Text Last Updated: 2008-03-27 14:45:05 +0100 (Thu, 27 Mar 2008)
+Checksum: b9631f049a0f8b926e04108e2779e3a1
+
+# DP: Build and install libstdc++_pic.a library.
+
+---
+ libstdc++-v3/src/Makefile.am |    6 ++++++
+ libstdc++-v3/src/Makefile.in |   10 +++++++++-
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+Index: gcc-4.1.2/libstdc++-v3/src/Makefile.am
+===================================================================
+--- gcc-4.1.2.orig/libstdc++-v3/src/Makefile.am
++++ gcc-4.1.2/libstdc++-v3/src/Makefile.am
+@@ -234,6 +234,12 @@ CXXLINK = $(LIBTOOL) --tag CXX --mode=li
+ 	  $(OPT_LDFLAGS) $(SECTION_LDFLAGS) $(AM_CXXFLAGS) $(LDFLAGS) -o $@
+ 
+ 
++install-exec-local:
++ifeq ($(enable_shared),yes)
++	$(AR) cru libstdc++_pic.a .libs/*.o $(top_builddir)/libsupc++/*.o
++	$(INSTALL_DATA) libstdc++_pic.a $(DESTDIR)$(toolexeclibdir)
++endif
++
+ # Added bits to build debug library.
+ if GLIBCXX_BUILD_DEBUG
+ all-local: build_debug
+Index: gcc-4.1.2/libstdc++-v3/src/Makefile.in
+===================================================================
+--- gcc-4.1.2.orig/libstdc++-v3/src/Makefile.in
++++ gcc-4.1.2/libstdc++-v3/src/Makefile.in
+@@ -627,7 +627,7 @@ info-am:
+ 
+ install-data-am: install-data-local
+ 
+-install-exec-am: install-toolexeclibLTLIBRARIES
++install-exec-am: install-toolexeclibLTLIBRARIES install-exec-local
+ 
+ install-info: install-info-am
+ 
+@@ -660,6 +660,7 @@ uninstall-am: uninstall-info-am uninstal
+ 	distclean-libtool distclean-tags distdir dvi dvi-am html \
+ 	html-am info info-am install install-am install-data \
+ 	install-data-am install-data-local install-exec \
++	install-exec-local \
+ 	install-exec-am install-info install-info-am install-man \
+ 	install-strip install-toolexeclibLTLIBRARIES installcheck \
+ 	installcheck-am installdirs maintainer-clean \
+@@ -760,6 +761,13 @@ build_debug: stamp-debug
+ install_debug:
+ 	(cd ${debugdir} && $(MAKE) \
+ 	toolexeclibdir=$(glibcxx_toolexeclibdir)/debug install)
++
++install-exec-local:
++ifeq ($(enable_shared),yes)
++	$(AR) cru libstdc++_pic.a *.o $(top_builddir)/libsupc++/*.o
++	$(INSTALL_DATA) libstdc++_pic.a $(DESTDIR)$(toolexeclibdir)
++endif
++
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:

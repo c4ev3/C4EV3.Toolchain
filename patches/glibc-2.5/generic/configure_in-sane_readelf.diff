@@ -1,8 +1,12 @@
+---
+ configure.in |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
 Index: glibc-2.5/configure.in
 ===================================================================
---- glibc-2.5.orig/configure.in	2008-03-08 10:27:55.000000000 +0100
-+++ glibc-2.5/configure.in	2008-03-08 10:28:24.000000000 +0100
-@@ -1353,6 +1353,8 @@
+--- glibc-2.5.orig/configure.in
++++ glibc-2.5/configure.in
+@@ -1350,6 +1350,8 @@ EOF
      fi
    fi
  
@@ -11,7 +15,7 @@ Index: glibc-2.5/configure.in
    AC_CACHE_CHECK(for .preinit_array/.init_array/.fini_array support,
  		 libc_cv_initfini_array, [dnl
    cat > conftest.c <<EOF
-@@ -1364,7 +1366,7 @@
+@@ -1361,7 +1363,7 @@ EOF
    if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -o conftest conftest.c
  		     -static -nostartfiles -nostdlib 1>&AS_MESSAGE_LOG_FD])
    then
@@ -20,7 +24,7 @@ Index: glibc-2.5/configure.in
        libc_cv_initfini_array=yes
      else
        libc_cv_initfini_array=no
-@@ -1546,7 +1548,7 @@
+@@ -1543,7 +1545,7 @@ dnl cross-platform since the gcc used ca
  dnl introducing new options this is not easily doable.  Instead use a tool
  dnl which always is cross-platform: readelf.  To detect whether -z combreloc
  dnl look for a section named .rel.dyn.

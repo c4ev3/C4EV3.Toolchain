@@ -29,34 +29,24 @@ CROSS_BINUTILS_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_BINUTILS)-build
 # Get
 # ----------------------------------------------------------------------------
 
-cross-binutils_get: $(STATEDIR)/cross-binutils.get
-
-$(STATEDIR)/cross-binutils.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CROSS_BINUTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CROSS_BINUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-binutils_extract: $(STATEDIR)/cross-binutils.extract
-
 $(STATEDIR)/cross-binutils.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_BINUTILS_DIR))
 	@$(call extract, CROSS_BINUTILS, $(CROSS_BUILDDIR))
 	@$(call patchin, CROSS_BINUTILS, $(CROSS_BINUTILS_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cross-binutils_prepare: $(STATEDIR)/cross-binutils.prepare
 
 CROSS_BINUTILS_PATH	:= PATH=$(CROSS_PATH)
 CROSS_BINUTILS_ENV 	:= $(HOST_ENV)
@@ -65,9 +55,7 @@ CROSS_BINUTILS_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 CROSS_BINUTILS_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
+	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-werror \
 	--disable-nls
@@ -78,36 +66,47 @@ CROSS_BINUTILS_AUTOCONF += --with-sysroot=$(SYSROOT)
 endif
 
 $(STATEDIR)/cross-binutils.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	rm -fr $(CROSS_BINUTILS_BUILDDIR)
 	mkdir -p $(CROSS_BINUTILS_BUILDDIR)
 	cd $(CROSS_BINUTILS_BUILDDIR) && \
 		$(CROSS_BINUTILS_PATH) $(CROSS_BINUTILS_ENV) \
 		$(CROSS_BINUTILS_DIR)/configure $(CROSS_BINUTILS_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-binutils_compile: $(STATEDIR)/cross-binutils.compile
-
 $(STATEDIR)/cross-binutils.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(CROSS_BINUTILS_BUILDDIR) && $(CROSS_BINUTILS_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-binutils_install: $(STATEDIR)/cross-binutils.install
-
 $(STATEDIR)/cross-binutils.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
-	@$(call touch, $@)
+
+	mkdir -p $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	for file in \
+		ar \
+		as \
+		ld \
+		nm \
+		objcopy \
+		objdump \
+		ranlib \
+		strip \
+		; do \
+		ln -sf ../../../$(PTXCONF_GNU_TARGET)/bin/$$file $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/$$file; \
+	done
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

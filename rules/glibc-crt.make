@@ -17,40 +17,35 @@ PACKAGES-$(PTXCONF_GLIBC_CRT) += glibc-crt
 #
 # Paths and names
 #
-GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt
+GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-glibc-crt_get: $(STATEDIR)/glibc-crt.get
-
 $(STATEDIR)/glibc-crt.get: $(STATEDIR)/glibc.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-glibc-crt_extract: $(STATEDIR)/glibc-crt.extract
-
 $(STATEDIR)/glibc-crt.extract: $(STATEDIR)/glibc.extract
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc-crt_prepare: $(STATEDIR)/glibc-crt.prepare
-
 GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
 GLIBC_CRT_ENV := \
 	BUILD_CC=$(HOSTCC) \
+	ac_cv_path_GREP=grep \
 	libc_cv_forced_unwind=yes \
-	libc_cv_c_cleanup=yes
-
+	libc_cv_c_cleanup=yes \
+	ac_cv_sizeof_long_double=8
 
 #
 # autoconf
@@ -58,50 +53,44 @@ GLIBC_CRT_ENV := \
 GLIBC_CRT_AUTOCONF = $(GLIBC_AUTOCONF)
 
 $(STATEDIR)/glibc-crt.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(GLIBC_CRT_DIR))
 	mkdir -p $(GLIBC_CRT_DIR)
 	cd $(GLIBC_CRT_DIR) && eval \
 		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
 		$(GLIBC_DIR)/configure $(GLIBC_CRT_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-glibc-crt_compile: $(STATEDIR)/glibc-crt.compile
-
 $(STATEDIR)/glibc-crt.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) csu/subdir_lib
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-glibc-crt_install: $(STATEDIR)/glibc-crt.install
-
 $(STATEDIR)/glibc-crt.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	mkdir -p $(SYSROOT)/usr/lib
 	for file in {S,}crt1.o crt{i,n}.o; do \
 		$(INSTALL) -m 644 $(GLIBC_CRT_DIR)/csu/$$file \
 			$(SYSROOT)/usr/lib/$$file || exit 1; \
 	done
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc-crt_targetinstall: $(STATEDIR)/glibc-crt.targetinstall
-
 $(STATEDIR)/glibc-crt.targetinstall:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

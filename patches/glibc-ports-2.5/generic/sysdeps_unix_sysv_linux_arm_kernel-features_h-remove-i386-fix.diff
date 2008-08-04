@@ -39,10 +39,10 @@ seems there was a mistake in copying into the ARM file.)
  sysdeps/unix/sysv/linux/arm/kernel-features.h |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: sysdeps/unix/sysv/linux/arm/kernel-features.h
+Index: glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/kernel-features.h
 ===================================================================
---- sysdeps/unix/sysv/linux/arm/kernel-features.h.orig
-+++ sysdeps/unix/sysv/linux/arm/kernel-features.h
+--- glibc-ports-2.5.orig/sysdeps/unix/sysv/linux/arm/kernel-features.h
++++ glibc-ports-2.5/sysdeps/unix/sysv/linux/arm/kernel-features.h
 @@ -42,7 +42,7 @@
  #endif
  

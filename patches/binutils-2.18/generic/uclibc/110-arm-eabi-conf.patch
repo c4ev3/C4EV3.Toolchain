@@ -1,0 +1,31 @@
+---
+ configure    |    2 +-
+ configure.ac |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: binutils-2.18/configure
+===================================================================
+--- binutils-2.18.orig/configure
++++ binutils-2.18/configure
+@@ -2235,7 +2235,7 @@ case "${target}" in
+   arm-*-elf* | strongarm-*-elf* | xscale-*-elf* | arm*-*-eabi* )
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     ;;
+-  arm*-*-linux-gnueabi)
++  arm*-*-linux-gnueabi | arm*-*-linux-uclibcgnueabi)
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     noconfigdirs="$noconfigdirs target-libjava target-libobjc"
+     case ${with_newlib} in
+Index: binutils-2.18/configure.ac
+===================================================================
+--- binutils-2.18.orig/configure.ac
++++ binutils-2.18/configure.ac
+@@ -513,7 +513,7 @@ case "${target}" in
+   arm-*-elf* | strongarm-*-elf* | xscale-*-elf* | arm*-*-eabi* )
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     ;;
+-  arm*-*-linux-gnueabi)
++  arm*-*-linux-gnueabi | arm*-*-linux-uclibcgnueabi)
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     noconfigdirs="$noconfigdirs target-libjava target-libobjc"
+     case ${with_newlib} in

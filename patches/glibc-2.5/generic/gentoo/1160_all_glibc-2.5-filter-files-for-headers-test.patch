@@ -1,0 +1,28 @@
+Fix running test when built with USE=profile
+
+http://bugs.gentoo.org/177359
+http://sourceware.org/bugzilla/show_bug.cgi?id=3840
+
+2007-01-12  Ulrich Drepper  <drepper@redhat.com>
+
+	[BZ #3840]
+	* scripts/check-local-headers.sh: Restrict to testing .o.d, .os.d,
+	and .oS.d files.
+
+---
+ scripts/check-local-headers.sh |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.5/scripts/check-local-headers.sh
+===================================================================
+--- glibc-2.5.orig/scripts/check-local-headers.sh
++++ glibc-2.5/scripts/check-local-headers.sh
+@@ -26,7 +26,7 @@ cd "$objpfx"
+ 
+ # Search all dependency files for file names in the include directory.
+ # There are a few system headers we are known to use.
+-if fgrep "$includedir" */*.d |
++if fgrep "$includedir" */*.{o,os,oS}.d |
+ fgrep -v "$includedir/asm" |
+ fgrep -v "$includedir/linux" |
+ fgrep -v "$includedir/selinux" |

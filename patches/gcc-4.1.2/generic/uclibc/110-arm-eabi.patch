@@ -1,0 +1,50 @@
+From: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/110-arm-eabi.patch
+
+Path: 110-arm-eabi.patch
+Name: 110-arm-eabi.patch
+URL: svn://uclibc.org/trunk/buildroot/toolchain/gcc/4.1.2/110-arm-eabi.patch
+Repository Root: svn://uclibc.org
+Repository UUID: 69ca8d6d-28ef-0310-b511-8ec308f3f277
+Revision: 21884
+Node Kind: file
+Schedule: normal
+Last Changed Author: lethal
+Last Changed Rev: 15298
+Last Changed Date: 2006-06-06 13:36:15 +0200 (Tue, 06 Jun 2006)
+Text Last Updated: 2008-03-27 14:45:05 +0100 (Thu, 27 Mar 2008)
+Checksum: 9dadfab32668547b77fbf93cd5c66c3a
+
+---
+ gcc/config.gcc              |    2 +-
+ gcc/config/arm/linux-eabi.h |    4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+Index: gcc-4.1.2/gcc/config.gcc
+===================================================================
+--- gcc-4.1.2.orig/gcc/config.gcc
++++ gcc-4.1.2/gcc/config.gcc
+@@ -679,7 +679,7 @@ arm*-*-linux*)			# ARM GNU/Linux with EL
+ 	esac
+ 	tmake_file="${tmake_file} t-linux arm/t-arm"
+ 	case ${target} in
+-	arm*-*-linux-gnueabi)
++	arm*-*-linux-gnueabi | arm*-*-linux-uclibcgnueabi)
+ 	    tm_file="$tm_file arm/bpabi.h arm/linux-eabi.h"
+ 	    tmake_file="$tmake_file arm/t-arm-elf arm/t-bpabi arm/t-linux-eabi"
+   	    # The BPABI long long divmod functions return a 128-bit value in 
+Index: gcc-4.1.2/gcc/config/arm/linux-eabi.h
+===================================================================
+--- gcc-4.1.2.orig/gcc/config/arm/linux-eabi.h
++++ gcc-4.1.2/gcc/config/arm/linux-eabi.h
+@@ -64,7 +64,11 @@
+ /* Use ld-linux.so.3 so that it will be possible to run "classic"
+    GNU/Linux binaries on an EABI system.  */
+ #undef LINUX_TARGET_INTERPRETER
++#ifdef USE_UCLIBC
++#define LINUX_TARGET_INTERPRETER "/lib/ld-uClibc.so.0"
++#else
+ #define LINUX_TARGET_INTERPRETER "/lib/ld-linux.so.3"
++#endif
+ 
+ /* At this point, bpabi.h will have clobbered LINK_SPEC.  We want to
+    use the GNU/Linux version, not the generic BPABI version.  */

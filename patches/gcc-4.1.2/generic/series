@@ -1,13 +1,29 @@
-gcc-4.1.1_gcc_c_incpath-no-host-includes.diff
+# bail out on host includes
+no-host-includes.diff
 
-gcc-4.1.0-arm-bigendian.patch
+# use buld gcc as cpp
+oe-zecke-xgcc-cpp.patch
+
+# enable static libstdc++
+uclibc-300-libstdc++-pic.patch
+
+# ARM big endian and softfloat
+arm-bigendian.patch
 arm-softfloat.diff
-
 arm-thumb.patch
 arm-thumb-cache.patch
 
-gcc-4.1.1-pr28516.diff -p0
-
+# uclibc specific
 uclibc/100-uclibc-conf.patch
-uclibc/300-libstdc++-pic.patch
-libstdc++-v3__ctype_touplow_t-fix.patch
+uclibc/110-arm-eabi.patch
+uclibc/200-uclibc-locale.patch
+uclibc/301-missing-execinfo_h.patch
+uclibc/302-c99-snprintf.patch
+uclibc/303-c99-complex-ugly-hack.patch
+
+# PRs
+gcc-4.1.1-pr28516.diff
+gcc-4.1.1-pr30473.diff
+gcc-4.2.0-pr32389.diff
+gcc-4.1.1-pr34130.diff
+gcc-4.2.0-builtin-frame-address.patch
