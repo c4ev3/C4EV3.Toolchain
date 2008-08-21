@@ -1,9 +1,0 @@
-sysdeps_mips_mips32_Makefile-bootstrap.diff
-
-glibc-2.5_ports_sysdeps_arm_mp_clz_tab.c
-
-gentoo/6220_all_glibc-2.4-arm-cirrus-ep93xx-maverick-crunch-fpu.patch
-gentoo/6605_all_glibc-2.4-fpu-cw-mips.patch
-gentoo/6230_all_arm-glibc-2.5-no-page-header.patch
-gentoo/6224_all_glibc-2.7-lowlevellock-includes.patch
-gentoo/6225_all_glibc-2.7-cargs6.patch
