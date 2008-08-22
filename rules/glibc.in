@@ -28,9 +28,21 @@ config GLIBC_VERSION
 	depends on GLIBC
 	string
 	prompt "glibc version"
-	default "2.7"
+	default "2.8"
 	help
 	  Specify the glibc version here.
+	  Leave empty for glibc trunk snapshots and enter a timestamp below.
+
+config GLIBC_TIMESTAMP
+	depends on GLIBC
+	string
+	prompt "glibc timestamp"
+	default ""
+	help
+	  For glibc < 2.8 just leave this field empty.
+
+	  For glibc >= 2.8, enter a timestap (YYYYMMDD, e.g. 20080811) here,
+	  or "latest" or if you want try a snapshot.
 
 config GLIBC_SERIES
 	depends on GLIBC
