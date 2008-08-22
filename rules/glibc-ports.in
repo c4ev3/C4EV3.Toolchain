@@ -7,6 +7,11 @@ config GLIBC_PORTS_VERSION
 	string
 	default "${PTXCONF_GLIBC_VERSION}"
 
+config GLIBC_PORTS_TIMESTAMP
+	depends on GLIBC_PORTS
+	string
+	default "${PTXCONF_GLIBC_TIMESTAMP}"
+
 config GLIBC_PORTS_SERIES
 	depends on GLIBC_PORTS
 	string
