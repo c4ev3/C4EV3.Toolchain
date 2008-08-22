@@ -20,10 +20,13 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_BINUTILS) += cross-binutils
 CROSS_BINUTILS_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_BINUTILS_VERSION))
 CROSS_BINUTILS		:= binutils-$(CROSS_BINUTILS_VERSION)
 CROSS_BINUTILS_SUFFIX	:= tar.bz2
-CROSS_BINUTILS_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX)
 CROSS_BINUTILS_SOURCE	:= $(SRCDIR)/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX)
 CROSS_BINUTILS_DIR	:= $(CROSS_BUILDDIR)/$(CROSS_BINUTILS)
 CROSS_BINUTILS_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_BINUTILS)-build
+
+CROSS_BINUTILS_URL	:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX) \
+	http://www.kernel.org/pub/linux/devel/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -92,7 +95,7 @@ $(STATEDIR)/cross-binutils.install:
 	@$(call targetinfo)
 	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
 
-	mkdir -p $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	mkdir -p "$(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin"
 	for file in \
 		ar \
 		as \
@@ -103,7 +106,8 @@ $(STATEDIR)/cross-binutils.install:
 		ranlib \
 		strip \
 		; do \
-		ln -sf ../../../$(PTXCONF_GNU_TARGET)/bin/$$file $(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/$$file; \
+		ln -sf "../../../$(PTXCONF_GNU_TARGET)/bin/$$file" \
+			"$(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/$$file"; \
 	done
 
 	@$(call touch)
