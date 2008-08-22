@@ -2,46 +2,22 @@
 
 menuconfig UCLIBC
 	bool
+	select CROSS_GCC_FIRST
+
 	select CROSS_GCC_SHARED
 	select CROSS_GCC_THREADS_POSIX
+	select CROSS_GCC_ENABLE_CXA_ATEXIT
 	prompt "uclibc                      "
 
-choice
-	depends on UCLIBC
-	prompt "uclibc version"
-
-	config UCLIBC_VERSION_0_9_28
-		bool "0.9.28"
-
-	config UCLIBC_VERSION_0_9_29
-		bool "0.9.29"
-		select CROSS_GCC_ENABLE_CXA_ATEXIT
-
-	help
-	  Specify the uclibc version here.
-endchoice
+if UCLIBC
 
 config UCLIBC_VERSION
-	depends on UCLIBC
 	string
-	default "0.9.28" if UCLIBC_VERSION_0_9_28
-	default "0.9.29" if UCLIBC_VERSION_0_9_29
+	prompt "uclibc version"
+	default "0.9.29"
 
-config UCLIBC_RELEASE
-	depends on UCLIBC
+config UCLIBC_CONFIG
 	string
-	prompt "uclibc release       "
-	default ""
-	help
-	  Specify the uclibc bugfix release number.
+	default "uclibc-${PTXCONF_UCLIBC_VERSION}-${PTXCONF_ARCH}.config"
 
-menu "uClibc options         "
-	depends on UCLIBC
-if UCLIBC_VERSION_0_9_28
-source "workspace/config/uClibc-0.9.28/Config.in"
 endif
-if UCLIBC_VERSION_0_9_29
-#source "workspace/config/uClibc-0.9.29/Config.in"
-endif
-endmenu
-
