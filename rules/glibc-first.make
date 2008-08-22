@@ -103,7 +103,6 @@ $(STATEDIR)/glibc-first.targetinstall:
 
 glibc-first_clean:
 	rm -rf $(STATEDIR)/glibc-first.*
-	rm -rf $(IMAGEDIR)/glibc-first_*
 	rm -rf $(GLIBC_FIRST_BUILDDIR)
 
 # vim: syntax=make

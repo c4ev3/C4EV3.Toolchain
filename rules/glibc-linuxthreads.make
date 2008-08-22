@@ -85,7 +85,6 @@ $(STATEDIR)/glibc-linuxthreads.targetinstall:
 
 glibc-linuxthreads_clean:
 	rm -rf $(STATEDIR)/glibc-linuxthreads.*
-	rm -rf $(IMAGEDIR)/glibc-linuxthreads_*
 	rm -rf $(GLIBC_LINUXTHREADS_DIR)
 
 # vim: syntax=make

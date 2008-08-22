@@ -68,6 +68,5 @@ $(STATEDIR)/libc.targetinstall:
 
 libc_clean:
 	rm -rf $(STATEDIR)/libc.*
-	rm -rf $(IMAGEDIR)/libc_*
 
 # vim: syntax=make

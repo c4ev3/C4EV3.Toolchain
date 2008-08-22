@@ -68,6 +68,5 @@ $(STATEDIR)/libc-first.targetinstall:
 
 libc-first_clean:
 	rm -rf $(STATEDIR)/libc-first.*
-	rm -rf $(IMAGEDIR)/libc-first_*
 
 # vim: syntax=make

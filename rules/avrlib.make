@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_AVRLIB) += avrlib
 #
 # Paths and names
 #
-AVRLIB_VERSION		:= $(call remove_quotes,$(PTXCONF_AVRLIB_VERSION))
-AVRLIB			:= avr-libc-$(AVRLIB_VERSION)
-AVRLIB_SUFFIX		:= tar.bz2
-AVRLIB_URL		:= http://download.savannah.gnu.org/releases/avr-libc/$(AVRLIB).$(AVRLIB_SUFFIX)
-AVRLIB_SOURCE		:= $(SRCDIR)/$(AVRLIB).$(AVRLIB_SUFFIX)
-AVRLIB_DIR		:= $(BUILDDIR)/$(AVRLIB)
+AVRLIB_VERSION	:= $(call remove_quotes,$(PTXCONF_AVRLIB_VERSION))
+AVRLIB		:= avr-libc-$(AVRLIB_VERSION)
+AVRLIB_SUFFIX	:= tar.bz2
+AVRLIB_URL	:= http://download.savannah.gnu.org/releases/avr-libc/$(AVRLIB).$(AVRLIB_SUFFIX)
+AVRLIB_SOURCE	:= $(SRCDIR)/$(AVRLIB).$(AVRLIB_SUFFIX)
+AVRLIB_DIR	:= $(BUILDDIR)/$(AVRLIB)
 AVRLIB_BUILDDIR	:= $(BUILDDIR)/$(AVRLIB)-build
 
 # ----------------------------------------------------------------------------
@@ -107,7 +107,6 @@ $(STATEDIR)/avrlib.targetinstall:
 
 avrlib_clean:
 	rm -rf $(STATEDIR)/avrlib.*
-	rm -rf $(IMAGEDIR)/avrlib_*
 	rm -rf $(AVRLIB_DIR)
 	rm -rf $(AVRLIB_BUILDDIR)
 
