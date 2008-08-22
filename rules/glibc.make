@@ -18,13 +18,23 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 #
 # Paths and names
 #
-GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
-GLIBC		:= glibc-$(GLIBC_VERSION)
+ifdef PTXCONF_GLIBC_VERSION
+GLIBC_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+endif
+ifdef PTXCONF_GLIBC_TIMESTAMP
+GLIBC_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_GLIBC_TIMESTAMP))
+endif
+
+GLIBC		:= glibc$(GLIBC_VERSION)$(GLIBC_TIMESTAMP)
 GLIBC_SUFFIX	:= tar.bz2
-GLIBC_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC).$(GLIBC_SUFFIX)
 GLIBC_SOURCE	:= $(SRCDIR)/$(GLIBC).$(GLIBC_SUFFIX)
 GLIBC_DIR	:= $(BUILDDIR_DEBUG)/$(GLIBC)
 GLIBC_BUILDDIR	:= $(BUILDDIR)/$(GLIBC)-build
+
+GLIBC_URL	:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC).$(GLIBC_SUFFIX) \
+	ftp://sources.redhat.com/pub/glibc/snapshots/$(GLIBC).$(GLIBC_SUFFIX) \
+	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC).$(GLIBC_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -152,7 +162,6 @@ $(STATEDIR)/glibc.targetinstall:
 
 glibc_clean:
 	rm -rf $(STATEDIR)/glibc.*
-	rm -rf $(IMAGEDIR)/glibc_*
 	rm -rf $(GLIBC_DIR)
 
 # vim: syntax=make

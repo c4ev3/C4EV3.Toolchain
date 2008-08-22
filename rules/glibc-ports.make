@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
+#		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,12 +18,25 @@ PACKAGES-$(PTXCONF_GLIBC_PORTS) += glibc-ports
 #
 # Paths and names
 #
-GLIBC_PORTS_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_PORTS_VERSION))
-GLIBC_PORTS		:= glibc-ports-$(GLIBC_PORTS_VERSION)
+ifdef PTXCONF_GLIBC_PORTS_VERSION
+GLIBC_PORTS_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_PORTS_VERSION))
+endif
+
+ifdef PTXCONF_GLIBC_TIMESTAMP
+GLIBC_PORTS_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_GLIBC_PORTS_TIMESTAMP))
+GLIBC_PORTS		:= glibc$(GLIBC_PORTS_VERSION)-ports$(GLIBC_PORTS_TIMESTAMP)
+else
+GLIBC_PORTS		:= glibc-ports$(GLIBC_PORTS_VRESION)
+endif
+
 GLIBC_PORTS_SUFFIX	:= tar.bz2
-GLIBC_PORTS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
 GLIBC_PORTS_SOURCE	:= $(SRCDIR)/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
 GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC_PORTS)
+
+GLIBC_PORTS_URL		:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX) \
+	ftp://sources.redhat.com/pub/glibc/snapshots/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX) \
+	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -85,7 +99,6 @@ $(STATEDIR)/glibc-ports.targetinstall:
 
 glibc-ports_clean:
 	rm -rf $(STATEDIR)/glibc-ports.*
-	rm -rf $(IMAGEDIR)/glibc_ports_*
 	rm -rf $(GLIBC_PORTS_DIR)
 
 # vim: syntax=make
