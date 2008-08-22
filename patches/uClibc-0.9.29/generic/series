@@ -1,0 +1,10 @@
+check-lxdialog-fix-comparison.diff
+
+uClibc-0.9.29-001-fix-mmap.patch
+uClibc-0.9.29-conditional-sched_affinity.patch
+uClibc-0.9.29-filter-gnu99-from-assembly-flags.patch
+uClibc-0.9.29-fix-fget_putc.diff
+uClibc-0.9.29-fix-gethostent_r-failure-retval.patch
+uClibc-0.9.29-fix-internal_function-definition.patch
+uClibc-0.9.29-linuxthreads.patch
+uClibc-0.9.29-rm-whitespace.patch
