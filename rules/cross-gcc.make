@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,10 +21,13 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC) += cross-gcc
 CROSS_GCC_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
 CROSS_GCC		:= gcc-$(CROSS_GCC_VERSION)
 CROSS_GCC_SUFFIX	:= tar.bz2
-CROSS_GCC_URL	 	:= $(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 CROSS_GCC_SOURCE	:= $(SRCDIR)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 CROSS_GCC_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC)
 CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
+
+CROSS_GCC_URL	 	:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
+	ftp://gcc.gnu.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
