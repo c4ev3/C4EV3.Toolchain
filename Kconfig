@@ -1,4 +1,3 @@
-
 #
 # Kconfig: Main menu structure definition
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2008
@@ -18,44 +17,7 @@ config PROJECT
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
 
-source "workspace/rules/libc.in"
-
-if LIBC_GLIBC
-source "workspace/rules/glibc.in"
-source "workspace/rules/glibc-ports.in"
-source "workspace/rules/glibc-linuxthreads.in"
-endif
-
-if LIBC_UCLIBC
-source "workspace/rules/uclibc.in"
-source "workspace/rules/uclibc-headers.in"
-endif
-
-if LIBC_NEWLIB
-source "workspace/rules/newlib.in"
-endif
-
-if LIBC_AVR_8
-source "workspace/rules/avrlib.in"
-endif
-
-if LIBC_MINGW
-source "workspace/rules/mingw-runtime.in"
-source "workspace/rules/mingw-runtime-headers.in"
-source "workspace/rules/w32api.in"
-source "workspace/rules/w32api-headers.in"
-endif
-
-source "workspace/rules/cross-binutils.in"
-source "workspace/rules/kernel-headers.in"
-source "workspace/rules/cross-gcc.in"
-source "workspace/rules/cross-gdb.in"
-source "workspace/rules/cross-toolchain.in"
-source "workspace/rules/host-gmp.in"
-source "workspace/rules/host-mpfr.in"
-#source "workspace/rules/host-dejagnu.in"
-
-comment "------------------"
+comment "----------------------------------"
 
 choice
 	prompt "architecture      "
@@ -104,28 +66,47 @@ config GNU_TARGET
 	  The GNU_TARGET specifies which toolchain variant is to be
 	  built.
 
-config COMPILER_PREFIX
-	string
-	default "${PTXCONF_GNU_TARGET}-"
+comment "----------------------------------"
 
-config TOOLCHAIN_DEBUG
-	bool
-	prompt "debuggable toolchain internals"
-	help
-	  Select this if you want to debug the glibc/libstdc++ internals.
-	  Note: this enlarges your toolchain at about 500 MB.
-	
+source "workspace/rules/libc.in"
+
+if LIBC_GLIBC
+source "workspace/rules/glibc.in"
+source "workspace/rules/glibc-ports.in"
+source "workspace/rules/glibc-linuxthreads.in"
+endif
+
+if LIBC_UCLIBC
+source "workspace/rules/uclibc.in"
+source "workspace/rules/uclibc-headers.in"
+endif
+
+if LIBC_NEWLIB
+source "workspace/rules/newlib.in"
+endif
+
+if LIBC_AVR_8
+source "workspace/rules/avrlib.in"
+endif
+
+if LIBC_MINGW
+source "workspace/rules/mingw-runtime.in"
+source "workspace/rules/mingw-runtime-headers.in"
+source "workspace/rules/w32api.in"
+source "workspace/rules/w32api-headers.in"
+endif
+
+source "workspace/rules/cross-binutils.in"
+source "workspace/rules/kernel-headers.in"
+source "workspace/rules/cross-gcc.in"
+source "workspace/rules/cross-gdb.in"
+source "workspace/rules/cross-toolchain.in"
+source "workspace/rules/host-gmp.in"
+source "workspace/rules/host-mpfr.in"
+
+comment "----------------------------------"
 
 menu "misc                        "
-
-config CONFIGFILE_VERSION
-	string
-	prompt "ptxdist version"
-	default "1.99"
-	help
-	  Specify the PTXdist version this configuration was tested with
-	  here. This is an additional sanity check to make sure that
-	  only tested versions are built.
 
 config PREFIX
 	string
@@ -140,12 +121,12 @@ config PREFIX_KERNEL
 	default "-sanitized"
 
 config PREFIX_TCID
-	string
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_GLIBC
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}" if LIBC_UCLIBC
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}" if LIBC_NEWLIB
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}" if LIBC_MINGW
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVRLIB_VERSION}" if LIBC_AVR
+	string	
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-glibc-${PTXCONF_GLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_GLIBC
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-uclibc-${PTXCONF_UCLIBC_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_UCLIBC
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}"									if LIBC_NEWLIB
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}"				if LIBC_MINGW
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVRLIB_VERSION}"									if LIBC_AVR
 
 config SYSROOT_HOST
 	string
@@ -158,5 +139,25 @@ config SYSROOT_CROSS
 config SYSROOT_TARGET
 	string
 	default "${PTXCONF_SYSROOT_CROSS}/sysroot-${PTXCONF_GNU_TARGET}"
+
+config COMPILER_PREFIX
+	string
+	default "${PTXCONF_GNU_TARGET}-"
+
+config TOOLCHAIN_DEBUG
+	bool
+	prompt "debuggable toolchain internals"
+	help
+	  Select this if you want to debug the glibc/libstdc++ internals.
+	  Note: this enlarges your toolchain at about 500 MB.
+	
+config CONFIGFILE_VERSION
+	string
+	prompt "ptxdist version"
+	default "1.99"
+	help
+	  Specify the PTXdist version this configuration was tested with
+	  here. This is an additional sanity check to make sure that
+	  only tested versions are built.
 
 endmenu
