@@ -68,6 +68,8 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--disable-decimal-float \
 	--disable-fixed-point \
 	--disable-win32-registry \
+	--disable-sjlj-exceptions \
+	\
 	--enable-symvers=gnu \
 	\
 	--with-pkgversion=${PTXCONF_PROJECT} \
@@ -85,8 +87,6 @@ endif
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
 #   --enable-initfini-array       use .init_array/.fini_array sections
-#   --enable-sjlj-exceptions
-#                           arrange to use setjmp/longjmp exception handling
 #   --enable-version-specific-runtime-libs
 #                           specify that runtime libraries should be
 #                           installed in a compiler-specific directory
