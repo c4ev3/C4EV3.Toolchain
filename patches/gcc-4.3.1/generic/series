@@ -4,6 +4,9 @@ no-host-includes.diff
 # ARM big endian and softfloat
 arm-softfloat.diff
 
+# bugfixes
+gcc-43-pr37220.diff
+
 # from uclibc
 uclibc/100-uclibc-conf.patch
 uclibc/104-gnuhurd-uclibc-conf.patch
