@@ -72,8 +72,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	\
 	--enable-symvers=gnu \
 	\
-	--with-pkgversion=${PTXCONF_PROJECT} \
-	--with-bugurl="bugs@pengutronix.de"
+	--with-pkgversion=${PTXCONF_PROJECT}
 
 ifdef PTXCONF_HOST_GMP
 CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
