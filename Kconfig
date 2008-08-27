@@ -3,9 +3,14 @@
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2008
 #
 
+config _ptxconfig_MAGIC__
+	bool
+	default y
+
 config BUILD_TOOLCHAIN
 	bool
 	default y
+
 
 config PROJECT
 	string
