@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 #
 # Paths and names
 #
-ifdef PTXCONF_GLIBC_VERSION
+ifneq ($(PTXCONF_GLIBC_VERSION),"")
 GLIBC_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
 endif
-ifdef PTXCONF_GLIBC_TIMESTAMP
+ifneq ($(PTXCONF_GLIBC_TIMESTAMP),"")
 GLIBC_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_GLIBC_TIMESTAMP))
 endif
 
