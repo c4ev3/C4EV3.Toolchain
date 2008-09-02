@@ -82,6 +82,15 @@ ifdef PTXCONF_HOST_MPFR
 CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
 endif
 
+#
+# for other architectures than AVR its not usefull to have multilib,
+# but we need a sysroot for them
+#
+ifndef PTXCONF_ARCH_AVR
+CROSS_GCC_AUTOCONF_COMMON += \
+	--disable-multilib \
+	--with-sysroot=$(SYSROOT)
+endif
 
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
@@ -92,19 +101,19 @@ endif
 #   --with-long-double-128  Use 128-bit long double by default.
 
 
-# for other architectures than AVR its not usefull to have multilib,
-# but we need a sysroot for them
-ifndef PTXCONF_ARCH_AVR
-CROSS_GCC_AUTOCONF_COMMON += \
-	--disable-multilib \
-	--with-sysroot=$(SYSROOT)
-endif
+#
+# language selection
+#
+CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_C)		+= c
+CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_CXX)		+= c++
+CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_JAVA)		+= java
+CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_FORTRAN)	+= fortran
 
 CROSS_GCC_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	\
-	--enable-languages=$(PTXCONF_CROSS_GCC_LANG) \
+	--enable-languages=$(subst $(space),$(comma),$(CROSS_GCC_LANG-y)) \
 	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--enable-c99 \
 	--enable-long-long \
@@ -113,6 +122,11 @@ CROSS_GCC_AUTOCONF := \
 	--enable-checking=release \
 	\
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
+
+ifdef PTXCONF_CROSS_GCC_LANG_JAVA
+CROSS_GCC_AUTOCONF += --with-ecj-jar=$(CROSS_ECJ_SOURCE)
+endif
+
 
 $(STATEDIR)/cross-gcc.prepare:
 	@$(call targetinfo)

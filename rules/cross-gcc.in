@@ -6,53 +6,78 @@ menuconfig CROSS_GCC
 	bool
 	select CROSS_BINUTILS
 	select LIBC_FIRST
-        select HOST_GMP		if CROSS_GCC_43
-        select HOST_MPFR	if CROSS_GCC_43
+	select HOST_GMP		if CROSS_GCC_43
+	select HOST_MPFR	if CROSS_GCC_43
+	select CROSS_ECJ	if CROSS_GCC_LANG_JAVA
+
+if CROSS_GCC
 
 config CROSS_GCC_VERSION
-	depends on CROSS_GCC
 	string
 	prompt "gcc version"
-	default "4.2.3"
+	default "4.2.4"
 	help
 	  Specify the version of gcc here.
 
 config CROSS_GCC_43
-	depends on CROSS_GCC
 	bool
 	prompt "additional deps for gcc-4.3"
 	help
 	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
 
-
 config CROSS_GCC_SERIES
-	depends on CROSS_GCC
 	string
 	default "series"
 	prompt "gcc patch series file"
 
-config CROSS_GCC_LANG
-	depends on CROSS_GCC
-	string
-	prompt "languages"
-	default "c,c++"
-	help
-	  As GCC is a compiler collection, you can enable various languages
-	  within this menu entry. Possible values are:
-	  'c' for standard C language
-	  'c++' for C++ language
-	  Delimiter is ','
-
 config CROSS_GCC_EXTRA_CONFIG
-	depends on CROSS_GCC
 	string
 	prompt "extra configure options"
 	help
 	  Add these extra options to the gcc configure script.
 
+comment "Additional supported languages:"
+
+config CROSS_GCC_LANG_C
+	bool
+	default y
+	help
+	  As GCC is a compiler collection, you it can support various languages
+	  Select this for standard C support
+
+config CROSS_GCC_LANG_CXX
+	bool
+	prompt "C++"
+	default y
+	help
+	  As GCC is a compiler collection, it can support various languages.
+	  Select this for C++ support
+
+config CROSS_GCC_LANG_FORTRAN
+	bool
+	prompt "Fortran"
+	help
+	  As GCC is a compiler collection, it can support various languages.
+	  Select this for Fortran support
+
+config CROSS_GCC_LANG_JAVA
+	bool
+	prompt "Java"
+	help
+	  As GCC is a compiler collection, it can support various languages.
+	  Select this for Java support
+
+source "workspace/rules/cross-ecj.in"
+
+endif
+
+###
+### --with-newlib
+###
 config CROSS_GCC_EXTRA_CONFIG_LIBC
 	string
 	default "--with-newlib" if LIBC_NEWLIB
+
 
 ###
 ### ___cxa_atexit
@@ -103,5 +128,5 @@ config CROSS_GCC_FIRST
 	bool
 	select CROSS_BINUTILS
 	select LIBC_HEADERS
-        select HOST_GMP		if CROSS_GCC_43
-        select HOST_MPFR	if CROSS_GCC_43
+	select HOST_GMP		if CROSS_GCC_43
+	select HOST_MPFR	if CROSS_GCC_43
