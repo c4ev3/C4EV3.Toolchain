@@ -28,6 +28,10 @@ CROSS_ECJ_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_ECJ)
 # Get
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_CROSS_ECJ
+$(STATEDIR)/cross-gcc.extract: $(STATEDIR)/cross-ecj.get
+endif
+
 $(CROSS_ECJ_SOURCE):
 	@$(call targetinfo)
 	@$(call get, CROSS_ECJ)

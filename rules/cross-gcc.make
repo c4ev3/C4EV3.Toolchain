@@ -46,6 +46,9 @@ $(STATEDIR)/cross-gcc.extract:
 	@$(call clean, $(CROSS_GCC_DIR))
 	@$(call extract, CROSS_GCC, $(BUILDDIR_CROSS_DEBUG))
 	@$(call patchin, CROSS_GCC, $(CROSS_GCC_DIR))
+ifdef PTXCONF_CROSS_ECJ
+	@cp $(CROSS_ECJ_SOURCE) $(CROSS_GCC_DIR)/ecj.jar
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -123,9 +126,9 @@ CROSS_GCC_AUTOCONF := \
 	\
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
 
-ifdef PTXCONF_CROSS_GCC_LANG_JAVA
-CROSS_GCC_AUTOCONF += --with-ecj-jar=$(CROSS_ECJ_SOURCE)
-endif
+#ifdef PTXCONF_CROSS_GCC_LANG_JAVA
+#CROSS_GCC_AUTOCONF += --with-ecj-jar=$(CROSS_ECJ_SOURCE)
+#endif
 
 
 $(STATEDIR)/cross-gcc.prepare:
