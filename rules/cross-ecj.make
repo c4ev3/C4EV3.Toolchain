@@ -14,6 +14,13 @@
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_ECJ) += cross-ecj
 
+ifdef PTXCONF_CROSS_ECJ
+    ifeq ($(shell wich gcj)$(shell wich $(GNU_BUILD)-gcj),)
+	$(warning *** please install gcj)
+	$(error )
+    endif
+endif
+
 #
 # Paths and names
 #
