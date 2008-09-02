@@ -23,7 +23,7 @@ CROSS_GCC_FIRST_BUILDDIR	= $(CROSS_BUILDDIR)/$(CROSS_GCC)-first-build
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cross-gcc-first.get:  $(STATEDIR)/cross-gcc.get
+$(STATEDIR)/cross-gcc-first.get: $(STATEDIR)/cross-gcc.get
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -75,10 +75,8 @@ $(STATEDIR)/cross-gcc-first.prepare:
 
 $(STATEDIR)/cross-gcc-first.compile:
 	@$(call targetinfo)
-
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
-
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
