@@ -52,15 +52,15 @@ $(STATEDIR)/cross-toolchain.compile:
 
 $(STATEDIR)/cross-toolchain.install:
 	@$(call targetinfo)
-	if [ -e "${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig" ]; then \
+	@if [ -e "${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig" ]; then \
 		rm -rf "${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig"; \
 	fi
-	cp ${PTXDIST_PTXCONFIG} ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
+	@cp ${PTXDIST_PTXCONFIG} ${PTXCONF_SYSROOT_CROSS}/bin/ptxconfig
 
-	if [ -e "$(STATEDIR)/toolchain-install-dir" ]; then \
+	@if [ -e "$(STATEDIR)/toolchain-install-dir" ]; then \
 		rm -rf "$(STATEDIR)/toolchain-install-dir"; \
 	fi
-	ln -s ${PTXCONF_SYSROOT_CROSS} $(STATEDIR)/toolchain-install-dir
+	@ln -s ${PTXCONF_SYSROOT_CROSS} $(STATEDIR)/toolchain-install-dir
 
 	@$(call touch)
 
