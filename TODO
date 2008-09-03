@@ -1,40 +1,7 @@
 [ ] write fixup.make
-	[ ] copy ptxconfig
 	[ ] chmod prefix 555, to prevent overwriting
 
 [ ] fix autobuilder
-[x] migrate to glibc-2.5, audit patches
-[x] i686 toolchain fixing
 
-[x] audit softfloat stuff
-[.] ftp://ftp.kernel.org/pub/linux/kernel/people/dwmw2/kernel-headers
-
-----------8<----------
-From: Marcelo Slomp <mslomp@linuxmail.org>
-To: gcc@gcc.gnu.org
-Date: Wed, 30 Aug 2006 17:59:31 -0300
-Subject: gcc 4.1.1 - successful build and install - i386-pc-mingw32 (msys  running on a WinXP box)
-Message-Id: <20060830205931.98988CA0A6@ws5-11.us4.outblaze.com>
-
-Follows the build info:
-
-config.guess:
-i386-pc-mingw32
-
-$ gcc -v
-Using built-in specs.
-Target: mingw32
-Configured with: ../../source/gcc-4.1.1/configure --prefix=/mingw --host=mingw32 --target=mingw32 --program-prefix="" --with-gcc
-+--with-gnu-ld --with-gnu-as --enable-threads --disable-nls --enable-languages=c,c++ --disable-win32-registry --disable-shared
-+--without-x --enable-interpreter --enable-hash-synchronization --enable-libstdcxx-debug
-Thread model: win32
-gcc version 4.1.1
-
-$ uname -a
-MINGW32_NT-5.1 THERGOTHON 1.0.10(0.46/3/2) 2004-03-15 07:17 i686 unknown
-
-host system: WinXP Pro SP2 i686
-
-/me: Marcelo A B Slomp - Brazil
-----------8<----------
-
+[ ] java:
+	--enable-jni --enable-core-jni --enable-collections --enable-gtk-peer --enable-tool-wrappers --enable-load-library --enable-local-sockets
