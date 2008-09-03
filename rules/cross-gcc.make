@@ -126,11 +126,6 @@ CROSS_GCC_AUTOCONF := \
 	\
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
 
-#ifdef PTXCONF_CROSS_GCC_LANG_JAVA
-#CROSS_GCC_AUTOCONF += --with-ecj-jar=$(CROSS_ECJ_SOURCE)
-#endif
-
-
 $(STATEDIR)/cross-gcc.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(CROSS_GCC_BUILDDIR))
@@ -158,8 +153,8 @@ $(STATEDIR)/cross-gcc.install:
 	@$(call targetinfo)
 	cd $(CROSS_GCC_BUILDDIR) && \
 		$(CROSS_GCC_PATH) $(MAKE) install
-	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do	\
-		rm -v $${la_file};						\
+	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do \
+		rm -v $${la_file}; \
 	done
 	@$(call touch)
 
