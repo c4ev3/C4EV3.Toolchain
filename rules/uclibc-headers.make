@@ -34,8 +34,30 @@ $(STATEDIR)/uclibc-headers.extract: $(STATEDIR)/uclibc.extract
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/uclibc-headers.prepare: $(STATEDIR)/uclibc.prepare
+$(UCLIBC_CONFIG):
+	@echo
+	@echo "**************************************************************************"
+	@echo "**** Please generate a uclibc config with 'ptxdist menuconfig uclibc' ****"
+	@echo "**************************************************************************"
+	@echo
+	@echo
+	@exit 1
+
+$(STATEDIR)/uclibc-headers.prepare: $(UCLIBC_CONFIG)
 	@$(call targetinfo)
+
+	@if [ -f $(UCLIBC_CONFIG) ]; then				\
+		echo "Using uclibc config file: $(UCLIBC_CONFIG)";	\
+		install -m 644 $(UCLIBC_CONFIG) $(UCLIBC_DIR)/.config; 	\
+	else								\
+		echo "ERROR: No such uclibc config: $(UCLIBC_CONFIG)";	\
+		exit 1;							\
+	fi
+
+	cd $(UCLIBC_DIR) && yes "" | \
+		$(UCLIBC_PATH) $(UCLIBC_ENV) $(MAKE)  \
+		$(UCLIBC_MAKEVARS) oldconfig
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -55,7 +77,7 @@ $(STATEDIR)/uclibc-headers.install:
 	cd $(UCLIBC_DIR) && \
 		$(UCLIBC_PATH) $(UCLIBC_ENV) \
 		$(MAKE) $(UCLIBC_MAKEVARS) \
-		pregen install_dev DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT) KERNEL_SOURCE=$(SYSROOT)/usr
+		headers install_dev #pregen install_headers
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +94,6 @@ $(STATEDIR)/uclibc-headers.targetinstall:
 
 uclibc-headers_clean:
 	rm -rf $(STATEDIR)/uclibc-headers.*
-	rm -rf $(IMAGEDIR)/uclibc-headers_*
 	rm -rf $(UCLIBC_HEADERS_DIR)
 
 # vim: syntax=make

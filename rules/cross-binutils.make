@@ -26,6 +26,7 @@ CROSS_BINUTILS_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_BINUTILS)-build
 
 CROSS_BINUTILS_URL	:= \
 	$(PTXCONF_SETUP_GNUMIRROR)/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX) \
+	ftp://sources.redhat.com/pub/binutils/snapshots/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX) \
 	http://www.kernel.org/pub/linux/devel/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX)
 
 # ----------------------------------------------------------------------------
