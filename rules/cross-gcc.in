@@ -21,9 +21,9 @@ config CROSS_GCC_VERSION
 
 config CROSS_GCC_43
 	bool
-	prompt "additional deps for gcc-4.3"
+	prompt "additional deps for gcc >= 4.3"
 	help
-	  Add new dependencies for gcc-4.3+: "GMP" and "MPFR"
+	  Add new dependencies for gcc >= 4.3: "GMP" and "MPFR"
 
 config CROSS_GCC_SERIES
 	string
