@@ -1,3 +1,9 @@
+2008-09-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxconfigs: add toolchains based on gcc-4.3.2, glibc-2.8 and
+	kernel-2.6.26. This will be the next stable series of toolchains
+	in OSELAS.Toolchain-2.0.x.
+
 2008-01-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* uclibc: add uclibc target for i586. make an explicit
