@@ -1,5 +1,0 @@
-#!/bin/bash
-
-find ptxconfigs -name "*.ptxconfig" | sort | sed \
-	-e "s:^ptxconfigs/:\t:" \
-	-e "s:\.ptxconfig: \\\:"
