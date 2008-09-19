@@ -61,7 +61,8 @@ fixup() {
 
     # version
     PTXCONF_CONFIGFILE_VERSION="1.99.6"
-    PTXCONF_PROJECT="OSELAS.Toolchain-trunk"
+    PTXCONF_PROJECT="${PWD}"
+    PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
     PTXCONF_PREFIX="/opt"
@@ -72,6 +73,9 @@ fixup() {
     case "${PTXCONF_GNU_TARGET}" in
 	arm*gnueabi)
 	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-D__ARM_EABI__"
+	    ;;
+	mips*)
+	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-DBOOTSTRAP_GCC"
 	    ;;
 	*)
 	    ;;
