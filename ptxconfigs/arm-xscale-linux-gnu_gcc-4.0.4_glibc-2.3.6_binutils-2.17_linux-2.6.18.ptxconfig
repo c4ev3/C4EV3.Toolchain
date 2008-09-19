@@ -17,7 +17,7 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_AVR is not set
 # PTXCONF_ARCH_AVR32 is not set
 PTXCONF_ARCH="arm"
-PTXCONF_GNU_TARGET="armeb-xscale-linux-gnu"
+PTXCONF_GNU_TARGET="arm-xscale-linux-gnu"
 
 #
 # ----------------------------------
