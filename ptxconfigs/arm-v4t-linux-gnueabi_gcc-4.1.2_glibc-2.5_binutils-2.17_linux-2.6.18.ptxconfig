@@ -60,7 +60,7 @@ PTXCONF_CROSS_GCC=y
 PTXCONF_CROSS_GCC_VERSION="4.1.2"
 # PTXCONF_CROSS_GCC_43 is not set
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-arch=armv4t --with-float=soft --with-fpu=vfp"
+PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft --with-fpu=vfp --with-arch=armv4t"
 
 #
 # Additional supported languages:
