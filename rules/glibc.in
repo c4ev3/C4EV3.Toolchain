@@ -39,10 +39,10 @@ config GLIBC_TIMESTAMP
 	prompt "glibc timestamp"
 	default ""
 	help
-	  For glibc < 2.8 just leave this field empty.
+	  For glibc releases just leave this field empty.
 
-	  For glibc >= 2.8, enter a timestap (YYYYMMDD, e.g. 20080811) here,
-	  or "latest" or if you want try a snapshot.
+	  For glibc snapshots enter a timestap (YYYYMMDD, e.g. 20080811) here,
+	  or "latest" or if you want try the latest snapshot.
 
 config GLIBC_SERIES
 	depends on GLIBC
