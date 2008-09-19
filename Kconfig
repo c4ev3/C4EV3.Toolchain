@@ -90,7 +90,7 @@ if LIBC_NEWLIB
 source "workspace/rules/newlib.in"
 endif
 
-if LIBC_AVR_8
+if LIBC_AVR
 source "workspace/rules/avrlib.in"
 endif
 
