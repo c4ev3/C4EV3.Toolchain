@@ -1,0 +1,23 @@
+http://bugs.gentoo.org/127190
+
+2006-03-28  Harald van Dijk  <truedfx@gentoo.org>
+
+	* ca.po: Fix printf flag typo in negative value translation.
+
+---
+ gcc/po/ca.po |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: gcc-4.2.3/gcc/po/ca.po
+===================================================================
+--- gcc-4.2.3.orig/gcc/po/ca.po
++++ gcc-4.2.3/gcc/po/ca.po
+@@ -34197,7 +34197,7 @@ msgstr "s'ignora l'atribut \"%s\""
+ #~ msgstr "passant el valor negatiu `%E' per a %s %P de \"%D\""
+ 
+ #~ msgid "%s of negative value `%E' to `%T'"
+-#~ msgstr "%s de valor negatiu `%I' a \"%T\""
++#~ msgstr "%s de valor negatiu `%E' a \"%T\""
+ 
+ #~ msgid "initializing array with parameter list"
+ #~ msgstr "inicialitzant una matriu amb una llista de paràmetres"

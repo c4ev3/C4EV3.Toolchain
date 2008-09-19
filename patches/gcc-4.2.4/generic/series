@@ -1,0 +1,53 @@
+# bail out on host includes
+no-host-includes.diff
+
+# ARM big endian and softfloat
+arm-bigendian.patch
+arm-softfloat.diff
+
+# from uclibc
+uclibc/100-uclibc-conf.patch
+uclibc/103-uclibc-conf-noupstream.patch
+uclibc/104-gnuhurd-uclibc-conf.patch
+uclibc/200-uclibc-locale.patch
+uclibc/203-uclibc-locale-no__x.patch
+uclibc/204-uclibc-locale-wchar_fix.patch
+uclibc/205-uclibc-locale-update.patch
+uclibc/300-libstdc++-pic.patch
+uclibc/301-missing-execinfo_h.patch
+uclibc/302-c99-snprintf.patch
+uclibc/303-c99-complex-ugly-hack.patch
+uclibc/304-index_macro.patch
+uclibc/305-libmudflap-susv3-legacy.patch
+uclibc/306-libstdc++-namespace.patch
+uclibc/307-locale_facets.patch
+uclibc/402-libbackend_dep_gcov-iov.h.patch
+uclibc/904-flatten-switch-stmt-00.patch
+uclibc/920-soft-float.patch
+
+# from gentoo
+gentoo/00_all_gcc-trampolinewarn.patch
+gentoo/01_all_gcc4-ice-hack.patch
+gentoo/06_all_gcc4-slow-pthread-self.patch
+gentoo/20_all_cris-dont-force-limits-header.patch
+gentoo/35_all_gcc-arm-pragma-pack.patch
+gentoo/36_all_gcc-arm-pr30486.patch
+gentoo/51_all_gcc-3.4-libiberty-pic.patch
+gentoo/53_all_gcc4-superh-default-multilib.patch
+gentoo/56_all_gcc-4-pr32177.patch
+gentoo/59_all_gcc-4-pr32893.patch
+gentoo/62_all_gcc4-noteGNUstack.patch
+gentoo/74_all_sh-pr24836.patch
+#gentoo/85_all_gcc-ca-translation-typo.patch
+#gentoo/90_all_mips-add-march-r10k.patch
+#gentoo/91_all_mips-ip28_cache_barriers-v4.patch
+gentoo/92_all_mips-pthread-with-shared.patch
+
+# from oe
+oe/arm-thumb-cache.patch
+oe/arm-thumb.patch
+oe/fix-ICE-in-arm_unwind_emit_set.diff
+oe/gcc-4.0.2-e300c2c3.patch
+oe/gcc41-configure.in.patch
+oe/ldflags.patch
+oe/zecke-xgcc-cpp.patch

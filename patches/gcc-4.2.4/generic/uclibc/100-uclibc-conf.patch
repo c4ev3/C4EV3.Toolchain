@@ -1,0 +1,251 @@
+---
+ boehm-gc/configure             |    2 +-
+ contrib/regression/objs-gcc.sh |    4 ++++
+ gcc/config/cris/linux.h        |    6 +++++-
+ libffi/configure               |    2 +-
+ libgfortran/configure          |    2 +-
+ libgomp/configure              |    2 +-
+ libjava/classpath/configure    |    2 +-
+ libjava/classpath/ltconfig     |    4 ++--
+ libjava/configure              |    2 +-
+ libmudflap/configure           |    2 +-
+ libobjc/configure              |    2 +-
+ libssp/configure               |    2 +-
+ libstdc++-v3/configure         |    2 +-
+ libtool.m4                     |    2 +-
+ ltconfig                       |    4 ++--
+ zlib/configure                 |    2 +-
+ 16 files changed, 25 insertions(+), 17 deletions(-)
+
+Index: gcc-4.2.3/libgomp/configure
+===================================================================
+--- gcc-4.2.3.orig/libgomp/configure
++++ gcc-4.2.3/libgomp/configure
+@@ -3893,7 +3893,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/gcc/config/cris/linux.h
+===================================================================
+--- gcc-4.2.3.orig/gcc/config/cris/linux.h
++++ gcc-4.2.3/gcc/config/cris/linux.h
+@@ -73,7 +73,11 @@ along with GCC; see the file COPYING3.  
+ #define CRIS_DEFAULT_CPU_VERSION CRIS_CPU_NG
+ 
+ #undef CRIS_SUBTARGET_VERSION
+-#define CRIS_SUBTARGET_VERSION " - cris-axis-linux-gnu"
++#if UCLIBC_DEFAULT
++# define CRIS_SUBTARGET_VERSION " - cris-axis-linux-uclibc"
++#else
++# define CRIS_SUBTARGET_VERSION " - cris-axis-linux-gnu"
++#endif
+ 
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld.so.1"
+ 
+Index: gcc-4.2.3/libstdc++-v3/configure
+===================================================================
+--- gcc-4.2.3.orig/libstdc++-v3/configure
++++ gcc-4.2.3/libstdc++-v3/configure
+@@ -4283,7 +4283,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/zlib/configure
+===================================================================
+--- gcc-4.2.3.orig/zlib/configure
++++ gcc-4.2.3/zlib/configure
+@@ -3429,7 +3429,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libobjc/configure
+===================================================================
+--- gcc-4.2.3.orig/libobjc/configure
++++ gcc-4.2.3/libobjc/configure
+@@ -3314,7 +3314,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libgfortran/configure
+===================================================================
+--- gcc-4.2.3.orig/libgfortran/configure
++++ gcc-4.2.3/libgfortran/configure
+@@ -3721,7 +3721,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libmudflap/configure
+===================================================================
+--- gcc-4.2.3.orig/libmudflap/configure
++++ gcc-4.2.3/libmudflap/configure
+@@ -5394,7 +5394,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/boehm-gc/configure
+===================================================================
+--- gcc-4.2.3.orig/boehm-gc/configure
++++ gcc-4.2.3/boehm-gc/configure
+@@ -4323,7 +4323,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libffi/configure
+===================================================================
+--- gcc-4.2.3.orig/libffi/configure
++++ gcc-4.2.3/libffi/configure
+@@ -3460,7 +3460,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libssp/configure
+===================================================================
+--- gcc-4.2.3.orig/libssp/configure
++++ gcc-4.2.3/libssp/configure
+@@ -4480,7 +4480,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/contrib/regression/objs-gcc.sh
+===================================================================
+--- gcc-4.2.3.orig/contrib/regression/objs-gcc.sh
++++ gcc-4.2.3/contrib/regression/objs-gcc.sh
+@@ -105,6 +105,10 @@ if [ $H_REAL_TARGET = $H_REAL_HOST -a $H
+  then
+   make all-gdb all-dejagnu all-ld || exit 1
+   make install-gdb install-dejagnu install-ld || exit 1
++elif [ $H_REAL_TARGET = $H_REAL_HOST -a $H_REAL_TARGET = i686-pc-linux-uclibc ]
++ then
++  make all-gdb all-dejagnu all-ld || exit 1
++  make install-gdb install-dejagnu install-ld || exit 1
+ elif [ $H_REAL_TARGET = $H_REAL_HOST ] ; then
+   make bootstrap || exit 1
+   make install || exit 1
+Index: gcc-4.2.3/libjava/classpath/ltconfig
+===================================================================
+--- gcc-4.2.3.orig/libjava/classpath/ltconfig
++++ gcc-4.2.3/libjava/classpath/ltconfig
+@@ -603,7 +603,7 @@ host_os=`echo $host | sed 's/^\([^-]*\)-
+ 
+ # Transform linux* to *-*-linux-gnu*, to support old configure scripts.
+ case $host_os in
+-linux-gnu*) ;;
++linux-gnu*|linux-uclibc*) ;;
+ linux*) host=`echo $host | sed 's/^\(.*-.*-linux\)\(.*\)$/\1-gnu\2/'`
+ esac
+ 
+@@ -1251,7 +1251,7 @@ linux-gnuoldld* | linux-gnuaout* | linux
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   version_type=linux
+   need_lib_prefix=no
+   need_version=no
+Index: gcc-4.2.3/libjava/classpath/configure
+===================================================================
+--- gcc-4.2.3.orig/libjava/classpath/configure
++++ gcc-4.2.3/libjava/classpath/configure
+@@ -5307,7 +5307,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libjava/configure
+===================================================================
+--- gcc-4.2.3.orig/libjava/configure
++++ gcc-4.2.3/libjava/configure
+@@ -5424,7 +5424,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/libtool.m4
+===================================================================
+--- gcc-4.2.3.orig/libtool.m4
++++ gcc-4.2.3/libtool.m4
+@@ -739,7 +739,7 @@ irix5* | irix6*)
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+Index: gcc-4.2.3/ltconfig
+===================================================================
+--- gcc-4.2.3.orig/ltconfig
++++ gcc-4.2.3/ltconfig
+@@ -603,7 +603,7 @@ host_os=`echo $host | sed 's/^\([^-]*\)-
+ 
+ # Transform linux* to *-*-linux-gnu*, to support old configure scripts.
+ case $host_os in
+-linux-gnu*) ;;
++linux-gnu*|linux-uclibc*) ;;
+ linux*) host=`echo $host | sed 's/^\(.*-.*-linux\)\(.*\)$/\1-gnu\2/'`
+ esac
+ 
+@@ -1251,7 +1251,7 @@ linux-gnuoldld* | linux-gnuaout* | linux
+   ;;
+ 
+ # This must be Linux ELF.
+-linux-gnu*)
++linux*)
+   version_type=linux
+   need_lib_prefix=no
+   need_version=no

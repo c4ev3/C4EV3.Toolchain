@@ -1,0 +1,20 @@
+upstream: n/a
+comment: Use the preprocessor we have just compiled instead the one of
+the system. There might be incompabilities between us and them.
+
+---
+ Makefile.in |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: gcc-4.2.3/Makefile.in
+===================================================================
+--- gcc-4.2.3.orig/Makefile.in
++++ gcc-4.2.3/Makefile.in
+@@ -194,6 +194,7 @@ BASE_TARGET_EXPORTS = \
+ 	AS="$(COMPILER_AS_FOR_TARGET)"; export AS; \
+ 	CC="$(CC_FOR_TARGET)"; export CC; \
+ 	CFLAGS="$(CFLAGS_FOR_TARGET)"; export CFLAGS; \
++	CPP="$(CC_FOR_TARGET) -E"; export CCP; \
+ 	CONFIG_SHELL="$(SHELL)"; export CONFIG_SHELL; \
+ 	CPPFLAGS="$(CPPFLAGS_FOR_TARGET)"; export CPPFLAGS; \
+ 	CXXFLAGS="$(CXXFLAGS_FOR_TARGET)"; export CXXFLAGS; \
