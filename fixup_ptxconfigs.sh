@@ -40,8 +40,8 @@ fixup() {
 	    binutils*)
 		PTXCONF_CROSS_BINUTILS_VERSION="${part##binutils-}"
 		;;
-	    linux*)
-		PTXCONF_KERNEL_HEADERS_VERSION="${part##linux-}"
+	    kernel*)
+		PTXCONF_KERNEL_HEADERS_VERSION="${part##kernel-}"
 		PTXCONF_KERNEL_HEADERS_VERSION="${PTXCONF_KERNEL_HEADERS_VERSION%-sanitized}"
 
 		case "${part}" in
@@ -49,6 +49,10 @@ fixup() {
 			PTXCONF_KERNEL_HEADERS_SANITIZED=y
 			;;
 		esac
+		;;
+	    linux*)
+		echo "please use kernel instead of linux"
+		exit 1
 		;;
 	    j*)
 		PTXCONF_CROSS_GCC_LANG_JAVA=y
@@ -69,7 +73,11 @@ fixup() {
     PTXCONF_GLIBC_EXTRA_CONFIG=""
     PTXCONF_GLIBC_TIMESTAMP=""
 
-    # ARM eabi hack
+    #
+    # PTXCONF_GLIBC_HEADERS_FAKE_CROSS
+    # - ARM eabi hack
+    # - mips hack
+    #
     case "${PTXCONF_GNU_TARGET}" in
 	arm*gnueabi)
 	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-D__ARM_EABI__"
@@ -81,6 +89,10 @@ fixup() {
 	    ;;
     esac
 
+    #
+    # PTXCONF_CROSS_GCC_EXTRA_CONFIG
+    # PTXCONF_GLIBC_EXTRA_CONFIG
+    #
     case "${PTXCONF_GNU_TARGET}" in
 	# hard fpa
 	arm-v4t_hardfloat-linux-gnu)
@@ -136,11 +148,14 @@ fixup() {
 	    ;;
 
 	*)
-	    echo "unknown target: ${PTXCONF_GNU_TARGET}"
+	    echo "unknown GNU_TARGET: ${PTXCONF_GNU_TARGET}"
 	    exit 1
 	    ;;
     esac
 
+    #
+    # PTXCONF_GLIBC_ENABLE_KERNEL
+    #
     case "${PTXCONF_KERNEL_HEADERS_VERSION}" in
 	2.6.18)
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.16"
@@ -148,8 +163,24 @@ fixup() {
 	2.6.26)
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
 	    ;;
-	*)
+	"")
 	    ;;
+	*)
+	    echo "unknown KERNEL_HEADERS_VERSION: ${PTXCONF_KERNEL_HEADERS_VERSION}"
+	    exit 1
+    esac
+
+
+    #
+    # PTXCONF_CROSS_GDB_VERSION
+    #
+    case "${PTXCONF_CROSS_GCC_VERSION}" in
+	3.4*|4.0*|4.1*|4.2*|4.3*|4.4*)
+	    PTXCONF_CROSS_GDB_VERSION="6.8"
+	    ;;
+	*)
+	    echo "unknown CROSS_GCC_VERSION: ${PTXCONF_CROSS_GCC_VERSION}"
+	    exit 1
     esac
 
 
