@@ -11,8 +11,8 @@ builddate = $(shell date +%y%m%d-%H%M)
 subversionrev = $(strip $(shell svnversion))
 
 configdir = ptxconfigs
-configfiles = $(wildcard $(configdir)/*.ptxconfig)
-configs = $(basename $(notdir $(wildcard $(configdir)/*.ptxconfig)))
+configfiles = $(wildcard $(configdir)/*.ptxconfig) $(wildcard $(configdir)/*/*.ptxconfig)
+configs = $(basename $(notdir $(configfiles)))
 
 gstatedir = gstate
 suffix_buildtime = .buildtag
@@ -79,15 +79,15 @@ endef
 define BuildChain
 	$(call PrintHeaderMsg, Rebuild toolchain $(1) )
 	ptxdist distclean
-	sed -e "s:\(PTXCONF_PREFIX\)=\"\(.*\)\":\1=\"\$\${PWD}/inst\2\":" $$< > ptxconfig
+	sed -e "s:\(PTXCONF_PREFIX\)=\"\(.*\)\":\1=\"\$\${PWD}/inst\2\":" $$< > selected_ptxconfig
 
-	@instdir=. ptxconfig && echo $${PTXCONF_SYSROOT_CROSS}; \
+	@instdir=source ./selected_ptxconfig && echo $${PTXCONF_SYSROOT_CROSS}; \
 	if [ -d $$instdir ]; then \
 	   echo "Removing existing toolchain files in $$instdir"; echo rm -rf "$$instdir/*"; \
 	fi;
 
-	# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
-	# -- Update status output
+# -- Intentionally fix make target, we don't want to rebuild broken chains over and oover again
+# -- Update status output
 	echo -n "$(builddate)" > $$@
 	echo -n "?????" > $(gstatedir)/$(1)$(suffix_buildstatus)
 	echo -n "$(subversionrev)" > $(gstatedir)/$(1)$(suffix_buildrevision)
@@ -129,7 +129,7 @@ mkinstdirs :
 rminstdirs :
 	$(call RemoveInstallDirs)
 
-$(gstatedir)/laststatus : $(gstatefiles) | mkblddatetag mkinstdirs
+$(gstatedir)/laststatus : $(gstatefiles) | mkblddatetag mkinstdirs mkgstatedir
 	@echo "Toolchain Status Changed - Status Page updated"
 	@date +%y%m%d-%H%M > $@
 	$(call UpdateStatusPage)
@@ -164,6 +164,3 @@ build_$(1) : $(gstatedir)/$(1).buildtag updatestatpage
 endef
 
 $(foreach CFG,$(configs),$(eval $(call BuildChainRules,$(CFG))))
-
-
-
