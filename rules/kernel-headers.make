@@ -49,7 +49,10 @@ $(STATEDIR)/kernel-headers.extract:
 
 KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
-KERNEL_HEADERS_MAKEVARS	:= ARCH=$(PTXCONF_ARCH) $(PARALLELMFLAGS)
+KERNEL_HEADERS_MAKEVARS	:= \
+	ARCH=$(PTXCONF_ARCH) \
+	CROSS_COMPILE=we_dont_have_a_cross_compiler_yet- \
+	$(PARALLELMFLAGS)
 
 $(STATEDIR)/kernel-headers.prepare:
 	@$(call targetinfo)
@@ -65,6 +68,7 @@ $(STATEDIR)/kernel-headers.prepare:
 
 $(STATEDIR)/kernel-headers.compile:
 	@$(call targetinfo)
+ifndef PTXCONF_KERNEL_HEADERS_SANITIZED
 #
 # this is used to generate asm and asm/mach links for arm
 # but fails on ppc/powerpc, thus the '-' and '-k'
@@ -74,6 +78,7 @@ $(STATEDIR)/kernel-headers.compile:
 # if the include/asm link is missing, it's really fatal
 #
 	test -L $(KERNEL_HEADERS_DIR)/include/asm || exit 1
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
