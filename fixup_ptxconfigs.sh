@@ -206,8 +206,8 @@ fixup() {
     echo
     echo
 
-    ptxdist --force-config select ${config}
-    ptxdist oldconfig
+    ./p --force-config select ${config}
+    ./p oldconfig
 
 }
 

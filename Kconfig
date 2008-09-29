@@ -145,6 +145,10 @@ config SYSROOT_TARGET
 	string
 	default "${PTXCONF_SYSROOT_CROSS}/sysroot-${PTXCONF_GNU_TARGET}"
 
+config PLATFORM
+	string
+	default "${PTXCONF_PREFIX_TCID}"
+
 config COMPILER_PREFIX
 	string
 	default "${PTXCONF_GNU_TARGET}-"
