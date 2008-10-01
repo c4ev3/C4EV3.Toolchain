@@ -147,7 +147,7 @@ config SYSROOT_TARGET
 
 config PLATFORM
 	string
-	default "${PTXCONF_PREFIX_TCID}"
+	default "${PTXCONF_GNU_TARGET}-${PTXCONF_PREFIX_TCID}"
 
 config COMPILER_PREFIX
 	string

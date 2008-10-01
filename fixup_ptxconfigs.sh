@@ -54,7 +54,7 @@ fixup() {
 		echo "please use kernel instead of linux"
 		exit 1
 		;;
-	    j*)
+	    java)
 		PTXCONF_CROSS_GCC_LANG_JAVA=y
 		;;
 	    *)
@@ -64,7 +64,7 @@ fixup() {
     done
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.6"
+    PTXCONF_CONFIGFILE_VERSION="1.99.7"
     PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
@@ -206,8 +206,8 @@ fixup() {
     echo
     echo
 
-    ./p --force-config select ${config}
-    ./p oldconfig
+    ./p --force select ${config} || exit 1
+    ./p oldconfig || exit 1
 
 }
 
