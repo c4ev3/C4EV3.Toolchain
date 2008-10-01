@@ -91,9 +91,7 @@ $(DISTDIR)/%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 	@true
 
 $(STATEDIR)/oselas.toolchain-$(VERSION)-%.build: | mkdirs
-	@$(PTXDIST) distclean
-	@$(PTXDIST) select $(2CONFIGFILE_$(*))
-	@$(NICE) $(PTXDIST) go
+	@$(NICE) $(PTXDIST) go --ptxconfig $(2CONFIGFILE_$(*))
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)

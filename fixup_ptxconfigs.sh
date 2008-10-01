@@ -206,9 +206,7 @@ fixup() {
     echo
     echo
 
-    ./p --force select ${config} || exit 1
-    ./p oldconfig || exit 1
-
+    ./p --force --ptxconfig=${config} oldconfig || exit 1
 }
 
 #
