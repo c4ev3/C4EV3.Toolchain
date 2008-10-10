@@ -92,6 +92,17 @@ config CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT
 
 
 ###
+### ___sjlj_exceptions
+###
+config CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+	bool
+
+config CROSS_GCC_EXTRA_CONFIG_SJLJ_EXCEPTIONS
+	string
+	default "--disable-sjlj-exceptions"	if CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+
+
+###
 ### shared
 ###
 config CROSS_GCC_SHARED

@@ -22,6 +22,7 @@ menuconfig GLIBC
 	select CROSS_GCC_SHARED
 	select CROSS_GCC_THREADS_POSIX
 	select CROSS_GCC_ENABLE_CXA_ATEXIT
+	select CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
 	prompt "glibc                       "
 
 config GLIBC_VERSION

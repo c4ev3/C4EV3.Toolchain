@@ -66,12 +66,12 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
 	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
+	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SJLJ_EXCEPTIONS) \
 	\
 	--disable-nls \
 	--disable-decimal-float \
 	--disable-fixed-point \
 	--disable-win32-registry \
-	--disable-sjlj-exceptions \
 	\
 	--enable-symvers=gnu \
 	\
