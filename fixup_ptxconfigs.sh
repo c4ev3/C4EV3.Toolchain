@@ -89,6 +89,28 @@ fixup() {
 	    ;;
     esac
 
+    case "${PTXCONF_GNU_TARGET}" in
+	arm*)
+	    PTXCONF_ARCH_ARM=y
+	    ;;
+	i?86*)
+	    PTXCONF_ARCH_I386=y
+	    ;;
+	mips*)
+	    PTXCONF_ARCH_MIPS=y
+	    ;;
+	powerpc*)
+	    PTXCONF_ARCH_POWERPC=y
+	    ;;
+	avr)
+	    PTXCONF_ARCH_AVR=y
+	    ;;
+	*)
+	    echo "unsupported GNU_TARGET: ${PTXCONF_GNU_TARGET}"
+	    exit 1
+	    ;;
+    esac
+
     #
     # PTXCONF_CROSS_GCC_EXTRA_CONFIG
     # PTXCONF_GLIBC_EXTRA_CONFIG
@@ -189,7 +211,7 @@ fixup() {
     local sed_magic=""
     for var in ${!PTXCONF_@}; do
 	# remove tabs :)
-	eval "${var}"=\"$(echo ${!var} | sed -e "s/[\t]\+/ /g")\"
+	eval "${var}"=\"$(echo "${!var}" | sed -e "s/[\t]\+/ /g")\"
 
 	echo "${var}"="${!var}"
 	sed_magic="${sed_magic} $(get_replace "${var}")"
@@ -206,7 +228,7 @@ fixup() {
     echo
     echo
 
-    ./p --force --ptxconfig=${config} oldconfig || exit 1
+    ./p --force --ptxconfig="${config}" oldconfig || exit 1
 }
 
 #
