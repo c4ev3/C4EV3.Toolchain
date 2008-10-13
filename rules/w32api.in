@@ -9,6 +9,6 @@ config W32API_VERSION
 	depends on W32API
 	string
 	prompt "w32api version"
-	default "3.11"
+	default "3.12"
 	help
 	  Specify the w32api version here.
