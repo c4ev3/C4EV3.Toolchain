@@ -61,8 +61,8 @@ AVRLIB_ENV 	:= \
 #
 AVRLIB_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_TARGET) \
-	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(PTXCONF_GNU_TARGET) \
+	--target=$(PTXCONF_GNU_TARGET) \
 	--enable-multilib
 
 $(STATEDIR)/avrlib.prepare:

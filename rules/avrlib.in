@@ -1,16 +1,22 @@
 menuconfig AVRLIB
 	bool
+
 	select CROSS_GCC_FIRST
-# we do not support any threads in this environment
+	select CROSS_GCC_DISABLE_CXA_ATEXIT
+	select CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS
+	select CROSS_GCC_DISABLE_LIBSSP
+	select CROSS_GCC_DISABLE_SHARED
 	select CROSS_GCC_THREADS_SINGLE
+
 	prompt "AVR libc                    "
 	help
-	  Build the multi C library for the harvard based AVR architecture
+	  Build the multi C library for the harvard based AVR
+	  architecture
 
 config AVRLIB_VERSION
 	depends on AVRLIB
 	string
 	prompt "avr libc version"
-	default "1.0.5"
+	default "1.6.2"
 	help
 	  Specify the AVR libc version here.
