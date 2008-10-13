@@ -15,13 +15,14 @@ if CROSS_GCC
 config CROSS_GCC_VERSION
 	string
 	prompt "gcc version"
-	default "4.2.4"
+	default "4.3.2"
 	help
 	  Specify the version of gcc here.
 
 config CROSS_GCC_43
 	bool
 	prompt "additional deps for gcc >= 4.3"
+	default y
 	help
 	  Add new dependencies for gcc >= 4.3: "GMP" and "MPFR"
 
@@ -30,7 +31,7 @@ config CROSS_GCC_SERIES
 	default "series"
 	prompt "gcc patch series file"
 
-config CROSS_GCC_EXTRA_CONFIG
+config CROSS_GCC_CONFIG_EXTRA
 	string
 	prompt "extra configure options"
 	help
@@ -74,44 +75,72 @@ endif
 ###
 ### --with-newlib
 ###
-config CROSS_GCC_EXTRA_CONFIG_LIBC
+config CROSS_GCC_CONFIG_LIBC
 	string
-	default "--with-newlib" if LIBC_NEWLIB
+	default "--with-newlib"			if LIBC_NEWLIB
 
 
 ###
-### ___cxa_atexit
+### __cxa_atexit
 ###
 config CROSS_GCC_ENABLE_CXA_ATEXIT
 	bool
+	default !CROSS_GCC_DISABLE_CXA_ATEXIT
 
-config CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT
-	string
-	default "--enable-__cxa_atexit"		if CROSS_GCC_ENABLE_CXA_ATEXIT
-	default "--disable-__cxa_atexit"	if !CROSS_GCC_ENABLE_CXA_ATEXIT
-
-
-###
-### ___sjlj_exceptions
-###
-config CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+config CROSS_GCC_DISABLE_CXA_ATEXIT
 	bool
 
-config CROSS_GCC_EXTRA_CONFIG_SJLJ_EXCEPTIONS
+config CROSS_GCC_CONFIG_CXA_ATEXIT
 	string
+	default "--enable-__cxa_atexit"		if CROSS_GCC_ENABLE_CXA_ATEXIT
+	default "--disable-__cxa_atexit"	if CROSS_GCC_DISABLE_CXA_ATEXIT
+
+
+###
+### sjlj-exceptions
+###
+config CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS
+	bool
+
+config CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+	bool
+	default !CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS
+
+config CROSS_GCC_CONFIG_SJLJ_EXCEPTIONS
+	string
+	default "--enable-sjlj-exceptions"	if CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS
 	default "--disable-sjlj-exceptions"	if CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+
+###
+### libssp
+###
+config CROSS_GCC_ENABLE_LIBSSP
+	bool
+	default !CROSS_GCC_DISABLE_LIBSSP
+
+config CROSS_GCC_DISABLE_LIBSSP
+	bool
+
+config CROSS_GCC_CONFIG_LIBSSP
+	string
+	default "--enable-libssp"		if CROSS_GCC_ENABLE_LIBSSP
+	default "--disable-libssp"		if CROSS_GCC_DISABLE_LIBSSP
 
 
 ###
 ### shared
 ###
-config CROSS_GCC_SHARED
+config CROSS_GCC_ENABLE_SHARED
+	bool
+	default !CROSS_GCC_DISABLE_SHARED
+
+config CROSS_GCC_DISABLE_SHARED
 	bool
 
-config CROSS_GCC_EXTRA_CONFIG_SHARED
+config CROSS_GCC_CONFIG_SHARED
        string
-       default "--enable-shared"	if CROSS_GCC_SHARED
-       default "--disable-shared"	if !CROSS_GCC_SHARED
+       default "--enable-shared"	if CROSS_GCC_ENABLE_SHARED
+       default "--disable-shared"	if CROSS_GCC_DISABLE_SHARED
 
 
 ###

@@ -14,15 +14,21 @@ config GLIBC_FIRST
 
 menuconfig GLIBC
 	bool
+
 	select GLIBC_CRT
 	select GLIBC_PORTS		if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
 	select GLIBC_LINUXTHREADS	if GLIBC_ADDON_LINUXTHREADS
 
+	select GENERIC_SYSROOT
+	select GENERIC_DISABLE_MULTILIB
+
 	select CROSS_GCC
-	select CROSS_GCC_SHARED
-	select CROSS_GCC_THREADS_POSIX
 	select CROSS_GCC_ENABLE_CXA_ATEXIT
 	select CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+	select CROSS_GCC_ENABLE_LIBSSP
+	select CROSS_GCC_ENABLE_SHARED
+	select CROSS_GCC_THREADS_POSIX
+
 	prompt "glibc                       "
 
 config GLIBC_VERSION
@@ -57,7 +63,7 @@ config GLIBC_ENABLE_KERNEL
 	prompt "mininum kernel version"
 	default "2.6.23"
 
-config GLIBC_EXTRA_CONFIG
+config GLIBC_CONFIG_EXTRA
 	depends on GLIBC
 	string
 	prompt "extra configure options"

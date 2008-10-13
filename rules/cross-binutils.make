@@ -62,12 +62,9 @@ CROSS_BINUTILS_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-werror \
-	--disable-nls
-
-# for all other architecture than AVR a sysroot is required
-ifndef PTXCONF_ARCH_AVR
-CROSS_BINUTILS_AUTOCONF += --with-sysroot=$(SYSROOT)
-endif
+	--disable-nls \
+	\
+	$(PTXCONF_GENERIC_CONFIG_SYSROOT)
 
 $(STATEDIR)/cross-binutils.prepare:
 	@$(call targetinfo)

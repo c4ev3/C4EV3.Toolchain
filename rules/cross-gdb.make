@@ -58,14 +58,11 @@ CROSS_GDB_AUTOCONF := \
 	--build=$(GNU_HOST) \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET) \
+	$(PTXCONF_GENERIC_CONFIG_SYSROOT) \
+	\
 	--disable-werror \
 	--enable-tui
 #	--enable-gdbtk
-
-# for other architectures than AVR a sysroot is required
-ifndef PTXCONF_ARCH_AVR
-CROSS_GDB_AUTOCONF += --with-sysroot=$(SYSROOT)
-endif
 
 $(STATEDIR)/cross-gdb.prepare:
 	@$(call targetinfo)

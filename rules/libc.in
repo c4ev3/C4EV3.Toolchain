@@ -1,6 +1,3 @@
-config LIBC_KERNEL_HEADERS
-	bool
-
 config LIBC_HEADERS
 	bool
 	select GLIBC_HEADERS		if LIBC_GLIBC
@@ -53,3 +50,32 @@ choice
 		  microcontrollers (harvard architecture)
 
 endchoice
+
+
+#
+# sysroot support
+#
+config GENERIC_SYSROOT
+       bool
+
+config GENERIC_CONFIG_SYSROOT
+       string
+       default "--with-sysroot=${SYSROOT}"	if  GENERIC_SYSROOT
+
+
+#
+# multilib support
+#
+config GENERIC_ENABLE_MULTILIB
+       bool
+
+config GENERIC_DISABLE_MULTILIB
+       bool
+       default !GENERIC_ENABLE_MULTILIB
+
+config GENERIC_CONFIG_MULTILIB
+       string
+       default "--enable-multilib"	if  GENERIC_ENABLE_MULTILIB
+       default "--disable-multilib"	if  GENERIC_DISABLE_MULTILIB
+
+

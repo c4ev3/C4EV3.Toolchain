@@ -63,10 +63,13 @@ CROSS_GCC_ENV	:= $(HOSTCC_ENV)
 #
 CROSS_GCC_AUTOCONF_COMMON := \
 	--target=$(PTXCONF_GNU_TARGET) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_LIBC) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_CXA_ATEXIT) \
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SJLJ_EXCEPTIONS) \
+	\
+	$(PTXCONF_GENERIC_CONFIG_SYSROOT) \
+	$(PTXCONF_GENERIC_CONFIG_MULTILIB) \
+	$(PTXCONF_CROSS_GCC_CONFIG_EXTRA) \
+	$(PTXCONF_CROSS_GCC_CONFIG_LIBC) \
+	$(PTXCONF_CROSS_GCC_CONFIG_CXA_ATEXIT) \
+	$(PTXCONF_CROSS_GCC_CONFIG_SJLJ_EXCEPTIONS) \
 	\
 	--disable-nls \
 	--disable-decimal-float \
@@ -83,16 +86,6 @@ endif
 
 ifdef PTXCONF_HOST_MPFR
 CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
-endif
-
-#
-# for other architectures than AVR its not usefull to have multilib,
-# but we need a sysroot for them
-#
-ifndef PTXCONF_ARCH_AVR
-CROSS_GCC_AUTOCONF_COMMON += \
-	--disable-multilib \
-	--with-sysroot=$(SYSROOT)
 endif
 
 #   --enable-tls            enable or disable generation of tls code
@@ -124,7 +117,8 @@ CROSS_GCC_AUTOCONF := \
 	--enable-profile \
 	--enable-checking=release \
 	\
-	$(PTXCONF_CROSS_GCC_EXTRA_CONFIG_SHARED)
+	$(PTXCONF_CROSS_GCC_CONFIG_SHARED) \
+	$(PTXCONF_CROSS_GCC_CONFIG_LIBSSP)
 
 $(STATEDIR)/cross-gcc.prepare:
 	@$(call targetinfo)
