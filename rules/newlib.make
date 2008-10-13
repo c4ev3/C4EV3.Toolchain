@@ -57,7 +57,7 @@ NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 NEWLIB_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET) \
-        --disable-shared \
+	--disable-shared \
 	--disable-newlib-supplied-syscalls \
 	--with-newlib
 
