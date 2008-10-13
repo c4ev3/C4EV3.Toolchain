@@ -37,6 +37,9 @@ fixup() {
 	    libc*)
 		PTXCONF_AVRLIB_VERSION="${part##libc-}"
 		;;
+	    newlib*)
+		PTXCONF_NEWLIB_VERSION="${part##newlib-}"
+		;;
 	    binutils*)
 		PTXCONF_CROSS_BINUTILS_VERSION="${part##binutils-}"
 		;;
@@ -70,7 +73,7 @@ fixup() {
 
     # defaults
     PTXCONF_PREFIX="/opt"
-    PTXCONF_GLIBC_EXTRA_CONFIG=""
+    PTXCONF_GLIBC_CONFIG_EXTRA=""
     PTXCONF_GLIBC_TIMESTAMP=""
 
     #
@@ -112,61 +115,71 @@ fixup() {
     esac
 
     #
-    # PTXCONF_CROSS_GCC_EXTRA_CONFIG
-    # PTXCONF_GLIBC_EXTRA_CONFIG
+    # PTXCONF_CROSS_GCC_CONFIG_EXTRA
+    # PTXCONF_GLIBC_CONFIG_EXTRA
     #
     case "${PTXCONF_GNU_TARGET}" in
 	# hard fpa
 	arm-v4t_hardfloat-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=hard	--with-fpu=fpa				--with-arch=armv4t"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpa				--with-arch=armv4t"
 	    ;;
 	arm-xscale_hardfloat-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=hard	--with-fpu=fpa	--with-cpu=xscale"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpa	--with-cpu=xscale"
 	    ;;
 
 	# softfp, vfp
 	arm-1136jfs-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
 	    ;;
 
 	# soft, vfp
 	armeb-xscale-linux-gnueabi|armeb-xscale-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-iwmmx-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft	--with-fpu=vfp	--with-cpu=iwmmxt"
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=iwmmxt"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v4t-linux-gnueabi|arm-v4t-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v5te-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s	--with-arch=armv5te"
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s	--with-arch=armv5te"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-xscale-linux-gnueabi|arm-xscale-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
+	    ;;
+
+	arm-cortexm3-eabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 
 
 	i586-unknown-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-arch=i586"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i586"
 	    ;;
 	i686-unknown-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-arch=i686"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i686"
 	    ;;
 
 	mipsel-softfloat-linux-gnu)
-	    PTXCONF_GLIBC_EXTRA_CONFIG="--without-fp"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
 	    ;;
 	powerpc-603e-linux-gnu)
-	    PTXCONF_CROSS_GCC_EXTRA_CONFIG="--with-cpu=603e	--disable-altivec"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
 	    ;;
 
 	avr)
+	    #FIXME
+	    ;;
+
+	arm-elf)
+	    #FIXME
 	    ;;
 
 	*)
@@ -219,10 +232,6 @@ fixup() {
     done
 
     eval sed -i "${sed_magic}" "${config}"
-
-    if [ -e selected_ptxconfig ]; then
-	rm selected_ptxconfig
-    fi
 
     echo
     echo
