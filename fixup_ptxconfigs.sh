@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ARGS_FULL=("${@}")
+
 get_replace()
 {
     local var="${1}"
@@ -12,7 +14,8 @@ get_replace()
     fi
 }
 
-fixup() {
+fixup()
+{
     local config="${1}"
 
     touple="${config##*/}"
@@ -195,7 +198,7 @@ fixup() {
 	2.6.18)
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.16"
 	    ;;
-	2.6.26)
+	2.6.2[6789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
 	    ;;
 	"")
@@ -240,13 +243,70 @@ fixup() {
     ./p --force --ptxconfig="${config}" oldconfig || exit 1
 }
 
+update()
+{
+    local config="${1}"
+    local cmd="${2}"
+
+    local ifs_old="${IFS}"
+    IFS=":"
+    set -- ${cmd}
+    IFS="${ifs_orig}"
+
+    if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]; then
+	echo "use --update <component>:<from>:<to>"
+	exit 1
+    fi
+
+    local component="${1}"
+    local from="${2}"
+    local to="${3}"
+
+    local config_new="${config/${component}-${from}/${component}-${to}}"
+
+    if [ "${config}" != "${config_new}" ]; then
+	svn mv "${config}" "${config_new}" || return $?
+	fixup "${config_new}"
+    fi
+}
+
+
 #
 # main()
 #
+
+action=fixup
+action_args=""
+
+set -- "${ARGS_FULL[@]}"
+
+while [ ${#} -ne 0 ]; do
+    arg="${1}"
+    shift
+
+    case "${arg}" in
+	--update)
+	    action=update
+	    action_args="${1}"
+	    shift
+	    ;;
+	*)
+	    ARGS_SECOND[${#ARGS_SECOND[@]}]="${arg}"
+	    ;;
+    esac
+done
+
+
+set --  "${ARGS_SECOND[@]}"
+
 if test -n "${1}"; then
-    fixup ${1}
+    if [ \! -e "${1}" ]; then
+	echo "error: '${1}' does not exist"
+	exit 1
+    fi
+    ${action} ${1} "${action_args[@]}"
 else
     for config in `find ptxconfigs -name "*.ptxconfig"`; do
-	fixup ${config}
+	    ${action} ${config} "${action_args[@]}"
     done
 fi
