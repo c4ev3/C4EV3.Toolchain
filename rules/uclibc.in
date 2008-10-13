@@ -2,12 +2,15 @@
 
 menuconfig UCLIBC
 	bool
-	select CROSS_GCC_FIRST
+	select GENERIC_SYSROOT
 
-	select CROSS_GCC_SHARED
-	select CROSS_GCC_THREADS_POSIX
+	select CROSS_GCC_FIRST
 	select CROSS_GCC_ENABLE_CXA_ATEXIT
 	select CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+	select CROSS_GCC_ENABLE_LIBSSP
+	select CROSS_GCC_ENABLE_SHARED
+	select CROSS_GCC_THREADS_POSIX
+
 	prompt "uclibc                      "
 
 if UCLIBC
