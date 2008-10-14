@@ -63,6 +63,12 @@ fixup()
 	    java)
 		PTXCONF_CROSS_GCC_LANG_JAVA=y
 		;;
+	    mingw*)
+		PTXCONF_MINGW_RUNTIME_VERSION="${part##mingw-}"
+		;;
+	    w32api*)
+		PTXCONF_W32API_VERSION="${part##w32api-}"
+		;;
 	    *)
 		PTXCONF_GNU_TARGET="${PTXCONF_GNU_TARGET}${PTXCONF_GNU_TARGET:+_}${part}"
 		;;
@@ -182,6 +188,10 @@ fixup()
 	    ;;
 
 	arm-elf)
+	    #FIXME
+	    ;;
+
+	i586-mingw32msvc)
 	    #FIXME
 	    ;;
 
