@@ -27,7 +27,8 @@ CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
 
 CROSS_GCC_URL	 	:= \
 	$(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
-	ftp://gcc.gnu.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
+	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
+	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -56,16 +57,18 @@ endif
 # ----------------------------------------------------------------------------
 
 CROSS_GCC_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GCC_ENV	:= $(HOSTCC_ENV)
+CROSS_GCC_ENV	:= $(PTX_HOST_ENV)
 
 #
 # autoconf
 #
 CROSS_GCC_AUTOCONF_COMMON := \
-	--target=$(PTXCONF_GNU_TARGET) \
+	$(PTX_HOST_CROSS_AUTOCONF_HOST) \
+	$(PTX_HOST_CROSS_AUTOCONF_TARGET) \
 	\
-	$(PTXCONF_GENERIC_CONFIG_SYSROOT) \
-	$(PTXCONF_GENERIC_CONFIG_MULTILIB) \
+	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
+	$(PTXCONF_TOOLCHAIN_CONFIG_MULTILIB) \
+	\
 	$(PTXCONF_CROSS_GCC_CONFIG_EXTRA) \
 	$(PTXCONF_CROSS_GCC_CONFIG_LIBC) \
 	$(PTXCONF_CROSS_GCC_CONFIG_CXA_ATEXIT) \
@@ -107,7 +110,7 @@ CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_FORTRAN)	+= fortran
 
 CROSS_GCC_AUTOCONF := \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
-	--prefix=$(PTXCONF_SYSROOT_CROSS) \
+	$(PTX_HOST_CROSS_AUTOCONF_PREFIX) \
 	\
 	--enable-languages=$(subst $(space),$(comma),$(CROSS_GCC_LANG-y)) \
 	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \

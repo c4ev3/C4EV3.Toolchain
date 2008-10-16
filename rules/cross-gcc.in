@@ -138,9 +138,9 @@ config CROSS_GCC_DISABLE_SHARED
 	bool
 
 config CROSS_GCC_CONFIG_SHARED
-       string
-       default "--enable-shared"	if CROSS_GCC_ENABLE_SHARED
-       default "--disable-shared"	if CROSS_GCC_DISABLE_SHARED
+	string
+	default "--enable-shared"	if CROSS_GCC_ENABLE_SHARED
+	default "--disable-shared"	if CROSS_GCC_DISABLE_SHARED
 
 
 ###

@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006, 2007, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,9 +20,12 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GDB) += cross-gdb
 CROSS_GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GDB_VERSION))
 CROSS_GDB		:= gdb-$(CROSS_GDB_VERSION)
 CROSS_GDB_SUFFIX	:= tar.bz2
-CROSS_GDB_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 CROSS_GDB_SOURCE	:= $(SRCDIR)/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 CROSS_GDB_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_GDB)
+
+CROSS_GDB_URL		:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX) \
+	ftp://sourceware.org/pub/gdb/snapshots/current/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -48,21 +51,17 @@ $(STATEDIR)/cross-gdb.extract:
 # ----------------------------------------------------------------------------
 
 CROSS_GDB_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GDB_ENV 	:= $(HOST_ENV)
+CROSS_GDB_ENV 	:= $(PTX_HOST_ENV)
 
 #
 # autoconf
 #
 CROSS_GDB_AUTOCONF := \
-	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	$(PTXCONF_GENERIC_CONFIG_SYSROOT) \
+	$(PTX_HOST_CROSS_AUTOCONF) \
+	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
 	--disable-werror \
 	--enable-tui
-#	--enable-gdbtk
 
 $(STATEDIR)/cross-gdb.prepare:
 	@$(call targetinfo)

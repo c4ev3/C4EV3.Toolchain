@@ -55,27 +55,31 @@ endchoice
 #
 # sysroot support
 #
-config GENERIC_SYSROOT
-       bool
+config TOOLCHAIN_ENABLE_SYSROOT
+	bool
+	default !TOOLCHAIN_DISABLE_SYSROOT
 
-config GENERIC_CONFIG_SYSROOT
-       string
-       default "--with-sysroot=${SYSROOT}"	if  GENERIC_SYSROOT
+config TOOLCHAIN_DISABLE_SYSROOT
+	bool
+
+config TOOLCHAIN_CONFIG_SYSROOT
+	string
+	default "--with-sysroot=${SYSROOT}"	if  TOOLCHAIN_ENABLE_SYSROOT
 
 
 #
 # multilib support
 #
-config GENERIC_ENABLE_MULTILIB
-       bool
+config TOOLCHAIN_ENABLE_MULTILIB
+	bool
 
-config GENERIC_DISABLE_MULTILIB
-       bool
-       default !GENERIC_ENABLE_MULTILIB
+config TOOLCHAIN_DISABLE_MULTILIB
+	bool
+	default !TOOLCHAIN_ENABLE_MULTILIB
 
-config GENERIC_CONFIG_MULTILIB
-       string
-       default "--enable-multilib"	if  GENERIC_ENABLE_MULTILIB
-       default "--disable-multilib"	if  GENERIC_DISABLE_MULTILIB
+config TOOLCHAIN_CONFIG_MULTILIB
+	string
+	default "--enable-multilib"	if  TOOLCHAIN_ENABLE_MULTILIB
+	default "--disable-multilib"	if  TOOLCHAIN_DISABLE_MULTILIB
 
 

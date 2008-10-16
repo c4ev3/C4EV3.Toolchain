@@ -53,18 +53,17 @@ $(STATEDIR)/cross-binutils.extract:
 # ----------------------------------------------------------------------------
 
 CROSS_BINUTILS_PATH	:= PATH=$(CROSS_PATH)
-CROSS_BINUTILS_ENV 	:= $(HOST_ENV)
+CROSS_BINUTILS_ENV 	:= $(PTX_HOST_CROSS_ENV)
 
 #
 # autoconf
 #
 CROSS_BINUTILS_AUTOCONF := \
-	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-werror \
-	--disable-nls \
+	$(PTX_HOST_CROSS_AUTOCONF) \
+	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
-	$(PTXCONF_GENERIC_CONFIG_SYSROOT)
+	--disable-werror \
+	--disable-nls
 
 $(STATEDIR)/cross-binutils.prepare:
 	@$(call targetinfo)
