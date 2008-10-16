@@ -74,7 +74,6 @@ PTXCONF_CROSS_TOOLCHAIN=y
 #
 # ----------------------------------
 #
-# PTXCONF_TOOLCHAIN_CC is not set
 
 #
 # misc                        
