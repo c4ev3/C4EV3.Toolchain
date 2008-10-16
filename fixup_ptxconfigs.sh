@@ -18,6 +18,18 @@ fixup()
 {
     local config="${1}"
 
+    # version
+    PTXCONF_CONFIGFILE_VERSION="1.99.7"
+    PTXCONF_PROJECT="${PWD}"
+    PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
+
+    # defaults
+    PTXCONF_PREFIX="/opt"
+    PTXCONF_GLIBC_CONFIG_EXTRA=""
+    PTXCONF_GLIBC_TIMESTAMP=""
+    PTXCONF_CROSS_GCC_LANG_JAVA=n
+    PTXCONF_KERNEL_HEADERS_SANITIZED=n
+
     touple="${config##*/}"
     touple="${touple%.ptxconfig}"
 
@@ -74,16 +86,6 @@ fixup()
 		;;
 	esac
     done
-
-    # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.7"
-    PTXCONF_PROJECT="${PWD}"
-    PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
-
-    # defaults
-    PTXCONF_PREFIX="/opt"
-    PTXCONF_GLIBC_CONFIG_EXTRA=""
-    PTXCONF_GLIBC_TIMESTAMP=""
 
     #
     # PTXCONF_GLIBC_HEADERS_FAKE_CROSS
@@ -222,9 +224,13 @@ fixup()
     #
     # PTXCONF_CROSS_GDB_VERSION
     #
+    PTXCONF_CROSS_GDB_VERSION="6.8"
     case "${PTXCONF_CROSS_GCC_VERSION}" in
-	3.4*|4.0*|4.1*|4.2*|4.3*|4.4*)
-	    PTXCONF_CROSS_GDB_VERSION="6.8"
+	3.*|4.[012].*)
+	    PTXCONF_CROSS_GCC_43=n
+	    ;;
+	4.[3456789].*)
+	    PTXCONF_CROSS_GCC_43=y
 	    ;;
 	*)
 	    echo "unknown CROSS_GCC_VERSION: ${PTXCONF_CROSS_GCC_VERSION}"
