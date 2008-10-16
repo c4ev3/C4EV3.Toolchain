@@ -44,7 +44,6 @@ SUFFIX_BUILDREVISION	:= svnrev
 
 CONFIGDIR	:= ptxconfigs
 CONFIGFILES	:= $(wildcard $(CONFIGDIR)/*.ptxconfig) $(wildcard $(CONFIGDIR)/*/*.ptxconfig)
-#CONFIGFILES	:= ptxconfigs/powerpc-603e-linux-gnu_gcc-4.1.2_glibc-2.5_binutils-2.17_kernel-2.6.18.ptxconfig
 CONFIGS		:= $(notdir $(basename $(CONFIGFILES)))
 CONFIGS_	:= $(subst _,-,$(CONFIGS))
 
@@ -91,7 +90,7 @@ $(DISTDIR)/%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 	@true
 
 $(STATEDIR)/oselas.toolchain-$(VERSION)-%.build: | mkdirs
-	@$(NICE) $(PTXDIST) go --ptxconfig $(2CONFIGFILE_$(*))
+	@$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)
