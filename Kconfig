@@ -111,6 +111,8 @@ source "workspace/rules/host-mpfr.in"
 
 comment "----------------------------------"
 
+source "workspace/rules/toolchain.in"
+
 menu "misc                        "
 
 config PREFIX
