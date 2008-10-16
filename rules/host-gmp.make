@@ -37,13 +37,13 @@ $(HOST_GMP_SOURCE):
 # ----------------------------------------------------------------------------
 
 HOST_GMP_PATH	:= PATH=$(HOST_PATH)
-HOST_GMP_ENV 	:= $(HOST_ENV)
+HOST_GMP_ENV 	:= $(PTX_HOST_ENV)
 
 #
 # autoconf
 #
 HOST_GMP_AUTOCONF	:= \
-	$(HOST_AUTOCONF) \
+	$(PTX_HOST_AUTOCONF) \
 	--disable-shared \
 	--enable-static
 

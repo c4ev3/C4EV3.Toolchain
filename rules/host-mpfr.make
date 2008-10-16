@@ -48,13 +48,13 @@ $(STATEDIR)/host-mpfr.extract:
 # ----------------------------------------------------------------------------
 
 HOST_MPFR_PATH	:= PATH=$(HOST_PATH)
-HOST_MPFR_ENV 	:= $(HOST_ENV)
+HOST_MPFR_ENV 	:= $(PTX_HOST_ENV)
 
 #
 # autoconf
 #
 HOST_MPFR_AUTOCONF	:= \
-	$(HOST_AUTOCONF) \
+	$(PTX_HOST_AUTOCONF) \
 	--disable-shared \
 	--enable-static
 
