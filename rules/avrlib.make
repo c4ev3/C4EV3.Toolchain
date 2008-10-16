@@ -56,9 +56,6 @@ AVRLIB_ENV 	:= \
 #
 # autoconf
 #
-# --targt could only be the string 'avr'
-# newer libs (at least 1.4.6) forces --host=avr!
-#
 AVRLIB_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_TARGET) \
 	--host=$(PTXCONF_GNU_TARGET) \
