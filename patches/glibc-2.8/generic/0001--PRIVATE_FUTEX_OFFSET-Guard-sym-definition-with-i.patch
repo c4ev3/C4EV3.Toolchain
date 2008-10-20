@@ -1,0 +1,33 @@
+From 911474edb03aae49d007e9f238b3134aaa425fe5 Mon Sep 17 00:00:00 2001
+From: Ulrich Drepper <drepper@redhat.com>
+Date: Sat, 26 Jul 2008 16:24:40 +0000
+Subject: [PATCH] (PRIVATE_FUTEX_OFFSET): Guard sym definition with #ifndef __ASSUME_PRIVATE_FUTEX.
+
+The patch fixes this problem on powerpc with --enable-kernel >= 2.6.22
+
+gawk -f ../scripts/gen-as-const.awk ../nptl/sysdeps/powerpc/tcb-offsets.sym \
+        | powerpc-603e-linux-gnu-gcc -S -o /home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build/tcb-offsets.hT3 -std=gnu99 -fgnu89-inline -O2 -Wall -Winline -Wwrite-strings -fmerge-all-constants -g -mnew-mnemonics -Wstrict-prototypes -mlong-double-128     -I../include -I/home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build/csu -I/home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build -I../sysdeps/powerpc/powerpc32/elf -I../sysdeps/powerpc/elf -I../sysdeps/unix/sysv/linux/powerpc/powerpc32/fpu -I../sysdeps/powerpc/powerpc32/fpu -I../nptl/sysdeps/unix/sysv/linux/powerpc/powerpc32 -I../sysdeps/unix/sysv/linux/powerpc/powerpc32 -I../nptl/sysdeps/unix/sysv/linux/powerpc -I../sysdeps/unix/sysv/linux/powerpc -I../sysdeps/ieee754/ldbl-128ibm -I../sysdeps/ieee754/ldbl-opt -I../nptl/sysdeps/unix/sysv/linux -I../nptl/sysdeps/pthread -I../sysdeps/pthread -I../sysdeps/unix/sysv/linux -I../sysdeps/gnu -I../sysdeps/unix/common -I../sysdeps/unix/mman -I../sysdeps/unix/inet -I../nptl/sysdeps/unix/sysv -I../sysdeps/unix/sysv -I../sysdeps/unix/powerpc -I../nptl/sysdeps/unix -I../sysdeps/unix -I../sysdeps/posix -I../sysdeps/powerpc/powerpc32 -I../sysdeps/wordsize-32 -I../sysdeps/powerpc/fpu -I../nptl/sysdeps/powerpc -I../sysdeps/powerpc -I../sysdeps/ieee754/dbl-64 -I../sysdeps/ieee754/flt-32 -I../sysdeps/ieee754 -I../sysdeps/generic/elf -I../sysdeps/generic -I../nptl  -I.. -I../libio -I. -nostdinc -isystem /ptx/work/himalia/mkl/toolchain/OSELAS.Toolchain-trunk/inst/opt/OSELAS.Toolchain-trunk/powerpc-603e-linux-gnu/gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/bin/../lib/gcc/powerpc-603e-linux-gnu/4.3.2/include -isystem /ptx/work/himalia/mkl/toolchain/OSELAS.Toolchain-trunk/inst/opt/OSELAS.Toolchain-trunk/powerpc-603e-linux-gnu/gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/bin/../lib/gcc/powerpc-603e-linux-gnu/4.3.2/include-fixed -isystem /home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/inst/opt/OSELAS.Toolchain-trunk/powerpc-603e-linux-gnu/gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/sysroot-powerpc-603e-linux-gnu/usr/include -D_LIBC_REENTRANT -include ../include/libc-symbols.h        -DHAVE_INITFINI -x c - \
+                -MD -MP -MF /home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build/tcb-offsets.h.dT -MT '/home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build/tcb-offsets.h.d /home/mkl/himalia-pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-powerpc-603e-linux-gnu-gcc-4.3.2-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized/build-target/glibc-2.8-crt-build/tcb-offsets.h'
+<stdin>: In function 'dummy':
+<stdin>:13: error: 'struct <anonymous>' has no member named 'private_futex'
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ nptl/sysdeps/powerpc/tcb-offsets.sym |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/nptl/sysdeps/powerpc/tcb-offsets.sym b/nptl/sysdeps/powerpc/tcb-offsets.sym
+index eda43dc..8ac133d 100644
+--- a/nptl/sysdeps/powerpc/tcb-offsets.sym
++++ b/nptl/sysdeps/powerpc/tcb-offsets.sym
+@@ -15,4 +15,6 @@ MULTIPLE_THREADS_OFFSET		thread_offsetof (header.multiple_threads)
+ PID				thread_offsetof (pid)
+ TID				thread_offsetof (tid)
+ POINTER_GUARD			(offsetof (tcbhead_t, pointer_guard) - TLS_TCB_OFFSET - sizeof (tcbhead_t))
++#ifndef __ASSUME_PRIVATE_FUTEX
+ PRIVATE_FUTEX_OFFSET		thread_offsetof (header.private_futex)
++#endif
+-- 
+1.5.6.5
+

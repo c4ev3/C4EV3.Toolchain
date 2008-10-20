@@ -5,7 +5,8 @@ configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
 glibc-2.5_stdlib_longlong.h
-#cross_timezone.diff
+
+0001--PRIVATE_FUTEX_OFFSET-Guard-sym-definition-with-i.patch
 
 gentoo/0030_all_glibc-respect-env-CPPFLAGS.patch
 gentoo/0040_all_glibc-i586-chk.patch
