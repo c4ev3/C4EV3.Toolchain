@@ -10,10 +10,10 @@ Index: glibc-2.5/Makeconfig
 ===================================================================
 --- glibc-2.5.orig/Makeconfig
 +++ glibc-2.5/Makeconfig
-@@ -686,6 +686,7 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+incl
- CPPFLAGS-native = -D_GNU_SOURCE $($(subdir)-CPPFLAGS) $(+includes-native) $(defines) \
- 		  $(CPPFLAGS-$(suffix $@)) -include $(..)include/libc-symbols.h \
- 		  $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
+@@ -674,6 +674,7 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+incl
+ 	   $(foreach lib,$(libof-$(basename $(@F))) \
+ 		         $(libof-$(<F)) $(libof-$(@F)),$(CPPFLAGS-$(lib))) \
+ 	   $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
 +CPPFLAGS += $(CPPFLAGS-config)
  override CFLAGS	= -std=gnu99 \
  		  $(filter-out %frame-pointer,$(+cflags)) $(+gccwarn-c) \

@@ -5,7 +5,6 @@ configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
 glibc-2.5_stdlib_longlong.h
-cross_timezone.diff
 
 gentoo/0030_all_glibc-respect-env-CPPFLAGS.patch
 gentoo/1010_all_glibc-cvs-update-MINOR.patch
