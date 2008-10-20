@@ -130,7 +130,7 @@ fixup()
     # PTXCONF_GLIBC_CONFIG_EXTRA
     #
     case "${PTXCONF_GNU_TARGET}" in
-	# hard fpa
+	# hard, fpa
 	arm-v4t_hardfloat-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpa				--with-arch=armv4t"
 	    ;;
@@ -178,8 +178,8 @@ fixup()
 	    ;;
 
 	mipsel-softfloat-linux-gnu)
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	powerpc-603e-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
