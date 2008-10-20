@@ -102,7 +102,7 @@ GLIBC_AUTOCONF_COMMON := \
 	--without-selinux \
 	--disable-sanity-checks \
 	\
-	$(PTXCONF_GLIBC_EXTRA_CONFIG)
+	$(PTXCONF_GLIBC_CONFIG_EXTRA)
 
 ifdef PTXCONF_GLIBC_TLS
 GLIBC_AUTOCONF_COMMON	+= --with-tls --with-__thread
