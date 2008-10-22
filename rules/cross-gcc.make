@@ -118,10 +118,11 @@ CROSS_GCC_AUTOCONF := \
 	--enable-long-long \
 	--enable-libstdcxx-debug \
 	--enable-profile \
-	--enable-checking=release \
 	\
 	$(PTXCONF_CROSS_GCC_CONFIG_SHARED) \
-	$(PTXCONF_CROSS_GCC_CONFIG_LIBSSP)
+	$(PTXCONF_CROSS_GCC_CONFIG_LIBSSP) \
+	\
+	$(if $(filter 3.%,$(CROSS_GCC_VERSION)),,--enable-checking=release)
 
 $(STATEDIR)/cross-gcc.prepare:
 	@$(call targetinfo)
