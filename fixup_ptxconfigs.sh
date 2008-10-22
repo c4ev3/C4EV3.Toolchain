@@ -29,6 +29,7 @@ fixup()
     PTXCONF_GLIBC_TIMESTAMP=""
     PTXCONF_CROSS_GCC_LANG_JAVA=n
     PTXCONF_KERNEL_HEADERS_SANITIZED=n
+    # FIXME: nptl vs. linuxthreads
 
     touple="${config##*/}"
     touple="${touple%.ptxconfig}"
