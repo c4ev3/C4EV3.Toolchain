@@ -144,6 +144,11 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
 	    ;;
 
+	# softfp, neon
+	arm-cortexa8-linux-gnueabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8"
+	    ;;
+
 	# soft, vfp
 	armeb-xscale-linux-gnueabi|armeb-xscale-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
@@ -158,7 +163,7 @@ fixup()
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v5te-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s	--with-arch=armv5te"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-xscale-linux-gnueabi|arm-xscale-linux-gnu)
