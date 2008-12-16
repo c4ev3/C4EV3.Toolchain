@@ -1,4 +1,4 @@
-#!/usr/bin/make
+#!/usr/bin/make -f
 
 #
 # Makefile to build all ptxconfigs
@@ -32,7 +32,7 @@ ifeq ($(ARCH),)
 $(error failed to detect arch, or arch is unsupported)
 endif
 
-PTXDIST			:= ./p
+PTXDIST			:= ./p --force
 
 ifdef BENICE
 NICE			+= nice -20
@@ -90,6 +90,7 @@ $(DISTDIR)/%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 	@true
 
 $(STATEDIR)/oselas.toolchain-$(VERSION)-%.build: | mkdirs
+	@echo "building ${*}"
 	@$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
 
 mkdirs:
