@@ -19,7 +19,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.7"
+    PTXCONF_CONFIGFILE_VERSION="1.99.9"
     PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
@@ -142,6 +142,10 @@ fixup()
 	# softfp, vfp
 	arm-1136jfs-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
+	    ;;
+
+	arm-v5te_vfp-linux-gnueabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    ;;
 
 	# softfp, neon
