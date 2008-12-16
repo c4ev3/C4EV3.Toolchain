@@ -1,0 +1,38 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Add 3rd argument to open (create) call
+
+This patch fixes this error:
+
+gcc   -g -O2  -DIN_GCC -DCROSS_COMPILE  -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -pedantic -Wno-long-long -Wno-variadic-macros -Wol
+d-style-definition    -DHAVE_CONFIG_H -I. -I. -I/home/frogger/pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-arm-v4t_hardfloat-linux-gnu-gcc-4.0.4-gl
+ibc-2.3.6-binutils-2.17-kernel-2.6.18/build-cross/gcc-4.0.4/gcc -I/home/frogger/pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-arm-v4t_hardfloat-linu
+x-gnu-gcc-4.0.4-glibc-2.3.6-binutils-2.17-kernel-2.6.18/build-cross/gcc-4.0.4/gcc/. -I/home/frogger/pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-ar
+m-v4t_hardfloat-linux-gnu-gcc-4.0.4-glibc-2.3.6-binutils-2.17-kernel-2.6.18/build-cross/gcc-4.0.4/gcc/../include -I/home/frogger/pengutronix/toolchain/OSELA
+S.Toolchain-trunk/platform-arm-v4t_hardfloat-linux-gnu-gcc-4.0.4-glibc-2.3.6-binutils-2.17-kernel-2.6.18/build-cross/gcc-4.0.4/gcc/../libcpp/include      \
+        -DTARGET_MACHINE=\"arm-v4t_hardfloat-linux-gnu\" \
+        -c /home/frogger/pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-arm-v4t_hardfloat-linux-gnu-gcc-4.0.4-glibc-2.3.6-binutils-2.17-kernel-2.6.18
+/build-cross/gcc-4.0.4/gcc/collect2.c -o collect2.o
+In function 'open',
+    inlined from 'collect_execute' at /home/frogger/pengutronix/toolchain/OSELAS.Toolchain-trunk/platform-arm-v4t_hardfloat-linux-gnu-gcc-4.0.4-glibc-2.3.6-
+binutils-2.17-kernel-2.6.18/build-cross/gcc-4.0.4/gcc/collect2.c:1580:
+/usr/include/bits/fcntl2.h:51: error: call to '__open_missing_mode' declared with attribute error: open with O_CREAT in second argument needs 3 arguments
+make[2]: *** [collect2.o] Error 1
+
+2008-12-16: mkl: upstream branch is closed since ages,
+	    	 newer gcc versions don't have that problem.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+Index: gcc-4.0.4/gcc/collect2.c
+===================================================================
+--- gcc-4.0.4.orig/gcc/collect2.c	2008-12-16 13:24:10.000000000 +0100
++++ gcc-4.0.4/gcc/collect2.c	2008-12-16 13:24:50.000000000 +0100
+@@ -1577,7 +1577,7 @@
+   if (redir)
+     {
+       /* Open response file.  */
+-      redir_handle = open (redir, O_WRONLY | O_TRUNC | O_CREAT);
++      redir_handle = open (redir, O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU | S_IWUSR | S_IRGRP | S_IROTH);
+ 
+       /* Duplicate the stdout and stderr file handles
+ 	 so they can be restored later.  */

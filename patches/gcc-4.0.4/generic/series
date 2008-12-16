@@ -1,2 +1,3 @@
 gcc-4.0-arm-bigendian.patch
 arm-softfloat.diff
+gcc_collect2-fix-open.diff
