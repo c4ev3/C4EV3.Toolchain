@@ -17,7 +17,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_ECJ) += cross-ecj
 #
 # gcj or <host>-gcj is mandatory
 #
-ifeq ($(PTXCONF_CROSS_ECJ)-$(shell which gcj)-$(shell which $(GNU_BUILD)-gcj),y--)
+ifeq ($(PTXCONF_CROSS_ECJ)-$(shell which gcj 2>/dev/null)-$(shell which $(GNU_BUILD)-gcj 2>/dev/null),y--)
     $(warning *** gcj is mandatory to build a java cross compiler)
     $(warning *** please install gcj)
     $(error )
