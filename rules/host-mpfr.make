@@ -20,9 +20,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_MPFR) += host-mpfr
 HOST_MPFR_VERSION	:= 2.3.2
 HOST_MPFR		:= mpfr-$(HOST_MPFR_VERSION)
 HOST_MPFR_SUFFIX	:= tar.bz2
-HOST_MPFR_URL		:= http://www.mpfr.org/mpfr-$(HOST_MPFR_VERSION)/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
 HOST_MPFR_SOURCE	:= $(SRCDIR)/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
 HOST_MPFR_DIR		:= $(HOST_BUILDDIR)/$(HOST_MPFR)
+
+HOST_MPFR_URL		:= \
+	http://www.mpfr.org/mpfr-$(HOST_MPFR_VERSION)/$(HOST_MPFR).$(HOST_MPFR_SUFFIX) \
+	http://cross-lfs.org/files/packages/svn/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
