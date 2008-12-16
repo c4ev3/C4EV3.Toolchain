@@ -18,12 +18,25 @@ BENICE			:= true
 
 #
 BUILDDATE	:= $(shell date +%y%m%d-%H%M)
-SUBVERSIONREV	:= $(strip $(shell svnversion))
+
+# VERSION		:= $(shell					\
+# 	version=$$(pwd | sed -e "s~.*/OSELAS.Toolchain-~~");	\
+# 	case "$${version}" in					\
+# 		(*trunk*)					\
+# 			svnversion |				\
+# 			sed					\
+# 			-e "s/^/trunk-/" 			\
+# 			-e "s/:/./g";; 				\
+# 		(*)						\
+# 			echo "$${version}";;			\
+# 	esac							\
+# )
 VERSION		:= $(shell pwd | sed -e "s~.*/OSELAS.Toolchain-~~")
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
 		(x86_64)	echo amd64;;	\
 		(i[1-9]86)	echo i386;;	\
+		(ppc)		echo powerpc;;	\
 		(*)		;;		\
 	esac					\
 )
@@ -38,10 +51,6 @@ ifdef BENICE
 NICE			+= nice -20
 endif
 
-SUFFIX_BUILDTIME	:= build
-SUFFIX_BUILDSTATUS	:= status
-SUFFIX_BUILDREVISION	:= svnrev
-
 CONFIGDIR	:= ptxconfigs
 CONFIGFILES	:= $(wildcard $(CONFIGDIR)/*.ptxconfig) $(wildcard $(CONFIGDIR)/*/*.ptxconfig)
 CONFIGS		:= $(notdir $(basename $(CONFIGFILES)))
@@ -55,43 +64,42 @@ define gen_2configfile
 $(eval 2CONFIGFILE_$(subst _,-,$(notdir $(basename $(1)))) := $(1))
 endef
 
+define gen_2instdir
+$(eval 2INSTDIR_$(subst _,-,$(notdir $(basename $(1)))) := \
+	$(shell PTX_AUTOBUILD_DESTDIR='' source "$(1)" && echo "$${PTXCONF_SYSROOT_CROSS}"))
+endef
+
+
 $(foreach cfg,$(CONFIGS),$(call gen_2config,$(cfg)))
 $(foreach cfgfile,$(CONFIGFILES),$(call gen_2configfile,$(cfgfile)))
-
+$(foreach cfgfile,$(CONFIGFILES),$(call gen_2instdir,$(cfgfile)))
 
 STATEDIR	:= gstate
-STATEFILES	:= $(addprefix $(STATEDIR)/,$(addsuffix .$(suffix_buildtime),$(CONFIGS)))
-
-INSTALLDIRS	:= \
-	$(foreach ptxconfig,$(CONFIGFILES), \
-		$(shell PTX_AUTOBUILD_DESTDIR=$(PTX_AUTOBUILD_DESTDIR) \
-		source "$(ptxconfig)" && echo "$${PTXCONF_SYSROOT_CROSS}"))
-
 DISTDIR		:= dist
 
+PREFIX		:= $(DISTDIR)/oselas.toolchain-$(VERSION)-
+CONFIGS_PREFIX	:= $(foreach config,$(CONFIGS_),$(addprefix $(PREFIX),$(config)))
 
-#DEB  = oselas.toolchain-1.1.1-arm-1136jfs-linux-gnueabi-gcc-4.1.2-glibc-2.5-kernel-2.6.18_1.1.1_amd64.deb
-#TBZ2 = OSELAS.Toolchain-1.1.1-arm-1136jfs-linux-gnueabi-gcc-4.1.2-glibc-2.5-kernel-2.6.18_amd64.tar.bz2
-
-OUT_PREFIX	:= $(foreach config,$(CONFIGS_),$(addprefix $(DISTDIR)/oselas.toolchain-$(VERSION)-,$(config)))
-
+DEB_PREFIX	:= $(PREFIX)
 DEB_SUFFIX	:= _$(VERSION)_$(ARCH).deb
+
+TBZ2_PREFIX	:= $(PREFIX)
 TBZ2_SUFFIX	:= _$(ARCH).tar.bz2
 
-DEBS		:= $(foreach config,$(OUT_PREFIX),$(addsuffix $(DEB_SUFFIX),$(config)))
-TBZ2S		:= $(foreach config,$(OUT_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config)))
+DEBS		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(DEB_SUFFIX),$(config)))
+TBZ2S		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config)))
 
 all: $(TBZ2S)
 
-$(DISTDIR)/%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
-	@true
+$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
+	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
 
-$(DISTDIR)/%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
-	@true
+$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
+	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" -cvjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
-$(STATEDIR)/oselas.toolchain-$(VERSION)-%.build: | mkdirs
+$(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
-	@$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
+	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)
