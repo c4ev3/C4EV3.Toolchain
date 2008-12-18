@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 main() {
     while getopts "d:s:" opt; do
@@ -50,7 +50,6 @@ EOF
     # make a deb out of it
     echo dpkg -b "${debian_tmp}" "${deb}" | fakeroot
 
-    exit 1
     rm -rf "${debian_tmp}"
 }
 
