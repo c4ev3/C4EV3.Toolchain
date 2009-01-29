@@ -5,6 +5,7 @@ no-host-includes.diff
 arm-softfloat.diff
 
 # bugfixes
+gcc-43-pr32044.diff
 gcc-43-pr37220.diff
 
 # from uclibc
