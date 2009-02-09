@@ -1,3 +1,8 @@
+From: ukl@pengutronix.de
+Subject: fix over optimisation of open-coded iterative div/mod loop
+
+see linux-git commit f595ec964daf7f99668039d7303ddedd09a75142
+
 PR tree-optimization/32044
 
 From: rakdver
@@ -13,6 +18,8 @@ Date: 2008-12-12 21:32:47 +0100
 
 cherry picked from svn://gcc.gnu.org/svn/gcc/trunk, rev 142719 and adapted to
 apply on gcc 4.3.2
+
+Signed-off-by: ukl@pengutronix.de
 
 ------------------------------------------------------------------------
 Index: gcc-4.3.2/gcc/tree-scalar-evolution.c
