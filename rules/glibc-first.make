@@ -46,12 +46,15 @@ GLIBC_FIRST_ENV := \
 	CXX=false \
 	BUILD_CC=$(HOSTCC) \
 	\
-	libc_cv_forced_unwind=yes \
 	libc_cv_c_cleanup=yes \
+	libc_cv_forced_unwind=yes \
 	libc_cv_fpie=yes \
 	libc_cv_ssp=yes \
+	libc_cv_visibility_attribute=yes \
+	libc_cv_broken_visibility_attribute=no \
+	libc_cv_z_relro=yes \
 	\
-	ac_cv_sizeof_long_double=8 \
+	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE)
 
 GLIBC_FIRST_MAKEVARS := AUTOCONF=no
 

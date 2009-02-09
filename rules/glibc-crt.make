@@ -42,10 +42,12 @@ $(STATEDIR)/glibc-crt.extract: $(STATEDIR)/glibc.extract
 GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
 GLIBC_CRT_ENV := \
 	BUILD_CC=$(HOSTCC) \
+	\
 	ac_cv_path_GREP=grep \
-	libc_cv_forced_unwind=yes \
+	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE)
 	libc_cv_c_cleanup=yes \
-	ac_cv_sizeof_long_double=8
+	libc_cv_forced_unwind=yes \
+
 
 #
 # autoconf
