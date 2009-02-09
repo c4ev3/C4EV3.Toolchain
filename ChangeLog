@@ -17,16 +17,16 @@
 
 2007-08-27 Carsten Schlote <c.schlote@konzeptpark.de>
 
-        * Updated
-          armeb-xscale-linux-gnueabi_gcc-4.2.1_glibc-2.5_linux-2.6.20.7.ptxconfig
-        * Test compiled
+	* Updated
+	  armeb-xscale-linux-gnueabi_gcc-4.2.1_glibc-2.5_linux-2.6.20.7.ptxconfig
+	* Test compiled
 	  armeb-xscale-linux-gnueabi_gcc-4.2.1_glibc-2.5_linux-2.6.20.7.ptxconfig
 
 2007-08-27 Carsten Schlote <c.schlote@konzeptpark.de>
 
-        * Refreshed patches for GCC 4.2.1
-        * Test compiled with
-          i686-unknown-linux-gnu_gcc-4.2.1_glibc-2.5_linux-2.6.20.7.ptxconfig
+	* Refreshed patches for GCC 4.2.1
+	* Test compiled with
+	  i686-unknown-linux-gnu_gcc-4.2.1_glibc-2.5_linux-2.6.20.7.ptxconfig
 
 2007-08-27 Carsten Schlote <c.schlote@konzeptpark.de>
 
