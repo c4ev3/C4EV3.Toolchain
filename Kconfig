@@ -1,6 +1,6 @@
 #
 # Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2008
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005-2009
 #
 
 config _ptxconfig_MAGIC__
@@ -8,6 +8,10 @@ config _ptxconfig_MAGIC__
 	default y
 
 config BUILD_TOOLCHAIN
+	bool
+	default y
+
+config NO_PLATFORM
 	bool
 	default y
 
