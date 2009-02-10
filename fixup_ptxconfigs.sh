@@ -19,7 +19,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.9"
+    PTXCONF_CONFIGFILE_VERSION="1.99.svn"
     PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
