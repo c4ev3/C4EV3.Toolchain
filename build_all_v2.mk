@@ -110,3 +110,9 @@ mkdirs:
 
 print-%:
 	@echo "$* is \"$($(*))\""
+
+help:
+	@echo "Available DPKG targets:"
+	@for i in $(DEBS); do echo $$i; done;
+	@echo "Available tarball targets:"
+	@for i in $(TBZ2S); do echo $$i; done;
