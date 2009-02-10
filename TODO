@@ -1,7 +1,7 @@
 [ ] write fixup.make
 	[ ] chmod prefix 555, to prevent overwriting
 
-[ ] fix autobuilder
+[ ] check for fakeroot
 
 [ ] java:
 	--enable-jni --enable-core-jni --enable-collections --enable-gtk-peer --enable-tool-wrappers --enable-load-library --enable-local-sockets
