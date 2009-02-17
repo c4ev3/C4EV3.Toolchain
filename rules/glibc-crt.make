@@ -44,9 +44,9 @@ GLIBC_CRT_ENV := \
 	BUILD_CC=$(HOSTCC) \
 	\
 	ac_cv_path_GREP=grep \
-	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE)
+	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE) \
 	libc_cv_c_cleanup=yes \
-	libc_cv_forced_unwind=yes \
+	libc_cv_forced_unwind=yes
 
 
 #
