@@ -1,3 +1,6 @@
+2009-02-20 Marc Kleine-Budde <mkl@pengutronix.de>
+	* fix glibc-crt problem with "forced unwind support is required"
+
 2009-01-29 Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 	* add patch for gcc 4.3.2 fixing some optimisation regressions.
 
