@@ -61,6 +61,13 @@ config CROSS_GCC_LANG_FORTRAN
 	  As GCC is a compiler collection, it can support various languages.
 	  Select this for Fortran support
 
+config CROSS_GCC_LANG_ADA
+	bool
+	prompt "Ada"
+	help
+	  As GCC is a compiler collection, it can support various languages.
+	  Select this for Ada support
+
 config CROSS_GCC_LANG_JAVA
 	bool
 	prompt "Java"
