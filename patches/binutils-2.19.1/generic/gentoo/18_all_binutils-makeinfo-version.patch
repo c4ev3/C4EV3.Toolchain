@@ -1,0 +1,38 @@
+http://bugs.gentoo.org/195074
+
+2007-09-15  Alan Modra  <amodra@bigpond.net.au>
+
+	* configure.ac: Correct makeinfo version check.
+	* configure: Regenerate.
+
+---
+ configure    |    2 +-
+ configure.ac |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: binutils-2.18/configure.ac
+===================================================================
+--- binutils-2.18.orig/configure.ac
++++ binutils-2.18/configure.ac
+@@ -2403,7 +2403,7 @@ changequote(,)
+     # For an installed makeinfo, we require it to be from texinfo 4.4 or
+     # higher, else we use the "missing" dummy.
+     if ${MAKEINFO} --version \
+-       | egrep 'texinfo[^0-9]*([1-3][0-9]|4\.[4-9]|[5-9])' >/dev/null 2>&1; then
++       | egrep 'texinfo[^0-9]*(4\.([4-9]|[1-9][0-9])|[5-9]|[1-9][0-9])' >/dev/null 2>&1; then
+       :
+     else
+       MAKEINFO="$MISSING makeinfo"
+Index: binutils-2.18/configure
+===================================================================
+--- binutils-2.18.orig/configure
++++ binutils-2.18/configure
+@@ -6129,7 +6129,7 @@ case " $build_configdirs " in
+     # For an installed makeinfo, we require it to be from texinfo 4.4 or
+     # higher, else we use the "missing" dummy.
+     if ${MAKEINFO} --version \
+-       | egrep 'texinfo[^0-9]*([1-3][0-9]|4\.[4-9]|[5-9])' >/dev/null 2>&1; then
++       | egrep 'texinfo[^0-9]*(4\.([4-9]|[1-9][0-9])|[5-9]|[1-9][0-9])' >/dev/null 2>&1; then
+       :
+     else
+       MAKEINFO="$MISSING makeinfo"

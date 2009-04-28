@@ -1,0 +1,30 @@
+Fix from upstream for --enable-targets=all on an x86_64 multilib system.
+
+http://sourceware.org/ml/binutils/2007-09/msg00137.html
+http://sourceware.org/ml/binutils/2007-09/msg00162.html
+
+2007-09-14  Alan Modra  <amodra@bigpond.net.au>
+
+	* format.c (bfd_check_format_matches): Record matching targets even
+	when "matching" is NULL to allow bfd_associated_vector matches.
+	Consolidate error return code.  Consolidate ok return code.  Always
+	restore original target and format on error.
+
+---
+ bfd/format.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: binutils-2.19.1/bfd/format.c
+===================================================================
+--- binutils-2.19.1.orig/bfd/format.c
++++ binutils-2.19.1/bfd/format.c
+@@ -128,6 +128,9 @@ bfd_check_format_matches (bfd *abfd, bfd
+   if (matching != NULL)
+     *matching = NULL;
+ 
++  if (matching != NULL)
++    *matching = NULL;
++
+   if (!bfd_read_p (abfd)
+       || (unsigned int) abfd->format >= (unsigned int) bfd_type_end)
+     {

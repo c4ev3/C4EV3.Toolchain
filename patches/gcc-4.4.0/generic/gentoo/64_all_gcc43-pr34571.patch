@@ -1,0 +1,27 @@
+http://gcc.gnu.org/PR34571
+
+2007-12-26  Rask Ingemann Lambertsen  <rask@sygehus.dk>
+
+	PR target/34571
+	* config/alpha/alpha.c (alpha_cannot_force_const_mem): Use
+	symbolic_operand.
+	* varasm.c (output_constant_pool_1): Fix typo.
+
+---
+ gcc/config/alpha/alpha.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+Index: gcc-4.4.0/gcc/config/alpha/alpha.c
+===================================================================
+--- gcc-4.4.0.orig/gcc/config/alpha/alpha.c
++++ gcc-4.4.0/gcc/config/alpha/alpha.c
+@@ -1119,8 +1119,7 @@ alpha_legitimize_address (rtx x, rtx scr
+ static bool
+ alpha_cannot_force_const_mem (rtx x)
+ {
+-  enum rtx_code code = GET_CODE (x);
+-  return code == SYMBOL_REF || code == LABEL_REF || code == CONST;
++  return symbolic_operand (x, GET_MODE (x));
+ }
+ 
+ /* We do not allow indirect calls to be optimized into sibling calls, nor

@@ -1,0 +1,18 @@
+http://sourceware.org/bugzilla/show_bug.cgi?id=4987
+
+---
+ binutils/resrc.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: binutils-2.19.1/binutils/resrc.c
+===================================================================
+--- binutils-2.19.1.orig/binutils/resrc.c
++++ binutils-2.19.1/binutils/resrc.c
+@@ -439,6 +439,7 @@ read_rc_file (const char *filename, cons
+   if (filename == NULL)
+     filename = "-";
+   /* Setup the default resource import path taken from input file.  */
+++   if (filename != NULL && (strchr (filename, '/') != NULL || strchr (filename, '\\') != NULL))
+   else if (strchr (filename, '/') != NULL || strchr (filename, '\\') != NULL)
+     {
+       char *edit, *dir;

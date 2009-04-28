@@ -1,0 +1,91 @@
+workaround strict aliasing warnings on individual files rather than
+forcing the whole build with -fno-strict-aliasing
+
+http://bugs.gentoo.org/155906
+
+note that we leave the logout.c and logwtmp.c warnings alone as the
+code path that invokes the warning should not be executed when the
+warning is applicable.
+
+---
+ libio/Makefile  |    4 ++--
+ nis/Makefile    |    3 +++
+ nptl/Makefile   |    1 +
+ nss/Makefile    |    2 ++
+ sunrpc/Makefile |    2 +-
+ 5 files changed, 9 insertions(+), 3 deletions(-)
+
+Index: glibc-2.9/libio/Makefile
+===================================================================
+--- glibc-2.9.orig/libio/Makefile
++++ glibc-2.9/libio/Makefile
+@@ -91,7 +91,7 @@ CFLAGS-fseeko.c = $(exceptions)
+ CFLAGS-ftello64.c = $(exceptions)
+ CFLAGS-ftello.c = $(exceptions)
+ CFLAGS-fwide.c = $(exceptions)
+-CFLAGS-genops.c = $(exceptions)
++CFLAGS-genops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-getc.c = $(exceptions)
+ CFLAGS-getchar.c = $(exceptions)
+ CFLAGS-getwc.c = $(exceptions)
+@@ -133,7 +133,7 @@ CFLAGS-putwc.c = $(exceptions)
+ CFLAGS-putwchar.c = $(exceptions)
+ CFLAGS-rewind.c = $(exceptions)
+ CFLAGS-wfileops.c = $(exceptions)
+-CFLAGS-wgenops.c = $(exceptions)
++CFLAGS-wgenops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-oldiofopen.c = $(exceptions)
+ CFLAGS-iofopen.c = $(exceptions)
+ CFLAGS-iofopen64.c = $(exceptions)
+Index: glibc-2.9/nis/Makefile
+===================================================================
+--- glibc-2.9.orig/nis/Makefile
++++ glibc-2.9/nis/Makefile
+@@ -67,6 +67,9 @@ libnss_nisplus-routines	:= $(addprefix n
+ 			   nss-nisplus nisplus-initgroups
+ libnss_nisplus-inhibit-o = $(filter-out .os,$(object-suffixes))
+ 
++CFLAGS-nis_xdr.c += -fno-strict-aliasing
++CFLAGS-yp_xdr.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+Index: glibc-2.9/nptl/Makefile
+===================================================================
+--- glibc-2.9.orig/nptl/Makefile
++++ glibc-2.9/nptl/Makefile
+@@ -193,6 +193,7 @@ CFLAGS-tcdrain.c = -fexceptions -fasynch
+ 
+ CFLAGS-pt-system.c = -fexceptions
+ 
++CFLAGS-unwind-dw2.c += -fno-strict-aliasing
+ 
+ tests = tst-typesizes \
+ 	tst-attr1 tst-attr2 tst-attr3 \
+Index: glibc-2.9/nss/Makefile
+===================================================================
+--- glibc-2.9.orig/nss/Makefile
++++ glibc-2.9/nss/Makefile
+@@ -72,6 +72,8 @@ ifneq ($(build-static-nss),yes)
+ libnss_files-inhibit-o	= $(filter-out .os,$(object-suffixes))
+ endif
+ 
++CFLAGS-nsswitch.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+Index: glibc-2.9/sunrpc/Makefile
+===================================================================
+--- glibc-2.9.orig/sunrpc/Makefile
++++ glibc-2.9/sunrpc/Makefile
+@@ -127,7 +127,7 @@ CFLAGS-pmap_rmt.c = -fexceptions
+ CFLAGS-clnt_perr.c = -fexceptions
+ CFLAGS-openchild.c = -fexceptions
+ 
+-CPPFLAGS += -D_RPC_THREAD_SAFE_
++CPPFLAGS += -D_RPC_THREAD_SAFE_ -fno-strict-aliasing
+ 
+ include ../Rules
+ 

@@ -1,0 +1,6 @@
+--- binutils/ld/ldmain.c
++++ binutils/ld/ldmain.c
+@@ -273,2 +273,3 @@ main (int argc, char **argv)
+   link_info.emit_hash = TRUE;
++  link_info.emit_gnu_hash = TRUE;
+   link_info.callbacks = &link_callbacks;

@@ -1,0 +1,29 @@
+	Hack from Debian to hopefully get sandbox working on mips
+
+<`Kumba> ths: given the SHN_UNDEF thing is a hack, what's the preferred solution?
+<ths> For fakeroot the simplest trigger is "fakeroot file /bin/ls".
+<ths> `Kumba: I haven't found a better one yet.
+<ths> Probably marker symbols around the stub section, and then exclude it from the link map.
+<ths> This needs a ld change.
+
+---
+ elf/do-lookup.h |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: glibc-2.9/elf/do-lookup.h
+===================================================================
+--- glibc-2.9.orig/elf/do-lookup.h
++++ glibc-2.9/elf/do-lookup.h
+@@ -246,6 +246,12 @@ do_lookup_x (const char *undef_name, uin
+ 		}
+ 	      /* FALLTHROUGH */
+ 	    case STB_GLOBAL:
++#ifdef __mips__
++	      /* HACK: MIPS marks its lazy evaluation stubs with SHN_UNDEF
++		 symbols, we skip them. */
++	      if (sym->st_shndx == SHN_UNDEF)
++		break;
++#endif
+ 	      /* Global definition.  Just what we need.  */
+ 	      result->s = sym;
+ 	      result->m = (struct link_map *) map;

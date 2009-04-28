@@ -1,0 +1,6 @@
+sysdeps_mips_mips32_Makefile-bootstrap.diff
+
+glibc-2.5_ports_sysdeps_arm_mp_clz_tab.c
+
+gentoo/6605_all_glibc-2.4-fpu-cw-mips.patch
+gentoo/6224_all_glibc-2.7-lowlevellock-includes.patch

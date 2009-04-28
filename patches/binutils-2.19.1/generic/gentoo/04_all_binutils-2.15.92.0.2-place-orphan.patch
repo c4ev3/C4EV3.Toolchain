@@ -1,0 +1,22 @@
+2003-08-05  Jakub Jelinek  <jakub@redhat.com>
+
+	* emulparams/elf64ppc.sh (OTHER_GOT_RELOC_SECTIONS): Add .rela.opd.
+
+---
+ ld/emulparams/elf64ppc.sh |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: binutils-2.18/ld/emulparams/elf64ppc.sh
+===================================================================
+--- binutils-2.18.orig/ld/emulparams/elf64ppc.sh
++++ binutils-2.18/ld/emulparams/elf64ppc.sh
+@@ -28,7 +28,8 @@ else
+   .toc		0 : { *(.toc) }"
+ fi
+ OTHER_GOT_RELOC_SECTIONS="
+-  .rela.toc	${RELOCATING-0} : { *(.rela.toc) }"
++  .rela.toc	${RELOCATING-0} : { *(.rela.toc) }
++  .rela.opd	${RELOCATING-0} : { *(.rela.opd) }"
+ OTHER_READWRITE_SECTIONS="
+   .toc1		${RELOCATING-0} :${RELOCATING+ ALIGN(8)} { *(.toc1) }
+   .opd		${RELOCATING-0} :${RELOCATING+ ALIGN(8)} { KEEP (*(.opd)) }

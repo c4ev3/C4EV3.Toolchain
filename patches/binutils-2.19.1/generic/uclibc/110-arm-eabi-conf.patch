@@ -1,0 +1,31 @@
+---
+ configure    |    2 +-
+ configure.ac |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: binutils-2.19.1/configure
+===================================================================
+--- binutils-2.19.1.orig/configure
++++ binutils-2.19.1/configure
+@@ -2313,7 +2313,7 @@ case "${target}" in
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     libgloss_dir=arm
+     ;;
+-  arm*-*-linux-gnueabi)
++  arm*-*-linux-gnueabi | arm*-*-linux-uclibcgnueabi)
+     noconfigdirs="$noconfigdirs target-qthreads"
+     case ${with_newlib} in
+       no) noconfigdirs="$noconfigdirs target-newlib target-libgloss"
+Index: binutils-2.19.1/configure.ac
+===================================================================
+--- binutils-2.19.1.orig/configure.ac
++++ binutils-2.19.1/configure.ac
+@@ -562,7 +562,7 @@ case "${target}" in
+     noconfigdirs="$noconfigdirs target-libffi target-qthreads"
+     libgloss_dir=arm
+     ;;
+-  arm*-*-linux-gnueabi)
++  arm*-*-linux-gnueabi | arm*-*-linux-uclibcgnueabi)
+     noconfigdirs="$noconfigdirs target-qthreads"
+     case ${with_newlib} in
+       no) noconfigdirs="$noconfigdirs target-newlib target-libgloss"

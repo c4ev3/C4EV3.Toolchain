@@ -1,0 +1,536 @@
+http://bugs.gentoo.org/192584
+http://sourceware.org/bugzilla/show_bug.cgi?id=5037
+http://sourceware.org/ml/binutils/2007-09/msg00208.html
+
+bfd/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* elf-bfd.h (elf_obj_tdata): Remove relro.
+
+	* elf.c (get_program_header_size): Check info->relro instead
+	of elf_tdata (abfd)->relro.
+	(_bfd_elf_map_sections_to_segments): Likewise.
+	(assign_file_positions_for_load_sections): Don't set
+	PT_GNU_RELRO segment alignment here.
+	(assign_file_positions_for_non_load_sections): Properly set up
+	PT_GNU_RELRO segment for copying executable/shared library.
+	(rewrite_elf_program_header): Remove PT_GNU_RELRO segment.
+	(copy_elf_program_header): Set p_size and p_size_valid fields for
+	PT_GNU_RELRO segment. 
+
+include/elf/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* internal.h (elf_segment_map): Add p_size and p_size_valid.
+	(ELF_IS_SECTION_IN_SEGMENT): Allow SHF_TLS sections in
+	PT_GNU_RELRO segments.
+
+ld/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* ldexp.h (ldexp_control): Add relro, relro_start_stat and
+	relro_end_stat.
+
+	* ldexp.c (fold_binary): Set expld.dataseg.relro to
+	exp_dataseg_relro_start or exp_dataseg_relro_end when
+	seeing DATA_SEGMENT_ALIGN or DATA_SEGMENT_RELRO_END,
+	respectively.
+
+	* ldlang.c (lang_size_sections_1): Properly set
+	expld.dataseg.relro_start_stat and
+	expld.dataseg.relro_end_stat.
+	(find_relro_section_callback): New function.
+	(lang_find_relro_sections_1): Likewise.
+	(lang_find_relro_sections): Likewise.
+	(lang_process): Call lang_find_relro_sections for
+	non-relocatable link.
+
+ld/testsuite/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* ld-elf/binutils.exp: Update "-z relro" tests to use relro1.s.
+	Add "-z relro" tests with relro2.s.  Add "-z relro" tests with
+	TLS for objcopy.
+
+	* ld-elf/relro1.s: New file.
+	* ld-elf/relro2.s: Likewise.
+
+---
+ bfd/elf-bfd.h                    |    3 -
+ bfd/elf.c                        |   77 ++++++++++++++++++++++++-----
+ bfd/elflink.c                    |    1 
+ include/elf/internal.h           |   10 +++
+ ld/ldexp.c                       |    2 
+ ld/ldexp.h                       |   11 ++++
+ ld/ldlang.c                      |  101 +++++++++++++++++++++++++++++++++++++++
+ ld/testsuite/ld-elf/binutils.exp |   28 ++++++++--
+ ld/testsuite/ld-elf/relro1.s     |   14 +++++
+ ld/testsuite/ld-elf/relro2.s     |    5 +
+ 10 files changed, 227 insertions(+), 25 deletions(-)
+
+Index: binutils-2.18/bfd/elf-bfd.h
+===================================================================
+--- binutils-2.18.orig/bfd/elf-bfd.h
++++ binutils-2.18/bfd/elf-bfd.h
+@@ -1428,9 +1428,6 @@ struct elf_obj_tdata
+   /* Segment flags for the PT_GNU_STACK segment.  */
+   unsigned int stack_flags;
+ 
+-  /* Should the PT_GNU_RELRO segment be emitted?  */
+-  bfd_boolean relro;
+-
+   /* Symbol version definitions in external objects.  */
+   Elf_Internal_Verdef *verdef;
+ 
+Index: binutils-2.18/bfd/elf.c
+===================================================================
+--- binutils-2.18.orig/bfd/elf.c
++++ binutils-2.18/bfd/elf.c
+@@ -3321,7 +3321,7 @@ get_program_header_size (bfd *abfd, stru
+       /* We need a PT_DYNAMIC segment.  */
+       ++segs;
+ 
+-      if (elf_tdata (abfd)->relro)
++      if (info->relro)
+ 	{
+ 	  /* We need a PT_GNU_RELRO segment only when there is a
+ 	     PT_DYNAMIC segment.  */
+@@ -3851,7 +3851,7 @@ _bfd_elf_map_sections_to_segments (bfd *
+ 	  pm = &m->next;
+ 	}
+ 
+-      if (dynsec != NULL && elf_tdata (abfd)->relro)
++      if (dynsec != NULL && info->relro)
+ 	{
+ 	  /* We make a PT_GNU_RELRO segment only when there is a
+ 	     PT_DYNAMIC segment.  */
+@@ -4326,12 +4326,10 @@ assign_file_positions_for_load_sections 
+ 		    p->p_memsz += this_hdr->sh_size;
+ 		}
+ 
+-	      if (p->p_type == PT_GNU_RELRO)
+-		p->p_align = 1;
+-	      else if (align > p->p_align
+-		       && !m->p_align_valid
+-		       && (p->p_type != PT_LOAD
+-			   || (abfd->flags & D_PAGED) == 0))
++	      if (align > p->p_align
++		  && !m->p_align_valid
++		  && (p->p_type != PT_LOAD
++		      || (abfd->flags & D_PAGED) == 0))
+ 		p->p_align = align;
+ 	    }
+ 
+@@ -4480,18 +4478,53 @@ assign_file_positions_for_non_load_secti
+       if (m->count != 0)
+ 	{
+ 	  if (p->p_type != PT_LOAD
+-	      && (p->p_type != PT_NOTE || bfd_get_format (abfd) != bfd_core))
++	      && (p->p_type != PT_NOTE
++		  || bfd_get_format (abfd) != bfd_core))
+ 	    {
+ 	      Elf_Internal_Shdr *hdr;
++	      asection *sect;
++
+ 	      BFD_ASSERT (!m->includes_filehdr && !m->includes_phdrs);
+ 
+-	      hdr = &elf_section_data (m->sections[m->count - 1])->this_hdr;
+-	      p->p_filesz = (m->sections[m->count - 1]->filepos
+-			     - m->sections[0]->filepos);
++	      sect = m->sections[m->count - 1];
++	      hdr = &elf_section_data (sect)->this_hdr;
++	      p->p_filesz = sect->filepos - m->sections[0]->filepos;
+ 	      if (hdr->sh_type != SHT_NOBITS)
+ 		p->p_filesz += hdr->sh_size;
+ 
+-	      p->p_offset = m->sections[0]->filepos;
++	      if (p->p_type == PT_GNU_RELRO)
++		{
++		  /* When we get here, we are copying executable
++		     or shared library. But we need to use the same
++		     linker logic.  */
++		  Elf_Internal_Phdr *lp;
++
++		  for (lp = phdrs; lp < phdrs + count; ++lp)
++		    {
++		      if (lp->p_type == PT_LOAD
++			  && lp->p_paddr == p->p_paddr)
++			break;
++		    }
++	  
++		  if (lp < phdrs + count)
++		    {
++		      /* We should use p_size if it is valid since it
++			 may contain the first few bytes of the next
++			 SEC_ALLOC section.  */
++		      if (m->p_size_valid)
++			p->p_filesz = m->p_size;
++		      else
++			abort ();
++		      p->p_vaddr = lp->p_vaddr;
++		      p->p_offset = lp->p_offset;
++		      p->p_memsz = p->p_filesz;
++		      p->p_align = 1;
++		    }
++		  else
++		    abort ();
++		}
++	      else
++		p->p_offset = m->sections[0]->filepos;
+ 	    }
+ 	}
+       else
+@@ -5080,7 +5113,12 @@ rewrite_elf_program_header (bfd *ibfd, b
+ 	    }
+ 
+       if (segment->p_type != PT_LOAD)
+-	continue;
++	{
++	  /* Remove PT_GNU_RELRO segment.  */
++	  if (segment->p_type == PT_GNU_RELRO)
++	    segment->p_type = PT_NULL;
++	  continue;
++	}
+ 
+       /* Determine if this segment overlaps any previous segments.  */
+       for (j = 0, segment2 = elf_tdata (ibfd)->phdr; j < i; j++, segment2 ++)
+@@ -5604,6 +5642,17 @@ copy_elf_program_header (bfd *ibfd, bfd 
+       map->p_align_valid = 1;
+       map->p_vaddr_offset = 0;
+ 
++      if (map->p_type == PT_GNU_RELRO
++	  && segment->p_filesz == segment->p_memsz)
++	{
++	  /* The PT_GNU_RELRO segment may contain the first a few
++	     bytes in the .got.plt section even if the whole .got.plt
++	     section isn't in the PT_GNU_RELRO segment.  We won't
++	     change the size of the PT_GNU_RELRO segment.  */
++	  map->p_size = segment->p_filesz;
++	  map->p_size_valid = 1;
++	}
++
+       /* Determine if this segment contains the ELF file header
+ 	 and if it contains the program headers themselves.  */
+       map->includes_filehdr = (segment->p_offset == 0
+Index: binutils-2.18/bfd/elflink.c
+===================================================================
+--- binutils-2.18.orig/bfd/elflink.c
++++ binutils-2.18/bfd/elflink.c
+@@ -5327,7 +5327,6 @@ bfd_elf_size_dynamic_sections (bfd *outp
+     return TRUE;
+ 
+   bed = get_elf_backend_data (output_bfd);
+-  elf_tdata (output_bfd)->relro = info->relro;
+   if (info->execstack)
+     elf_tdata (output_bfd)->stack_flags = PF_R | PF_W | PF_X;
+   else if (info->noexecstack)
+Index: binutils-2.18/include/elf/internal.h
+===================================================================
+--- binutils-2.18.orig/include/elf/internal.h
++++ binutils-2.18/include/elf/internal.h
+@@ -239,6 +239,8 @@ struct elf_segment_map
+   bfd_vma p_vaddr_offset;
+   /* Program segment alignment.  */
+   bfd_vma p_align;
++  /* Segment size in file and memory */
++  bfd_vma p_size;
+   /* Whether the p_flags field is valid; if not, the flags are based
+      on the section flags.  */
+   unsigned int p_flags_valid : 1;
+@@ -248,6 +250,9 @@ struct elf_segment_map
+   /* Whether the p_align field is valid; if not, PT_LOAD segment
+      alignment is based on the default maximum page size.  */
+   unsigned int p_align_valid : 1;
++  /* Whether the p_size field is valid; if not, the size are based
++     on the section sizes.  */
++  unsigned int p_size_valid : 1;
+   /* Whether this segment includes the file header.  */
+   unsigned int includes_filehdr : 1;
+   /* Whether this segment includes the program headers.  */
+@@ -266,11 +271,12 @@ struct elf_segment_map
+      || segment->p_type == PT_TLS) ? sec_hdr->sh_size : 0)
+ 
+ /* Decide if the given sec_hdr is in the given segment.  PT_TLS segment
+-   contains only SHF_TLS sections.  Only PT_LOAD and PT_TLS segments
+-   can contain SHF_TLS sections.  */
++   contains only SHF_TLS sections.  Only PT_LOAD, PT_GNU_RELRO and
++   and PT_TLS segments can contain SHF_TLS sections.  */
+ #define ELF_IS_SECTION_IN_SEGMENT(sec_hdr, segment)			\
+   (((((sec_hdr->sh_flags & SHF_TLS) != 0)				\
+      && (segment->p_type == PT_TLS					\
++	 || segment->p_type == PT_GNU_RELRO				\
+ 	 || segment->p_type == PT_LOAD))				\
+     || ((sec_hdr->sh_flags & SHF_TLS) == 0				\
+ 	&& segment->p_type != PT_TLS))					\
+Index: binutils-2.18/ld/ldexp.c
+===================================================================
+--- binutils-2.18.orig/ld/ldexp.c
++++ binutils-2.18/ld/ldexp.c
+@@ -390,6 +390,7 @@ fold_binary (etree_type *tree)
+ 	      break;
+ 
+ 	    case DATA_SEGMENT_ALIGN:
++	      expld.dataseg.relro = exp_dataseg_relro_start;
+ 	      if (expld.phase != lang_first_phase_enum
+ 		  && expld.section == bfd_abs_section_ptr
+ 		  && (expld.dataseg.phase == exp_dataseg_none
+@@ -425,6 +426,7 @@ fold_binary (etree_type *tree)
+ 	      break;
+ 
+ 	    case DATA_SEGMENT_RELRO_END:
++	      expld.dataseg.relro = exp_dataseg_relro_end;
+ 	      if (expld.phase != lang_first_phase_enum
+ 		  && (expld.dataseg.phase == exp_dataseg_align_seen
+ 		      || expld.dataseg.phase == exp_dataseg_adjust
+Index: binutils-2.18/ld/ldexp.h
+===================================================================
+--- binutils-2.18.orig/ld/ldexp.h
++++ binutils-2.18/ld/ldexp.h
+@@ -98,6 +98,8 @@ typedef enum {
+   lang_final_phase_enum
+ } lang_phase_type;
+ 
++union lang_statement_union;
++
+ struct ldexp_control {
+   /* Modify expression evaluation depending on this.  */
+   lang_phase_type phase;
+@@ -125,6 +127,15 @@ struct ldexp_control {
+     } phase;
+ 
+     bfd_vma base, min_base, relro_end, end, pagesize, maxpagesize;
++
++    enum {
++      exp_dataseg_relro_none,
++      exp_dataseg_relro_start,
++      exp_dataseg_relro_end,
++    } relro;
++
++    union lang_statement_union *relro_start_stat;
++    union lang_statement_union *relro_end_stat;
+   } dataseg;
+ };
+ 
+Index: binutils-2.18/ld/ldlang.c
+===================================================================
+--- binutils-2.18.orig/ld/ldlang.c
++++ binutils-2.18/ld/ldlang.c
+@@ -4631,10 +4631,32 @@ lang_size_sections_1
+ 	    bfd_vma newdot = dot;
+ 	    etree_type *tree = s->assignment_statement.exp;
+ 
++	    expld.dataseg.relro = exp_dataseg_relro_none;
++
+ 	    exp_fold_tree (tree,
+ 			   output_section_statement->bfd_section,
+ 			   &newdot);
+ 
++	    if (expld.dataseg.relro == exp_dataseg_relro_start)
++	      {
++		if (!expld.dataseg.relro_start_stat)
++		  expld.dataseg.relro_start_stat = s;
++		else
++		  {
++		    ASSERT (expld.dataseg.relro_start_stat == s);
++		  }
++	      }
++	    else if (expld.dataseg.relro == exp_dataseg_relro_end)
++	      {
++		if (!expld.dataseg.relro_end_stat)
++		  expld.dataseg.relro_end_stat = s;
++		else
++		  {
++		    ASSERT (expld.dataseg.relro_end_stat == s);
++		  }
++	      }
++	    expld.dataseg.relro = exp_dataseg_relro_none;
++
+ 	    /* This symbol is relative to this section.  */
+ 	    if ((tree->type.node_class == etree_provided
+ 		 || tree->type.node_class == etree_assign)
+@@ -5660,6 +5682,81 @@ lang_gc_sections (void)
+     bfd_gc_sections (output_bfd, &link_info);
+ }
+ 
++/* Worker for lang_find_relro_sections_1.  */
++
++static void
++find_relro_section_callback (lang_wild_statement_type *ptr ATTRIBUTE_UNUSED,
++			     struct wildcard_list *sec ATTRIBUTE_UNUSED,
++			     asection *section,
++			     lang_input_statement_type *file ATTRIBUTE_UNUSED,
++			     void *data)
++{
++  /* Discarded, excluded and ignored sections effectively have zero
++     size.  */
++  if (section->output_section != NULL
++      && section->output_section->owner == output_bfd
++      && (section->output_section->flags & SEC_EXCLUDE) == 0
++      && !IGNORE_SECTION (section)
++      && section->size != 0)
++    {
++      bfd_boolean *has_relro_section = (bfd_boolean *) data;
++      *has_relro_section = TRUE;
++    }
++}
++
++/* Iterate over sections for relro sections.  */
++
++static void
++lang_find_relro_sections_1 (lang_statement_union_type *s,
++			    bfd_boolean *has_relro_section)
++{
++  if (*has_relro_section)
++    return;
++
++  for (; s != NULL; s = s->header.next)
++    {
++      if (s == expld.dataseg.relro_end_stat)
++	break;
++
++      switch (s->header.type)
++	{
++	case lang_wild_statement_enum:
++	  walk_wild (&s->wild_statement,
++		     find_relro_section_callback,
++		     has_relro_section);
++	  break;
++	case lang_constructors_statement_enum:
++	  lang_find_relro_sections_1 (constructor_list.head,
++				      has_relro_section);
++	  break;
++	case lang_output_section_statement_enum:
++	  lang_find_relro_sections_1 (s->output_section_statement.children.head,
++				      has_relro_section);
++	  break;
++	case lang_group_statement_enum:
++	  lang_find_relro_sections_1 (s->group_statement.children.head,
++				      has_relro_section);
++	  break;
++	default:
++	  break;
++	}
++    }
++}
++
++static void
++lang_find_relro_sections (void)
++{
++  bfd_boolean has_relro_section = FALSE;
++
++  /* Check all sections in the link script.  */
++
++  lang_find_relro_sections_1 (expld.dataseg.relro_start_stat,
++			      &has_relro_section);
++
++  if (!has_relro_section)
++    link_info.relro = FALSE;
++}
++
+ /* Relax all sections until bfd_relax_section gives up.  */
+ 
+ static void
+@@ -5787,6 +5884,10 @@ lang_process (void)
+      section positions, since they will affect SIZEOF_HEADERS.  */
+   lang_record_phdrs ();
+ 
++  /* Check relro sections.  */
++  if (link_info.relro && ! link_info.relocatable)
++    lang_find_relro_sections ();
++
+   /* Size up the sections.  */
+   lang_size_sections (NULL, !command_line.relax);
+ 
+Index: binutils-2.18/ld/testsuite/ld-elf/binutils.exp
+===================================================================
+--- binutils-2.18.orig/ld/testsuite/ld-elf/binutils.exp
++++ binutils-2.18/ld/testsuite/ld-elf/binutils.exp
+@@ -104,24 +104,42 @@ binutils_test strip "-shared" maxpage1
+ binutils_test objcopy "" maxpage1
+ binutils_test objcopy "-shared" maxpage1
+ 
+-binutils_test strip "-z relro" maxpage1
+-binutils_test strip "-z relro -shared" maxpage1
+-binutils_test objcopy "-z relro" maxpage1
+-binutils_test objcopy "-z relro -shared" maxpage1
++binutils_test strip "-z relro" relro1
++binutils_test strip "-z relro -shared" relro1
++binutils_test objcopy "-z relro" relro1
++binutils_test objcopy "-z relro -shared" relro1
++if { ([istarget "i?86-*-elf*"]		
++      || ([istarget "i?86-*-linux*"]
++	  && ![istarget "*-*-*aout*"]
++	  && ![istarget "*-*-*oldld*"])
++      || [istarget "x86_64-*-linux*"]
++      || [istarget "amd64-*-linux*"]) } {
++    binutils_test strip "-z relro -shared" relro2
++    binutils_test objcopy "-z relro -shared" relro2
++}
+ 
+ binutils_test objcopy "" tbss1
++binutils_test objcopy "-z relro" tbss1
+ binutils_test objcopy "-shared" tbss1
++binutils_test objcopy "-shared -z relro" tbss1
+ binutils_test objcopy "-z max-page-size=0x100000" tbss1
+ binutils_test objcopy "-z max-page-size=0x100000 -z common-page-size=0x1000" tbss1
+ binutils_test objcopy "" tdata1
++binutils_test objcopy "-z relro" tdata1
+ binutils_test objcopy "-shared" tdata1
++binutils_test objcopy "-shared -z relro" tdata1
+ binutils_test objcopy "-z max-page-size=0x100000" tdata1
+ binutils_test objcopy "-z max-page-size=0x100000 -z common-page-size=0x1000" tdata1
+ binutils_test objcopy "" tbss2
++binutils_test objcopy "-z relro" tbss2
+ binutils_test objcopy "-shared" tbss2
++binutils_test objcopy "-shared -z relro" tbss2
+ binutils_test objcopy "-z max-page-size=0x100000" tbss2
+ binutils_test objcopy "-z max-page-size=0x100000 -z common-page-size=0x1000" tbss2
+-binutils_test objcopy "-z max-page-size=0x100000" tdata2
++
+ binutils_test objcopy "" tdata2
++binutils_test objcopy "-z relro" tdata2
+ binutils_test objcopy "-shared" tdata2
++binutils_test objcopy "-shared -z relro" tdata2
++binutils_test objcopy "-z max-page-size=0x100000" tdata2
+ binutils_test objcopy "-z max-page-size=0x100000 -z common-page-size=0x1000" tdata2
+Index: binutils-2.18/ld/testsuite/ld-elf/relro1.s
+===================================================================
+--- /dev/null
++++ binutils-2.18/ld/testsuite/ld-elf/relro1.s
+@@ -0,0 +1,14 @@
++	.globl main
++	.globl start
++	.globl _start
++	.globl __start
++	.text
++main:
++start:
++_start:
++__start:
++	.long	0
++	.data
++	.long	0
++	.section .data.rel.ro,"aw",%progbits
++	.long	0
+Index: binutils-2.18/ld/testsuite/ld-elf/relro2.s
+===================================================================
+--- /dev/null
++++ binutils-2.18/ld/testsuite/ld-elf/relro2.s
+@@ -0,0 +1,5 @@
++	.text
++	.globl x
++	.type	x, @function
++x:
++	jmp foo@PLT

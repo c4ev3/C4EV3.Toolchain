@@ -1,0 +1,35 @@
+---
+ configure.in |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+Index: glibc-2.9/configure.in
+===================================================================
+--- glibc-2.9.orig/configure.in
++++ glibc-2.9/configure.in
+@@ -1353,6 +1353,8 @@ EOF
+     fi
+   fi
+ 
++  AC_CHECK_TARGET_TOOL([READELF],[readelf],[readelf],[$PATH])
++
+   AC_CACHE_CHECK(for .preinit_array/.init_array/.fini_array support,
+ 		 libc_cv_initfini_array, [dnl
+   cat > conftest.c <<EOF
+@@ -1364,7 +1366,7 @@ EOF
+   if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -o conftest conftest.c
+ 		     -static -nostartfiles -nostdlib 1>&AS_MESSAGE_LOG_FD])
+   then
+-    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
++    if $READELF -S conftest | fgrep INIT_ARRAY > /dev/null; then
+       libc_cv_initfini_array=yes
+     else
+       libc_cv_initfini_array=no
+@@ -1549,7 +1551,7 @@ dnl cross-platform since the gcc used ca
+ dnl introducing new options this is not easily doable.  Instead use a tool
+ dnl which always is cross-platform: readelf.  To detect whether -z combreloc
+ dnl look for a section named .rel.dyn.
+-    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
++    if $READELF -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
+       libc_cv_z_combreloc=yes
+     else
+       libc_cv_z_combreloc=no
