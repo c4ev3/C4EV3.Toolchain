@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -151,6 +151,18 @@ $(STATEDIR)/cross-gcc.install:
 	@$(call targetinfo)
 	cd $(CROSS_GCC_BUILDDIR) && \
 		$(CROSS_GCC_PATH) $(MAKE) install
+
+	@cd "$(PTXCONF_SYSROOT_CROSS)/$(PTX_TOUPLE_TARGET)/lib"; \
+	for file in \
+		libstdc++*.so* \
+		libssp*.so* \
+		libgfortran*.so* \
+		libg2c*.so* \
+		; do \
+		[ \! -e "$${file}" ] && continue; \
+		mv -v -f "$${file}" "$(SYSROOT)/usr/lib" || exit 1; \
+	done
+
 	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do \
 		rm -v $${la_file}; \
 	done
