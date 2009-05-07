@@ -1,9 +1,10 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 1.99.11
+# PTXdist version: 1.99.12
 #
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
+PTXCONF_NO_PLATFORM=y
 PTXCONF_PROJECT="OSELAS.Toolchain-1.99.3"
 
 #
