@@ -1,3 +1,7 @@
+2009-06-19 Marc Kleine-Budde <mkl@pengutronix.de>
+	* kernel: add patch that fixes getline problem with glibc > 2.10
+	  (backport from current mainline kernel)
+
 2009-05-08 Marc Kleine-Budde <mkl@pengutronix.de>
 	* libstdc++: install into sysroot, fixes problem with binutils > 2.19
 	  (only arm-1136 toolchain affected)
