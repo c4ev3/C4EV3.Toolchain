@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -50,16 +50,19 @@ GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
 	CC="$${CC} $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS)" \
 	\
-	libc_cv_asm_symver_directive=yes \
+	libc_cv_asm_cfi_directives=yes \
 	libc_cv_asm_protected_directive=yes \
-	libc_cv_visibility_attribute=yes \
-	libc_cv_broken_visibility_attribute=no \
+	libc_cv_asm_symver_directive=yes \
 	libc_cv_broken_alias_attribute=no \
+	libc_cv_broken_visibility_attribute=no \
+	libc_cv_forced_unwind=yes \
+	libc_cv_gcc___thread=yes \
 	libc_cv_initfini_array=yes \
+	libc_cv_visibility_attribute=yes \
+	libc_cv_z_initfirst=yes \
 	libc_cv_z_nodelete=yes \
 	libc_cv_z_nodlopen=yes \
-	libc_cv_z_initfirst=yes \
-	libc_cv_gcc___thread=yes \
+	libc_cv_z_relro=yes \
 	\
 	libc_cv_386_tls=yes \
 	\
