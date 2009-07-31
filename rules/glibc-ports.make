@@ -18,11 +18,13 @@ PACKAGES-$(PTXCONF_GLIBC_PORTS) += glibc-ports
 #
 # Paths and names
 #
-ifneq ($(PTXCONF_GLIBC_VERSION),"")
+ifneq ($(call remove_quotes $(PTXCONF_GLIBC_PORTS_VERSION)),)
 GLIBC_PORTS_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_PORTS_VERSION))
+else
+GLIBC_PORTS_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
 endif
 
-ifneq ($(PTXCONF_GLIBC_PORTS_TIMESTAMP),"")
+ifneq ($(call remove_quotes $(PTXCONF_GLIBC_PORTS_TIMESTAMP)),)
 GLIBC_PORTS_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_GLIBC_PORTS_TIMESTAMP))
 GLIBC_PORTS		:= glibc$(GLIBC_PORTS_VERSION)-ports$(GLIBC_PORTS_TIMESTAMP)
 else
