@@ -31,7 +31,11 @@ BUILDDATE	:= $(shell date +%y%m%d-%H%M)
 # 			echo "$${version}";;			\
 # 	esac							\
 # )
-VERSION		:= $(shell pwd | sed -e "s~.*/OSELAS.Toolchain-~~")
+VERSION		:= $(shell pwd | sed -n -e "s~.*/OSELAS.Toolchain-~~p")
+ifeq (,$(VERSION))
+$(error rename your working copy directory to OSELAS.Toolchain-$$VERSION)
+endif
+
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
 		(x86_64)	echo amd64;;	\
