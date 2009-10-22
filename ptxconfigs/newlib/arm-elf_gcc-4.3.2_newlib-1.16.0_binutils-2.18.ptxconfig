@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 1.99.12
+# PTXdist version: 1.99.19.1
 #
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
@@ -61,7 +61,6 @@ PTXCONF_CROSS_GCC_CONFIG_CXA_ATEXIT="--disable-__cxa_atexit"
 PTXCONF_CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS=y
 # PTXCONF_CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS is not set
 PTXCONF_CROSS_GCC_CONFIG_SJLJ_EXCEPTIONS="--enable-sjlj-exceptions"
-# PTXCONF_CROSS_GCC_ENABLE_LIBSSP is not set
 PTXCONF_CROSS_GCC_DISABLE_LIBSSP=y
 PTXCONF_CROSS_GCC_CONFIG_LIBSSP="--disable-libssp"
 # PTXCONF_CROSS_GCC_ENABLE_SHARED is not set
