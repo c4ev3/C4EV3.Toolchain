@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -29,6 +28,8 @@ CROSS_GCC_URL	 	:= \
 	$(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
+
+ptx/abs2rel := $(PTXDIST_WORKSPACE)/scripts/ptxd_abs2rel.sh
 
 # ----------------------------------------------------------------------------
 # Get
@@ -149,18 +150,30 @@ $(STATEDIR)/cross-gcc.compile:
 
 $(STATEDIR)/cross-gcc.install:
 	@$(call targetinfo)
-	cd $(CROSS_GCC_BUILDDIR) && \
+	@cd $(CROSS_GCC_BUILDDIR) && \
 		$(CROSS_GCC_PATH) $(MAKE) install
 
 	@cd "$(PTXCONF_SYSROOT_CROSS)/$(PTX_TOUPLE_TARGET)/lib"; \
+	rel="$$($(ptx/abs2rel) "$${PWD}" "$(SYSROOT)/usr/lib")" && \
 	for file in \
-		libstdc++*.so* \
-		libssp*.so* \
-		libgfortran*.so* \
-		libg2c*.so* \
+		libg2c.*so* \
+		libgcc_s.*so* \
+		libgfortran.*so* \
+		libgomp.*so* \
+		libmudflap.*so* \
+		libmudflapth.*so* \
+		libssp.*so* \
+		libstdc++.*so* \
 		; do \
 		[ \! -e "$${file}" ] && continue; \
-		mv -v -f "$${file}" "$(SYSROOT)/usr/lib" || exit 1; \
+		\
+		rel_file="$${rel}/$${file}"; \
+		if [ -L "$${file}" ]; then \
+			cp -vdpR "$${file}" "$${rel_file}"; \
+		else \
+			mv -vf "$${file}" "$${rel_file}" && \
+			ln -vfs "$${rel_file}" "$${file}"; \
+		fi || exit 1; \
 	done
 
 	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do \
