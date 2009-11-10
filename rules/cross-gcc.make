@@ -154,7 +154,8 @@ $(STATEDIR)/cross-gcc.install:
 		$(CROSS_GCC_PATH) $(MAKE) install
 
 	@cd "$(PTXCONF_SYSROOT_CROSS)/$(PTX_TOUPLE_TARGET)/lib"; \
-	rel="$$($(ptx/abs2rel) "$${PWD}" "$(SYSROOT)/usr/lib")" && \
+	dst="$(SYSROOT)/usr/lib"; \
+	rel="$$($(ptx/abs2rel) "$${dst}" "$${PWD}")" && \
 	for file in \
 		libg2c.*so* \
 		libgcc_s.*so* \
@@ -167,18 +168,19 @@ $(STATEDIR)/cross-gcc.install:
 		; do \
 		[ \! -e "$${file}" ] && continue; \
 		\
+		dst_file="$${dst}/$${file}"; \
 		rel_file="$${rel}/$${file}"; \
 		if [ -L "$${file}" ]; then \
-			cp -vdpR "$${file}" "$${rel_file}"; \
+			cp -vdpR "$${file}" "$${dst_file}"; \
 		else \
-			mv -vf "$${file}" "$${rel_file}" && \
-			ln -vfs "$${rel_file}" "$${file}"; \
+			ln -vfs "$${rel_file}" "$${dst_file}"; \
 		fi || exit 1; \
 	done
 
 	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do \
 		rm -v $${la_file}; \
 	done
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
