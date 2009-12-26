@@ -29,7 +29,6 @@ gentoo/53_all_gcc4-superh-default-multilib.patch
 gentoo/54_all_300-libstdc++-pic.patch
 gentoo/61_all_gcc43-pr24170.patch
 gentoo/61_all_gcc4-ia64-noteGNUstack.patch
-gentoo/62_all_gcc4-noteGNUstack.patch
 gentoo/64_all_gcc43-pr34571.patch
 gentoo/66_all_gcc43-pr25343.patch
 gentoo/74_all_sh-pr24836.patch
