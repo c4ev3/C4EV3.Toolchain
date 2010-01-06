@@ -33,3 +33,4 @@ gentoo/64_all_gcc43-pr34571.patch
 gentoo/66_all_gcc43-pr25343.patch
 gentoo/74_all_sh-pr24836.patch
 gcc-43-pr39429.diff
+PR-bootstrap-41180.patch
