@@ -52,6 +52,7 @@ $(STATEDIR)/host-mpfr.extract:
 
 HOST_MPFR_PATH	:= PATH=$(HOST_PATH)
 HOST_MPFR_ENV 	:= $(PTX_HOST_ENV)
+HOST_MPFR_DEVPKG:= NO
 
 #
 # autoconf
