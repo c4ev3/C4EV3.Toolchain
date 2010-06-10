@@ -3,7 +3,6 @@
 menuconfig CROSS_GCC
 	bool
 	prompt "gcc                         "
-	bool
 	select CROSS_BINUTILS
 	select LIBC_FIRST
 	select HOST_GMP		if CROSS_GCC_43
