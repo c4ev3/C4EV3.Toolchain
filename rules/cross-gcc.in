@@ -7,6 +7,7 @@ menuconfig CROSS_GCC
 	select LIBC_FIRST
 	select HOST_GMP		if CROSS_GCC_43
 	select HOST_MPFR	if CROSS_GCC_43
+	select HOST_MPC		if CROSS_GCC_43
 	select CROSS_ECJ	if CROSS_GCC_LANG_JAVA
 
 if CROSS_GCC
@@ -169,3 +170,5 @@ config CROSS_GCC_FIRST
 	select LIBC_HEADERS
 	select HOST_GMP		if CROSS_GCC_43
 	select HOST_MPFR	if CROSS_GCC_43
+	select HOST_MPC		if CROSS_GCC_43
+

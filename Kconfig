@@ -67,6 +67,7 @@ source "workspace/rules/cross-gcc.in"
 source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-gmp.in"
+source "workspace/rules/host-mpc.in"
 source "workspace/rules/host-mpfr.in"
 
 comment "----------------------------------"
