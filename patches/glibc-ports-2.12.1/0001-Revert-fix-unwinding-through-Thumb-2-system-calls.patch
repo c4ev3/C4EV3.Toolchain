@@ -1,0 +1,241 @@
+Revert the patch below.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
+From 2dcd7ed8fd149a5aefc8c7a7ff041ff389348b4f Mon Sep 17 00:00:00 2001
+From: Daniel Jacobowitz <dan@codesourcery.com>
+Date: Thu, 8 Apr 2010 12:43:55 -0400
+Subject: [PATCH] Fix unwinding through Thumb-2 system calls.
+
+---
+ ChangeLog.arm                                      |    9 ---
+ sysdeps/unix/sysv/linux/arm/eabi/Makefile          |   31 ------------
+ sysdeps/unix/sysv/linux/arm/eabi/libc-do-syscall.S |   43 -----------------
+ sysdeps/unix/sysv/linux/arm/eabi/nptl/aio_misc.h   |   52 +++++++++++++++++++++
+ sysdeps/unix/sysv/linux/arm/eabi/sysdep.h          |   38 ++++++---------
+ 5 files changed, 69 insertions(+), 104 deletions(-)
+ create mode 100644 sysdeps/unix/sysv/linux/arm/eabi/libc-do-syscall.S
+ delete mode 100644 sysdeps/unix/sysv/linux/arm/eabi/nptl/aio_misc.h
+
+Index: glibc-ports-2.12.1/ChangeLog.arm
+===================================================================
+--- glibc-ports-2.12.1.orig/ChangeLog.arm
++++ glibc-ports-2.12.1/ChangeLog.arm
+@@ -2,15 +2,6 @@
+ 
+ 	* sysdeps/unix/sysv/linux/arm/eabi/internal_recvmmsg.S: New.
+ 
+-2010-04-08  Daniel Jacobowitz  <dan@codesourcery.com>
+-
+-	* sysdeps/unix/sysv/linux/arm/eabi/libc-do-syscall.S: New file.
+-	* sysdeps/unix/sysv/linux/arm/eabi/sysdep.h [__thumb__]
+-	(INTERNAL_SYSCALL_RAW): Rewrite to use __libc_do_syscall.
+-	* sysdeps/unix/sysv/linux/arm/eabi/Makefile: Add libc-do-syscall
+-	to libraries and tests that require it.
+-	* sysdeps/unix/sysv/linux/arm/eabi/nptl/aio_misc.h: Delete.
+-
+ 2010-03-30  Joseph Myers  <joseph@codesourcery.com>
+ 
+ 	* sysdeps/arm/dl-machine.h (VALID_ELF_ABIVERSION, VALID_ELF_OSABI,
+Index: glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/libc-do-syscall.S
+===================================================================
+--- glibc-ports-2.12.1.orig/sysdeps/unix/sysv/linux/arm/eabi/libc-do-syscall.S
++++ /dev/null
+@@ -1,43 +0,0 @@
+-/* Copyright (C) 2010 Free Software Foundation, Inc.
+-   This file is part of the GNU C Library.
+-
+-   The GNU C Library is free software; you can redistribute it and/or
+-   modify it under the terms of the GNU Lesser General Public
+-   License as published by the Free Software Foundation; either
+-   version 2.1 of the License, or (at your option) any later version.
+-
+-   The GNU C Library is distributed in the hope that it will be useful,
+-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   Lesser General Public License for more details.
+-
+-   You should have received a copy of the GNU Lesser General Public
+-   License along with the GNU C Library; if not, write to the Free
+-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+-   02111-1307 USA.  */
+-
+-#include <sysdep.h>
+-
+-/* Out-of-line syscall stub.  We expect the system call number in ip
+-   and return the raw result in r0.  No registers are clobbered.
+-   We could avoid using the stack for this, but the goal is accurate
+-   unwind information - and while there is a reserved prefix in the
+-   ARM unwind tables for register to register moves, the actual opcodes
+-   are not defined.  */
+-
+-	.thumb
+-	.syntax unified
+-	.hidden __libc_do_syscall
+-
+-ENTRY (__libc_do_syscall)
+-	.fnstart
+-	push	{r7, lr}
+-	.save	{r7, lr}
+-	cfi_adjust_cfa_offset (8)
+-	cfi_rel_offset (r7, 0)
+-	cfi_rel_offset (lr, 4)
+-	mov	r7, ip
+-	swi	0x0
+-	pop	{r7, pc}
+-	.fnend
+-END (__libc_do_syscall)
+Index: glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/Makefile
+===================================================================
+--- glibc-ports-2.12.1.orig/sysdeps/unix/sysv/linux/arm/eabi/Makefile
++++ glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/Makefile
+@@ -7,34 +7,3 @@ ifeq ($(subdir),csu)
+ # unwind tables for __libc_start_main.
+ CFLAGS-libc-start.c += -fexceptions
+ endif
+-
+-# Add a syscall function to each library that needs one.
+-
+-ifeq ($(subdir),rt)
+-librt-sysdep_routines += libc-do-syscall
+-librt-shared-only-routines += libc-do-syscall
+-endif
+-
+-ifeq ($(subdir),nptl)
+-libpthread-sysdep_routines += libc-do-syscall
+-libpthread-shared-only-routines += libc-do-syscall
+-endif
+-
+-ifeq ($(subdir),resolv)
+-libanl-sysdep_routines += libc-do-syscall
+-libanl-shared-only-routines += libc-do-syscall
+-endif
+-
+-ifeq ($(subdir),csu)
+-sysdep_routines += libc-do-syscall
+-endif
+-
+-ifeq ($(subdir),nscd)
+-nscd-modules += libc-do-syscall
+-endif
+-
+-ifeq ($(subdir),posix)
+-LDFLAGS-tst-rfc3484 += $(common-objpfx)csu/libc-do-syscall.o
+-LDFLAGS-tst-rfc3484-2 += $(common-objpfx)csu/libc-do-syscall.o
+-LDFLAGS-tst-rfc3484-3 += $(common-objpfx)csu/libc-do-syscall.o
+-endif
+Index: glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/nptl/aio_misc.h
+===================================================================
+--- /dev/null
++++ glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/nptl/aio_misc.h
+@@ -0,0 +1,52 @@
++/* Copyright (C) 2008 Free Software Foundation, Inc.
++   This file is part of the GNU C Library.
++
++   The GNU C Library is free software; you can redistribute it and/or
++   modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either
++   version 2.1 of the License, or (at your option) any later version.
++
++   The GNU C Library is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++   Lesser General Public License for more details.
++
++   You should have received a copy of the GNU Lesser General Public
++   License along with the GNU C Library; if not, write to the Free
++   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
++   02111-1307 USA.  */
++
++#include_next <aio_misc.h>
++
++#ifdef __thumb2__
++
++#include <errno.h>
++
++/* The Thumb-2 definition of INTERNAL_SYSCALL_RAW has to hide the use
++   of r7 from the compiler because it cannot handle asm clobbering the
++   hard frame pointer.  In aio_suspend, GCC does not eliminate the
++   hard frame pointer because the function uses variable-length
++   arrays, so it generates unwind information using r7 as virtual
++   stack pointer.  During system calls, when r7 has been saved on the
++   stack, this means the unwind information is invalid.  Without extra
++   unwind directives, which would need to cause unwind information for
++   the asm to be generated separately from that for the parts of the
++   function before and after the asm (with three index table entries),
++   it is not possible to represent any temporary change to the virtual
++   stack pointer.  Instead, we move the problematic system calls out
++   of line into a function that does not require a frame pointer.  */
++
++static __attribute_noinline__ void
++aio_misc_wait (int *resultp,
++	       volatile int *futexp,
++	       const struct timespec *timeout,
++	       int cancel)
++{
++  AIO_MISC_WAIT (*resultp, *futexp, timeout, cancel);
++}
++
++#undef AIO_MISC_WAIT
++#define AIO_MISC_WAIT(result, futex, timeout, cancel)	\
++  aio_misc_wait (&result, &futex, timeout, cancel)
++
++#endif
+Index: glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/sysdep.h
+===================================================================
+--- glibc-ports-2.12.1.orig/sysdeps/unix/sysv/linux/arm/eabi/sysdep.h
++++ glibc-ports-2.12.1/sysdeps/unix/sysv/linux/arm/eabi/sysdep.h
+@@ -44,34 +44,30 @@
+    argument; otherwise the (optional) compatibility code for APCS binaries
+    may be invoked.  */
+ 
+-#if defined(__thumb__)
+-/* We can not expose the use of r7 to the compiler.  GCC (as
+-   of 4.5) uses r7 as the hard frame pointer for Thumb - although
+-   for Thumb-2 it isn't obviously a better choice than r11.
+-   And GCC does not support asms that conflict with the frame
+-   pointer.
+-
+-   This would be easier if syscall numbers never exceeded 255,
+-   but they do.  For the moment the LOAD_ARGS_7 is sacrificed.
++#ifdef __thumb__
++/* Hide the use of r7 from the compiler, this would be a lot
++   easier but for the fact that the syscalls can exceed 255.
++   For the moment the LOAD_ARGS_7 is sacrificed.
+    We can't use push/pop inside the asm because that breaks
+-   unwinding (i.e. thread cancellation) for this frame.  We can't
+-   locally save and restore r7, because we do not know if this
+-   function uses r7 or if it is our caller's r7; if it is our caller's,
+-   then unwinding will fail higher up the stack.  So we move the
+-   syscall out of line and provide its own unwind information.  */
++   unwinding (ie. thread cancellation).  */
++/* FIXME: the str / ldr of r7 are not covered by CFI information.  */
+ #undef LOAD_ARGS_7
+ #undef INTERNAL_SYSCALL_RAW
+ #define INTERNAL_SYSCALL_RAW(name, err, nr, args...)		\
+   ({								\
++      int _sys_buf[2];						\
+       register int _a1 asm ("a1");				\
+-      int _nametmp = name;					\
++      register int *_r6 asm ("r6") = _sys_buf;			\
++      *_r6 = name;						\
+       LOAD_ARGS_##nr (args)					\
+-      register int _name asm ("ip") = _nametmp;			\
+-      asm volatile ("bl      __libc_do_syscall"			\
+-                    : "=r" (_a1)				\
+-                    : "r" (_name) ASM_ARGS_##nr			\
+-                    : "memory", "lr");				\
+-      _a1; })
++      asm volatile ("str        r7, [r6, #4]\n\t"		\
++                    "ldr      r7, [r6]\n\t"			\
++                    "swi      0       @ syscall " #name "\n\t"	\
++                    "ldr      r7, [r6, #4]"			\
++                   : "=r" (_a1)					\
++                    : "r" (_r6) ASM_ARGS_##nr			\
++                    : "memory");				\
++       _a1; })
+ #else /* ARM */
+ #undef INTERNAL_SYSCALL_RAW
+ #define INTERNAL_SYSCALL_RAW(name, err, nr, args...)		\
