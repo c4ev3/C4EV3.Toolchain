@@ -5,3 +5,4 @@ sysdeps_unix_sysv_linux_arm_socket_S-alias.diff
 sysdeps_arm-fp-byteorder.diff
 csu_Makefile-quotes.diff
 gentoo/1090_all_glibc-2.3.6-fix-pr631.patch
+0001-Handle-future-binutils-versions-correctly.patch
