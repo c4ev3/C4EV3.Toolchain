@@ -1,0 +1,42 @@
+http://sources.redhat.com/ml/libc-alpha/2003-06/msg00027.html
+http://www.m17n.org/linux-sh/ml/linux-sh/2003-05/msg00010.html
+
+http://rpm.sh-linux.org/rpm-2004/target/SRPMS/glibc-2.3.3-27.12.src.rpm
+
+http://bugs.gentoo.org/100696
+
+---
+ sysdeps/unix/sysv/linux/sh/Versions |    1 +
+ sysdeps/unix/sysv/linux/sh/sysdep.S |   10 ++++++++++
+ 2 files changed, 11 insertions(+)
+
+Index: glibc-2.12.1/sysdeps/unix/sysv/linux/sh/Versions
+===================================================================
+--- glibc-2.12.1.orig/sysdeps/unix/sysv/linux/sh/Versions
++++ glibc-2.12.1/sysdeps/unix/sysv/linux/sh/Versions
+@@ -2,6 +2,7 @@ libc {
+   GLIBC_2.2 {
+     # functions used in other libraries
+     __xstat64; __fxstat64; __lxstat64;
++    __fpscr_values;
+ 
+     # a*
+     alphasort64;
+Index: glibc-2.12.1/sysdeps/unix/sysv/linux/sh/sysdep.S
+===================================================================
+--- glibc-2.12.1.orig/sysdeps/unix/sysv/linux/sh/sysdep.S
++++ glibc-2.12.1/sysdeps/unix/sysv/linux/sh/sysdep.S
+@@ -32,3 +32,13 @@ ENTRY (__syscall_error)
+ 
+ #define __syscall_error __syscall_error_1
+ #include <sysdeps/unix/sh/sysdep.S>
++
++	.data
++	.align 3
++	.globl ___fpscr_values
++	.type ___fpscr_values, @object
++	.size ___fpscr_values, 8
++___fpscr_values:
++	.long	0
++	.long	0x80000
++weak_alias (___fpscr_values, __fpscr_values)

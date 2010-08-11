@@ -1,0 +1,23 @@
+http://bugs.gentoo.org/202511
+
+2007-12-24  Mike Frysinger  <vapier@gentoo.org>
+
+	* elf/Makefile ($(objpfx)ld.so): Use POSIX (EF)? in awk.
+
+---
+ elf/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.12.1/elf/Makefile
+===================================================================
+--- glibc-2.12.1.orig/elf/Makefile
++++ glibc-2.12.1/elf/Makefile
+@@ -379,7 +379,7 @@ $(objpfx)ld.so: $(objpfx)librtld.os $(ld
+ 		  -Wl,-soname=$(rtld-installed-name) -T $@.lds
+ 	rm -f $@.lds
+ 	readelf -s $@ \
+-	  | $(AWK) '($$7 ~ /^UND(|EF)$$/ && $$1 != "0:" && $$4 != "REGISTER") { print; p=1 } END { exit p != 0 }'
++	  | $(AWK) '($$7 ~ /^UND(EF)?$$/ && $$1 != "0:" && $$4 != "REGISTER") { print; p=1 } END { exit p != 0 }'
+ 
+ # interp.c exists just to get this string into the libraries.
+ CFLAGS-interp.c = -D'RUNTIME_LINKER="$(slibdir)/$(rtld-installed-name)"' \

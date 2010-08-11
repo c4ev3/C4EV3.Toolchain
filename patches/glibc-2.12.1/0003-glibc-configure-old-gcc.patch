@@ -1,0 +1,17 @@
+---
+ configure |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: glibc-2.12.1/configure
+===================================================================
+--- glibc-2.12.1.orig/configure
++++ glibc-2.12.1/configure
+@@ -5087,7 +5087,7 @@ $as_echo_n "checking version of $CC... "
+   { $as_echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+ $as_echo "$ac_prog_version" >&6; }
+ fi
+-if test $ac_verc_fail = yes; then
++if test $ac_verc_fail = yes -a -z "$enable_hacker_mode"; then
+   critic_missing="$critic_missing gcc"
+ fi
+ 
