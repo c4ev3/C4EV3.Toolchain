@@ -1,0 +1,8 @@
+# fragwürdig
+gentoo/08_all_binutils-RPATH_ENVVAR-smack.patch
+# still necessary?
+gentoo/42_all_012_check_ldrunpath_length.patch
+# ok
+gentoo/66_all_binutils-2.17.50.0.2-warn-textrel.patch
+gentoo/76_all_only-use-new-ld-dtags.patch.disabled
+gentoo/91_all_libiberty-pic.patch
