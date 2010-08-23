@@ -1,0 +1,53 @@
+This patch was taken from uclibc. It has "WONTFIX" status in the gcc
+bugzilla and should probably be done differently:
+
+http://gcc.gnu.org/bugzilla/show_bug.cgi?id=34205
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ gcc/c-common.h |    1 +
+ gcc/rtl.h      |    4 +++-
+ gcc/tree.h     |    1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+Index: gcc-4.4.4/gcc/tree.h
+===================================================================
+--- gcc-4.4.4.orig/gcc/tree.h
++++ gcc-4.4.4/gcc/tree.h
+@@ -39,6 +39,7 @@ along with GCC; see the file COPYING3.
+ enum tree_code {
+ #include "all-tree.def"
+ MAX_TREE_CODES
++,__MAX_TREE_CODES=32767 /* Force 16bit width.  */
+ };
+ 
+ #undef DEFTREECODE
+Index: gcc-4.4.4/gcc/rtl.h
+===================================================================
+--- gcc-4.4.4.orig/gcc/rtl.h
++++ gcc-4.4.4/gcc/rtl.h
+@@ -48,9 +48,11 @@ enum rtx_code  {
+ #include "rtl.def"		/* rtl expressions are documented here */
+ #undef DEF_RTL_EXPR
+ 
+-  LAST_AND_UNUSED_RTX_CODE};	/* A convenient way to get a value for
++  LAST_AND_UNUSED_RTX_CODE	/* A convenient way to get a value for
+ 				   NUM_RTX_CODE.
+ 				   Assumes default enum value assignment.  */
++  ,__LAST_AND_UNUSED_RTX_CODE=32767 /* Force 16bit width.  */
++};
+ 
+ #define NUM_RTX_CODE ((int) LAST_AND_UNUSED_RTX_CODE)
+ 				/* The cast here, saves many elsewhere.  */
+Index: gcc-4.4.4/gcc/c-common.h
+===================================================================
+--- gcc-4.4.4.orig/gcc/c-common.h
++++ gcc-4.4.4/gcc/c-common.h
+@@ -130,6 +130,7 @@ enum rid
+   RID_LAST_AT = RID_AT_IMPLEMENTATION,
+   RID_FIRST_PQ = RID_IN,
+   RID_LAST_PQ = RID_ONEWAY
++  ,__LAST_AND_UNUSED_RID=32767 /* Force 16bit width.  */
+ };
+ 
+ #define OBJC_IS_AT_KEYWORD(rid) \

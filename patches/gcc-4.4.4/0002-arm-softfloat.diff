@@ -1,0 +1,44 @@
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+Link assembler softfloat functions into gcc. As the functions are there
+in that case anyway, don't add switches for float lib.
+
+Upstream will not fix this because oabi is dead.
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ gcc/config/arm/linux-elf.h |    2 +-
+ gcc/config/arm/t-linux     |    5 ++++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+Index: gcc-4.4.4/gcc/config/arm/linux-elf.h
+===================================================================
+--- gcc-4.4.4.orig/gcc/config/arm/linux-elf.h
++++ gcc-4.4.4/gcc/config/arm/linux-elf.h
+@@ -60,7 +60,7 @@
+    %{shared:-lc} \
+    %{!shared:%{profile:-lc_p}%{!profile:-lc}}"
+ 
+-#define LIBGCC_SPEC "%{msoft-float:-lfloat} %{mfloat-abi=soft*:-lfloat} -lgcc"
++#define LIBGCC_SPEC "-lgcc"
+ 
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
+ 
+Index: gcc-4.4.4/gcc/config/arm/t-linux
+===================================================================
+--- gcc-4.4.4.orig/gcc/config/arm/t-linux
++++ gcc-4.4.4/gcc/config/arm/t-linux
+@@ -4,7 +4,10 @@ TARGET_LIBGCC2_CFLAGS = -fomit-frame-poi
+ 
+ LIB1ASMSRC = arm/lib1funcs.asm
+ LIB1ASMFUNCS = _udivsi3 _divsi3 _umodsi3 _modsi3 _dvmd_lnx _clzsi2 _clzdi2 \
+-	_arm_addsubdf3 _arm_addsubsf3
++	_arm_addsubdf3 _arm_addsubsf3 \
++	_negdf2 _addsubdf3 _muldivdf3 _cmpdf2 _unorddf2 _fixdfsi _fixunsdfsi \
++	_truncdfsf2 _negsf2 _addsubsf3 _muldivsf3 _cmpsf2 _unordsf2 \
++	_fixsfsi _fixunssfsi _floatdidf _floatdisf
+ 
+ # MULTILIB_OPTIONS = mhard-float/msoft-float
+ # MULTILIB_DIRNAMES = hard-float soft-float
