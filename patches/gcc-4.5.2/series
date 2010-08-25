@@ -1,0 +1,21 @@
+# from OSELAS.toolchain
+0001-no-host-includes.diff
+0002-arm-softfloat.diff
+0003-pr39429.diff
+
+# from uclibc
+0004-uclibc-conf.patch
+0005-missing-execinfo_h.patch
+0006-c99-snprintf.patch
+0007-libmudflap-susv3-legacy.patch
+0008-arm_insn-opinit-RTX_CODE-fixup.patch
+0009-short-enums.diff
+
+# from gentoo
+0010-all_gcc-trampolinewarn.patch
+0011-flatten-switch-stmt-00.patch
+0012-libiberty-pic.patch
+0013-libstdc++-pic.patch
+
+# from oe
+0014-arm-bswapsi2.patch
