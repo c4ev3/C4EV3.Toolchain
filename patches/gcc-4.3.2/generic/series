@@ -7,6 +7,9 @@ arm-softfloat.diff
 # bugfixes
 gcc-43-pr32044.diff
 gcc-43-pr37220.diff
+gcc-43-pr39429.diff
+PR-bootstrap-41180.patch
+gcc-43-pr35965.diff
 
 # from uclibc
 uclibc/100-uclibc-conf.patch
@@ -32,5 +35,3 @@ gentoo/61_all_gcc4-ia64-noteGNUstack.patch
 gentoo/64_all_gcc43-pr34571.patch
 gentoo/66_all_gcc43-pr25343.patch
 gentoo/74_all_sh-pr24836.patch
-gcc-43-pr39429.diff
-PR-bootstrap-41180.patch
