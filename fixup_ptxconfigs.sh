@@ -19,8 +19,8 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.9"
-    PTXCONF_PROJECT="${PWD}"
+    PTXCONF_CONFIGFILE_VERSION="2011.01.0"
+    PTXCONF_PROJECT="OSELAS.Toolchain-2011.02.0"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
@@ -223,6 +223,9 @@ fixup()
 	2.6.2[6789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
 	    ;;
+	2.6.3[56789])
+	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
+	    ;;
 	"")
 	    ;;
 	*)
@@ -234,7 +237,7 @@ fixup()
     #
     # PTXCONF_CROSS_GDB_VERSION
     #
-    PTXCONF_CROSS_GDB_VERSION="6.8"
+    PTXCONF_CROSS_GDB_VERSION="7.2"
     case "${PTXCONF_CROSS_GCC_VERSION}" in
 	3.*|4.[012].*)
 	    PTXCONF_CROSS_GCC_43=n
