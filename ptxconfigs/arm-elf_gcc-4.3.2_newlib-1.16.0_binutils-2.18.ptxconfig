@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# Linux Kernel Configuration
+# PTXdist 2011.01.0
 #
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
@@ -41,10 +41,7 @@ PTXCONF_NEWLIB=y
 PTXCONF_NEWLIB_VERSION="1.16.0"
 PTXCONF_CROSS_BINUTILS=y
 PTXCONF_CROSS_BINUTILS_VERSION="2.18"
-
-#
-# kernel                      
-#
+# PTXCONF_KERNEL_HEADERS is not set
 PTXCONF_CROSS_GCC=y
 PTXCONF_CROSS_GCC_VERSION="4.3.2"
 PTXCONF_CROSS_GCC_43=y
@@ -79,6 +76,7 @@ PTXCONF_CROSS_TOOLCHAIN=y
 PTXCONF_HOST_GMP=y
 PTXCONF_HOST_MPC=y
 PTXCONF_HOST_MPFR=y
+PTXCONF_HOST_ZLIB=y
 
 #
 # ----------------------------------
