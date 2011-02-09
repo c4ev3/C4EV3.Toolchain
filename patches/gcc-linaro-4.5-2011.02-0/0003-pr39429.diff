@@ -1,0 +1,38 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+This is http://gcc.gnu.org/bugzilla/show_bug.cgi?id=39429.
+
+I've removed Michael's original patch and replaced it by the one from
+the gcc bugzilla.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ gcc/config/arm/arm.md |   15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+Index: gcc-4.5.1/gcc/config/arm/arm.md
+===================================================================
+--- gcc-4.5.1.orig/gcc/config/arm/arm.md
++++ gcc-4.5.1/gcc/config/arm/arm.md
+@@ -10390,6 +10390,21 @@
+ 	else
+ 	  {
+ 	    /* Offset is out of range for a single add, so use two ldr.  */
++
++	    /* Swap the ldrs if the first ldr would clobber the shared base_reg.  */
++	    if (REGNO (ldm[1]) == REGNO (base_reg))
++	      {
++		rtx tmp_reg;
++		HOST_WIDE_INT tmp_val;
++
++		tmp_reg = ldm[1];
++		ldm[1] = ldm[2];
++		ldm[2] = tmp_reg;
++		tmp_val = val1;
++		val1 = val2;
++		val2 = tmp_val;
++	      }
++
+ 	    ops[0] = ldm[1];
+ 	    ops[1] = base_reg;
+ 	    ops[2] = GEN_INT (val1);
