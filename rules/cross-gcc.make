@@ -82,7 +82,8 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	\
 	--enable-symvers=gnu \
 	\
-	--with-pkgversion=${PTXCONF_PROJECT}
+	--with-pkgversion=${PTXCONF_PROJECT} \
+	--with-system-zlib
 
 ifdef PTXCONF_HOST_GMP
 CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
