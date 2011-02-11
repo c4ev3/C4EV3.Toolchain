@@ -71,6 +71,7 @@ source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-gmp.in"
 source "workspace/rules/host-mpc.in"
 source "workspace/rules/host-mpfr.in"
+source "workspace/rules/host-zlib.in"
 
 comment "----------------------------------"
 
