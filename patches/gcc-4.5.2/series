@@ -19,3 +19,6 @@
 
 # from oe
 0014-arm-bswapsi2.patch
+
+# from upstream
+0015-Fix-libjava-cross-build-issue.patch

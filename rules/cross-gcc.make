@@ -140,6 +140,7 @@ $(STATEDIR)/cross-gcc.prepare:
 
 $(STATEDIR)/cross-gcc.compile:
 	@$(call targetinfo)
+	@ln -sf `which $(HOSTCC)` $(PTXCONF_SYSROOT_HOST)/bin/$(GNU_BUILD)-gcc
 	cd $(CROSS_GCC_BUILDDIR) && $(CROSS_GCC_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
