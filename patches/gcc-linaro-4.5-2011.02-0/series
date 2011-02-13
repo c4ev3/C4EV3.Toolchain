@@ -19,3 +19,6 @@
 
 # from upstream
 0015-Fix-libjava-cross-build-issue.patch
+
+# reverted linaro patch
+0016-debian-patch-revert-issue1259.patch

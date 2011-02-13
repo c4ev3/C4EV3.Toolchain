@@ -1,0 +1,40 @@
+# DP: Revert change for Linaro issue #1259, Do not default to
+# DP: -fstrict-volatile-bitfields on arm. LP: #675347.
+
+2010-10-26  Jie Zhang  <jie@codesourcery.com>
+
+	Issue #1259
+
+	Backport from mainline:
+
+	gcc/
+	2010-10-26  Jie Zhang  <jie@codesourcery.com>
+
+	* stor-layout.c (layout_decl): Use the field's type to
+	determine the mode and keep DECL_BIT_FIELD for a volatile
+	bit-field.
+	* config/arm/arm.c (arm_override_options): Default to
+	-fstrict-volatile-bitfields.
+
+	gcc/testsuite/
+	2010-10-26  Jie Zhang  <jie@codesourcery.com>
+
+	* gcc.target/arm/volatile-bitfields-1.c: New test.
+	* gcc.target/arm/volatile-bitfields-2.c: New test.
+	* gcc.target/arm/volatile-bitfields-3.c: New test.
+
+ 
+--- a/gcc/config/arm/arm.c
++++ b/gcc/config/arm/arm.c
+@@ -1933,11 +1933,6 @@
+        calculation, which is 2 instructions.  */
+     set_param_value ("gcse-unrestricted-cost", 2);
+ 
+-  /* ARM EABI defaults to strict volatile bitfields.  */
+-  if (TARGET_AAPCS_BASED && flag_strict_volatile_bitfields < 0
+-      && abi_version_at_least(2))
+-    flag_strict_volatile_bitfields = 1;
+-
+   /* Register global variables with the garbage collector.  */
+   arm_add_gc_roots ();
+ 
