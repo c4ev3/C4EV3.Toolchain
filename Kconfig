@@ -4,6 +4,8 @@
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 
+mainmenu "PTXdist $CONFIGFILE_VERSION"
+
 config _ptxconfig_MAGIC__
 	bool
 	default y
@@ -67,7 +69,9 @@ source "workspace/rules/cross-gcc.in"
 source "workspace/rules/cross-gdb.in"
 source "workspace/rules/cross-toolchain.in"
 source "workspace/rules/host-gmp.in"
+source "workspace/rules/host-mpc.in"
 source "workspace/rules/host-mpfr.in"
+source "workspace/rules/host-zlib.in"
 
 comment "----------------------------------"
 
@@ -127,14 +131,7 @@ config TOOLCHAIN_DEBUG
 	help
 	  Select this if you want to debug the glibc/libstdc++ internals.
 	  Note: this enlarges your toolchain at about 500 MB.
-	
-config CONFIGFILE_VERSION
-	string
-	prompt "ptxdist version"
-	default "1.99"
-	help
-	  Specify the PTXdist version this configuration was tested with
-	  here. This is an additional sanity check to make sure that
-	  only tested versions are built.
 
 endmenu
+
+source "rules/ptxdist-version.in"

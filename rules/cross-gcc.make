@@ -27,7 +27,9 @@ CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
 CROSS_GCC_URL	 	:= \
 	$(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
-	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
+	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
+	http://launchpad.net/gcc-linaro/4.4/$(subst linaro-,,$(CROSS_GCC_VERSION))/+download/gcc-$(CROSS_GCC_VERSION).tar.bz2 \
+	http://launchpad.net/gcc-linaro/4.5/$(subst linaro-,,$(CROSS_GCC_VERSION))/+download/gcc-$(CROSS_GCC_VERSION).tar.bz2
 
 ptx/abs2rel := $(PTXDIST_WORKSPACE)/scripts/ptxd_abs2rel.sh
 
@@ -82,7 +84,8 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	\
 	--enable-symvers=gnu \
 	\
-	--with-pkgversion=${PTXCONF_PROJECT}
+	--with-pkgversion=${PTXCONF_PROJECT} \
+	--with-system-zlib
 
 ifdef PTXCONF_HOST_GMP
 CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
@@ -140,6 +143,7 @@ $(STATEDIR)/cross-gcc.prepare:
 
 $(STATEDIR)/cross-gcc.compile:
 	@$(call targetinfo)
+	@ln -sf `which $(HOSTCC)` $(PTXCONF_SYSROOT_HOST)/bin/$(GNU_BUILD)-gcc
 	cd $(CROSS_GCC_BUILDDIR) && $(CROSS_GCC_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)

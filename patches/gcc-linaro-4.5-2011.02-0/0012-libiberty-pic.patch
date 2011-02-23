@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+Taken from gentoo.
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ libiberty/Makefile.in |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: gcc-4.5.1/libiberty/Makefile.in
+===================================================================
+--- gcc-4.5.1.orig/libiberty/Makefile.in
++++ gcc-4.5.1/libiberty/Makefile.in
+@@ -227,6 +227,7 @@ $(TARGETLIB): $(REQUIRED_OFILES) $(EXTRA
+ 	  $(AR) $(AR_FLAGS) $(TARGETLIB) \
+ 	    $(REQUIRED_OFILES) $(EXTRA_OFILES) $(LIBOBJS); \
+ 	  $(RANLIB) $(TARGETLIB); \
++	  cp $(TARGETLIB) ../ ; \
+ 	  cd ..; \
+ 	else true; fi
+ 

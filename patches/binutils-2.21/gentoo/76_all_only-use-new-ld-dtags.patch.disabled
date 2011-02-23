@@ -1,0 +1,31 @@
+Don't generate RPATH if we're going to be generating RUNPATH.
+
+need to ponder what ramifications this has before enabling it
+
+---
+ bfd/elflink.c |   10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+Index: binutils-2.21/bfd/elflink.c
+===================================================================
+--- binutils-2.21.orig/bfd/elflink.c
++++ binutils-2.21/bfd/elflink.c
+@@ -5629,11 +5629,15 @@ bfd_elf_size_dynamic_sections (bfd *outp
+ 
+ 	  indx = _bfd_elf_strtab_add (elf_hash_table (info)->dynstr, rpath,
+ 				      TRUE);
+-	  if (indx == (bfd_size_type) -1
+-	      || !_bfd_elf_add_dynamic_entry (info, DT_RPATH, indx))
++	  if (indx == (bfd_size_type) -1)
+ 	    return FALSE;
+ 
+-	  if  (info->new_dtags)
++	  if (!info->new_dtags)
++	    {
++	      if (!_bfd_elf_add_dynamic_entry (info, DT_RPATH, indx))
++		return FALSE;
++	    }
++	  else
+ 	    {
+ 	      _bfd_elf_strtab_addref (elf_hash_table (info)->dynstr, indx);
+ 	      if (!_bfd_elf_add_dynamic_entry (info, DT_RUNPATH, indx))

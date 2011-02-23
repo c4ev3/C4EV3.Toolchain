@@ -58,7 +58,8 @@ CROSS_GCC_FIRST_AUTOCONF = \
 	\
 	--disable-libmudflap \
 	--disable-libssp \
-	--disable-libgomp
+	--disable-libgomp \
+	--with-system-zlib
 
 $(STATEDIR)/cross-gcc-first.prepare:
 	@$(call targetinfo)

@@ -1,0 +1,109 @@
+http://bugs.gentoo.org/192584
+http://sourceware.org/bugzilla/show_bug.cgi?id=5037
+http://sourceware.org/ml/binutils/2007-09/msg00208.html
+
+bfd/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* elf-bfd.h (elf_obj_tdata): Remove relro.
+
+	* elf.c (get_program_header_size): Check info->relro instead
+	of elf_tdata (abfd)->relro.
+	(_bfd_elf_map_sections_to_segments): Likewise.
+	(assign_file_positions_for_load_sections): Don't set
+	PT_GNU_RELRO segment alignment here.
+	(assign_file_positions_for_non_load_sections): Properly set up
+	PT_GNU_RELRO segment for copying executable/shared library.
+	(rewrite_elf_program_header): Remove PT_GNU_RELRO segment.
+	(copy_elf_program_header): Set p_size and p_size_valid fields for
+	PT_GNU_RELRO segment. 
+
+include/elf/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* internal.h (elf_segment_map): Add p_size and p_size_valid.
+	(ELF_IS_SECTION_IN_SEGMENT): Allow SHF_TLS sections in
+	PT_GNU_RELRO segments.
+
+ld/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* ldexp.h (ldexp_control): Add relro, relro_start_stat and
+	relro_end_stat.
+
+	* ldexp.c (fold_binary): Set expld.dataseg.relro to
+	exp_dataseg_relro_start or exp_dataseg_relro_end when
+	seeing DATA_SEGMENT_ALIGN or DATA_SEGMENT_RELRO_END,
+	respectively.
+
+	* ldlang.c (lang_size_sections_1): Properly set
+	expld.dataseg.relro_start_stat and
+	expld.dataseg.relro_end_stat.
+	(find_relro_section_callback): New function.
+	(lang_find_relro_sections_1): Likewise.
+	(lang_find_relro_sections): Likewise.
+	(lang_process): Call lang_find_relro_sections for
+	non-relocatable link.
+
+ld/testsuite/
+
+2007-09-16  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/3281
+	PR binutils/5037
+	* ld-elf/binutils.exp: Update "-z relro" tests to use relro1.s.
+	Add "-z relro" tests with relro2.s.  Add "-z relro" tests with
+	TLS for objcopy.
+
+	* ld-elf/relro1.s: New file.
+	* ld-elf/relro2.s: Likewise.
+
+---
+ bfd/elf.c  |   11 +++++++++++
+ ld/ldexp.h |    2 ++
+ 2 files changed, 13 insertions(+)
+
+Index: binutils-2.20.1/bfd/elf.c
+===================================================================
+--- binutils-2.20.1.orig/bfd/elf.c
++++ binutils-2.20.1/bfd/elf.c
+@@ -5398,6 +5398,17 @@ rewrite_elf_program_header (bfd *ibfd, b
+ 	  map->p_paddr_valid = p_paddr_valid;
+ 	}
+ 
++      if (map->p_type == PT_GNU_RELRO
++	  && segment->p_filesz == segment->p_memsz)
++	{
++	  /* The PT_GNU_RELRO segment may contain the first a few
++	     bytes in the .got.plt section even if the whole .got.plt
++	     section isn't in the PT_GNU_RELRO segment.  We won't
++	     change the size of the PT_GNU_RELRO segment.  */
++	  map->p_size = segment->p_filesz;
++	  map->p_size_valid = 1;
++	}
++
+       /* Determine if this segment contains the ELF file header
+ 	 and if it contains the program headers themselves.  */
+       map->includes_filehdr = (segment->p_offset == 0
+Index: binutils-2.20.1/ld/ldexp.h
+===================================================================
+--- binutils-2.20.1.orig/ld/ldexp.h
++++ binutils-2.20.1/ld/ldexp.h
+@@ -117,6 +117,8 @@ enum relro_enum {
+   exp_dataseg_relro_end,
+ };
+ 
++union lang_statement_union;
++
+ struct ldexp_control {
+   /* Modify expression evaluation depending on this.  */
+   lang_phase_type phase;

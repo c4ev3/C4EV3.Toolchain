@@ -92,6 +92,7 @@ TBZ2_SUFFIX	:= _$(ARCH).tar.bz2
 
 DEBS		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(DEB_SUFFIX),$(config)))
 TBZ2S		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config)))
+OLDCONFIGS	:= $(foreach config,$(CONFIGS_),$(addsuffix .oldconfig,$(config)))
 
 all: $(TBZ2S) $(DEBS)
 
@@ -104,6 +105,11 @@ $(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
+
+oldconfig: $(OLDCONFIGS)
+
+%.oldconfig:
+	$(PTXDIST) oldconfig --ptxconfig=$(2CONFIGFILE_$(*))
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)

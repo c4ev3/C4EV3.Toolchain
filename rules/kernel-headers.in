@@ -1,13 +1,12 @@
 # config for kernel-headers
 
-menu "kernel                      "
-	depends on KERNEL_HEADERS
-
-config KERNEL_HEADERS
+menuconfig KERNEL_HEADERS
+	prompt "kernel headers              "
 	bool
 
+if KERNEL_HEADERS
+
 config KERNEL_HEADERS_VERSION
-	depends on KERNEL_HEADERS
 	string
 	prompt "kernel version"
 	default "2.6.25"
@@ -15,11 +14,10 @@ config KERNEL_HEADERS_VERSION
 	  Specify the kernel version here.
 
 config KERNEL_HEADERS_SANITIZED
-	depends on KERNEL_HEADERS
 	bool
 	prompt "use sanitized headers"
 	help
 	  If selected we use the sanitized kernel headers instead of the
 	  original kernel headers.
 
-endmenu
+endif
