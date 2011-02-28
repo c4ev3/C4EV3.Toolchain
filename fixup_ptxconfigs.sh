@@ -19,7 +19,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="2011.01.0"
+    PTXCONF_CONFIGFILE_VERSION="2011.02.0"
     PTXCONF_PROJECT="OSELAS.Toolchain-2011.02.0"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
@@ -153,6 +153,11 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8"
 	    ;;
 
+	# softfp, neon
+	arm-cortexa9-linux-gnueabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a9"
+	    ;;
+
 	# soft, vfp
 	armeb-xscale-linux-gnueabi|armeb-xscale-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
@@ -243,6 +248,9 @@ fixup()
 	    PTXCONF_CROSS_GCC_43=n
 	    ;;
 	4.[3456789].*)
+	    PTXCONF_CROSS_GCC_43=y
+	    ;;
+	linaro-4.[3456789][-.]*)
 	    PTXCONF_CROSS_GCC_43=y
 	    ;;
 	*)
