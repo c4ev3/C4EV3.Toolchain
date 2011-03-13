@@ -1,0 +1,54 @@
+From: Andreas Schwab <schwab@redhat.com>
+Date: Tue, 28 Sep 2010 15:11:48 +0200
+Subject: [PATCH] Don't try to write to _rtld_global_ro after performing relro protection
+
+mol: Without this prelinking results in segfaults.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ChangeLog  |    5 +++++
+ elf/rtld.c |    8 ++++----
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/ChangeLog b/ChangeLog
+index f551860..ea387db 100644
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -1,3 +1,8 @@
++2010-09-28  Andreas Schwab  <schwab@redhat.com>
++
++	* elf/rtld.c (dl_main): Move setting of GLRO(dl_init_all_dirs)
++	before performing relro protection.
++
+ 2011-01-17  Ulrich Drepper  <drepper@gmail.com>
+ 
+ 	* version.h (RELEASE): Bump for 2.13 release.
+diff --git a/elf/rtld.c b/elf/rtld.c
+index 8510380..e442528 100644
+--- a/elf/rtld.c
++++ b/elf/rtld.c
+@@ -2179,6 +2179,10 @@ ERROR: ld.so: object '%s' cannot be loaded as audit interface: %s; ignored.\n",
+      we need it in the memory handling later.  */
+   GLRO(dl_initial_searchlist) = *GL(dl_ns)[LM_ID_BASE]._ns_main_searchlist;
+ 
++  /* Remember the last search directory added at startup, now that
++     malloc will no longer be the one from dl-minimal.c.  */
++  GLRO(dl_init_all_dirs) = GL(dl_all_dirs);
++
+   if (prelinked)
+     {
+       if (main_map->l_info [ADDRIDX (DT_GNU_CONFLICT)] != NULL)
+@@ -2298,10 +2302,6 @@ ERROR: ld.so: object '%s' cannot be loaded as audit interface: %s; ignored.\n",
+ 			  lossage);
+     }
+ 
+-  /* Remember the last search directory added at startup, now that
+-     malloc will no longer be the one from dl-minimal.c.  */
+-  GLRO(dl_init_all_dirs) = GL(dl_all_dirs);
+-
+   if (! prelinked && rtld_multiple_ref)
+     {
+       /* There was an explicit ref to the dynamic linker as a shared lib.
+-- 
+1.7.2.3
+
