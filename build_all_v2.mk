@@ -3,7 +3,7 @@
 #
 # Makefile to build all ptxconfigs
 # Copyright (C) 2007 Carsten Schlote <c.schlote@konzeptpark.de>
-#               2008 Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2011 Marc Kleine-Budde <mkl@pengutronix.de>
 #
 
 SHELL		:= /bin/bash
@@ -16,25 +16,9 @@ export PTX_AUTOBUILD_DESTDIR
 
 BENICE			:= true
 
-#
 BUILDDATE	:= $(shell date +%y%m%d-%H%M)
 
-# VERSION		:= $(shell					\
-# 	version=$$(pwd | sed -e "s~.*/OSELAS.Toolchain-~~");	\
-# 	case "$${version}" in					\
-# 		(*trunk*)					\
-# 			svnversion |				\
-# 			sed					\
-# 			-e "s/^/trunk-/" 			\
-# 			-e "s/:/./g";; 				\
-# 		(*)						\
-# 			echo "$${version}";;			\
-# 	esac							\
-# )
-VERSION		:= $(shell pwd | sed -n -e "s~.*/OSELAS.Toolchain-~~p")
-ifeq (,$(VERSION))
-$(error rename your working copy directory to OSELAS.Toolchain-$$VERSION)
-endif
+VERSION		:= $(shell ./scripts/setlocalversion ./.tarball-version)
 
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
