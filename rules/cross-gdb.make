@@ -52,6 +52,7 @@ $(STATEDIR)/cross-gdb.extract:
 
 CROSS_GDB_PATH	:= PATH=$(CROSS_PATH)
 CROSS_GDB_ENV 	:= $(PTX_HOST_ENV)
+CROSS_GDB_DEVPKG := NO
 
 #
 # autoconf
