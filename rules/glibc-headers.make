@@ -50,6 +50,7 @@ GLIBC_HEADERS_ENV  := \
 	$(HOST_ENV) \
 	CC="$${CC} $(PTXCONF_GLIBC_HEADERS_FAKE_CROSS)" \
 	\
+	libc_cv_asm_cfi_directive_sections=yes \
 	libc_cv_asm_cfi_directives=yes \
 	libc_cv_asm_protected_directive=yes \
 	libc_cv_asm_symver_directive=yes \
