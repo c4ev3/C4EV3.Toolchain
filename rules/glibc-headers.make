@@ -79,6 +79,7 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_ppc_machine=yes \
 	libc_cv_ppc_rel16=yes \
 	\
+	ac_cv_header_cpuid_h=yes \
 	ac_cv_path_GREP=grep
 
 #
