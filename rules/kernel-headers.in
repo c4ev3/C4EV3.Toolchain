@@ -13,6 +13,10 @@ config KERNEL_HEADERS_VERSION
 	help
 	  Specify the kernel version here.
 
+config KERNEL_HEADERS_MD5
+	string
+	prompt "kernel source md5sum"
+
 config KERNEL_HEADERS_SANITIZED
 	bool
 	prompt "use sanitized headers"
