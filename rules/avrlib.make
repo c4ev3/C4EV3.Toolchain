@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_AVRLIB) += avrlib
 # Paths and names
 #
 AVRLIB_VERSION	:= $(call remove_quotes,$(PTXCONF_AVRLIB_VERSION))
+AVRLIB_MD5	:= $(call remove_quotes,$(PTXCONF_AVRLIB_MD5))
 AVRLIB		:= avr-libc-$(AVRLIB_VERSION)
 AVRLIB_SUFFIX	:= tar.bz2
 AVRLIB_URL	:= http://download.savannah.gnu.org/releases/avr-libc/$(AVRLIB).$(AVRLIB_SUFFIX)
