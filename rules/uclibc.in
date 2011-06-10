@@ -21,6 +21,10 @@ config UCLIBC_VERSION
 	prompt "uclibc version"
 	default "0.9.29"
 
+config UCLIBC_MD5
+	string
+	prompt "uclibc source md5sum"
+
 config UCLIBC_CONFIG
 	string
 	default "uclibc-${PTXCONF_UCLIBC_VERSION}-${PTXCONF_ARCH}.config"

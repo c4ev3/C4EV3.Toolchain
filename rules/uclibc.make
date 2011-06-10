@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 # Paths and names
 #
 UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
+UCLIBC_MD5	:= $(call remove_quotes,$(PTXCONF_UCLIBC_MD5))
 UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 UCLIBC_SUFFIX	:= tar.bz2
 UCLIBC_URL	:= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
