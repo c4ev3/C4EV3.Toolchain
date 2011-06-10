@@ -7,10 +7,17 @@ menuconfig CROSS_GDB
 	C++, Fortran, Modula 2 and Java programs. A must-have for any
 	serious programmer.
 
+if CROSS_GDB
+
 config CROSS_GDB_VERSION
-	depends on CROSS_GDB
 	string
 	prompt "gdb version"
 	default "6.8"
 	help
 	  Specify the version of gdb here.
+
+config CROSS_GDB_MD5
+	string
+	prompt "gdb source md5sum"
+
+endif
