@@ -4,10 +4,17 @@ menuconfig CROSS_BINUTILS
 	bool
 	prompt "binutils                    "
 
+if CROSS_BINUTILS
+
 config CROSS_BINUTILS_VERSION
-	depends on CROSS_BINUTILS
 	string
 	prompt "binutils version"
 	default "2.18"
 	help
 	  Specify the binutils version here.
+
+config CROSS_BINUTILS_MD5
+	string
+	prompt "binutils source md5sum"
+
+endif
