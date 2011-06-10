@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_NEWLIB) += newlib
 # Paths and names
 #
 NEWLIB_VERSION	:= $(call remove_quotes,$(PTXCONF_NEWLIB_VERSION))
+NEWLIB_MD5	:= $(call remove_quotes,$(PTXCONF_NEWLIB_MD5))
 NEWLIB		:= newlib-$(NEWLIB_VERSION)
 NEWLIB_SUFFIX	:= tar.gz
 NEWLIB_URL	:= ftp://sources.redhat.com/pub/newlib/$(NEWLIB).$(NEWLIB_SUFFIX)

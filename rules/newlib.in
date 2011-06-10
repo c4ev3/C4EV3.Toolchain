@@ -18,10 +18,17 @@ menuconfig NEWLIB
 	  all under free software licenses that make them easily
 	  usable on embedded products.
 
+if NEWLIB
+
 config NEWLIB_VERSION
-	depends on NEWLIB
 	string
 	prompt "newlib version"
 	default "1.16.0"
 	help
 	  Specify the newlib version here.
+
+config NEWLIB_MD5
+	string
+	prompt "newlib source md5sum"
+
+endif
