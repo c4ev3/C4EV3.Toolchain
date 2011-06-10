@@ -16,10 +16,17 @@ menuconfig MINGW_RUNTIME
 
 	prompt "mingw-runtime               "
 
+if MINGW_RUNTIME
+
 config MINGW_RUNTIME_VERSION
-	depends on MINGW_RUNTIME
 	string
 	prompt "mingw-runtime version"
 	default "3.15.1"
 	help
 	  Specify the mingw-runtime version here.
+
+config MINGW_RUNTIME_MD5
+	string
+	prompt "mingw-runtime source md5sum"
+
+endif
