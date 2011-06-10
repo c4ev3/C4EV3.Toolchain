@@ -18,6 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_MPC) += host-mpc
 # Paths and names
 #
 HOST_MPC_VERSION	:= 0.8.2
+HOST_MPC_MD5		:= e98267ebd5648a39f881d66797122fb6
 HOST_MPC		:= mpc-$(HOST_MPC_VERSION)
 HOST_MPC_SUFFIX		:= tar.gz
 HOST_MPC_URL		:= http://www.multiprecision.org/mpc/download/$(HOST_MPC).$(HOST_MPC_SUFFIX)
