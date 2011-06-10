@@ -27,6 +27,7 @@ endif
 # Paths and names
 #
 CROSS_ECJ_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_ECJ_VERSION))
+CROSS_ECJ_MD5		:= $(call remove_quotes,$(PTXCONF_CROSS_ECJ_MD5))
 CROSS_ECJ		:= ecj-$(CROSS_ECJ_VERSION)
 CROSS_ECJ_SUFFIX	:= jar
 CROSS_ECJ_URL		:= ftp://sourceware.org/pub/java/$(CROSS_ECJ).$(CROSS_ECJ_SUFFIX)

@@ -15,5 +15,8 @@ config CROSS_ECJ_VERSION
 	help
 	  Specify the version of ecj here.
 
+config CROSS_ECJ_MD5
+	string
+	prompt "ecj source md5sum"
 
 endif
