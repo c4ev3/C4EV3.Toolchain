@@ -20,6 +20,7 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 #
 ifneq ($(PTXCONF_GLIBC_VERSION),"")
 GLIBC_VERSION	:= -$(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+GLIBC_MD5	:= $(call remove_quotes,$(PTXCONF_GLIBC_MD5))
 endif
 ifneq ($(PTXCONF_GLIBC_TIMESTAMP),"")
 GLIBC_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_GLIBC_TIMESTAMP))

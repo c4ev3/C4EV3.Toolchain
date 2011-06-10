@@ -31,8 +31,9 @@ menuconfig GLIBC
 
 	prompt "glibc                       "
 
+if GLIBC
+
 config GLIBC_VERSION
-	depends on GLIBC
 	string
 	prompt "glibc version"
 	default "2.8"
@@ -40,8 +41,11 @@ config GLIBC_VERSION
 	  Specify the glibc version here.
 	  Leave empty for glibc trunk snapshots and enter a timestamp below.
 
+config GLIBC_MD5
+	string
+	prompt "glibc source md5sum"
+
 config GLIBC_TIMESTAMP
-	depends on GLIBC
 	string
 	prompt "glibc timestamp"
 	default ""
@@ -52,26 +56,22 @@ config GLIBC_TIMESTAMP
 	  or "latest" or if you want try the latest snapshot.
 
 config GLIBC_SERIES
-	depends on GLIBC
 	string
 	prompt "glibc patch series file"
 	default "series"
 
 config GLIBC_ENABLE_KERNEL
-	depends on GLIBC
 	string
 	prompt "mininum kernel version"
 	default "2.6.23"
 
 config GLIBC_CONFIG_EXTRA
-	depends on GLIBC
 	string
 	prompt "extra configure options"
 	help
 	  Add these extra options to glibc's configure script.
 
 config GLIBC_HEADERS_FAKE_CROSS
-	depends on GLIBC
 	string
 	prompt "fake cross args"
 	default "-D__ARM_EABI__"	if ARCH_ARM
@@ -81,7 +81,6 @@ config GLIBC_HEADERS_FAKE_CROSS
 
 choice
 	prompt "Thread implementation"
-	depends on GLIBC
 	default GLIBC_ADDON_NPTL
 
 	config GLIBC_ADDON_LINUXTHREADS
@@ -99,8 +98,9 @@ choice
 endchoice
 
 config GLIBC_TLS
-	depends on GLIBC
 	bool
 	prompt "enable TLS"
 	help
 	  Activate Thread Local Storage.
+
+endif
