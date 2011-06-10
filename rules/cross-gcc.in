@@ -20,6 +20,10 @@ config CROSS_GCC_VERSION
 	help
 	  Specify the version of gcc here.
 
+config CROSS_GCC_MD5
+	string
+	prompt "gcc source md5sum"
+
 config CROSS_GCC_43
 	bool
 	prompt "additional deps for gcc >= 4.3"
