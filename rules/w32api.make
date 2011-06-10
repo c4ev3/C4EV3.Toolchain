@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_W32API) += w32api
 # Paths and names
 #
 W32API_VERSION	:= $(call remove_quotes,$(PTXCONF_W32API_VERSION))
+W32API_MD5	:= $(call remove_quotes,$(PTXCONF_W32API_MD5))
 W32API		:= w32api-$(W32API_VERSION)-mingw32
 W32API_SUFFIX	:= tar.gz
 W32API_URL	:= $(PTXCONF_SETUP_SFMIRROR)/mingw/$(W32API)-src.$(W32API_SUFFIX)
