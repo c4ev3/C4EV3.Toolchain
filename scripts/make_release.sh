@@ -34,7 +34,7 @@ case "${branch}" in
 	prev_release="${v}*.0"
 	;;
     stable/*)
-	release="${branch##stable/}"
+	release="${v}${branch##stable/*-}"
 	release="${release%.x}"
 	inc="$(git tag -l "${release}.*" | wc -l)"
 	if [ ${inc} -eq 0 ]; then
