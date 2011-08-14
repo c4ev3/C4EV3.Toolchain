@@ -185,6 +185,9 @@ fixup()
 	    ;;
 
 
+	i486-unknown-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i486"
+	    ;;
 	i586-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i586"
 	    ;;
