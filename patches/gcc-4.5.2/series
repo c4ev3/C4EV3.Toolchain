@@ -22,3 +22,4 @@
 
 # from upstream
 0015-Fix-libjava-cross-build-issue.patch
+0016-Fix-ICE-on-ARM.patch
