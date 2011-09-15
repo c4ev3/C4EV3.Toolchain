@@ -21,3 +21,5 @@
 0021-pre20040117-pt_pax.patch
 0022-fpscr_values.patch
 0023-Fix-prelinking.patch
+0024-optimized-string-functions-for-NEON-from-Linaro.patch
+0025-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
