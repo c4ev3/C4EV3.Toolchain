@@ -90,6 +90,7 @@ endif
 ifdef PTXCONF_GLIBC_ADDON_LINUXTHREADS
 GLIBC_ADDONS	+= linuxthreads
 endif
+GLIBC_ADDONS	+= $(call remove_quotes, $(PTXCONF_GLIBC_EXTRA_ADDONS))
 
 GLIBC_AUTOCONF_COMMON := \
 	--prefix=/usr \

@@ -111,4 +111,8 @@ config GLIBC_TLS
 	help
 	  Activate Thread Local Storage.
 
+config GLIBC_EXTRA_ADDONS
+	string
+	prompt "extra addons"
+
 endif
