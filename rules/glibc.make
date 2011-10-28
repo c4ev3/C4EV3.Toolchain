@@ -114,6 +114,7 @@ endif
 
 GLIBC_AUTOCONF := \
 	$(GLIBC_AUTOCONF_COMMON) \
+	$(PTXCONF_GLIBC_CONFIG_EXTRA_CROSS) \
 	\
 	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
 	--enable-debug \

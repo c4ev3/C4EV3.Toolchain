@@ -71,6 +71,14 @@ config GLIBC_CONFIG_EXTRA
 	help
 	  Add these extra options to glibc's configure script.
 
+config GLIBC_CONFIG_EXTRA_CROSS
+	string
+	prompt "extra configure options (cross)"
+	help
+	  Add these extra options to glibc's configure script.
+	  this is for configure options that require the cross gcc and can therefore
+	  not be used when building the glibc-headers
+
 config GLIBC_HEADERS_FAKE_CROSS
 	string
 	prompt "fake cross args"

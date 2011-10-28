@@ -60,6 +60,7 @@ GLIBC_FIRST_MAKEVARS := AUTOCONF=no
 
 GLIBC_FIRST_AUTOCONF = \
 	$(GLIBC_AUTOCONF_COMMON) \
+	$(PTXCONF_GLIBC_CONFIG_EXTRA_CROSS) \
 	--disable-debug \
 	--disable-profile \
 
