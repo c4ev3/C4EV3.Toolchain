@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 31 Oct 2011 14:09:45 +0100
+Subject: [PATCH] sim/ppc: remove bogus dependency
+
+Otherwise compiling may fail for PPC with:
+
+make[4]: *** No rule to make target `-lz', needed by `psim'.  Stop.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ sim/ppc/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/sim/ppc/Makefile.in b/sim/ppc/Makefile.in
+index 71c65cf..968620f 100644
+--- a/sim/ppc/Makefile.in
++++ b/sim/ppc/Makefile.in
+@@ -551,7 +551,7 @@ PACKAGE_SRC = @sim_pk_src@
+ PACKAGE_OBJ = @sim_pk_obj@
+ 
+ 
+-psim: $(TARGETLIB) main.o $(LIBIBERTY_LIB) $(BFD_LIB) $(LIBS) $(LIBINTL_DEP)
++psim: $(TARGETLIB) main.o $(LIBIBERTY_LIB) $(BFD_LIB) $(LIBINTL_DEP)
+ 	$(CC) $(CFLAGS) $(SIM_CFLAGS) $(LDFLAGS) -o psim$(EXEEXT) main.o $(TARGETLIB) $(BFD_LIB) $(LIBINTL) $(LIBIBERTY_LIB) $(LIBS)
+ 
+ run: psim
+-- 
+1.7.7
+
