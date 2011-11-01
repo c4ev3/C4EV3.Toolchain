@@ -25,6 +25,19 @@ config CROSS_GCC_MD5
 	string
 	prompt "gcc source md5sum"
 
+config CROSS_GCC_DL_VERSION
+	string
+	prompt "gcc download version"
+	default "${PTXCONF_CROSS_GCC_VERSION}"
+	help
+	  The version of the downloaded archive. For some releases
+	  such as Linaro gcc, this can differ from CROSS_GCC_VERSION
+
+config CROSS_GCC_PKGVERSION
+	string
+	default "${PTXCONF_PROJECT}" if CROSS_GCC_DL_VERSION = "${PTXCONF_CROSS_GCC_VERSION}"
+	default "${PTXCONF_PROJECT} ${PTXCONF_CROSS_GCC_DL_VERSION}" if CROSS_GCC_DL_VERSION != "${PTXCONF_CROSS_GCC_VERSION}"
+
 config CROSS_GCC_43
 	bool
 	prompt "additional deps for gcc >= 4.3"

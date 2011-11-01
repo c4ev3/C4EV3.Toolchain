@@ -18,8 +18,9 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC) += cross-gcc
 # Paths and names
 #
 CROSS_GCC_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
+CROSS_GCC_DL_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_DL_VERSION))
 CROSS_GCC_MD5		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_MD5))
-CROSS_GCC		:= gcc-$(CROSS_GCC_VERSION)
+CROSS_GCC		:= gcc-$(CROSS_GCC_DL_VERSION)
 CROSS_GCC_SUFFIX	:= tar.bz2
 CROSS_GCC_SOURCE	:= $(SRCDIR)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 CROSS_GCC_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC)
@@ -27,10 +28,10 @@ CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
 
 CROSS_GCC_URL	 	:= \
 	$(PTXCONF_SETUP_GNUMIRROR)/gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
-	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
+	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_DL_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
-	http://launchpad.net/gcc-linaro/4.5/$(subst linaro-,,$(CROSS_GCC_VERSION))/+download/gcc-$(CROSS_GCC_VERSION).tar.bz2 \
-	http://launchpad.net/gcc-linaro/4.6/$(subst linaro-,,$(CROSS_GCC_VERSION))/+download/gcc-$(CROSS_GCC_VERSION).tar.bz2
+	http://launchpad.net/gcc-linaro/4.5/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2 \
+	http://launchpad.net/gcc-linaro/4.6/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2
 
 ptx/abs2rel := $(PTXDIST_WORKSPACE)/scripts/ptxd_abs2rel.sh
 
@@ -85,7 +86,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	\
 	--enable-symvers=gnu \
 	\
-	--with-pkgversion=${PTXCONF_PROJECT} \
+	--with-pkgversion=$(PTXCONF_CROSS_GCC_PKGVERSION) \
 	--with-system-zlib
 
 ifdef PTXCONF_HOST_GMP
