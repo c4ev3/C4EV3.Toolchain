@@ -1,0 +1,94 @@
+From: unknown author <unknown.author@example.com>
+Date: Tue, 1 Nov 2011 18:58:26 +0100
+Subject: [PATCH] strict aliasing
+
+workaround strict aliasing warnings on individual files rather than
+forcing the whole build with -fno-strict-aliasing
+
+http://bugs.gentoo.org/155906
+
+note that we leave the logout.c and logwtmp.c warnings alone as the
+code path that invokes the warning should not be executed when the
+warning is applicable.
+---
+ libio/Makefile  |    4 ++--
+ nis/Makefile    |    3 +++
+ nptl/Makefile   |    1 +
+ nss/Makefile    |    2 ++
+ sunrpc/Makefile |    2 +-
+ 5 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/libio/Makefile b/libio/Makefile
+index ec30904..15a797b 100644
+--- a/libio/Makefile
++++ b/libio/Makefile
+@@ -91,7 +91,7 @@ CFLAGS-fseeko.c = $(exceptions)
+ CFLAGS-ftello64.c = $(exceptions)
+ CFLAGS-ftello.c = $(exceptions)
+ CFLAGS-fwide.c = $(exceptions)
+-CFLAGS-genops.c = $(exceptions)
++CFLAGS-genops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-getc.c = $(exceptions)
+ CFLAGS-getchar.c = $(exceptions)
+ CFLAGS-getwc.c = $(exceptions)
+@@ -133,7 +133,7 @@ CFLAGS-putwc.c = $(exceptions)
+ CFLAGS-putwchar.c = $(exceptions)
+ CFLAGS-rewind.c = $(exceptions)
+ CFLAGS-wfileops.c = $(exceptions)
+-CFLAGS-wgenops.c = $(exceptions)
++CFLAGS-wgenops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-oldiofopen.c = $(exceptions)
+ CFLAGS-iofopen.c = $(exceptions)
+ CFLAGS-iofopen64.c = $(exceptions)
+diff --git a/nis/Makefile b/nis/Makefile
+index e7e5f0c..3a01142 100644
+--- a/nis/Makefile
++++ b/nis/Makefile
+@@ -67,6 +67,9 @@ libnss_nisplus-routines	:= $(addprefix nisplus-,$(databases)) nisplus-parser \
+ 			   nss-nisplus nisplus-initgroups
+ libnss_nisplus-inhibit-o = $(filter-out .os,$(object-suffixes))
+ 
++CFLAGS-nis_xdr.c += -fno-strict-aliasing
++CFLAGS-yp_xdr.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+diff --git a/nptl/Makefile b/nptl/Makefile
+index 266f178..4ae2518 100644
+--- a/nptl/Makefile
++++ b/nptl/Makefile
+@@ -195,6 +195,7 @@ CFLAGS-tcdrain.c = -fexceptions -fasynchronous-unwind-tables
+ 
+ CFLAGS-pt-system.c = -fexceptions
+ 
++CFLAGS-unwind-dw2.c += -fno-strict-aliasing
+ 
+ tests = tst-typesizes \
+ 	tst-attr1 tst-attr2 tst-attr3 \
+diff --git a/nss/Makefile b/nss/Makefile
+index c49f375..7f0b6b4 100644
+--- a/nss/Makefile
++++ b/nss/Makefile
+@@ -73,6 +73,8 @@ ifneq ($(build-static-nss),yes)
+ libnss_files-inhibit-o	= $(filter-out .os,$(object-suffixes))
+ endif
+ 
++CFLAGS-nsswitch.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+diff --git a/sunrpc/Makefile b/sunrpc/Makefile
+index 7245deb..85dcdb1 100644
+--- a/sunrpc/Makefile
++++ b/sunrpc/Makefile
+@@ -150,7 +150,7 @@ CFLAGS-pmap_rmt.c = -fexceptions
+ CFLAGS-clnt_perr.c = -fexceptions
+ CFLAGS-openchild.c = -fexceptions
+ 
+-CPPFLAGS += -D_RPC_THREAD_SAFE_
++CPPFLAGS += -D_RPC_THREAD_SAFE_ -fno-strict-aliasing
+ 
+ $(objpfx)tst-getmyaddr: $(common-objpfx)linkobj/libc.so
+ $(objpfx)tst-xdrmem: $(common-objpfx)linkobj/libc.so

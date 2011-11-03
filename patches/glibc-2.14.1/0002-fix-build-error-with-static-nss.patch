@@ -1,0 +1,56 @@
+From: Dan Kegel <dank@kegel.com>
+Date: Wed, 15 Jun 2005 09:12:43 -0700
+Subject: [PATCH] fix build error with static-nss
+
+This patch fixes
+
+build-glibc/libc.a(nsswitch.o)(.data+0x64): undefined reference to `_nss_files_getaliasent_r'
+build-glibc/libc.a(nsswitch.o)(.data+0x6c): undefined reference to `_nss_files_endaliasent'
+... 53 lines deleted ...
+build-glibc/libc.a(nsswitch.o)(.data+0x21c): undefined reference to `_nss_files_getspnam_r'
+collect2: ld returned 1 exit status
+make[2]: *** [/build/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2/i686-unknown-linux-gnu/build-glibc/elf/ldconfig] Error 1
+
+when building glibc with --enable-static-nss.
+
+See http://sources.redhat.com/bugzilla/show_bug.cgi?id=631
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+[mol: adapted for glibc-2.14.1]
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makeconfig   |    2 +-
+ elf/Makefile |    7 +++++++
+ 2 files changed, 8 insertions(+), 1 deletions(-)
+
+diff --git a/Makeconfig b/Makeconfig
+index b34cacf..1915afa 100644
+--- a/Makeconfig
++++ b/Makeconfig
+@@ -537,7 +537,7 @@ endif
+ 
+ # The static libraries.
+ ifeq (yes,$(build-static))
+-link-libc-static = -Wl,--start-group $(common-objpfx)libc.a $(static-gnulib) -Wl,--end-group
++link-libc-static = -Wl,--start-group $(common-objpfx)libc.a $(static-gnulib) $(otherlibs) -Wl,--end-group
+ else
+ ifeq (yes,$(build-shared))
+ # We can try to link the programs with lib*_pic.a...
+diff --git a/elf/Makefile b/elf/Makefile
+index 1c5bdee..e19e639 100644
+--- a/elf/Makefile
++++ b/elf/Makefile
+@@ -152,6 +152,13 @@ install-others	= $(inst_slibdir)/$(rtld-installed-name)
+ install-bin-script = ldd
+ endif
+ 
++ifeq (yes,$(build-static-nss))
++nssobjdir := $(patsubst ../$(subdir),.,$(common-objpfx)nss)
++resolvobjdir := $(patsubst ../$(subdir),.,$(common-objpfx)resolv)
++otherlibs += $(nssobjdir)/libnss_files.a $(resolvobjdir)/libnss_dns.a \
++	     $(resolvobjdir)/libresolv.a
++endif
++
+ others		= sprof sln
+ install-bin	= sprof
+ others-static   = sln

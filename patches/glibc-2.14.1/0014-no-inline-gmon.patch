@@ -1,0 +1,38 @@
+From: Kazu Hirata <kazu@codesourcery.com>
+Date: Tue, 1 Nov 2011 18:58:26 +0100
+Subject: [PATCH] no inline gmon
+
+Attached is a patch to add __attribute__ ((noinline)) to
+call_gmon_start.
+
+Without this patch, the sec script that processed initfini.s removes a
+part of inlined call_gmon_start, causing undefined label errors.
+
+This patch solves the problem by forcing gcc not to inline
+call_gmon_start with __attribute__ ((noinline)).
+
+Tested by building for arm-none-lixux-gnueabi.  OK to apply?
+
+Kazu Hirata
+
+2006-05-07  Kazu Hirata  <kazu@codesourcery.com>
+
+	* sysdeps/generic/initfini.c (call_gmon_start): Add
+	__attribute__ ((noinline)).
+---
+ sysdeps/generic/initfini.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/sysdeps/generic/initfini.c b/sysdeps/generic/initfini.c
+index d5ef778..69208c2 100644
+--- a/sysdeps/generic/initfini.c
++++ b/sysdeps/generic/initfini.c
+@@ -70,7 +70,7 @@ asm ("\n/*@TESTS_END*/");
+ /* The beginning of _init:  */
+ asm ("\n/*@_init_PROLOG_BEGINS*/");
+ 
+-static void
++static void __attribute__ ((noinline))
+ call_gmon_start(void)
+ {
+   extern void __gmon_start__ (void) __attribute__ ((weak)); /*weak_extern (__gmon_start__);*/

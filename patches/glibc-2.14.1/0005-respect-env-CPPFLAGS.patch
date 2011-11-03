@@ -1,0 +1,40 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Tue, 1 Nov 2011 23:51:05 +0100
+Subject: [PATCH] respect env CPPFLAGS
+
+Respect environment CPPFLAGS when we run ./configure so we can inject
+random -D things without having to set CFLAGS/ASFLAGS
+
+This patch was taken from gentoo.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makeconfig     |    1 +
+ config.make.in |    1 +
+ 2 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/Makeconfig b/Makeconfig
+index 1915afa..c5ead1d 100644
+--- a/Makeconfig
++++ b/Makeconfig
+@@ -699,6 +699,7 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+includes) $(defines) \
+ 	   $(foreach lib,$(libof-$(basename $(@F))) \
+ 			 $(libof-$(<F)) $(libof-$(@F)),$(CPPFLAGS-$(lib))) \
+ 	   $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
++CPPFLAGS += $(CPPFLAGS-config)
+ override CFLAGS	= -std=gnu99 $(gnu89-inline-CFLAGS) \
+ 		  $(filter-out %frame-pointer,$(+cflags)) $(+gccwarn-c) \
+ 		  $(sysdep-CFLAGS) $(CFLAGS-$(suffix $@)) $(CFLAGS-$(<F)) \
+diff --git a/config.make.in b/config.make.in
+index d722a8b..e8f26ff 100644
+--- a/config.make.in
++++ b/config.make.in
+@@ -108,6 +108,7 @@ CC = @CC@
+ CXX = @CXX@
+ BUILD_CC = @BUILD_CC@
+ CFLAGS = @CFLAGS@
++CPPFLAGS-config = @CPPFLAGS@
+ ASFLAGS-config = @ASFLAGS_config@
+ AR = @AR@
+ MAKEINFO = @MAKEINFO@

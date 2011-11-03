@@ -1,0 +1,76 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 15 Sep 2011 23:30:25 +0200
+Subject: [PATCH] add libc_hidden_builtin_def for all cortex functions
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ .../sysdeps/arm/eabi/arm/cortex-a8/memchr.S        |    3 +++
+ .../sysdeps/arm/eabi/arm/cortex-a8/memcpy.S        |    2 ++
+ .../sysdeps/arm/eabi/arm/cortex-a8/memset.S        |    2 ++
+ .../sysdeps/arm/eabi/arm/cortex-a8/strchr.S        |    3 +++
+ .../sysdeps/arm/eabi/arm/cortex-a8/strcpy.c        |    1 +
+ .../sysdeps/arm/eabi/arm/cortex-a8/strlen.S        |    2 ++
+ 6 files changed, 13 insertions(+), 0 deletions(-)
+
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memchr.S b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memchr.S
+index 8f5aaa9..6d497cb 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memchr.S
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memchr.S
+@@ -148,3 +148,6 @@ memchr:
+ 	pop	{r4,r5,r6,r7}
+ 	subs	r0,r0,#1
+ 	bx	lr
++
++strong_alias (memchr, __memchr)
++libc_hidden_builtin_def (memchr)
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memcpy.S b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memcpy.S
+index 3be24ca..c274207 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memcpy.S
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memcpy.S
+@@ -150,3 +150,5 @@ memcpy:
+ 	cmp	r2,#32
+ 	blt	10b
+ 	b	4b
++
++libc_hidden_builtin_def (memcpy)
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memset.S b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memset.S
+index 921cb75..d4c12a4 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memset.S
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/memset.S
+@@ -116,3 +116,5 @@ memset:
+ 
+ 10:
+ 	bx	lr		@ goodbye
++
++libc_hidden_builtin_def (memset)
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strchr.S b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strchr.S
+index 8875dbf..05c832f 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strchr.S
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strchr.S
+@@ -74,3 +74,6 @@ strchr:
+ 	beq	5b	@ A bit messy, if it's common we should branch at the start to a special loop
+ 	mov	r0,#0
+ 	bx	lr
++
++weak_alias (strchr, index)
++libc_hidden_builtin_def (strchr)
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strcpy.c b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strcpy.c
+index aa8cb06..3bbaa86 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strcpy.c
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strcpy.c
+@@ -169,4 +169,5 @@ strcpy (char* dst, const char* src)
+ #endif
+        );
+ }
++
+ libc_hidden_builtin_def (strcpy) 
+diff --git a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strlen.S b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strlen.S
+index 125e92f..a1e02ad 100644
+--- a/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strlen.S
++++ b/cortex-strings/sysdeps/arm/eabi/arm/cortex-a8/strlen.S
+@@ -109,3 +109,5 @@ strlenendtmp:
+ 	subs	r0, r0, #1
+ 	pop	{ r4, r6 }
+ 	bx	lr
++
++libc_hidden_builtin_def (strlen)

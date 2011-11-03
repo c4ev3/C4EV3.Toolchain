@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 2 Nov 2011 00:14:37 +0100
+Subject: [PATCH] don't regen docs if perl is not found
+
+If we're using a cvs snapshot which updates the source files, and
+perl isn't installed yet, then we can't regen the docs.  Not a big
+deal, so just whine a little and continue on our merry way.
+
+This patch was taken from gentoo.
+http://bugs.gentoo.org/60132
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ manual/Makefile |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/manual/Makefile b/manual/Makefile
+index 46dd430..db96bdf 100644
+--- a/manual/Makefile
++++ b/manual/Makefile
+@@ -106,9 +106,14 @@ dir-add.texi: xtract-typefun.awk $(texis)
+ libm-err.texi: stamp-libm-err
+ stamp-libm-err: libm-err-tab.pl $(wildcard $(foreach dir,$(sysdirs),\
+ 						     $(dir)/libm-test-ulps))
++ifneq ($(PERL),no)
+ 	pwd=`pwd`; \
+ 	$(PERL) $< $$pwd/.. > libm-err-tmp
+ 	$(move-if-change) libm-err-tmp libm-err.texi
++else
++	echo "Unable to rebuild math docs, no perl installed"
++	touch libm-err.texi
++endif
+ 	touch $@
+ 
+ # Generate Texinfo files from the C source for the example programs.

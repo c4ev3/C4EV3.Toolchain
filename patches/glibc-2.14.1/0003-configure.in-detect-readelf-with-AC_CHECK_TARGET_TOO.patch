@@ -1,0 +1,43 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 23:45:06 +0100
+Subject: [PATCH] configure.in: detect readelf with AC_CHECK_TARGET_TOOL
+
+This patch was introduced with patches for Mac. Probably because
+a nonstandard readelf is needed there.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index fbc64b9..f13cba3 100644
+--- a/configure.in
++++ b/configure.in
+@@ -1457,6 +1457,8 @@ EOF
+     fi
+   fi
+ 
++  AC_CHECK_TARGET_TOOL([READELF],[readelf],[readelf],[$PATH])
++
+   AC_CACHE_CHECK(for .preinit_array/.init_array/.fini_array support,
+ 		 libc_cv_initfini_array, [dnl
+   cat > conftest.c <<EOF
+@@ -1468,7 +1470,7 @@ EOF
+   if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -o conftest conftest.c
+ 		     -static -nostartfiles -nostdlib 1>&AS_MESSAGE_LOG_FD])
+   then
+-    if readelf -S conftest | fgrep INIT_ARRAY > /dev/null; then
++    if $READELF -S conftest | fgrep INIT_ARRAY > /dev/null; then
+       libc_cv_initfini_array=yes
+     else
+       libc_cv_initfini_array=no
+@@ -1655,7 +1657,7 @@ dnl cross-platform since the gcc used can be a cross compiler.  Without
+ dnl introducing new options this is not easily doable.  Instead use a tool
+ dnl which always is cross-platform: readelf.  To detect whether -z combreloc
+ dnl look for a section named .rel.dyn.
+-    if readelf -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
++    if $READELF -S conftest.so | grep '\.rel\(a\|\)\.dyn' > /dev/null; then
+       libc_cv_z_combreloc=yes
+     else
+       libc_cv_z_combreloc=no
