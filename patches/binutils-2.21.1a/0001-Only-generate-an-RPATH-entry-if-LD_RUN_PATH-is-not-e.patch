@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 16:45:55 +0100
+Subject: [PATCH] Only generate an RPATH entry if LD_RUN_PATH is not empty,
+ for cases where -rpath isn't specified.
+
+This is http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=151024
+
+This patch is still used in debian binutils 2.21.90.20111025-1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ld/emultempl/elf32.em |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/ld/emultempl/elf32.em b/ld/emultempl/elf32.em
+index 62a86ca..a0f3ee0 100644
+--- a/ld/emultempl/elf32.em
++++ b/ld/emultempl/elf32.em
+@@ -1272,6 +1272,8 @@ fragment <<EOF
+ 	      && command_line.rpath == NULL)
+ 	    {
+ 	      lib_path = (const char *) getenv ("LD_RUN_PATH");
++	      if ((lib_path) && (strlen (lib_path) == 0))
++		  lib_path = NULL;
+ 	      if (gld${EMULATION_NAME}_search_needed (lib_path, &n,
+ 						      force))
+ 		break;
+@@ -1499,6 +1501,8 @@ gld${EMULATION_NAME}_before_allocation (void)
+   rpath = command_line.rpath;
+   if (rpath == NULL)
+     rpath = (const char *) getenv ("LD_RUN_PATH");
++  if ((rpath) && (strlen (rpath) == 0))
++    rpath = NULL;
+ 
+   for (abfd = link_info.input_bfds; abfd; abfd = abfd->link_next)
+     if (bfd_get_flavour (abfd) == bfd_target_elf_flavour)
