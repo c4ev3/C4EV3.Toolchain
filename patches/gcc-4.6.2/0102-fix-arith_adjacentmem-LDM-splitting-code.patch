@@ -1,0 +1,39 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 1 Nov 2011 18:25:07 +0100
+Subject: [PATCH] fix arith_adjacentmem LDM splitting code
+
+This is http://gcc.gnu.org/bugzilla/show_bug.cgi?id=39429
+
+This is the patch fromt the gcc bugzilla.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ gcc/config/arm/arm.md |   15 +++++++++++++++
+ 1 files changed, 15 insertions(+), 0 deletions(-)
+
+diff --git a/gcc/config/arm/arm.md b/gcc/config/arm/arm.md
+index cc6d34b..b5d0d05 100644
+--- a/gcc/config/arm/arm.md
++++ b/gcc/config/arm/arm.md
+@@ -9869,6 +9869,21 @@
+ 	else
+ 	  {
+ 	    /* Offset is out of range for a single add, so use two ldr.  */
++
++	    /* Swap the ldrs if the first ldr would clobber the shared base_reg.  */
++	    if (REGNO (ldm[1]) == REGNO (base_reg))
++	      {
++		rtx tmp_reg;
++		HOST_WIDE_INT tmp_val;
++
++		tmp_reg = ldm[1];
++		ldm[1] = ldm[2];
++		ldm[2] = tmp_reg;
++		tmp_val = val1;
++		val1 = val2;
++		val2 = tmp_val;
++	      }
++
+ 	    ops[0] = ldm[1];
+ 	    ops[1] = base_reg;
+ 	    ops[2] = GEN_INT (val1);

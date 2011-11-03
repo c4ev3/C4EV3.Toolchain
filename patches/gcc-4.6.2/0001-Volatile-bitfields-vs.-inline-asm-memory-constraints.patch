@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 23 Nov 2011 15:43:22 +0100
+Subject: [PATCH] Volatile bitfields vs. inline asm memory constraints
+
+taken from trunk.
+http://gcc.gnu.org/ml/gcc-patches/2011-03/msg01477.html
+
+gcc/
+* expr.c (expand_expr_real_1): Only use BLKmode for volatile
+accesses which are not naturally aligned.
+
+Patch taken from Debian
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ gcc/expr.c |    7 +++++--
+ 1 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/gcc/expr.c b/gcc/expr.c
+index c4a00aa..03f51f4 100644
+--- a/gcc/expr.c
++++ b/gcc/expr.c
+@@ -9189,8 +9189,11 @@ expand_expr_real_1 (tree exp, rtx target, enum machine_mode tmode,
+ 		&& modifier != EXPAND_CONST_ADDRESS
+ 		&& modifier != EXPAND_INITIALIZER)
+ 	    /* If the field is volatile, we always want an aligned
+-	       access.  */
+-	    || (volatilep && flag_strict_volatile_bitfields > 0)
++	       access.  Only do this if the access is not already naturally
++	       aligned, otherwise "normal" (non-bitfield) volatile fields
++	       become non-addressable.  */
++	    || (volatilep && flag_strict_volatile_bitfields > 0
++		&& (bitpos % GET_MODE_ALIGNMENT (mode) != 0))
+ 	    /* If the field isn't aligned enough to fetch as a memref,
+ 	       fetch it as a bit field.  */
+ 	    || (mode1 != BLKmode

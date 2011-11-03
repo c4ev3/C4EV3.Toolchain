@@ -1,0 +1,46 @@
+From: "Kevin F. Quinn" <kevquinn@gentoo.org>
+Date: Tue, 1 Nov 2011 18:25:08 +0100
+Subject: [PATCH] gcc trampolinewarn
+
+Taken from gentoo, original description:
+
+This trivial patch causes gcc to emit a warning whenever it generates a
+trampoline. These are otherwise hard to locate. It is rigged to default
+ON - to have it default to OFF remove the text 'Init(1)' from the
+common.opt patch, leaving just 'Common Var(warn_trampolines)'.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ gcc/builtins.c |    3 +++
+ gcc/common.opt |    4 ++++
+ 2 files changed, 7 insertions(+), 0 deletions(-)
+
+diff --git a/gcc/builtins.c b/gcc/builtins.c
+index fd99611..bc91aa8 100644
+--- a/gcc/builtins.c
++++ b/gcc/builtins.c
+@@ -4947,6 +4947,9 @@ expand_builtin_va_copy (tree exp)
+       emit_block_move (dstb, srcb, size, BLOCK_OP_NORMAL);
+     }
+ 
++  if (warn_trampolines)
++    warning (OPT_Wtrampolines, "generating trampoline in object (requires executable stack)");
++
+   return const0_rtx;
+ }
+ 
+diff --git a/gcc/common.opt b/gcc/common.opt
+index 6056551..dde2546 100644
+--- a/gcc/common.opt
++++ b/gcc/common.opt
+@@ -627,6 +627,10 @@ Wtype-limits
+ Common Var(warn_type_limits) Init(-1) Warning
+ Warn if a comparison is always true or always false due to the limited range of the data type
+ 
++Wtrampolines
++Common Var(warn_trampolines) Init(1)
++Warn whenever a trampoline is generated
++
+ Wuninitialized
+ Common Var(warn_uninitialized) Init(-1) Warning
+ Warn about uninitialized automatic variables
