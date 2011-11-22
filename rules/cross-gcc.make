@@ -177,7 +177,7 @@ $(STATEDIR)/cross-gcc.install:
 		dst_file="$${dst}/$${file}"; \
 		rel_file="$${rel}/$${file}"; \
 		if [ -L "$${file}" ]; then \
-			cp -vdpR "$${file}" "$${dst_file}"; \
+			cp -vdR "$${file}" "$${dst_file}"; \
 		else \
 			ln -vfs "$${rel_file}" "$${dst_file}"; \
 		fi || exit 1; \
