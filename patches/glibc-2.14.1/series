@@ -20,4 +20,5 @@
 0018-optimized-string-functions-for-NEON-from-Linaro.patch
 0019-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
 0020-revert-sunrpc-removal.patch
-# 00982701c958f3ef1fb77c5fa12126c3  - git-ptx-patches magic
+0021-fix-libdl-crash.patch
+# 3609589c1fca6c85cdfb41d7b6bac0a2  - git-ptx-patches magic
