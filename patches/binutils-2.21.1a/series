@@ -2,4 +2,5 @@
 #tag:base --start-number 1
 0001-Only-generate-an-RPATH-entry-if-LD_RUN_PATH-is-not-e.patch
 0002-warn-on-all-TEXTRELs.patch
-# 1a5f8d1c54fd01eb21defa0471ac5129  - git-ptx-patches magic
+0003-2011-05-31-Paul-Brook-paul-codesourcery.com.patch
+# df7383a34a1fb7245bbcc4a517757b0a  - git-ptx-patches magic

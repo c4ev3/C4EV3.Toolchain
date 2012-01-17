@@ -1,0 +1,131 @@
+From: Paul Brook <paul@codesourcery.com>
+Date: Tue, 31 May 2011 14:10:06 +0000
+Subject: [PATCH] 2011-05-31 Paul Brook <paul@codesourcery.com>
+
+	gas/
+	* config/tc-arm.c (arm_force_relocation): Resolve all pc-relative
+	loads.
+
+	gas/testsuite/
+	* gas/arm/ldr-global.d: New test.
+	* gas/arm/ldr-global.s: New test.
+---
+ gas/ChangeLog                      |    5 +++++
+ gas/config/tc-arm.c                |   15 +++++++++++++--
+ gas/testsuite/ChangeLog            |    5 +++++
+ gas/testsuite/gas/arm/ldr-global.d |   14 ++++++++++++++
+ gas/testsuite/gas/arm/ldr-global.s |   22 ++++++++++++++++++++++
+ 5 files changed, 59 insertions(+), 2 deletions(-)
+ create mode 100644 gas/testsuite/gas/arm/ldr-global.d
+ create mode 100644 gas/testsuite/gas/arm/ldr-global.s
+
+diff --git a/gas/ChangeLog b/gas/ChangeLog
+index 28c5231..b795927 100644
+--- a/gas/ChangeLog
++++ b/gas/ChangeLog
+@@ -1,5 +1,10 @@
+ 2011-05-31  Paul Brook  <paul@codesourcery.com>
+ 
++	* config/tc-arm.c (arm_force_relocation): Resolve all pc-relative
++	loads.
++
++2011-05-31  Paul Brook  <paul@codesourcery.com>
++
+ 	* config/tc-arm.c (do_t_branch): Avoid relaxing branches to constant
+ 	addresses.
+ 
+diff --git a/gas/config/tc-arm.c b/gas/config/tc-arm.c
+index 964384c..6611e02 100644
+--- a/gas/config/tc-arm.c
++++ b/gas/config/tc-arm.c
+@@ -21895,14 +21895,25 @@ arm_force_relocation (struct fix * fixp)
+     }
+ #endif
+ 
+-  /* Resolve these relocations even if the symbol is extern or weak.  */
++  /* Resolve these relocations even if the symbol is extern or weak.
++     Technically this is probably wrong due to symbol preemption.
++     In practice these relocations do not have enough range to be useful
++     at dynamic link time, and some code (e.g. in the Linux kernel)
++     expects these references to be resolved.  */
+   if (fixp->fx_r_type == BFD_RELOC_ARM_IMMEDIATE
+       || fixp->fx_r_type == BFD_RELOC_ARM_OFFSET_IMM
++      || fixp->fx_r_type == BFD_RELOC_ARM_OFFSET_IMM8
+       || fixp->fx_r_type == BFD_RELOC_ARM_ADRL_IMMEDIATE
++      || fixp->fx_r_type == BFD_RELOC_ARM_CP_OFF_IMM
++      || fixp->fx_r_type == BFD_RELOC_ARM_CP_OFF_IMM_S2
++      || fixp->fx_r_type == BFD_RELOC_ARM_THUMB_OFFSET
+       || fixp->fx_r_type == BFD_RELOC_ARM_T32_ADD_IMM
+       || fixp->fx_r_type == BFD_RELOC_ARM_T32_IMMEDIATE
+       || fixp->fx_r_type == BFD_RELOC_ARM_T32_IMM12
+-      || fixp->fx_r_type == BFD_RELOC_ARM_T32_ADD_PC12)
++      || fixp->fx_r_type == BFD_RELOC_ARM_T32_OFFSET_IMM
++      || fixp->fx_r_type == BFD_RELOC_ARM_T32_ADD_PC12
++      || fixp->fx_r_type == BFD_RELOC_ARM_T32_CP_OFF_IMM
++      || fixp->fx_r_type == BFD_RELOC_ARM_T32_CP_OFF_IMM_S2)
+     return 0;
+ 
+   /* Always leave these relocations for the linker.  */
+diff --git a/gas/testsuite/ChangeLog b/gas/testsuite/ChangeLog
+index 859bcbe..81fe89b 100644
+--- a/gas/testsuite/ChangeLog
++++ b/gas/testsuite/ChangeLog
+@@ -1,5 +1,10 @@
+ 2011-05-31  Paul Brook  <paul@codesourcery.com>
+ 
++	* gas/arm/ldr-global.d: New test.
++	* gas/arm/ldr-global.s: New test.
++
++2011-05-31  Paul Brook  <paul@codesourcery.com>
++
+ 	* arm/t2-branch-global.d: New test.
+ 	* arm/t2-branch-global.s: New test.
+ 
+diff --git a/gas/testsuite/gas/arm/ldr-global.d b/gas/testsuite/gas/arm/ldr-global.d
+new file mode 100644
+index 0000000..3528d4e
+--- /dev/null
++++ b/gas/testsuite/gas/arm/ldr-global.d
+@@ -0,0 +1,14 @@
++#objdump: -dr --prefix-addresses --show-raw-insn
++#name: PC-relative LDR from global
++
++.*: +file format .*arm.*
++
++Disassembly of section .text:
++0+00 <[^>]*> e59f0010 ?	ldr	r0, \[pc, #16\]	; 0+18 <[^>]*>
++0+04 <[^>]*> e1df00fc ?	ldrsh	r0, \[pc, #12\]	; 0+18 <[^>]*>
++0+08 <[^>]*> ed9f0a02 ?	vldr	s0, \[pc, #8\]	; 0+18 <[^>]*>
++0+0c <[^>]*> 4802      ?	ldr	r0, \[pc, #8\]	; \(0+18 <[^>]*>\)
++0+0e <[^>]*> 4802      ?	ldr	r0, \[pc, #8\]	; \(0+18 <[^>]*>\)
++0+10 <[^>]*> ed9f 0a01 ?	vldr	s0, \[pc, #4\]	; 0+18 <[^>]*>
++0+14 <[^>]*> f8df 0000 ?	ldr\.w	r0, \[pc\]	; 0+18 <[^>]*>
++#...
+diff --git a/gas/testsuite/gas/arm/ldr-global.s b/gas/testsuite/gas/arm/ldr-global.s
+new file mode 100644
+index 0000000..ef3960c
+--- /dev/null
++++ b/gas/testsuite/gas/arm/ldr-global.s
+@@ -0,0 +1,22 @@
++@ Test pc-relative loads from global objects defined in the same text segment.
++@ See tc-arm.c:arm_force_relocation.
++.arch armv7-a
++.fpu vfp
++.syntax unified
++.text
++foo_arm:
++  ldr r0, bar
++  ldrsh r0, bar
++  vldr s0, bar
++.thumb
++foo_thumb:
++  ldr r0, bar
++  ldr.n r0, bar
++  vldr s0, bar
++  ldr.w r0, bar
++  
++.align 2
++.globl bar
++bar:
++  .word 42
++
