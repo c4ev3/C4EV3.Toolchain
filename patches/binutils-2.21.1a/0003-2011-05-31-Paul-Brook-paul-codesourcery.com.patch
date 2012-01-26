@@ -20,25 +20,23 @@ Subject: [PATCH] 2011-05-31 Paul Brook <paul@codesourcery.com>
  create mode 100644 gas/testsuite/gas/arm/ldr-global.s
 
 diff --git a/gas/ChangeLog b/gas/ChangeLog
-index 28c5231..b795927 100644
+index 596029f..29dd697 100644
 --- a/gas/ChangeLog
 +++ b/gas/ChangeLog
-@@ -1,5 +1,10 @@
- 2011-05-31  Paul Brook  <paul@codesourcery.com>
- 
+@@ -1,3 +1,8 @@
++2011-05-31  Paul Brook  <paul@codesourcery.com>
++
 +	* config/tc-arm.c (arm_force_relocation): Resolve all pc-relative
 +	loads.
 +
-+2011-05-31  Paul Brook  <paul@codesourcery.com>
-+
- 	* config/tc-arm.c (do_t_branch): Avoid relaxing branches to constant
- 	addresses.
+ 2011-05-29  Alan Modra  <amodra@gmail.com>
  
+ 	Apply from mainline
 diff --git a/gas/config/tc-arm.c b/gas/config/tc-arm.c
-index 964384c..6611e02 100644
+index 4addafc..48b7bb4 100644
 --- a/gas/config/tc-arm.c
 +++ b/gas/config/tc-arm.c
-@@ -21895,14 +21895,25 @@ arm_force_relocation (struct fix * fixp)
+@@ -21675,14 +21675,25 @@ arm_force_relocation (struct fix * fixp)
      }
  #endif
  
@@ -67,20 +65,18 @@ index 964384c..6611e02 100644
  
    /* Always leave these relocations for the linker.  */
 diff --git a/gas/testsuite/ChangeLog b/gas/testsuite/ChangeLog
-index 859bcbe..81fe89b 100644
+index 356db30..b3d10ec 100644
 --- a/gas/testsuite/ChangeLog
 +++ b/gas/testsuite/ChangeLog
-@@ -1,5 +1,10 @@
- 2011-05-31  Paul Brook  <paul@codesourcery.com>
- 
-+	* gas/arm/ldr-global.d: New test.
-+	* gas/arm/ldr-global.s: New test.
-+
+@@ -1,3 +1,8 @@
 +2011-05-31  Paul Brook  <paul@codesourcery.com>
 +
- 	* arm/t2-branch-global.d: New test.
- 	* arm/t2-branch-global.s: New test.
++      * gas/arm/ldr-global.d: New test.
++      * gas/arm/ldr-global.s: New test.
++
+ 2011-05-29  Alan Modra  <amodra@gmail.com>
  
+ 	Apply from mainline
 diff --git a/gas/testsuite/gas/arm/ldr-global.d b/gas/testsuite/gas/arm/ldr-global.d
 new file mode 100644
 index 0000000..3528d4e
