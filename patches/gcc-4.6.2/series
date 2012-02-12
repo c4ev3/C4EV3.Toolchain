@@ -16,4 +16,5 @@
 0301-flatten-switch-stmt-into-if-else-chain-for-Os.patch
 0302-libiberty-pic.patch
 0303-libstdc-pic.patch
-# 19cc4f8bfbc9cbec87de32579a9f88fd  - git-ptx-patches magic
+0304-gcc-i386-use-pure64-CLFS-patch.patch
+# fafe6c53dbc3db9d6019dec03d36185a  - git-ptx-patches magic
