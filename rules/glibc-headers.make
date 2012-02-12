@@ -57,6 +57,7 @@ GLIBC_HEADERS_ENV  := \
 	\
 	libc_cv_asm_cfi_directive_sections=yes \
 	libc_cv_asm_cfi_directives=yes \
+	libc_cv_asm_cfi_personality=yes \
 	libc_cv_asm_protected_directive=yes \
 	libc_cv_asm_symver_directive=yes \
 	libc_cv_broken_alias_attribute=no \
@@ -71,6 +72,8 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_z_relro=yes \
 	\
 	libc_cv_386_tls=yes \
+	\
+	libc_cv_x86_64_tls=yes \
 	\
 	libc_cv_arm_tls=yes \
 	\
