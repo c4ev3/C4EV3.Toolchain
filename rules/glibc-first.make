@@ -49,6 +49,7 @@ GLIBC_FIRST_ENV := \
 	libc_cv_c_cleanup=yes \
 	libc_cv_forced_unwind=yes \
 	libc_cv_fpie=yes \
+	libc_cv_slibdir='/lib' \
 	libc_cv_ssp=yes \
 	libc_cv_visibility_attribute=yes \
 	libc_cv_broken_visibility_attribute=no \
