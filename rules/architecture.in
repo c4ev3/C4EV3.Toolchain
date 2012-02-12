@@ -16,6 +16,9 @@ choice
 	config ARCH_I386
 		bool "i386   "
 
+	config ARCH_X86_64
+		bool "x86_64 "
+
 	config ARCH_AVR
 		bool "AVR-8  "
 
@@ -35,6 +38,7 @@ config ARCH
 	default "avr32"		if ARCH_AVR32
 	default "m68k"		if ARCH_M68K
 	default "i386"		if ARCH_I386
+	default "x86_64"	if ARCH_X86_64
 	default "mips"		if ARCH_MIPS
 	default "powerpc"	if ARCH_POWERPC
 
