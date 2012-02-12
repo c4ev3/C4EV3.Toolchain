@@ -120,6 +120,9 @@ fixup()
 	avr)
 	    PTXCONF_ARCH_AVR=y
 	    ;;
+	x86_64*)
+	    PTXCONF_ARCH_X86_64=y
+	    ;;
 	*)
 	    echo "unsupported GNU_TARGET: ${PTXCONF_GNU_TARGET}"
 	    exit 1
@@ -193,6 +196,9 @@ fixup()
 	    ;;
 	i686-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i686"
+	    ;;
+
+	x86_64-unknown-linux-gnu)
 	    ;;
 
 	mipsel-softfloat-linux-gnu)
