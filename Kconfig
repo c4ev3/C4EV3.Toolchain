@@ -73,6 +73,7 @@ source "workspace/rules/host-mpc.in"
 source "workspace/rules/host-mpfr.in"
 source "workspace/rules/host-zlib.in"
 source "workspace/rules/host-libelf.in"
+source "rules/host-autotools-autoconf.in"
 
 comment "----------------------------------"
 
