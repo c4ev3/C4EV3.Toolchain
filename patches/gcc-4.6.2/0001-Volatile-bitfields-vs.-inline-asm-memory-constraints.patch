@@ -14,7 +14,7 @@ Patch taken from Debian
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  gcc/expr.c |    7 +++++--
- 1 files changed, 5 insertions(+), 2 deletions(-)
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/gcc/expr.c b/gcc/expr.c
 index c4a00aa..03f51f4 100644
