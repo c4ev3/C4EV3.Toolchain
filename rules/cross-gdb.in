@@ -1,5 +1,6 @@
 menuconfig CROSS_GDB
 	bool "cross gdb                   "
+	select HOST_EXPAT
 	help
 	GDB is a source-level debugger, capable of breaking programs
 	at any specific line, displaying variable values, and

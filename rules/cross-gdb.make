@@ -63,7 +63,8 @@ CROSS_GDB_AUTOCONF := \
 	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
 	--disable-werror \
-	--enable-tui
+	--enable-tui \
+	--with-expat
 
 $(STATEDIR)/cross-gdb.prepare:
 	@$(call targetinfo)
