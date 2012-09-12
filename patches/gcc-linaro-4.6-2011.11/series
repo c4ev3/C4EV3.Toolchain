@@ -2,6 +2,7 @@
 #tag:base
 #tag:upstream --start-number 1
 ../gcc-4.6.2/0002-Fix-compilation-with-host-gcc-4.7.patch
+../gcc-4.6.2/0003-PR-tree-optimization-52445.patch
 #tag:OSELAS.toolchain --start-number 100
 ../gcc-4.6.2/0100-no-host-includes.patch
 ../gcc-4.6.2/0101-arm-softfloat.patch

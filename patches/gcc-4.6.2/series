@@ -3,6 +3,7 @@
 #tag:upstream --start-number 1
 0001-Volatile-bitfields-vs.-inline-asm-memory-constraints.patch
 0002-Fix-compilation-with-host-gcc-4.7.patch
+0003-PR-tree-optimization-52445.patch
 #tag:OSELAS.toolchain --start-number 100
 0100-no-host-includes.patch
 0101-arm-softfloat.patch
@@ -18,4 +19,4 @@
 0302-libiberty-pic.patch
 0303-libstdc-pic.patch
 0304-gcc-i386-use-pure64-CLFS-patch.patch
-# 6d8f5b9330726a3711dfaf70517361c8  - git-ptx-patches magic
+# ab95a5806890e21a52e7073adde58db0  - git-ptx-patches magic
