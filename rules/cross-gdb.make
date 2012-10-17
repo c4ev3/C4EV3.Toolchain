@@ -24,7 +24,7 @@ CROSS_GDB_SOURCE	:= $(SRCDIR)/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 CROSS_GDB_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
 CROSS_GDB_URL		:= \
-	$(PTXCONF_SETUP_GNUMIRROR)/gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX) \
+	$(call ptx/mirror, GNU, gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)) \
 	ftp://sourceware.org/pub/gdb/snapshots/current/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 
 # ----------------------------------------------------------------------------
