@@ -70,6 +70,7 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_z_nodelete=yes \
 	libc_cv_z_nodlopen=yes \
 	libc_cv_z_relro=yes \
+	libc_cv_predef_stack_protector=no \
 	\
 	libc_cv_386_tls=yes \
 	\
