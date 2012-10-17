@@ -16,12 +16,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_EXPAT) += host-expat
 #
 # Paths and names
 #
-HOST_EXPAT_VERSION	:= 2.0.1
-HOST_EXPAT_MD5		:= e4b08e8477e1dccb56b95078c6d6ff88
+HOST_EXPAT_VERSION	:= 2.1.0
+HOST_EXPAT_MD5		:= dd7dab7a5fea97d2a6a43f511449b7cd
 HOST_EXPAT		:= expat-$(HOST_EXPAT_VERSION)
-# Note: repackaged tar.bz2 as tar.gz seems broken.
-HOST_EXPAT_SUFFIX	:= tar.bz2
-HOST_EXPAT_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_EXPAT).$(HOST_EXPAT_SUFFIX)
+HOST_EXPAT_SUFFIX	:= tar.gz
+HOST_EXPAT_URL		:= $(call ptx/mirror, SF, expat/$(EXPAT).$(EXPAT_SUFFIX))
 HOST_EXPAT_SOURCE	:= $(SRCDIR)/$(HOST_EXPAT).$(HOST_EXPAT_SUFFIX)
 HOST_EXPAT_DIR		:= $(HOST_BUILDDIR)/$(HOST_EXPAT)
 
