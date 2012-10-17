@@ -34,7 +34,7 @@ GLIBC_PORTS_SOURCE	:= $(SRCDIR)/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
 GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC_PORTS)
 
 GLIBC_PORTS_URL		:= \
-	$(PTXCONF_SETUP_GNUMIRROR)/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX) \
+	$(call ptx/mirror, GNU, glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)) \
 	ftp://sources.redhat.com/pub/glibc/snapshots/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX) \
 	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC_PORTS).$(GLIBC_PORTS_SUFFIX)
 
