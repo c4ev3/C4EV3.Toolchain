@@ -49,7 +49,7 @@ Bugs: mailto:bugs@pengutronix.de
 EOF
 #Depends: autoconf, automake, libtool, flex, bison, gcc, g++, python-dev, libncurses5-dev, gawk, pkg-config, make, diff, patch, quilt
     # copy data
-    tar -C "${destdir}" -c "${prefix}" | tar -C "${debian_tmp}" -x
+    tar -C "${destdir}" --exclude=gcc-first -c "${prefix}" | tar -C "${debian_tmp}" -x
 
     # make a deb out of it
     echo dpkg -b "${debian_tmp}" "${deb}" | fakeroot
