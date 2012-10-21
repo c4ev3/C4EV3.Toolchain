@@ -86,9 +86,15 @@ $(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
 $(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" -cvjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
+$(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
+	@touch "$@"
+
+
+$(STATEDIR)/%.pkgs: $(DEB_PREFIX)%$(DEB_SUFFIX) $(TBZ2_PREFIX)%$(TBZ2_SUFFIX) | mkdirs
+	@:
 
 oldconfig: $(OLDCONFIGS)
 
