@@ -289,6 +289,9 @@ fixup()
     echo
     echo
 
+    # change the configfile to force update
+    sed -i 's/PTXCONF__ptxconfig_MAGIC__=y//' "${config}"
+
     ./p --force --ptxconfig="${config}" oldconfig || exit 1
 }
 
