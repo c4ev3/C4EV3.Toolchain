@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 5 Dec 2012 17:17:52 +0100
+Subject: [PATCH] libgcc: reorder $tmake_file for arm*-*-uclinux*
+
+arm/t-arm must be first in the list. It overwrites variables instead of
+appending, so anything set before is lost.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ libgcc/config.host |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libgcc/config.host b/libgcc/config.host
+index ef9791b..bcb30fa 100644
+--- a/libgcc/config.host
++++ b/libgcc/config.host
+@@ -339,7 +339,7 @@ arm*-*-linux*)			# ARM GNU/Linux with ELF
+ 	tmake_file="$tmake_file t-softfp-sfdf t-softfp-excl arm/t-softfp t-softfp"
+ 	;;
+ arm*-*-uclinux*)		# ARM ucLinux
+-	tmake_file="${tmake_file} t-fixedpoint-gnu-prefix"
++	tmake_file="${tmake_file} arm/t-arm t-fixedpoint-gnu-prefix"
+ 	case ${host} in
+ 	arm*-*-uclinux*eabi)
+ 	  tmake_file="${tmake_file} arm/t-bpabi"
+@@ -347,7 +347,7 @@ arm*-*-uclinux*)		# ARM ucLinux
+ 	  unwind_header=config/arm/unwind-arm.h
+ 	  ;;
+ 	esac
+-	tmake_file="$tmake_file arm/t-arm arm/t-elf t-softfp-sfdf t-softfp-excl arm/t-softfp t-softfp"
++	tmake_file="$tmake_file arm/t-elf t-softfp-sfdf t-softfp-excl arm/t-softfp t-softfp"
+ 	extra_parts="$extra_parts crti.o crtn.o"
+ 	;;
+ arm*-*-ecos-elf)
