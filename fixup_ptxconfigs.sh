@@ -314,7 +314,7 @@ update()
     local config_new="${config/${component}-${from}/${component}-${to}}"
 
     if [ "${config}" != "${config_new}" ]; then
-	svn mv "${config}" "${config_new}" || return $?
+	git mv "${config}" "${config_new}" || return $?
 	fixup "${config_new}"
     fi
 }
