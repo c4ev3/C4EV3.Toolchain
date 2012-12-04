@@ -50,6 +50,9 @@ fixup()
 	    glibc*)
 		PTXCONF_GLIBC_VERSION="${part##glibc-}"
 		;;
+	    uclibc*)
+		PTXCONF_UCLIBC_VERSION="${part##uclibc-}"
+		;;
 	    libc*)
 		PTXCONF_AVRLIB_VERSION="${part##libc-}"
 		;;
