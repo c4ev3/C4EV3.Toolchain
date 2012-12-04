@@ -77,7 +77,7 @@ $(STATEDIR)/uclibc-headers.install:
 	cd $(UCLIBC_DIR) && \
 		$(UCLIBC_PATH) $(UCLIBC_ENV) \
 		$(MAKE) $(UCLIBC_MAKEVARS) \
-		headers install_dev #pregen install_headers
+		install_headers
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
