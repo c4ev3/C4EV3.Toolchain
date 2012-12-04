@@ -84,6 +84,7 @@ $(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
 	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
 
 $(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
+	@echo Creating $(notdir $@) ...
 	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
 $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
