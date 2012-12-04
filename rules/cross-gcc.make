@@ -88,6 +88,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--enable-symvers=gnu \
 	\
 	--with-pkgversion=$(PTXCONF_CROSS_GCC_PKGVERSION) \
+	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--with-system-zlib
 
 ifdef PTXCONF_HOST_GMP
@@ -120,7 +121,6 @@ CROSS_GCC_AUTOCONF := \
 	$(PTX_HOST_CROSS_AUTOCONF_PREFIX) \
 	\
 	--enable-languages=$(subst $(space),$(comma),$(CROSS_GCC_LANG-y)) \
-	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
 	--enable-c99 \
 	--enable-long-long \
 	--enable-libstdcxx-debug \
