@@ -27,6 +27,6 @@ config UCLIBC_MD5
 
 config UCLIBC_CONFIG
 	string
-	default "uclibc-${PTXCONF_UCLIBC_VERSION}-${PTXCONF_ARCH}.config"
+	default "uclibc-${PTXCONF_UCLIBC_VERSION}-${PTXCONF_GNU_TARGET}.config"
 
 endif
