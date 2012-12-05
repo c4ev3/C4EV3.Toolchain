@@ -64,6 +64,7 @@ source "workspace/rules/w32api-headers.in"
 endif
 
 source "workspace/rules/cross-binutils.in"
+source "workspace/rules/cross-elf2flt.in"
 source "workspace/rules/kernel-headers.in"
 source "workspace/rules/cross-gcc.in"
 source "workspace/rules/cross-gdb.in"
