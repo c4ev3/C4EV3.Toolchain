@@ -2,6 +2,7 @@
 
 menuconfig CROSS_BINUTILS
 	bool
+	select HOST_ZLIB
 	prompt "binutils                    "
 
 if CROSS_BINUTILS
