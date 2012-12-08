@@ -157,11 +157,13 @@ $(STATEDIR)/glibc.install:
 # Fix a bug when linking statically
 # see: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=76451
 #
-	mv -- "$(SYSROOT)/usr/lib/libc.a" "$(SYSROOT)/usr/lib/libc_ns.a"
-	echo '/* GNU ld script'											>  "$(SYSROOT)/usr/lib/libc.a"
-	echo '   Use the static library, but some functions are in other strange'				>> "$(SYSROOT)/usr/lib/libc.a"
-	echo '   libraries :-( So try them secondarily. */'							>> "$(SYSROOT)/usr/lib/libc.a"
-	echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files.a /usr/lib/libnss_dns.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a"
+	if [ -e "$(SYSROOT)/usr/lib/libnss_files.a" ]; then \
+		mv -- "$(SYSROOT)/usr/lib/libc.a" "$(SYSROOT)/usr/lib/libc_ns.a" && \
+		echo '/* GNU ld script'											>  "$(SYSROOT)/usr/lib/libc.a" && \
+		echo '   Use the static library, but some functions are in other strange'				>> "$(SYSROOT)/usr/lib/libc.a" && \
+		echo '   libraries :-( So try them secondarily. */'							>> "$(SYSROOT)/usr/lib/libc.a" && \
+		echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files.a /usr/lib/libnss_dns.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a" ; \
+	fi
 
 	@$(call touch)
 
