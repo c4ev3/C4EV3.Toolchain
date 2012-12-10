@@ -92,7 +92,12 @@ $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
 	@find "`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`" -depth -type d -print0 | xargs -r -0 -- rmdir --ignore-fail-on-non-empty --
-	@strip "`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/bin/"*-* || true
+	find \
+		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/libexec/" \
+		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/bin/" \
+		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/"*/bin/ \
+		-type f \( -executable -o -name "*.so*" \) \
+		| xargs strip || true
 	@touch "$@"
 
 
