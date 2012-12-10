@@ -1,19 +1,19 @@
-From: unknown author <unknown.author@example.com>
+From: Jakub Jelinek <jakub@redhat.com>
 Date: Tue, 1 Nov 2011 18:58:26 +0100
-Subject: [PATCH] localedef fix trampoline
+Subject: [PATCH] Fix localedef segfault when run under exec-shield, PaX or
+ similar
 
-if [ $# -ne 2 ]; then
-    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
-    exit 1
-fi
-case "$1" in
-    -patch) patch -d "$2" -f --no-backup-if-mismatch -p1 < $0;;
-    -unpatch) patch -d "$2" -f --no-backup-if-mismatch -R -p1 < $0;;
-    *)
-	echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
-	exit 1
-esac
-exit 0
+# DP: Description: Fix localedef segfault when run under exec-shield,
+#        PaX or similar. (#231438, #198099)
+# DP: Dpatch Author: James Troup <james@nocrew.org>
+# DP: Patch Author: (probably) Jakub Jelinek <jakub@redhat.com>
+# DP: Upstream status: Unknown
+# DP: Status Details: Unknown
+# DP: Date: 2004-03-16
+
+Taken from Debian.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  locale/programs/3level.h |   36 ++++++++++++++++++++++++++++++++++++
  1 file changed, 36 insertions(+)
