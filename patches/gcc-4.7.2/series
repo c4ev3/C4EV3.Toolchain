@@ -16,4 +16,6 @@
 0400-add-support-for-arm-linux-eabi-triplets-useful-for-a.patch
 #tag:OpenEmbedded --start-number 500
 0500-Fix-Argument-list-too-long-error.patch
-# d177996e61f35f8619c8fd1b51981c5c  - git-ptx-patches magic
+#tag:Linaro --start-number 600
+0600-Backport-the-change-to-the-hard-float-loader-path.-C.patch
+# 4987a1a030fd14433ae05b3624255ffa  - git-ptx-patches magic
