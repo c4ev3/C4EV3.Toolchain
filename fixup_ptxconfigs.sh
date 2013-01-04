@@ -219,7 +219,7 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i686"
 	    ;;
 	i686-atom-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=atom --with-fpmath=sse"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=atom --with-fpmath=sse --with-specs='%{!mmovbe:%{!mno-movbe:-mno-movbe}}'"
 	    ;;
 
 	x86_64-unknown-linux-gnu)
