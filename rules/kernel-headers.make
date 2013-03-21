@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_KERNEL_HEADERS) += kernel-headers
 KERNEL_HEADERS_VERSION	:= $(call remove_quotes,$(PTXCONF_KERNEL_HEADERS_VERSION))
 KERNEL_HEADERS_MD5	:= $(call remove_quotes,$(PTXCONF_KERNEL_HEADERS_MD5))
 KERNEL_HEADERS		:= linux-$(KERNEL_HEADERS_VERSION)
-KERNEL_HEADERS_SUFFIX	:= tar.bz2
+KERNEL_HEADERS_SUFFIX	:= tar.xz
 KERNEL_HEADERS_URL	:= \
 	http://www.kernel.org/pub/linux/kernel/v2.6/$(KERNEL_HEADERS).$(KERNEL_HEADERS_SUFFIX) \
 	http://www.kernel.org/pub/linux/kernel/v3.x/$(KERNEL_HEADERS).$(KERNEL_HEADERS_SUFFIX)
