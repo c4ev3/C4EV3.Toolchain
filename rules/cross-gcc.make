@@ -62,7 +62,7 @@ endif
 # ----------------------------------------------------------------------------
 
 CROSS_GCC_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GCC_ENV	:= $(PTX_HOST_ENV)
+CROSS_GCC_ENV	:= $(PTX_HOST_ENV) MAKEINFO=:
 
 #
 # autoconf

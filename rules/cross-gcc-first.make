@@ -39,7 +39,7 @@ $(STATEDIR)/cross-gcc-first.extract: $(STATEDIR)/cross-gcc.extract
 # ----------------------------------------------------------------------------
 
 CROSS_GCC_FIRST_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GCC_FIRST_ENV	:= $(PTX_HOST_ENV)
+CROSS_GCC_FIRST_ENV	:= $(PTX_HOST_ENV) MAKEINFO=:
 
 #
 # autoconf
