@@ -59,8 +59,10 @@ KERNEL_HEADERS_MAKEVARS	:= \
 $(STATEDIR)/kernel-headers.prepare:
 	@$(call targetinfo)
 
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) defconfig
-	yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
+	$(KERNEL_HEADERS_ENV) $(KERNEL_HEADERS_PATH) \
+		$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) defconfig
+	$(KERNEL_HEADERS_ENV) $(KERNEL_HEADERS_PATH) \
+		yes "" | $(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) oldconfig
 
 	@$(call touch)
 
@@ -75,7 +77,8 @@ ifndef PTXCONF_KERNEL_HEADERS_SANITIZED
 # this is used to generate asm and asm/mach links for arm
 # but fails on ppc/powerpc, thus the '-' and '-k'
 #
-	-$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) archprepare -k
+	@-$(KERNEL_HEADERS_ENV) $(KERNEL_HEADERS_PATH) \
+		$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) archprepare -k
 #
 # if the include/asm link is missing, it's really fatal
 #
@@ -91,7 +94,9 @@ $(STATEDIR)/kernel-headers.install:
 	@$(call targetinfo)
 
 ifdef PTXCONF_KERNEL_HEADERS_SANITIZED
-	$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) headers_install INSTALL_HDR_PATH=$(SYSROOT)/usr
+	@$(KERNEL_HEADERS_ENV) $(KERNEL_HEADERS_PATH) \
+		$(MAKE) -C $(KERNEL_HEADERS_DIR) $(KERNEL_HEADERS_MAKEVARS) \
+		headers_install INSTALL_HDR_PATH=$(SYSROOT)/usr
 else
 	mkdir -p $(SYSROOT)/usr/include/asm
 	cp -r $(KERNEL_HEADERS_DIR)/include/linux $(SYSROOT)/usr/include
