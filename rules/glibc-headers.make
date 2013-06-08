@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2013 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,22 +19,6 @@ PACKAGES-$(PTXCONF_GLIBC_HEADERS) += glibc-headers
 # Paths and names
 #
 GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers-build
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-headers.get: $(STATEDIR)/glibc.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-headers.extract: $(STATEDIR)/glibc.extract
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,18 +79,19 @@ GLIBC_HEADERS_ENV  := \
 #
 # autoconf
 #
-GLIBC_HEADERS_AUTOCONF = \
+GLIBC_HEADERS_CONF_TOOL	:= autoconf
+GLIBC_HEADERS_CONF_OPT	 = \
 	$(GLIBC_AUTOCONF_COMMON) \
 	\
 	--enable-hacker-mode
 
-$(STATEDIR)/glibc-headers.prepare:
+$(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
 	@$(call targetinfo)
 	@$(call clean, $(GLIBC_HEADERS_DIR))
 	mkdir -p $(GLIBC_HEADERS_DIR)
 	cd $(GLIBC_HEADERS_DIR) && \
 		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_HEADERS_AUTOCONF)
+		$(GLIBC_DIR)/configure $(GLIBC_HEADERS_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -138,21 +124,5 @@ $(STATEDIR)/glibc-headers.install:
 	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
 	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-headers.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glibc-headers_clean:
-	rm -rf $(STATEDIR)/glibc-headers.*
-	rm -rf $(GLIBC_HEADERS_DIR)
 
 # vim: syntax=make

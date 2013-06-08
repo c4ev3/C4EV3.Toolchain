@@ -40,7 +40,6 @@ source "workspace/rules/libc.in"
 if LIBC_GLIBC
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-ports.in"
-source "workspace/rules/glibc-linuxthreads.in"
 endif
 
 if LIBC_UCLIBC

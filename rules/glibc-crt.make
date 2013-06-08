@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2013 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,22 +20,6 @@ PACKAGES-$(PTXCONF_GLIBC_CRT) += glibc-crt
 GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt-build
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-crt.get: $(STATEDIR)/glibc.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-crt.extract: $(STATEDIR)/glibc.extract
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -51,25 +36,17 @@ GLIBC_CRT_ENV := \
 #
 # autoconf
 #
-GLIBC_CRT_AUTOCONF = $(GLIBC_AUTOCONF)
+GLIBC_CRT_CONF_TOOL	:= autoconf
+GLIBC_CRT_CONF_OPT	= $(GLIBC_CONF_OPT)
+GLIBC_CRT_MAKE_OPT	:= csu/subdir_lib
 
-$(STATEDIR)/glibc-crt.prepare:
+$(STATEDIR)/glibc-crt.prepare: $(STATEDIR)/glibc.extract
 	@$(call targetinfo)
 	@$(call clean, $(GLIBC_CRT_DIR))
 	mkdir -p $(GLIBC_CRT_DIR)
 	cd $(GLIBC_CRT_DIR) && eval \
 		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_CRT_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-crt.compile:
-	@$(call targetinfo)
-	cd $(GLIBC_CRT_DIR) && $(GLIBC_CRT_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) csu/subdir_lib
+		$(GLIBC_DIR)/configure $(GLIBC_CRT_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -84,21 +61,5 @@ $(STATEDIR)/glibc-crt.install:
 			$(SYSROOT)/usr/lib/$$file || exit 1; \
 	done
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc-crt.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glibc-crt_clean:
-	rm -rf $(STATEDIR)/glibc-crt.*
-	rm -rf $(GLIBC_CRT_DIR)
 
 # vim: syntax=make

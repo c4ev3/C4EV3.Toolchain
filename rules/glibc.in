@@ -17,8 +17,6 @@ menuconfig GLIBC
 	bool
 
 	select GLIBC_CRT
-	select GLIBC_PORTS		if GLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
-	select GLIBC_LINUXTHREADS	if GLIBC_ADDON_LINUXTHREADS
 
 	select TOOLCHAIN_ENABLE_SYSROOT
 	select TOOLCHAIN_DISABLE_MULTILIB
@@ -87,24 +85,6 @@ config GLIBC_HEADERS_FAKE_CROSS
 	default "-DBOOTSTRAP_GCC"	if ARCH_MIPS
 	help
 	  Add these args to fake a crosscompiler during glibc-header extraction stage.
-
-choice
-	prompt "Thread implementation"
-	default GLIBC_ADDON_NPTL
-
-	config GLIBC_ADDON_LINUXTHREADS
-		bool
-		prompt "linuxthreads"
-		help
-		  Activate the linuxthreads addon.
-
-	config GLIBC_ADDON_NPTL
-		bool
-		prompt "nptl"
-		select GLIBC_TLS
-		help
-		  Activate the NPTL addon.
-endchoice
 
 config GLIBC_TLS
 	bool
