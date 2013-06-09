@@ -28,46 +28,18 @@ HOST_MPFR_URL		:= \
 	http://cross-lfs.org/files/packages/svn/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_MPFR_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_MPFR)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-mpfr.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_MPFR_DIR))
-	@$(call extract, HOST_MPFR, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_MPFR, $(HOST_MPFR_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_MPFR_PATH	:= PATH=$(HOST_PATH)
-HOST_MPFR_ENV 	:= $(HOST_ENV)
 HOST_MPFR_DEVPKG:= NO
 
 #
 # autoconf
 #
-HOST_MPFR_AUTOCONF	:= \
+HOST_MPFR_CONF_TOOL	:= autoconf
+HOST_MPFR_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
 	--disable-shared \
 	--enable-static
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-mpfr_clean:
-	rm -rf $(STATEDIR)/host-mpfr.*
-	rm -rf $(HOST_MPFR_DIR)
 
 # vim: syntax=make
