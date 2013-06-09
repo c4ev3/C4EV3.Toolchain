@@ -25,35 +25,18 @@ HOST_MPC_SOURCE		:= $(SRCDIR)/$(HOST_MPC).$(HOST_MPC_SUFFIX)
 HOST_MPC_DIR		:= $(HOST_BUILDDIR)/$(HOST_MPC)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_MPC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_MPC)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_MPC_PATH	:= PATH=$(HOST_PATH)
-HOST_MPC_ENV 	:= $(HOST_ENV)
 HOST_MPC_DEVPKG	:= NO
 
 #
 # autoconf
 #
-HOST_MPC_AUTOCONF	:= \
+HOST_MPC_CONF_TOOL	:= autoconf
+HOST_MPC_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
 	--disable-shared \
 	--enable-static
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-#host-mpc_clean:
-#	rm -rf $(STATEDIR)/host-mpc.*
-#	rm -rf $(HOST_MPC_DIR)
 
 # vim: syntax=make
