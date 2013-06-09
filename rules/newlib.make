@@ -26,25 +26,6 @@ NEWLIB_DIR	:= $(BUILDDIR_DEBUG)/$(NEWLIB)
 NEWLIB_BUILDDIR	:= $(BUILDDIR)/$(NEWLIB)-build
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(NEWLIB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, NEWLIB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/newlib.extract:
-	@$(call targetinfo)
-	@$(call clean, $(NEWLIB_DIR))
-	@$(call extract, NEWLIB, $(BUILDDIR_DEBUG))
-	@$(call patchin, NEWLIB, $(NEWLIB_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,56 +35,12 @@ NEWLIB_ENV := CC_FOR_BUILD=$(HOSTCC)
 #
 # autoconf
 #
-NEWLIB_AUTOCONF := \
+NEWLIB_CONF_TOOL	:= autoconf
+NEWLIB_CONF_OPT		:= \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-shared \
 	--disable-newlib-supplied-syscalls \
 	--with-newlib
-
-$(STATEDIR)/newlib.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(NEWLIB_BUILDDIR))
-	mkdir -p $(NEWLIB_BUILDDIR)
-	cd $(NEWLIB_BUILDDIR) && \
-		$(NEWLIB_ENV) $(NEWLIB_PATH) \
-		$(NEWLIB_DIR)/configure $(NEWLIB_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/newlib.compile:
-	@$(call targetinfo)
-	cd $(NEWLIB_BUILDDIR) && $(NEWLIB_PATH) \
-		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/newlib.install:
-	@$(call targetinfo)
-	cd $(NEWLIB_BUILDDIR) && \
-		$(NEWLIB_PATH) $(MAKE) install
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/newlib.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-newlib_clean:
-	rm -rf $(STATEDIR)/newlib.*
-	rm -rf $(NEWLIB_DIR)
 
 # vim: syntax=make
