@@ -2,10 +2,10 @@
  ports/sysdeps/arm/mp_clz_tab.c |   24 ++++++++++++++++++++++++
  1 file changed, 24 insertions(+)
 
-Index: glibc-ports-2.7/ports/sysdeps/arm/mp_clz_tab.c
+Index: glibc-2.7/ports/ports/sysdeps/arm/mp_clz_tab.c
 ===================================================================
 --- /dev/null
-+++ glibc-ports-2.7/ports/sysdeps/arm/mp_clz_tab.c
++++ glibc-2.7/ports/ports/sysdeps/arm/mp_clz_tab.c
 @@ -0,0 +1,24 @@
 +/* __clz_tab -- support for longlong.h
 +   Copyright (C) 2004 Free Software Foundation, Inc.

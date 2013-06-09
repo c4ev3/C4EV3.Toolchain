@@ -29,3 +29,11 @@ gentoo/6400_all_sh-glibc-2.3.2-fpscr_values.patch
 gentoo/6415_all_sh-glibc-2.5-no-asm-user-header.patch
 gentoo/6416_all_sh-glibc-2.5-no-asm-elf-header.patch
 gentoo/6645_all_glibc-mips_shn_undef-hack.patch
+
+# from ports
+sysdeps_mips_mips32_Makefile-bootstrap.diff
+
+glibc-2.5_ports_sysdeps_arm_mp_clz_tab.c
+
+gentoo/6605_all_glibc-2.4-fpu-cw-mips.patch
+gentoo/6224_all_glibc-2.7-lowlevellock-includes.patch

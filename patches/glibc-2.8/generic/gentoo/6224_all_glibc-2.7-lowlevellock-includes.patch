@@ -14,10 +14,10 @@ make[4]: *** [/var/tmp/portage/sys-libs/glibc-2.7-r1/work/build-default-armv4l-u
  sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h |    1 +
  1 file changed, 1 insertion(+)
 
-Index: glibc-ports-2.7/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
+Index: glibc-2.7/ports/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
 ===================================================================
---- glibc-ports-2.7.orig/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
-+++ glibc-ports-2.7/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
+--- glibc-2.7.orig/ports/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
++++ glibc-2.7/ports/sysdeps/unix/sysv/linux/arm/nptl/lowlevellock.h
 @@ -25,6 +25,7 @@
  #include <atomic.h>
  #include <sysdep.h>
