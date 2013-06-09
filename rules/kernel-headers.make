@@ -27,25 +27,6 @@ KERNEL_HEADERS_SOURCE	:= $(SRCDIR)/$(KERNEL_HEADERS).$(KERNEL_HEADERS_SUFFIX)
 KERNEL_HEADERS_DIR	:= $(BUILDDIR)/$(KERNEL_HEADERS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(KERNEL_HEADERS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, KERNEL_HEADERS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kernel-headers.extract:
-	@$(call targetinfo)
-	@$(call clean, $(KERNEL_HEADERS_DIR))
-	@$(call extract, KERNEL_HEADERS)
-	@$(call patchin, KERNEL_HEADERS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -105,21 +86,5 @@ else
 endif
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kernel-headers.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-kernel-headers_clean:
-	rm -rf $(STATEDIR)/kernel-headers.*
-	rm -rf $(KERNEL_HEADERS_DIR)
 
 # vim: syntax=make
