@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -25,15 +24,6 @@ UCLIBC_URL	:= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_SOURCE	:= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_DIR	:= $(BUILDDIR)/$(UCLIBC)
 UCLIBC_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/config/$(PTXCONF_UCLIBC_CONFIG))
-
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(UCLIBC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, UCLIBC)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,22 +64,6 @@ $(STATEDIR)/uclibc.install:
 		$(UCLIBC_PATH) $(MAKE) $(UCLIBC_MAKEVARS) \
 		install DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.targetinstall:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-uclibc_clean:
-	rm -rf $(STATEDIR)/uclibc.*
-	rm -rf $(UCLIBC_DIR)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
