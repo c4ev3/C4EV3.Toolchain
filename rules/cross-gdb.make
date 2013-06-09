@@ -28,75 +28,21 @@ CROSS_GDB_URL		:= \
 	ftp://sourceware.org/pub/gdb/snapshots/current/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CROSS_GDB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CROSS_GDB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gdb.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_GDB_DIR))
-	@$(call extract, CROSS_GDB, $(CROSS_BUILDDIR))
-	@$(call patchin, CROSS_GDB, $(CROSS_GDB_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_GDB_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GDB_ENV 	:= $(HOST_ENV)
 CROSS_GDB_DEVPKG := NO
 
 #
 # autoconf
 #
-CROSS_GDB_AUTOCONF := \
+CROSS_GDB_CONF_TOOL	:= autoconf
+CROSS_GDB_CONF_OPT	:= \
 	$(PTX_HOST_CROSS_AUTOCONF) \
 	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
 	--disable-werror \
 	--enable-tui \
 	--with-expat
-
-$(STATEDIR)/cross-gdb.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_GDB_DIR)/config.cache)
-	cd $(CROSS_GDB_DIR) && \
-		$(CROSS_GDB_PATH) $(CROSS_GDB_ENV) \
-		./configure $(CROSS_GDB_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gdb.compile:
-	@$(call targetinfo)
-	cd $(CROSS_GDB_DIR) && $(CROSS_GDB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gdb.install:
-	@$(call targetinfo)
-	@$(call install, CROSS_GDB,,h)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-gdb_clean:
-	rm -rf $(STATEDIR)/cross-gdb.*
-	rm -rf $(CROSS_GDB_DIR)
 
 # vim: syntax=make
