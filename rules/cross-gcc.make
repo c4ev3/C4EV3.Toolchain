@@ -25,8 +25,9 @@ CROSS_GCC_SUFFIX	:= tar.bz2
 CROSS_GCC_SOURCE	:= $(SRCDIR)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 CROSS_GCC_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC)
 CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
+CROSS_GCC_BUILD_OOT	:= YES
 
-CROSS_GCC_URL	 	:= \
+CROSS_GCC_URL		:= \
 	$(call ptx/mirror, GNU, gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)) \
 	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_DL_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
@@ -35,14 +36,6 @@ CROSS_GCC_URL	 	:= \
 	http://launchpad.net/gcc-linaro/4.6/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2
 
 ptx/abs2rel := $(PTXDIST_WORKSPACE)/scripts/ptxd_abs2rel.sh
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CROSS_GCC_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CROSS_GCC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -62,8 +55,8 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_GCC_PATH	:= PATH=$(CROSS_PATH)
-CROSS_GCC_ENV	:= $(HOST_ENV) MAKEINFO=:
+CROSS_GCC_DEVPKG	:= NO
+CROSS_GCC_CONF_ENV	:= $(HOST_ENV) MAKEINFO=:
 
 #
 # autoconf
@@ -117,7 +110,8 @@ CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_CXX)		+= c++
 CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_JAVA)		+= java
 CROSS_GCC_LANG-$(PTXCONF_CROSS_GCC_LANG_FORTRAN)	+= fortran
 
-CROSS_GCC_AUTOCONF := \
+CROSS_GCC_CONF_TOOL	:= autoconf
+CROSS_GCC_CONF_OPT	:= \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	$(PTX_HOST_CROSS_AUTOCONF_PREFIX) \
 	\
@@ -132,15 +126,6 @@ CROSS_GCC_AUTOCONF := \
 	\
 	$(if $(filter 3.%,$(CROSS_GCC_VERSION)),,--enable-checking=release)
 
-$(STATEDIR)/cross-gcc.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_GCC_BUILDDIR))
-	mkdir -p $(CROSS_GCC_BUILDDIR)
-	cd $(CROSS_GCC_BUILDDIR) && \
-		$(CROSS_GCC_PATH) $(CROSS_GCC_ENV) \
-		$(CROSS_GCC_DIR)/configure $(CROSS_GCC_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
@@ -148,8 +133,7 @@ $(STATEDIR)/cross-gcc.prepare:
 $(STATEDIR)/cross-gcc.compile:
 	@$(call targetinfo)
 	@ln -sf `which $(HOSTCC)` $(PTXCONF_SYSROOT_HOST)/bin/$(GNU_BUILD)-gcc
-	cd $(CROSS_GCC_BUILDDIR) && $(CROSS_GCC_PATH) \
-		$(MAKE) $(PARALLELMFLAGS)
+	@$(call world/compile, CROSS_GCC)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -158,8 +142,7 @@ $(STATEDIR)/cross-gcc.compile:
 
 $(STATEDIR)/cross-gcc.install:
 	@$(call targetinfo)
-	@cd $(CROSS_GCC_BUILDDIR) && \
-		$(CROSS_GCC_PATH) $(MAKE) install
+	@$(call world/install, CROSS_GCC)
 
 	@cd "$(PTXCONF_SYSROOT_CROSS)/$(PTX_TOUPLE_TARGET)/lib"; \
 	dst="$(SYSROOT)/usr/lib"; \
@@ -185,19 +168,8 @@ $(STATEDIR)/cross-gcc.install:
 		fi || exit 1; \
 	done
 
-	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" | while read la_file; do \
-		rm -v $${la_file}; \
-	done
+	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" -print0 | xargs -0 rm -v -f
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-gcc_clean:
-	rm -rf $(STATEDIR)/cross-gcc.*
-	rm -rf $(CROSS_GCC_DIR)
-	rm -rf $(CROSS_GCC_BUILDDIR)
 
 # vim: syntax=make

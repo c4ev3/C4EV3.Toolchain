@@ -19,32 +19,16 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GCC_FIRST) += cross-gcc-first
 CROSS_GCC_FIRST_BUILDDIR	= $(CROSS_BUILDDIR)/$(CROSS_GCC)-first-build
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gcc-first.get: $(STATEDIR)/cross-gcc.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gcc-first.extract: $(STATEDIR)/cross-gcc.extract
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_GCC_FIRST_PATH	:= PATH=$(CROSS_PATH)
 CROSS_GCC_FIRST_ENV	:= $(HOST_ENV) MAKEINFO=:
 
 #
 # autoconf
 #
-CROSS_GCC_FIRST_AUTOCONF = \
+CROSS_GCC_FIRST_CONF_TOOL	:= autoconf
+CROSS_GCC_FIRST_CONF_OPT	 = \
 	$(CROSS_GCC_AUTOCONF_COMMON) \
 	--prefix=$(CROSS_GCC_FIRST_PREFIX) \
 	\
@@ -62,23 +46,13 @@ CROSS_GCC_FIRST_AUTOCONF = \
 	--disable-libatomic \
 	--with-system-zlib
 
-$(STATEDIR)/cross-gcc-first.prepare:
+$(STATEDIR)/cross-gcc-first.prepare: $(STATEDIR)/cross-gcc.extract
 	@$(call targetinfo)
 	@$(call clean, $(CROSS_GCC_FIRST_BUILDDIR))
 	mkdir -p $(CROSS_GCC_FIRST_BUILDDIR)
 	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
 		$(CROSS_GCC_FIRST_PATH) $(CROSS_GCC_FIRST_ENV) \
-		$(CROSS_GCC_DIR)/configure $(CROSS_GCC_FIRST_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gcc-first.compile:
-	@$(call targetinfo)
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && $(CROSS_GCC_FIRST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS)
+		$(CROSS_GCC_DIR)/configure $(CROSS_GCC_FIRST_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -97,13 +71,5 @@ $(STATEDIR)/cross-gcc-first.install:
 		sed 's/libgcc/&_s/'`
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-gcc-first_clean:
-	rm -rf $(STATEDIR)/cross-gcc-first.*
-	rm -rf $(CROSS_GCC_FIRST_BUILDDIR)
 
 # vim: syntax=make
