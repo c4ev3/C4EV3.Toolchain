@@ -30,60 +30,21 @@ CROSS_BINUTILS_URL	:= \
 	http://www.kernel.org/pub/linux/devel/binutils/$(CROSS_BINUTILS).$(CROSS_BINUTILS_SUFFIX)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(CROSS_BINUTILS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, CROSS_BINUTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-binutils.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_BINUTILS_DIR))
-	@$(call extract, CROSS_BINUTILS, $(CROSS_BUILDDIR))
-	@$(call patchin, CROSS_BINUTILS, $(CROSS_BINUTILS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_BINUTILS_PATH	:= PATH=$(CROSS_PATH)
-CROSS_BINUTILS_ENV 	:= $(HOST_ENV)
 CROSS_BINUTILS_DEVPKG	:= NO
 
 #
 # autoconf
 #
-CROSS_BINUTILS_AUTOCONF := \
+CROSS_BINUTILS_CONF_TOOL	:= autoconf
+CROSS_BINUTILS_CONF_OPT		:= \
 	$(PTX_HOST_CROSS_AUTOCONF) \
 	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
 	--disable-werror \
 	--disable-nls
-
-$(STATEDIR)/cross-binutils.prepare:
-	@$(call targetinfo)
-	rm -fr $(CROSS_BINUTILS_BUILDDIR)
-	mkdir -p $(CROSS_BINUTILS_BUILDDIR)
-	cd $(CROSS_BINUTILS_BUILDDIR) && \
-		$(CROSS_BINUTILS_PATH) $(CROSS_BINUTILS_ENV) \
-		$(CROSS_BINUTILS_DIR)/configure $(CROSS_BINUTILS_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-binutils.compile:
-	@$(call targetinfo)
-	cd $(CROSS_BINUTILS_BUILDDIR) && $(CROSS_BINUTILS_PATH) \
-		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -91,7 +52,7 @@ $(STATEDIR)/cross-binutils.compile:
 
 $(STATEDIR)/cross-binutils.install:
 	@$(call targetinfo)
-	@$(call install, CROSS_BINUTILS,$(CROSS_BINUTILS_BUILDDIR),h)
+	@$(call world/install, CROSS_BINUTILS)
 
 	mkdir -p "$(CROSS_GCC_FIRST_PREFIX)/$(PTXCONF_GNU_TARGET)/bin"
 	for file in \
@@ -109,13 +70,5 @@ $(STATEDIR)/cross-binutils.install:
 	done
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-binutils_clean:
-	rm -rf $(STATEDIR)/cross-binutils.*
-	rm -rf $(CROSS_BINUTILS_DIR)
 
 # vim: syntax=make
