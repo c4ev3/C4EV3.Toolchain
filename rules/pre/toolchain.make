@@ -43,15 +43,6 @@ PTX_HOST_CROSS_AUTOCONF := \
 
 HOST_ENV_LDFLAGS				:= LDFLAGS="$(HOST_LDFLAGS) -Wl,--as-needed"
 
-# TODO:
-PTX_HOST_ENV := \
-	$(HOST_ENV_CPPFLAGS) \
-	$(HOST_ENV_LDFLAGS) \
-	$(HOST_ENV_PKG_CONFIG)
-
-PTX_HOST_CROSS_ENV :=
-
-
 #
 # gcc-first
 #

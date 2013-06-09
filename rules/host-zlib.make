@@ -40,7 +40,7 @@ $(HOST_ZLIB_SOURCE):
 # ----------------------------------------------------------------------------
 
 HOST_ZLIB_PATH		:= PATH=$(HOST_PATH)
-HOST_ZLIB_ENV		:= $(PTX_HOST_ENV)
+HOST_ZLIB_ENV		:= $(HOST_ENV)
 HOST_ZLIB_DEVPKG	:= NO
 
 #

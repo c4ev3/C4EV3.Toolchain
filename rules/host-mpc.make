@@ -37,7 +37,7 @@ $(HOST_MPC_SOURCE):
 # ----------------------------------------------------------------------------
 
 HOST_MPC_PATH	:= PATH=$(HOST_PATH)
-HOST_MPC_ENV 	:= $(PTX_HOST_ENV)
+HOST_MPC_ENV 	:= $(HOST_ENV)
 HOST_MPC_DEVPKG	:= NO
 
 #
