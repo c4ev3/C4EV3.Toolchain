@@ -15,7 +15,7 @@ if [ ${#config[@]} -gt 1 ]; then
 	exit 1
 fi
 
-target="${config#ptxconfigs/}"
+target="$(basename "${config}")"
 target="${target%.ptxconfig}"
 target="gstate/${target//_/-}.pkgs"
 
