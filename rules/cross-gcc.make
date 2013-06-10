@@ -30,6 +30,7 @@ CROSS_GCC_URL	 	:= \
 	$(call ptx/mirror, GNU, gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)) \
 	ftp://sourceware.org/pub/gcc/snapshots/$(CROSS_GCC_DL_VERSION)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
 	ftp://sourceware.org/pub/gcc/releases/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX) \
+	http://launchpad.net/gcc-linaro/4.8/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2 \
 	http://launchpad.net/gcc-linaro/4.7/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2 \
 	http://launchpad.net/gcc-linaro/4.6/$(subst linaro-,,$(CROSS_GCC_DL_VERSION))/+download/gcc-$(CROSS_GCC_DL_VERSION).tar.bz2
 
