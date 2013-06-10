@@ -28,25 +28,16 @@ HOST_ZLIB_SOURCE	:= $(SRCDIR)/$(HOST_ZLIB).$(HOST_ZLIB_SUFFIX)
 HOST_ZLIB_DIR		:= $(HOST_BUILDDIR)/$(HOST_ZLIB)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_ZLIB_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_ZLIB)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_ZLIB_PATH		:= PATH=$(HOST_PATH)
-HOST_ZLIB_ENV		:= $(HOST_ENV)
 HOST_ZLIB_DEVPKG	:= NO
 
 #
 # autoconf
 #
-HOST_ZLIB_AUTOCONF	:= \
+HOST_ZLIB_CONF_TOOL	:= autoconf
+HOST_ZLIB_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
 	--static
 
