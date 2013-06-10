@@ -20,3 +20,5 @@ gentoo/91_all_libiberty-pic.patch
 oe/binutils-2.16.91.0.6-objcopy-rename-errorcode.patch
 
 uclibc/110-arm-eabi-conf.patch
+
+0001-HACK-disable-some-docs-to-avoid-using-makeinfo.patch

@@ -9,3 +9,5 @@ atmel/0006-Add-support-for-XMEGA-arch-and-devices.patch
 atmel/0007-Add-remove-support-for-devices.patch
 atmel/0008-Add-support-for-devices-with-16-gp-registers.patch
 atmel/0009-Add-support-for-more-XMEGA-devices.patch
+
+0001-HACK-disable-some-docs-to-avoid-using-makeinfo.patch

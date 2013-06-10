@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 10 Jun 2013 09:11:36 +0200
+Subject: [PATCH] HACK: disable some docs to avoid using makeinfo
+
+Patching Makefile.in because running automake fails.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ bfd/Makefile.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/bfd/Makefile.in b/bfd/Makefile.in
+index 54edfc6..bd8c202 100644
+--- a/bfd/Makefile.in
++++ b/bfd/Makefile.in
+@@ -275,7 +275,6 @@ RELEASE = y
+ INCDIR = $(srcdir)/../include
+ CSEARCH = -I. -I$(srcdir) -I$(INCDIR)
+ MKDEP = gcc -MM
+-SUBDIRS = doc po
+ bfddocdir = doc
+ bfdlib_LTLIBRARIES = libbfd.la
+ AM_CFLAGS = $(WARN_CFLAGS)
