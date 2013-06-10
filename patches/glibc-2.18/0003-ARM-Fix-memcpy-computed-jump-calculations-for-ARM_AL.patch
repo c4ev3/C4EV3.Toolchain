@@ -1,0 +1,70 @@
+From: Roland McGrath <roland@hack.frob.com>
+Date: Fri, 22 Nov 2013 11:39:20 -0800
+Subject: [PATCH] ARM: Fix memcpy computed-jump calculations for ARM_ALWAYS_BX
+ case.
+
+---
+ ports/sysdeps/arm/arm-features.h                |  8 --------
+ ports/sysdeps/arm/armv7/multiarch/memcpy_impl.S | 21 +++++++++++----------
+ 2 files changed, 11 insertions(+), 18 deletions(-)
+
+diff --git a/ports/sysdeps/arm/arm-features.h b/ports/sysdeps/arm/arm-features.h
+index 1d4b0f1..336b690 100644
+--- a/ports/sysdeps/arm/arm-features.h
++++ b/ports/sysdeps/arm/arm-features.h
+@@ -53,14 +53,6 @@
+ # define ARM_BX_ALIGN_LOG2	2
+ #endif
+ 
+-/* The number of instructions that 'bx' expands to.  A more-specific
+-   arm-features.h that defines 'bx' as a macro should define this to the
+-   number instructions it expands to.  This is used only in a context
+-   where the 'bx' expansion won't cross an ARM_BX_ALIGN_LOG2 boundary.  */
+-#ifndef ARM_BX_NINSNS
+-# define ARM_BX_NINSNS		1
+-#endif
+-
+ /* An OS-specific arm-features.h file may define ARM_NO_INDEX_REGISTER to
+    indicate that the two-register addressing modes must never be used.  */
+ 
+diff --git a/ports/sysdeps/arm/armv7/multiarch/memcpy_impl.S b/ports/sysdeps/arm/armv7/multiarch/memcpy_impl.S
+index 3decad6..5ed076e 100644
+--- a/ports/sysdeps/arm/armv7/multiarch/memcpy_impl.S
++++ b/ports/sysdeps/arm/armv7/multiarch/memcpy_impl.S
+@@ -128,25 +128,26 @@
+ 	.purgem dispatch_step
+ 	.endm
+ #else
+-# if ARM_BX_ALIGN_LOG2 < 4
++# if ARM_BX_ALIGN_LOG2 < 3
+ #  error case not handled
+ # endif
+ 	.macro dispatch_helper steps, log2_bytes_per_step
+-	.p2align ARM_BX_ALIGN_LOG2
+ 	/* TMP1 gets (max_bytes - bytes_to_copy), where max_bytes is
+ 	   (STEPS << LOG2_BYTES_PER_STEP).
+-	   So this is (steps_to_skip << LOG2_BYTES_PER_STEP).  */
+-	rsb	tmp1, tmp1, #(\steps << \log2_bytes_per_step)
+-	/* Pad so that the add;bx pair immediately precedes an alignment
+-	   boundary.  Hence, TMP1=0 will run all the steps.  */
+-	.rept (1 << (ARM_BX_ALIGN_LOG2 - 2)) - (2 + ARM_BX_NINSNS)
+-	nop
+-	.endr
++	   So this is (steps_to_skip << LOG2_BYTES_PER_STEP).
++	   Then it needs further adjustment to compensate for the
++	   distance between the PC value taken below (0f + PC_OFS)
++	   and the first step's instructions (1f).  */
++	rsb	tmp1, tmp1, #((\steps << \log2_bytes_per_step) \
++			      + ((1f - PC_OFS - 0f) \
++				 >> (ARM_BX_ALIGN_LOG2 - \log2_bytes_per_step)))
+ 	/* Shifting down LOG2_BYTES_PER_STEP gives us the number of
+ 	   steps to skip, then shifting up ARM_BX_ALIGN_LOG2 gives us
+ 	   the (byte) distance to add to the PC.  */
+-	add	tmp1, pc, tmp1, lsl #(ARM_BX_ALIGN_LOG2 - \log2_bytes_per_step)
++0:	add	tmp1, pc, tmp1, lsl #(ARM_BX_ALIGN_LOG2 - \log2_bytes_per_step)
+ 	bx	tmp1
++	.p2align ARM_BX_ALIGN_LOG2
++1:
+ 	.endm
+ 
+ 	.macro dispatch_7_dword

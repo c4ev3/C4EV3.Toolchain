@@ -1,0 +1,35 @@
+From: Will Newton <will.newton@linaro.org>
+Date: Thu, 29 Aug 2013 20:10:26 +0100
+Subject: [PATCH] ARM: Fix clone code when built for Thumb.
+
+The mov lr, pc instruction will lose the Thumb bit from the return address
+so use blx lr instead.
+
+ports/ChangeLog.arm:
+
+2013-08-30  Will Newton  <will.newton@linaro.org>
+
+	[BZ #15909]
+	* sysdeps/unix/sysv/linux/arm/clone.S (__clone): Use blx
+	instead of mov lr, pc.
+
+(cherry picked from commit 6b06ac56cdfc9293908724e51e827534e97819aa)
+---
+ ports/sysdeps/unix/sysv/linux/arm/clone.S | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/ports/sysdeps/unix/sysv/linux/arm/clone.S b/ports/sysdeps/unix/sysv/linux/arm/clone.S
+index ce9c2a5..6e74fa7 100644
+--- a/ports/sysdeps/unix/sysv/linux/arm/clone.S
++++ b/ports/sysdeps/unix/sysv/linux/arm/clone.S
+@@ -93,8 +93,8 @@ PSEUDO_END (__clone)
+ 	mov	lr, pc
+ 	bx      ip
+ #else
+-	mov	lr, pc
+-	ldr 	pc, [sp], #8
++	ldr 	lr, [sp], #8
++	blx	lr
+ #endif
+ 
+ 	@ and we are done, passing the return value through r0
