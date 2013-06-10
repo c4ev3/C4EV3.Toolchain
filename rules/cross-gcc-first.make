@@ -59,6 +59,7 @@ CROSS_GCC_FIRST_AUTOCONF = \
 	--disable-libssp \
 	--disable-libgomp \
 	--disable-libquadmath \
+	--disable-libatomic \
 	--with-system-zlib
 
 $(STATEDIR)/cross-gcc-first.prepare:
