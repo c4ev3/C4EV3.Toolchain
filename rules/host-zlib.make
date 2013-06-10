@@ -17,10 +17,10 @@ HOST_PACKAGES-$(PTXCONF_HOST_ZLIB) += host-zlib
 #
 # Paths and names
 #
-HOST_ZLIB_VERSION	:= 1.2.7
-HOST_ZLIB_MD5		:= 2ab442d169156f34c379c968f3f482dd
+HOST_ZLIB_VERSION	:= 1.2.8
+HOST_ZLIB_MD5		:= 28f1205d8dd2001f26fec1e8c2cebe37
 HOST_ZLIB		:= zlib-$(HOST_ZLIB_VERSION)
-HOST_ZLIB_SUFFIX	:= tar.bz2
+HOST_ZLIB_SUFFIX	:= tar.xz
 HOST_ZLIB_URL		:= \
 	http://zlib.net/$(HOST_ZLIB).$(HOST_ZLIB_SUFFIX) \
 	$(call ptx/mirror, SF, libpng/$(HOST_ZLIB).$(HOST_ZLIB_SUFFIX))
