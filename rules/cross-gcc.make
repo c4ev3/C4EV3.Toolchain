@@ -97,6 +97,10 @@ ifdef PTXCONF_HOST_MPFR
 CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
 endif
 
+ifdef PTXCONF_HOST_CLOOG
+CROSS_GCC_AUTOCONF_COMMON += --with-isl=$(PTXCONF_SYSROOT_HOST) --with-cloog=$(PTXCONF_SYSROOT_HOST)
+endif
+
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
 #   --enable-initfini-array       use .init_array/.fini_array sections

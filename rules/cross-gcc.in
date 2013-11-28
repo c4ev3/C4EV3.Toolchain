@@ -10,6 +10,7 @@ menuconfig CROSS_GCC
 	select HOST_MPC		if CROSS_GCC_43
 	select HOST_ZLIB	if CROSS_GCC_43
 	select HOST_LIBELF	if CROSS_GCC_45
+	select HOST_CLOOG	if CROSS_GCC_48
 	select CROSS_ECJ	if CROSS_GCC_LANG_JAVA
 
 if CROSS_GCC
@@ -52,6 +53,14 @@ config CROSS_GCC_45
 	default y
 	help
 	  Add new dependencies for gcc >= 4.5: "libelf"
+
+config CROSS_GCC_48
+	bool
+	prompt "additional deps for gcc >= 4.8"
+	select CROSS_GCC_45
+	default y
+	help
+	  Add new dependencies for gcc >= 4.8: "cloog"
 
 config CROSS_GCC_SERIES
 	string
@@ -200,4 +209,5 @@ config CROSS_GCC_FIRST
 	select HOST_MPC		if CROSS_GCC_43
 	select HOST_ZLIB	if CROSS_GCC_43
 	select HOST_LIBELF	if CROSS_GCC_45
+	select HOST_CLOOG	if CROSS_GCC_48
 
