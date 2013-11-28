@@ -137,14 +137,6 @@ fixup()
     # PTXCONF_GLIBC_CONFIG_EXTRA
     #
     case "${PTXCONF_GNU_TARGET}" in
-	# hard, fpa
-	arm-v4t_hardfloat-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpa				--with-arch=armv4t"
-	    ;;
-	arm-xscale_hardfloat-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpa	--with-cpu=xscale"
-	    ;;
-
 	# softfp, vfp
 	arm-1136jfs-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
@@ -153,10 +145,6 @@ fixup()
 	# hard, vfp
 	arm-1136jfs-linux-gnueabihf)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfp	--with-cpu=arm1136jf-s"
-	    ;;
-
-	arm-v5te_vfp-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    ;;
 
 	# softfp, neon
@@ -180,15 +168,11 @@ fixup()
 	    ;;
 
 	# soft, vfp
-	armeb-xscale-linux-gnueabi|armeb-xscale-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
-	    ;;
 	arm-iwmmx-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=iwmmxt"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
-	arm-v4t-linux-gnueabi|arm-v4t-linux-gnu)
+	arm-v4t-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
@@ -196,11 +180,6 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
-	arm-xscale-linux-gnueabi|arm-xscale-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
-	    ;;
-
 	arm-cortexm3-uclinuxeabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb	--disable-libgomp --disable-libitm"
 	    ;;
