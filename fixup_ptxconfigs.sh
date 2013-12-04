@@ -183,6 +183,10 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb"
 	    ;;
 
+	# hard, vfp
+	arm-cortexm4-eabihf)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4	--with-arch=armv7-m	--with-mode=thumb"
+	    ;;
 
 	i486-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i486"
