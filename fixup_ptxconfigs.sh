@@ -168,10 +168,6 @@ fixup()
 	    ;;
 
 	# soft, vfp
-	arm-iwmmx-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=iwmmxt"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
-	    ;;
 	arm-v4t-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
@@ -217,10 +213,6 @@ fixup()
 	    ;;
 
 	arm-elf)
-	    #FIXME
-	    ;;
-
-	i586-mingw32msvc)
 	    #FIXME
 	    ;;
 
