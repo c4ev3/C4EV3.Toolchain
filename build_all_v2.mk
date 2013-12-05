@@ -34,6 +34,7 @@ $(error failed to detect arch, or arch is unsupported)
 endif
 
 PTXDIST			:= ./p --force
+ARG			:= go
 
 export PTXDIST_ENV_WHITELIST	:= CROSS_GDB_WITHOUT_PYTHON
 export CROSS_GDB_WITHOUT_PYTHON	:= y
@@ -93,7 +94,7 @@ $(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
 $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
-	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
+	$(NICE) $(PTXDIST) $(ARG) --ptxconfig=$(2CONFIGFILE_$(*))
 	@find "`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`" -depth -type d -print0 | xargs -r -0 -- rmdir --ignore-fail-on-non-empty --
 	find \
 		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/libexec/" \

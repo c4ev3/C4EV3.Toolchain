@@ -2,6 +2,7 @@
 
 pattern="$1"
 config=( $(find ptxconfigs/ -path "*${pattern}*.ptxconfig") )
+shift
 
 if [ ${#config[@]} -eq 0 ]; then
 	echo "Could not find config for '${pattern}'!"
@@ -19,4 +20,9 @@ target="$(basename "${config}")"
 target="${target%.ptxconfig}"
 target="gstate/${target//_/-}.pkgs"
 
-exec "$(dirname $0)/build_all_v2.mk" "${target}"
+if [ $# -gt 0 ]; then
+	exec "$(dirname $0)/build_all_v2.mk" "${target}" ARG="${*}"
+else
+	exec "$(dirname $0)/build_all_v2.mk" "${target}"
+fi
+
