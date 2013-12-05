@@ -45,4 +45,9 @@ CROSS_GDB_CONF_OPT	:= \
 	--enable-tui \
 	--with-expat
 
+# define this from the outside to build without python
+ifdef CROSS_GDB_WITHOUT_PYTHON
+CROSS_GDB_CONF_OPT += --without-python
+endif
+
 # vim: syntax=make

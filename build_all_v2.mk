@@ -35,6 +35,9 @@ endif
 
 PTXDIST			:= ./p --force
 
+export PTXDIST_ENV_WHITELIST	:= CROSS_GDB_WITHOUT_PYTHON
+export CROSS_GDB_WITHOUT_PYTHON	:= y
+
 ifdef BENICE
 NICE			+= nice -20
 endif
