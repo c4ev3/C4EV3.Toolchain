@@ -177,7 +177,7 @@ fixup()
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-cortexm3-uclinuxeabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb	--disable-libgomp --disable-libitm"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb"
 	    ;;
 	arm-cortexm3-eabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb"
