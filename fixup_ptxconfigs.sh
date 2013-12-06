@@ -149,22 +149,22 @@ fixup()
 
 	# softfp, neon
 	arm-v7a-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfpv3-d16			--with-arch=armv7-a"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfpv3-d16			--with-arch=armv7-a	--with-mode=thumb"
 	    ;;
 
 	# hard, neon
 	arm-v7a-linux-gnueabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfpv3-d16			--with-arch=armv7-a"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfpv3-d16			--with-arch=armv7-a	--with-mode=thumb"
 	    ;;
 
 	# softfp, neon
 	arm-cortexa8-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
 	    ;;
 
 	# hard, neon
 	arm-cortexa8-linux-gnueabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
 	    ;;
 
 	# soft, vfp
