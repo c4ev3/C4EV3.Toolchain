@@ -135,16 +135,6 @@ CROSS_GCC_CONF_OPT	:= \
 	$(if $(filter 3.%,$(CROSS_GCC_VERSION)),,--enable-checking=release)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-gcc.compile:
-	@$(call targetinfo)
-	@ln -sf `which $(HOSTCC)` $(PTXCONF_SYSROOT_HOST)/bin/$(GNU_BUILD)-gcc
-	@$(call world/compile, CROSS_GCC)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
