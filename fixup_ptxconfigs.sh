@@ -258,11 +258,23 @@ fixup()
 	3.*|4.[012].*)
 	    PTXCONF_CROSS_GCC_43=n
 	    ;;
-	4.[3456789].*)
+	4.[34].*)
 	    PTXCONF_CROSS_GCC_43=y
 	    ;;
-	linaro-4.[3456789][-.]*)
+	linaro-4.[34][-.]*)
 	    PTXCONF_CROSS_GCC_43=y
+	    ;;
+	4.[567].*)
+	    PTXCONF_CROSS_GCC_45=y
+	    ;;
+	linaro-4.[567][-.]*)
+	    PTXCONF_CROSS_GCC_45=y
+	    ;;
+	4.[89].*)
+	    PTXCONF_CROSS_GCC_48=y
+	    ;;
+	linaro-4.[89][-.]*)
+	    PTXCONF_CROSS_GCC_48=y
 	    ;;
 	*)
 	    echo "unknown CROSS_GCC_VERSION: ${PTXCONF_CROSS_GCC_VERSION}"
