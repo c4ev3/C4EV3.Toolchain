@@ -242,6 +242,9 @@ fixup()
 	3.[123456789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.32"
 	    ;;
+	3.1[0123456789])
+	    PTXCONF_GLIBC_ENABLE_KERNEL="3.0"
+	    ;;
 	"")
 	    ;;
 	*)
