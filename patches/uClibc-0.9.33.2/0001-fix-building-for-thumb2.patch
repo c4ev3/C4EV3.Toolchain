@@ -4,8 +4,8 @@ Subject: [PATCH] fix building for thumb2
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- libc/sysdeps/linux/arm/bits/arm_asm.h |    4 ++++
- libc/sysdeps/linux/arm/clone.S        |    1 +
+ libc/sysdeps/linux/arm/bits/arm_asm.h | 4 ++++
+ libc/sysdeps/linux/arm/clone.S        | 1 +
  2 files changed, 5 insertions(+)
 
 diff --git a/libc/sysdeps/linux/arm/bits/arm_asm.h b/libc/sysdeps/linux/arm/bits/arm_asm.h
