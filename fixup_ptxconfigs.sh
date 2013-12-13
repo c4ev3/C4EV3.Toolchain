@@ -160,11 +160,13 @@ fixup()
 	# softfp, neon
 	arm-cortexa8-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
 	    ;;
 
 	# hard, neon
 	arm-cortexa8-linux-gnueabihf)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
 	    ;;
 
 	# soft, vfp
