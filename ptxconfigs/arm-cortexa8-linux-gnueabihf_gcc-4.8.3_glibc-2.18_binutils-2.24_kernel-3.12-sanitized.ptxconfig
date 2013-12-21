@@ -19,7 +19,7 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_AVR is not set
 # PTXCONF_ARCH_AVR32 is not set
 PTXCONF_ARCH="arm"
-PTXCONF_GNU_TARGET="arm-cortexa8-linux-gnueabi"
+PTXCONF_GNU_TARGET="arm-cortexa8-linux-gnueabihf"
 PTXCONF_SIZEOF_LONG_DOUBLE="8"
 
 #
@@ -61,7 +61,7 @@ PTXCONF_KERNEL_HEADERS_VERSION="3.12"
 PTXCONF_KERNEL_HEADERS_MD5="cc6ee608854e0da4b64f6c1ff8b6398c"
 PTXCONF_KERNEL_HEADERS_SANITIZED=y
 PTXCONF_CROSS_GCC=y
-PTXCONF_CROSS_GCC_VERSION="4.8.2"
+PTXCONF_CROSS_GCC_VERSION="4.8.3"
 PTXCONF_CROSS_GCC_MD5="729f4ac34ad404892ecafb991bea2da5"
 PTXCONF_CROSS_GCC_DL_VERSION="linaro-4.8-2013.11"
 PTXCONF_CROSS_GCC_PKGVERSION="${PTXCONF_PROJECT} ${PTXCONF_CROSS_GCC_DL_VERSION}"
@@ -69,7 +69,7 @@ PTXCONF_CROSS_GCC_43=y
 PTXCONF_CROSS_GCC_45=y
 PTXCONF_CROSS_GCC_48=y
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp --with-fpu=neon --with-cpu=cortex-a8 --with-arch=armv7-a --with-mode=thumb"
+PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard --with-fpu=neon --with-cpu=cortex-a8 --with-arch=armv7-a --with-mode=thumb"
 
 #
 # Additional supported languages:
