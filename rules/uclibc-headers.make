@@ -26,7 +26,7 @@ $(UCLIBC_CONFIG):
 	@echo
 	@exit 1
 
-$(STATEDIR)/uclibc-headers.prepare: $(UCLIBC_CONFIG)
+$(STATEDIR)/uclibc-headers.prepare: $(STATEDIR)/uclibc.extract $(UCLIBC_CONFIG)
 	@$(call targetinfo)
 
 	@if [ -f $(UCLIBC_CONFIG) ]; then				\

@@ -41,7 +41,7 @@ UCLIBC_MAKEVARS	:= \
 	RUNTIME_PREFIX=/ \
 	SHARED_LIB_LOADER_PREFIX=/lib
 
-$(STATEDIR)/uclibc.prepare:
+$(STATEDIR)/uclibc.prepare: $(STATEDIR)/uclibc-headers.install
 	@$(call targetinfo)
 	@$(call touch)
 
