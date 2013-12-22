@@ -39,7 +39,7 @@ $(STATEDIR)/uclibc-headers.prepare: $(STATEDIR)/uclibc.extract $(UCLIBC_CONFIG)
 
 	cd $(UCLIBC_DIR) && yes "" | \
 		$(UCLIBC_PATH) $(UCLIBC_ENV) $(MAKE)  \
-		$(UCLIBC_MAKEVARS) oldconfig
+		$(UCLIBC_MAKE_OPT) oldconfig
 
 	@$(call touch)
 
@@ -59,7 +59,7 @@ $(STATEDIR)/uclibc-headers.install:
 	@$(call targetinfo)
 	cd $(UCLIBC_DIR) && \
 		$(UCLIBC_PATH) $(UCLIBC_ENV) \
-		$(MAKE) $(UCLIBC_MAKEVARS) \
+		$(MAKE) $(UCLIBC_MAKE_OPT) \
 		install_headers
 	@$(call touch)
 

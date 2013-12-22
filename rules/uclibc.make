@@ -32,7 +32,7 @@ UCLIBC_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/config/$(PTX
 UCLIBC_PATH	:= PATH=$(CROSS_PATH)
 UCLIBC_ENV 	:= KCONFIG_NOTIMESTAMP=1 $(HOST_ENV_CC)
 
-UCLIBC_MAKEVARS	:= \
+UCLIBC_MAKE_OPT		:= \
 	CROSS=$(COMPILER_PREFIX) \
 	HOSTCC="$(HOSTCC)" \
 	DEVEL_PREFIX=/usr/ \
@@ -41,29 +41,13 @@ UCLIBC_MAKEVARS	:= \
 	RUNTIME_PREFIX=/ \
 	SHARED_LIB_LOADER_PREFIX=/lib
 
+UCLIBC_INSTALL_OPT	:= \
+	$(UCLIBC_MAKE_OPT) \
+	DEVEL_PREFIX=/usr/ \
+	PREFIX=$(SYSROOT) \
+	install
+
 $(STATEDIR)/uclibc.prepare: $(STATEDIR)/uclibc-headers.install
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.compile:
-	@$(call targetinfo)
-	cd $(UCLIBC_DIR) && $(UCLIBC_PATH) $(MAKE) $(UCLIBC_MAKEVARS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.install:
-	@$(call targetinfo)
-	cd $(UCLIBC_DIR) && \
-		$(UCLIBC_PATH) $(MAKE) $(UCLIBC_MAKEVARS) \
-		install DEVEL_PREFIX=/usr/ PREFIX=$(SYSROOT)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
