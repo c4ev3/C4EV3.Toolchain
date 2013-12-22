@@ -84,10 +84,10 @@ OLDCONFIGS	:= $(foreach config,$(CONFIGS_),$(addsuffix .oldconfig,$(config)))
 
 all: $(TBZ2S) $(DEBS)
 
-$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.strip | mkdirs
 	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
 
-$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.strip | mkdirs
 	@echo Creating $(notdir $@) ...
 	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
@@ -95,6 +95,9 @@ $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) $(ARG) --ptxconfig=$(2CONFIGFILE_$(*))
+	@if [ "$(strip $(filter go,$(ARG)))" = "go" ]; then touch "$@"; fi
+
+$(STATEDIR)/%.strip: $(STATEDIR)/%.build
 	@find "`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`" -depth -type d -print0 | xargs -r -0 -- rmdir --ignore-fail-on-non-empty --
 	find \
 		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/libexec/" \
