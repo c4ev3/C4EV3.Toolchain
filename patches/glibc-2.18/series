@@ -4,6 +4,7 @@
 0001-ARM-Fix-clone-code-when-built-for-Thumb.patch
 0002-Fix-PI-mutex-check-in-pthread_cond_broadcast-and-pth.patch
 0003-ARM-Fix-memcpy-computed-jump-calculations-for-ARM_AL.patch
+0004-Accept-make-versions-4.0-and-greater.patch
 #tag:build-system --start-number 100
 0100-add-install-lib-all-target.patch
 0101-don-t-regen-docs-if-perl-is-not-found.patch
@@ -14,4 +15,4 @@
 #tag:linaro --start-number 400
 0400-optimized-string-functions-for-NEON-from-Linaro.patch
 0401-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
-# e5c3f673218a3a66a1d6604118b68f8b  - git-ptx-patches magic
+# 7774ed95c0f12c240b0659960d7c2f7d  - git-ptx-patches magic
