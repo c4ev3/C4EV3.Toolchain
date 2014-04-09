@@ -139,12 +139,12 @@ fixup()
     case "${PTXCONF_GNU_TARGET}" in
 	# softfp, vfp
 	arm-1136jfs-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s	--with-arch=armv6j"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfp	--with-cpu=arm1136jf-s"
 	    ;;
 
 	# hard, vfp
 	arm-1136jfs-linux-gnueabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfp	--with-cpu=arm1136jf-s	--with-arch=armv6j"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfp	--with-cpu=arm1136jf-s"
 	    ;;
 
 	# softfp, neon
@@ -159,13 +159,13 @@ fixup()
 
 	# softfp, neon
 	arm-cortexa8-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8				--with-mode=thumb"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
 	    ;;
 
 	# hard, neon
 	arm-cortexa8-linux-gnueabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=neon	--with-cpu=cortex-a8	--with-arch=armv7-a	--with-mode=thumb"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=neon	--with-cpu=cortex-a8				--with-mode=thumb"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
 	    ;;
 
@@ -175,19 +175,19 @@ fixup()
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v5te-linux-gnueabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s	--with-arch=armv5te"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-cortexm3-uclinuxeabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 	arm-cortexm3-eabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3	--with-arch=armv7-m	--with-mode=thumb"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 
 	# hard, vfp
 	arm-cortexm4-eabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4	--with-arch=armv7-m	--with-mode=thumb"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4			--with-mode=thumb"
 	    ;;
 
 	i486-unknown-linux-gnu)
