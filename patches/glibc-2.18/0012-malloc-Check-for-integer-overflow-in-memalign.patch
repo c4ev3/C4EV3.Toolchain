@@ -1,0 +1,37 @@
+From: Will Newton <will.newton@linaro.org>
+Date: Fri, 16 Aug 2013 12:54:29 +0100
+Subject: [PATCH] malloc: Check for integer overflow in memalign.
+
+A large bytes parameter to memalign could cause an integer overflow
+and corrupt allocator internals. Check the overflow does not occur
+before continuing with the allocation.
+
+ChangeLog:
+
+2013-09-11  Will Newton  <will.newton@linaro.org>
+
+	[BZ #15857]
+	* malloc/malloc.c (__libc_memalign): Check the value of bytes
+	does not overflow.
+---
+ malloc/malloc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index 31e2dfa..ebbe86d 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -3015,6 +3015,13 @@ __libc_memalign(size_t alignment, size_t bytes)
+   /* Otherwise, ensure that it is at least a minimum chunk size */
+   if (alignment <  MINSIZE) alignment = MINSIZE;
+ 
++  /* Check for overflow.  */
++  if (bytes > SIZE_MAX - alignment - MINSIZE)
++    {
++      __set_errno (ENOMEM);
++      return 0;
++    }
++
+   arena_get(ar_ptr, bytes + alignment + MINSIZE);
+   if(!ar_ptr)
+     return 0;

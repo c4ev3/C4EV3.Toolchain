@@ -5,6 +5,15 @@
 0002-Fix-PI-mutex-check-in-pthread_cond_broadcast-and-pth.patch
 0003-ARM-Fix-memcpy-computed-jump-calculations-for-ARM_AL.patch
 0004-Accept-make-versions-4.0-and-greater.patch
+0005-Simplify-strcoll-implementation.patch
+0006-Fall-back-to-non-cached-sequence-traversal-and-compa.patch
+0007-Check-for-integer-overflow-in-cache-size-computation.patch
+0008-BZ-15754-CVE-2013-4788.patch
+0009-CVE-2013-4237-BZ-14699-Buffer-overflow-in-readdir_r.patch
+0010-malloc-Check-for-integer-overflow-in-pvalloc.patch
+0011-malloc-Check-for-integer-overflow-in-valloc.patch
+0012-malloc-Check-for-integer-overflow-in-memalign.patch
+0013-Fix-stack-overflow-due-to-large-AF_INET6-requests.patch
 #tag:build-system --start-number 100
 0100-add-install-lib-all-target.patch
 0101-don-t-regen-docs-if-perl-is-not-found.patch
@@ -15,4 +24,4 @@
 #tag:linaro --start-number 400
 0400-optimized-string-functions-for-NEON-from-Linaro.patch
 0401-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
-# 7774ed95c0f12c240b0659960d7c2f7d  - git-ptx-patches magic
+# c7c37d04f6d7c2fc5e7140d9570db200  - git-ptx-patches magic

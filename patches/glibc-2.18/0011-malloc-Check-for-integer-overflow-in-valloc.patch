@@ -1,0 +1,37 @@
+From: Will Newton <will.newton@linaro.org>
+Date: Fri, 16 Aug 2013 11:59:37 +0100
+Subject: [PATCH] malloc: Check for integer overflow in valloc.
+
+A large bytes parameter to valloc could cause an integer overflow
+and corrupt allocator internals. Check the overflow does not occur
+before continuing with the allocation.
+
+ChangeLog:
+
+2013-09-11  Will Newton  <will.newton@linaro.org>
+
+	[BZ #15856]
+	* malloc/malloc.c (__libc_valloc): Check the value of bytes
+	does not overflow.
+---
+ malloc/malloc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index bcc08c4..31e2dfa 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -3046,6 +3046,13 @@ __libc_valloc(size_t bytes)
+ 
+   size_t pagesz = GLRO(dl_pagesize);
+ 
++  /* Check for overflow.  */
++  if (bytes > SIZE_MAX - pagesz - MINSIZE)
++    {
++      __set_errno (ENOMEM);
++      return 0;
++    }
++
+   void *(*hook) (size_t, size_t, const void *) =
+     force_reg (__memalign_hook);
+   if (__builtin_expect (hook != NULL, 0))
