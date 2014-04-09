@@ -69,7 +69,7 @@ PTXCONF_CROSS_GCC_43=y
 PTXCONF_CROSS_GCC_45=y
 PTXCONF_CROSS_GCC_48=y
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft --with-fpu=vfp --with-cpu=arm926ej-s --with-arch=armv5te"
+PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft --with-fpu=vfp --with-cpu=arm926ej-s"
 
 #
 # Additional supported languages:

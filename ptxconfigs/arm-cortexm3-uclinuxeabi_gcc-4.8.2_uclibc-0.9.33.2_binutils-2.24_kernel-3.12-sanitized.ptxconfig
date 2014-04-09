@@ -61,7 +61,7 @@ PTXCONF_CROSS_GCC_43=y
 PTXCONF_CROSS_GCC_45=y
 PTXCONF_CROSS_GCC_48=y
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft --with-fpu=vfp --with-cpu=cortex-m3 --with-arch=armv7-m --with-mode=thumb"
+PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft --with-fpu=vfp --with-cpu=cortex-m3 --with-mode=thumb"
 
 #
 # Additional supported languages:

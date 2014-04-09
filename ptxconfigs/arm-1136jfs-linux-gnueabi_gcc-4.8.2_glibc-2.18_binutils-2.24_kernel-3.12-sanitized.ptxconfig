@@ -69,7 +69,7 @@ PTXCONF_CROSS_GCC_43=y
 PTXCONF_CROSS_GCC_45=y
 PTXCONF_CROSS_GCC_48=y
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp --with-fpu=vfp --with-cpu=arm1136jf-s --with-arch=armv6j"
+PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp --with-fpu=vfp --with-cpu=arm1136jf-s"
 
 #
 # Additional supported languages:

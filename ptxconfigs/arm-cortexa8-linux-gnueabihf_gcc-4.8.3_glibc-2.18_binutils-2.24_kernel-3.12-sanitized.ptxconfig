@@ -69,7 +69,7 @@ PTXCONF_CROSS_GCC_43=y
 PTXCONF_CROSS_GCC_45=y
 PTXCONF_CROSS_GCC_48=y
 PTXCONF_CROSS_GCC_SERIES=""
-PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard --with-fpu=neon --with-cpu=cortex-a8 --with-arch=armv7-a --with-mode=thumb"
+PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard --with-fpu=neon --with-cpu=cortex-a8 --with-mode=thumb"
 
 #
 # Additional supported languages:
