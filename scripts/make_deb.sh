@@ -52,7 +52,7 @@ EOF
     tar -C "${destdir}" --exclude=gcc-first -c "${prefix}" | tar -C "${debian_tmp}" -x
 
     # make a deb out of it
-    echo dpkg -b "${debian_tmp}" "${deb}" | fakeroot
+    echo dpkg-deb --build -Zxz "${debian_tmp}" "${deb}" | fakeroot
 
     rm -rf "${debian_tmp}"
 }
