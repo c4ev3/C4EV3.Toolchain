@@ -76,7 +76,7 @@ DEB_PREFIX	:= $(PREFIX)
 DEB_SUFFIX	:= _$(VERSION)_$(ARCH).deb
 
 TBZ2_PREFIX	:= $(PREFIX)
-TBZ2_SUFFIX	:= _$(ARCH).tar.bz2
+TBZ2_SUFFIX	:= _$(ARCH).tar.xz
 
 DEBS		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(DEB_SUFFIX),$(config)))
 TBZ2S		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config)))
@@ -89,7 +89,7 @@ $(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.strip | mkdirs
 
 $(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.strip | mkdirs
 	@echo Creating $(notdir $@) ...
-	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
+	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cJf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
 $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
 $(STATEDIR)/%.build: | mkdirs
