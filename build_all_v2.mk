@@ -16,25 +16,8 @@ export PTX_AUTOBUILD_DESTDIR
 
 BENICE			:= true
 
-BUILDDATE	:= $(shell date +%y%m%d-%H%M)
-
-VERSION		:= $(shell ./scripts/setlocalversion ./.tarball-version)
-
-ARCH		:= $(shell			\
-	case "$$(uname -m)" in			\
-		(x86_64)	echo amd64;;	\
-		(i[1-9]86)	echo i386;;	\
-		(ppc)		echo powerpc;;	\
-		(*)		;;		\
-	esac					\
-)
-
-ifeq ($(ARCH),)
-$(error failed to detect arch, or arch is unsupported)
-endif
-
 PTXDIST			:= ./p --force
-ARG			:= go
+ARG			:= images
 
 export PTXDIST_ENV_WHITELIST	:= CROSS_GDB_WITHOUT_PYTHON
 export CROSS_GDB_WITHOUT_PYTHON	:= y
@@ -48,68 +31,24 @@ CONFIGFILES	:= $(wildcard $(CONFIGDIR)/*.ptxconfig) $(wildcard $(CONFIGDIR)/*/*.
 CONFIGS		:= $(notdir $(basename $(CONFIGFILES)))
 CONFIGS_	:= $(subst _,-,$(CONFIGS))
 
-define gen_2config
-$(eval 2CONFIG_$(subst _,-,$(1)) := $(1))
-endef
-
 define gen_2configfile
 $(eval 2CONFIGFILE_$(subst _,-,$(notdir $(basename $(1)))) := $(1))
 endef
-
-define gen_2instdir
-$(eval 2INSTDIR_$(subst _,-,$(notdir $(basename $(1)))) := \
-	$(shell PTX_AUTOBUILD_DESTDIR='' source "$(1)" && echo "$${PTXCONF_SYSROOT_CROSS}"))
-endef
-
-
-$(foreach cfg,$(CONFIGS),$(call gen_2config,$(cfg)))
 $(foreach cfgfile,$(CONFIGFILES),$(call gen_2configfile,$(cfgfile)))
-$(foreach cfgfile,$(CONFIGFILES),$(call gen_2instdir,$(cfgfile)))
 
 STATEDIR	:= gstate
 DISTDIR		:= dist
 
-PREFIX		:= $(DISTDIR)/oselas.toolchain-$(VERSION)-
-CONFIGS_PREFIX	:= $(foreach config,$(CONFIGS_),$(addprefix $(PREFIX),$(config)))
-
-DEB_PREFIX	:= $(PREFIX)
-DEB_SUFFIX	:= _$(VERSION)_$(ARCH).deb
-
-TBZ2_PREFIX	:= $(PREFIX)
-TBZ2_SUFFIX	:= _$(ARCH).tar.xz
-
-DEBS		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(DEB_SUFFIX),$(config)))
-TBZ2S		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config)))
+BUILDS		:= $(foreach config,$(CONFIGS_),$(addprefix $(STATEDIR)/,$(addsuffix .build,$(config))))
 OLDCONFIGS	:= $(foreach config,$(CONFIGS_),$(addsuffix .oldconfig,$(config)))
 
-all: $(TBZ2S) $(DEBS)
-
-$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.strip | mkdirs
-	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
-
-$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.strip | mkdirs
-	@echo Creating $(notdir $@) ...
-	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cJf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
+all: $(BUILDS)
 
 $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) $(ARG) --ptxconfig=$(2CONFIGFILE_$(*))
-	@if [ "$(strip $(filter go,$(ARG)))" = "go" ]; then touch "$@"; fi
-
-$(STATEDIR)/%.strip: $(STATEDIR)/%.build
-	@find "`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`" -depth -type d -print0 | xargs -r -0 -- rmdir --ignore-fail-on-non-empty --
-	find \
-		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/libexec/" \
-		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/bin/" \
-		"`source "$(2CONFIGFILE_$(*))" && echo "$${PTXCONF_SYSROOT_CROSS}"`/"*/bin/ \
-		-type f \( -executable -o -name "*.so*" \) \
-		| xargs strip || true
-	@touch "$@"
-
-
-$(STATEDIR)/%.pkgs: $(DEB_PREFIX)%$(DEB_SUFFIX) $(TBZ2_PREFIX)%$(TBZ2_SUFFIX) | mkdirs
-	@:
+	@if [ "$(strip $(filter images,$(ARG)))" = "images" ]; then touch "$@"; fi
 
 oldconfig: $(OLDCONFIGS)
 
@@ -123,7 +62,5 @@ print-%:
 	@echo "$* is \"$($(*))\""
 
 help:
-	@echo "Available DPKG targets:"
-	@for i in $(DEBS); do echo $$i; done;
-	@echo "Available tarball targets:"
-	@for i in $(TBZ2S); do echo $$i; done;
+	@echo "Available build targets:"
+	@for i in $(sort $(BUILDS)); do echo $$i; done;

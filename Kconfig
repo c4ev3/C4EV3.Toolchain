@@ -143,4 +143,7 @@ config TOOLCHAIN_DEBUG
 
 endmenu
 
+source "workspace/rules/image-toolchain-tgz.in"
+source "workspace/rules/image-toolchain-deb.in"
+
 source "rules/ptxdist-version.in"

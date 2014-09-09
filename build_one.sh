@@ -19,11 +19,9 @@ fi
 target="$(basename "${config}")"
 target="${target%.ptxconfig}"
 
+target="gstate/${target//_/-}.build"
 if [ $# -gt 0 ]; then
-	target="gstate/${target//_/-}.build"
 	exec "$(dirname $0)/build_all_v2.mk" "${target}" ARG="${*}"
 else
-	target="gstate/${target//_/-}.pkgs"
 	exec "$(dirname $0)/build_all_v2.mk" "${target}"
 fi
-
