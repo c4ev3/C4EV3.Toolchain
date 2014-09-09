@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_ISL) += host-isl
 #
 # Paths and names
 #
-HOST_ISL_VERSION	:= 0.12.1
-HOST_ISL_MD5		:= 27d381085ff1b5733c3e8a9b6ad24a4d
+HOST_ISL_VERSION	:= 0.12.2
+HOST_ISL_MD5		:= e039bfcfb6c2ab039b8ee69bf883e824
 HOST_ISL		:= isl-$(HOST_ISL_VERSION)
 HOST_ISL_SUFFIX		:= tar.bz2
 HOST_ISL_URL		:= http://isl.gforge.inria.fr/$(HOST_ISL).$(HOST_ISL_SUFFIX)
