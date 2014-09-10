@@ -10,7 +10,7 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/boehm-gc/include/gc.h b/boehm-gc/include/gc.h
-index c51e017..a7ba8dc 100644
+index c51e017d6748..a7ba8dca1a62 100644
 --- a/boehm-gc/include/gc.h
 +++ b/boehm-gc/include/gc.h
 @@ -503,7 +503,7 @@ GC_API GC_PTR GC_malloc_atomic_ignore_off_page GC_PROTO((size_t lb));

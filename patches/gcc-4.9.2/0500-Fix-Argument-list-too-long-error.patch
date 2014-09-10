@@ -23,10 +23,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/gcc/Makefile.in b/gcc/Makefile.in
-index aad927c..63aee76 100644
+index b47733cef501..13cd6944b67c 100644
 --- a/gcc/Makefile.in
 +++ b/gcc/Makefile.in
-@@ -4627,7 +4627,7 @@ install-plugin: installdirs lang.install-plugin s-header-vars install-gengtype
+@@ -3160,7 +3160,7 @@ install-plugin: installdirs lang.install-plugin s-header-vars install-gengtype
  # We keep the directory structure for files in config or c-family and .def
  # files. All other files are flattened to a single directory.
  	$(mkinstalldirs) $(DESTDIR)$(plugin_includedir)

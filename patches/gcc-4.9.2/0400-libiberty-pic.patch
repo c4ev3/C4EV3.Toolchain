@@ -11,7 +11,7 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 1 insertion(+)
 
 diff --git a/libiberty/Makefile.in b/libiberty/Makefile.in
-index f6a3ebd..01ae1a7 100644
+index 75ff82d984a9..a55137e5f1de 100644
 --- a/libiberty/Makefile.in
 +++ b/libiberty/Makefile.in
 @@ -250,6 +250,7 @@ $(TARGETLIB): $(REQUIRED_OFILES) $(EXTRA_OFILES) $(LIBOBJS)

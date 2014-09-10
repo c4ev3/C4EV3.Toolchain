@@ -10,10 +10,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libstdc++-v3/include/c_global/cstdio b/libstdc++-v3/include/c_global/cstdio
-index fcbec0c..adb2bfb 100644
+index 6043b3de2bf3..54772bccc0c9 100644
 --- a/libstdc++-v3/include/c_global/cstdio
 +++ b/libstdc++-v3/include/c_global/cstdio
-@@ -138,7 +138,7 @@ namespace std
+@@ -146,7 +146,7 @@ namespace std
    using ::vsprintf;
  } // namespace
  
