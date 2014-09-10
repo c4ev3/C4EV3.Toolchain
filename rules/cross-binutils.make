@@ -43,8 +43,13 @@ CROSS_BINUTILS_CONF_OPT		:= \
 	$(PTX_HOST_CROSS_AUTOCONF) \
 	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
 	\
+	--enable-gold \
+	--enable-ld=default \
 	--disable-werror \
-	--disable-nls
+	--disable-nls \
+	\
+	--enable-threads \
+	--enable-plugins
 
 # ----------------------------------------------------------------------------
 # Install
