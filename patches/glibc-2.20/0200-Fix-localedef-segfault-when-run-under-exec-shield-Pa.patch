@@ -19,7 +19,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 36 insertions(+)
 
 diff --git a/locale/programs/3level.h b/locale/programs/3level.h
-index 9b8b1b9..93b643c 100644
+index c83cdf205e40..1d4553e512a5 100644
 --- a/locale/programs/3level.h
 +++ b/locale/programs/3level.h
 @@ -204,6 +204,42 @@ CONCAT(TABLE,_iterate) (struct TABLE *t,
@@ -64,4 +64,4 @@ index 9b8b1b9..93b643c 100644
 +
  #endif
  
- #ifndef NO_FINALIZE
+ #ifndef NO_ADD_LOCALE

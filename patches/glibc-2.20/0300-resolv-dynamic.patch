@@ -13,7 +13,7 @@ http://bugs.gentoo.org/177416
  1 file changed, 15 insertions(+)
 
 diff --git a/resolv/res_libc.c b/resolv/res_libc.c
-index 48d3200..a443345 100644
+index ee3fa2114b70..10cb08bdd9be 100644
 --- a/resolv/res_libc.c
 +++ b/resolv/res_libc.c
 @@ -22,6 +22,7 @@

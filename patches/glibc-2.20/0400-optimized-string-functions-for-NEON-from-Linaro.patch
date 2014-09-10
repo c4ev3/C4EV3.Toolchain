@@ -18,7 +18,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 diff --git a/cortex-strings/sysdeps/arm/armv7/memchr.S b/cortex-strings/sysdeps/arm/armv7/memchr.S
 new file mode 100644
-index 0000000..92a2d9f
+index 000000000000..92a2d9f0967d
 --- /dev/null
 +++ b/cortex-strings/sysdeps/arm/armv7/memchr.S
 @@ -0,0 +1,155 @@
@@ -179,7 +179,7 @@ index 0000000..92a2d9f
 +	bx	lr
 diff --git a/cortex-strings/sysdeps/arm/armv7/memcpy.S b/cortex-strings/sysdeps/arm/armv7/memcpy.S
 new file mode 100644
-index 0000000..3be24ca
+index 000000000000..3be24cad2c8d
 --- /dev/null
 +++ b/cortex-strings/sysdeps/arm/armv7/memcpy.S
 @@ -0,0 +1,152 @@
@@ -337,7 +337,7 @@ index 0000000..3be24ca
 +	b	4b
 diff --git a/cortex-strings/sysdeps/arm/armv7/memset.S b/cortex-strings/sysdeps/arm/armv7/memset.S
 new file mode 100644
-index 0000000..921cb75
+index 000000000000..921cb7535cc8
 --- /dev/null
 +++ b/cortex-strings/sysdeps/arm/armv7/memset.S
 @@ -0,0 +1,118 @@
@@ -461,7 +461,7 @@ index 0000000..921cb75
 +	bx	lr		@ goodbye
 diff --git a/cortex-strings/sysdeps/arm/armv7/strchr.S b/cortex-strings/sysdeps/arm/armv7/strchr.S
 new file mode 100644
-index 0000000..8875dbf
+index 000000000000..8875dbfce6da
 --- /dev/null
 +++ b/cortex-strings/sysdeps/arm/armv7/strchr.S
 @@ -0,0 +1,76 @@
@@ -543,7 +543,7 @@ index 0000000..8875dbf
 +	bx	lr
 diff --git a/cortex-strings/sysdeps/arm/armv7/strlen.S b/cortex-strings/sysdeps/arm/armv7/strlen.S
 new file mode 100644
-index 0000000..8efa235
+index 000000000000..8efa2356fdd1
 --- /dev/null
 +++ b/cortex-strings/sysdeps/arm/armv7/strlen.S
 @@ -0,0 +1,150 @@

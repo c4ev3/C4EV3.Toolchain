@@ -15,10 +15,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  1 file changed, 5 insertions(+)
 
 diff --git a/manual/Makefile b/manual/Makefile
-index 44c0fd4..54217e0 100644
+index 62217a2d7a71..4a726edc215a 100644
 --- a/manual/Makefile
 +++ b/manual/Makefile
-@@ -107,9 +107,14 @@ $(objpfx)dir-add.texi: xtract-typefun.awk $(texis-path)
+@@ -104,9 +104,14 @@ $(objpfx)dir-add.texi: xtract-typefun.awk $(texis-path)
  $(objpfx)libm-err.texi: $(objpfx)stamp-libm-err
  $(objpfx)stamp-libm-err: libm-err-tab.pl $(wildcard $(foreach dir,$(sysdirs),\
  						     $(dir)/libm-test-ulps))
