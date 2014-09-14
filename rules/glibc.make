@@ -83,7 +83,6 @@ GLIBC_ADDONS	:= libidn
 ifdef PTXCONF_GLIBC_PORTS
 GLIBC_ADDONS	+= ports
 endif
-GLIBC_ADDONS	+= nptl
 GLIBC_ADDONS	+=  $(call remove_quotes, $(PTXCONF_GLIBC_EXTRA_ADDONS))
 
 GLIBC_AUTOCONF_COMMON := \
