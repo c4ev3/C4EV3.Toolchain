@@ -59,7 +59,7 @@ $(STATEDIR)/glibc-first.prepare: $(STATEDIR)/glibc.extract
 
 GLIBC_FIRST_MAKE_OPT	:= \
 	AUTOCONF=no \
-	lib
+	build-programs=no
 
 GLIBC_FIRST_INSTALL_OPT	:= \
 	AUTOCONF=no \
