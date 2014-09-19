@@ -44,7 +44,7 @@ $(STATEDIR)/glibc-crt.prepare: $(STATEDIR)/glibc.extract
 	@$(call targetinfo)
 	@$(call clean, $(GLIBC_CRT_DIR))
 	mkdir -p $(GLIBC_CRT_DIR)
-	cd $(GLIBC_CRT_DIR) && eval \
+	cd $(GLIBC_CRT_DIR) && \
 		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
 		$(GLIBC_DIR)/configure $(GLIBC_CRT_CONF_OPT)
 	@$(call touch)
