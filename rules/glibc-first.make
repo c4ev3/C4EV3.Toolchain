@@ -26,7 +26,7 @@ GLIBC_FIRST_BUILDDIR	= $(BUILDDIR)/$(GLIBC)-first-build
 
 GLIBC_FIRST_PATH := PATH=$(CROSS_PATH)
 GLIBC_FIRST_ENV := \
-	CC=$(CROSS_CC) \
+	CC="$(CROSS_CC) -fuse-ld=bfd" \
 	CXX=false \
 	BUILD_CC=$(HOSTCC) \
 	\

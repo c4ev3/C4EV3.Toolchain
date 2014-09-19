@@ -38,7 +38,7 @@ GLIBC_HEADERS_ENV  := \
 	libc_cv_prog_as_gnu=yes \
 	libc_cv_prog_ld_gnu=yes \
 	ac_cv_prog_AS="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)as" \
-	ac_cv_prog_LD="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)ld" \
+	ac_cv_prog_LD="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)ld.bfd" \
 	\
 	libc_cv_asm_cfi_directive_sections=yes \
 	libc_cv_asm_cfi_directives=yes \

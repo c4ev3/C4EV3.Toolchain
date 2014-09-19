@@ -65,7 +65,7 @@ endif
 
 GLIBC_PATH := PATH=$(CROSS_PATH)
 GLIBC_ENV := \
-	CC=$(CROSS_CC) \
+	CC="$(CROSS_CC) -fuse-ld=bfd" \
 	BUILD_CC=$(HOSTCC) \
 	MAKEINFO=: \
 	\

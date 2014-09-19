@@ -25,6 +25,7 @@ GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt-build
 
 GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
 GLIBC_CRT_ENV := \
+	CC="$(CROSS_CC) -fuse-ld=bfd" \
 	BUILD_CC=$(HOSTCC) \
 	\
 	ac_cv_path_GREP=grep \
