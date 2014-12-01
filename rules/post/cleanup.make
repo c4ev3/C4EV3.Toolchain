@@ -9,6 +9,10 @@ $(STATEDIR)/world.cleanup: $(STATEDIR)/world.targetinstall
 		"$(PTXCONF_SYSROOT_CROSS)/"*/bin/ \
 		-type f \( -executable -o -name "*.so*" \) \
 		| xargs -n1 --verbose strip || true
+	find \
+		"$(PTXCONF_SYSROOT_CROSS)/" \
+		-type f \( -executable -o -name "*.so*" \) \
+		| xargs chrpath -k -d 2>/dev/null || true
 	@$(call touch)
 
 world: $(STATEDIR)/world.cleanup

@@ -12,6 +12,7 @@ config _ptxconfig_MAGIC__
 
 config BUILD_TOOLCHAIN
 	bool
+	select HOST_CHRPATH
 	default y
 
 config NO_PLATFORM
@@ -79,6 +80,7 @@ source "workspace/rules/host-xz.in"
 source "workspace/rules/host-zlib.in"
 source "workspace/rules/host-libelf.in"
 source "rules/host-autotools-autoconf.in"
+source "rules/host-chrpath.in"
 source "rules/host-m4.in"
 source "rules/host-system-perl.in"
 
