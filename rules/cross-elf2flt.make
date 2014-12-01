@@ -39,6 +39,6 @@ CROSS_ELF2FLT_CONF_OPT	:= \
 	$(PTX_HOST_CROSS_AUTOCONF) \
 	--with-binutils-include-dir=$(CROSS_BINUTILS_DIR)/include \
 	--with-binutils-build-dir=$(CROSS_BINUTILS_BUILDDIR) \
-	--with-libbfd="$(CROSS_BINUTILS_BUILDDIR)/bfd/libbfd.a -lz"
+	--with-libbfd="$(CROSS_BINUTILS_BUILDDIR)/bfd/libbfd.a -lz -ldl"
 
 # vim: syntax=make
