@@ -1,8 +1,8 @@
 choice
 	prompt "architecture      "
 
-        config ARCH_ARM
-                bool "arm    "
+	config ARCH_ARM
+		bool "arm    "
 
 	config ARCH_M68K
 		bool "m68k   "
@@ -10,8 +10,8 @@ choice
 	config ARCH_MIPS
 		bool "mips   "
 
-        config ARCH_POWERPC
-                bool "powerpc"
+	config ARCH_POWERPC
+		bool "powerpc"
 
 	config ARCH_I386
 		bool "i386   "
