@@ -11,4 +11,6 @@
 #tag:linaro --start-number 400
 0400-optimized-string-functions-for-NEON-from-Linaro.patch
 0401-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
-# 9424473d0c6432ce5c5a28abd362c91c  - git-ptx-patches magic
+#tag:hacks --start-number 500
+0500-Hack-around-mips-args-to-host-gcc.patch
+# f8b24c7c1be06be88e4737cd59ea83a0  - git-ptx-patches magic
