@@ -79,6 +79,7 @@ GLIBC_MAKEVARS := AUTOCONF=no
 #
 # autoconf
 #
+GLIBC_ADDONS	:= libidn
 ifdef PTXCONF_GLIBC_PORTS
 GLIBC_ADDONS	+= ports
 endif
