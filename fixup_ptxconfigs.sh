@@ -208,7 +208,7 @@ fixup()
 
 	mipsel-softfloat-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp libc_mips_float=soft"
 	    ;;
 	powerpc-603e-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
