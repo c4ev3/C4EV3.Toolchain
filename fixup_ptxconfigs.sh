@@ -111,6 +111,9 @@ fixup()
 	arm*)
 	    PTXCONF_ARCH_ARM=y
 	    ;;
+	aarch64*)
+	    PTXCONF_ARCH_ARM64=y
+	    ;;
 	i?86*)
 	    PTXCONF_ARCH_I386=y
 	    ;;
@@ -188,6 +191,10 @@ fixup()
 	# hard, vfp
 	arm-cortexm4-eabihf)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4			--with-mode=thumb"
+	    ;;
+
+	aarch64-v8a-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-abi=lp64						--with-arch=armv8-a"
 	    ;;
 
 	i486-unknown-linux-gnu)
