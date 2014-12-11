@@ -46,7 +46,7 @@ CROSS_GDB_CONF_OPT	:= \
 	--with-expat
 
 # define this from the outside to build without python
-ifdef CROSS_GDB_WITHOUT_PYTHON
+ifeq ($(CROSS_GDB_WITHOUT_PYTHON),y)
 CROSS_GDB_CONF_OPT += --without-python
 endif
 
