@@ -1,7 +1,7 @@
 
 $(STATEDIR)/world.cleanup: $(STATEDIR)/world.targetinstall
 	@$(call targetinfo)
-	@find "$(PTXCONF_SYSROOT_CROSS)" -depth -type d -print0 | \
+	@find "$(PTXCONF_SYSROOT_CROSS)/"* -depth -type d -print0 | \
 		xargs -r -0 -- rmdir -v --ignore-fail-on-non-empty --
 	find \
 		"$(PTXCONF_SYSROOT_CROSS)/libexec/" \
