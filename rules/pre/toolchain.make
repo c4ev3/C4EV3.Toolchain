@@ -60,4 +60,19 @@ BUILDDIR_DEBUG		:= $(BUILDDIR)
 BUILDDIR_CROSS_DEBUG	:= $(CROSS_BUILDDIR)
 endif
 
+#
+# images
+#
+
+PTX_TOOLCHAIN_HOST_ARCH	:= $(shell uname -m)
+ifeq ($(PTX_TOOLCHAIN_HOST_ARCH),x86_64)
+PTX_TOOLCHAIN_HOST_ARCH	:= amd64
+endif
+ifeq ($(patsubst i%86,,$(PTX_TOOLCHAIN_HOST_ARCH)),)
+PTX_TOOLCHAIN_HOST_ARCH	:= i386
+endif
+ifeq ($(PTX_TOOLCHAIN_HOST_ARCH),ppc)
+PTX_TOOLCHAIN_HOST_ARCH	:= powerpc
+endif
+
 # vim: syntax=make
