@@ -75,7 +75,8 @@ EOF
 
 	fakeroot dh_shlibdeps \
 	    -P"${debian_tmp}/tmp" \
-	    -l"${sysroot}/lib:${sysroot}/usr/lib:${sysroot}/usr/lib/gconv:${other}/lib" \
+	    -X/$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)/lib/ \
+	    -X/sysroot-$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)/ \
 	    -- \
 	    -T"${debian_tmp}/substvars" &&
 
