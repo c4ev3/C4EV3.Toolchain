@@ -17,4 +17,6 @@
 0401-add-libc_hidden_builtin_def-for-all-cortex-functions.patch
 #tag:hacks --start-number 500
 0500-Hack-around-mips-args-to-host-gcc.patch
-# abbdf6f06cd2fc7e40618e8c66cf8875  - git-ptx-patches magic
+#tag:open-glibc-bugs --start-number 600
+0600-ARM-fix-PI-futex-breakge-glibc-bug-18463.patch
+# 3558b892a89c6287a934fa9cf65be74d  - git-ptx-patches magic
