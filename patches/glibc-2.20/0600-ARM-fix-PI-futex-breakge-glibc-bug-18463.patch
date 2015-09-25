@@ -1,4 +1,3 @@
-From eebb9e9abd3405fd72b7e7527132b605e406e83e Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Sat, 13 Jun 2015 19:25:07 +0200
 Subject: [PATCH] ARM: fix PI futex breakge - glibc bug 18463
@@ -10,6 +9,11 @@ This patch fixes glibc bug 18463:
 The problem is caused by:
 
     47c5adebd2c8 Correct robust mutex / PI futex kernel assumptions (bug 9894).
+
+An alternative approach to this bug is to switch to the new condvar
+implementation from Torvald Riegel
+(https://sourceware.org/ml/libc-alpha/2015-02/msg00578.html). Until glibc
+upstream does so, this patch has probably to be ported to new glibc releases.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
