@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBELF) += host-libelf
 #
 # Paths and names
 #
-HOST_LIBELF_VERSION	:= 0.160
-HOST_LIBELF_MD5		:= 7527f22dff8b1ac8c122cfc4d3d3bb1e
+HOST_LIBELF_VERSION	:= 0.166
+HOST_LIBELF_MD5		:= d4e462b7891915dc5326bccefa2024ff
 HOST_LIBELF		:= elfutils-$(HOST_LIBELF_VERSION)
 HOST_LIBELF_SUFFIX	:= tar.bz2
 HOST_LIBELF_URL		:= https://fedorahosted.org/releases/e/l/elfutils/$(HOST_LIBELF_VERSION)/$(HOST_LIBELF).$(HOST_LIBELF_SUFFIX)
@@ -43,7 +43,7 @@ HOST_LIBELF_AUTOCONF := \
 
 HOST_LIBELF_DEVPKG	:= NO
 
-HOST_LIBELF_MAKE_OPT	:= -C libelf
+HOST_LIBELF_MAKE_OPT	:= -C libelf libelf.a
 HOST_LIBELF_INSTALL_OPT	:= -C libelf install-data-am install-exec-am
 
 # vim: syntax=make
