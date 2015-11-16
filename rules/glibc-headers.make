@@ -18,7 +18,15 @@ PACKAGES-$(PTXCONF_GLIBC_HEADERS) += glibc-headers
 #
 # Paths and names
 #
-GLIBC_HEADERS_DIR	= $(BUILDDIR)/$(GLIBC)-headers-build
+GLIBC_HEADERS_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+GLIBC_HEADERS_MD5	:= $(call remove_quotes,$(PTXCONF_GLIBC_MD5))
+GLIBC_HEADERS		:= glibc-$(GLIBC_HEADERS_VERSION)
+GLIBC_HEADERS_SUFFIX	:= tar.bz2
+GLIBC_HEADERS_SOURCE	:= $(SRCDIR)/$(GLIBC_HEADERS).$(GLIBC_HEADERS_SUFFIX)
+GLIBC_HEADERS_DIR	:= $(BUILDDIR)/glibc-headers-$(GLIBC_HEADERS_VERSION)
+GLIBC_HEADERS_BUILDDIR	:= $(GLIBC_HEADERS_DIR)-build
+GLIBC_HEADERS_URL	 = $(GLIBC_URL)
+GLIBC_HEADERS_BUILD_OOT	:= YES
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,44 +93,35 @@ GLIBC_HEADERS_CONF_OPT	 = \
 	\
 	--enable-hacker-mode
 
-$(STATEDIR)/glibc-headers.prepare: $(STATEDIR)/glibc.extract
-	@$(call targetinfo)
-	@$(call clean, $(GLIBC_HEADERS_DIR))
-	mkdir -p $(GLIBC_HEADERS_DIR)
-	cd $(GLIBC_HEADERS_DIR) && \
-		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_HEADERS_CONF_OPT)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
+GLIBC_HEADERS_MAKE_OPT	:= sysdeps/gnu/errlist.c
+
 $(STATEDIR)/glibc-headers.compile:
 	@$(call targetinfo)
-	cd $(GLIBC_HEADERS_DIR) && \
-		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(MAKE) sysdeps/gnu/errlist.c
-
-	mkdir -p $(GLIBC_HEADERS_DIR)/stdio-common
-	touch $(GLIBC_HEADERS_DIR)/stdio-common/errlist-compat.c
+	@$(call world/compile, GLIBC_HEADERS)
+	@mkdir -vp $(GLIBC_HEADERS_BUILDDIR)/stdio-common
+	touch $(GLIBC_HEADERS_BUILDDIR)/stdio-common/errlist-compat.c
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
+GLIBC_HEADERS_INSTALL_OPT := \
+	cross_compiling=yes \
+	install_root=$(SYSROOT) \
+	install-headers
+
 $(STATEDIR)/glibc-headers.install:
 	@$(call targetinfo)
-	cd $(GLIBC_HEADERS_DIR) && \
-		$(GLIBC_HEADERS_PATH) $(GLIBC_HEADERS_ENV) \
-		$(MAKE) cross_compiling=yes install_root=$(SYSROOT) install-headers
-
-	mkdir -p $(SYSROOT)/usr/include/gnu
+	@$(call world/install, GLIBC_HEADERS)
+	@mkdir -vp $(SYSROOT)/usr/include/gnu
 	touch $(SYSROOT)/usr/include/gnu/stubs.h
-
-	cp $(GLIBC_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
-	cp $(GLIBC_HEADERS_DIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
+	@cp -v $(GLIBC_HEADERS_DIR)/include/features.h $(SYSROOT)/usr/include/features.h
+	@cp -v $(GLIBC_HEADERS_BUILDDIR)/bits/stdio_lim.h $(SYSROOT)/usr/include/bits/stdio_lim.h
 	@$(call touch)
 
 # vim: syntax=make

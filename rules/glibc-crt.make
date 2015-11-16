@@ -17,7 +17,15 @@ PACKAGES-$(PTXCONF_GLIBC_CRT) += glibc-crt
 #
 # Paths and names
 #
-GLIBC_CRT_DIR	= $(BUILDDIR)/$(GLIBC)-crt-build
+GLIBC_CRT_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+GLIBC_CRT_MD5		:= $(call remove_quotes,$(PTXCONF_GLIBC_MD5))
+GLIBC_CRT		:= glibc-$(GLIBC_CRT_VERSION)
+GLIBC_CRT_SUFFIX	:= tar.bz2
+GLIBC_CRT_SOURCE	:= $(SRCDIR)/$(GLIBC_CRT).$(GLIBC_CRT_SUFFIX)
+GLIBC_CRT_DIR		:= $(BUILDDIR)/glibc-crt-$(GLIBC_CRT_VERSION)
+GLIBC_CRT_BUILDDIR	:= $(GLIBC_CRT_DIR)-build
+GLIBC_CRT_URL		 = $(GLIBC_URL)
+GLIBC_CRT_BUILD_OOT	:= YES
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,24 +49,15 @@ GLIBC_CRT_CONF_TOOL	:= autoconf
 GLIBC_CRT_CONF_OPT	= $(GLIBC_CONF_OPT)
 GLIBC_CRT_MAKE_OPT	:= csu/subdir_lib
 
-$(STATEDIR)/glibc-crt.prepare: $(STATEDIR)/glibc.extract
-	@$(call targetinfo)
-	@$(call clean, $(GLIBC_CRT_DIR))
-	mkdir -p $(GLIBC_CRT_DIR)
-	cd $(GLIBC_CRT_DIR) && \
-		$(GLIBC_CRT_PATH) $(GLIBC_CRT_ENV) \
-		$(GLIBC_DIR)/configure $(GLIBC_CRT_CONF_OPT)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/glibc-crt.install:
 	@$(call targetinfo)
-	mkdir -p $(SYSROOT)/usr/lib
-	for file in {S,}crt1.o crt{i,n}.o; do \
-		$(INSTALL) -m 644 $(GLIBC_CRT_DIR)/csu/$$file \
+	@mkdir -vp $(SYSROOT)/usr/lib
+	@for file in {S,}crt1.o crt{i,n}.o; do \
+		$(INSTALL) -v -m 644 $(GLIBC_CRT_BUILDDIR)/csu/$$file \
 			$(SYSROOT)/usr/lib/$$file || exit 1; \
 	done
 	@$(call touch)

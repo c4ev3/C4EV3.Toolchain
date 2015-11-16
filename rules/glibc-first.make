@@ -18,7 +18,15 @@ PACKAGES-$(PTXCONF_GLIBC_FIRST) += glibc-first
 #
 # Paths and names
 #
-GLIBC_FIRST_BUILDDIR	= $(BUILDDIR)/$(GLIBC)-first-build
+GLIBC_FIRST_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+GLIBC_FIRST_MD5		:= $(call remove_quotes,$(PTXCONF_GLIBC_MD5))
+GLIBC_FIRST		:= glibc-$(GLIBC_FIRST_VERSION)
+GLIBC_FIRST_SUFFIX	:= tar.bz2
+GLIBC_FIRST_SOURCE	:= $(SRCDIR)/$(GLIBC_FIRST).$(GLIBC_FIRST_SUFFIX)
+GLIBC_FIRST_DIR		:= $(BUILDDIR)/glibc-first-$(GLIBC_FIRST_VERSION)
+GLIBC_FIRST_BUILDDIR	:= $(GLIBC_FIRST_DIR)-build
+GLIBC_FIRST_URL		 = $(GLIBC_URL)
+GLIBC_FIRST_BUILD_OOT	:= YES
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -47,15 +55,6 @@ GLIBC_FIRST_CONF_OPT	 = \
 	$(PTXCONF_GLIBC_CONFIG_EXTRA_CROSS) \
 	--disable-debug \
 	--disable-profile \
-
-$(STATEDIR)/glibc-first.prepare: $(STATEDIR)/glibc.extract
-	@$(call targetinfo)
-	@$(call clean, $(GLIBC_FIRST_BUILDDIR))
-	mkdir -p $(GLIBC_FIRST_BUILDDIR)
-	cd $(GLIBC_FIRST_BUILDDIR) && \
-		$(GLIBC_FIRST_ENV) $(GLIBC_FIRST_PATH) \
-		$(GLIBC_DIR)/configure $(GLIBC_FIRST_CONF_OPT)
-	@$(call touch)
 
 GLIBC_FIRST_MAKE_OPT	:= \
 	AUTOCONF=no \

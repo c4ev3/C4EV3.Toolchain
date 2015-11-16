@@ -30,21 +30,6 @@ GLIBC_URL	:= \
 	ftp://sourceware.org/pub/glibc/snapshots/$(GLIBC).$(GLIBC_SUFFIX) \
 	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC).$(GLIBC_SUFFIX)
 
-GLIBC_PORTS_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_PORTS_VERSION))
-GLIBC_PORTS_MD5		:= $(call remove_quotes,$(PTXCONF_GLIBC_PORTS_MD5))
-GLIBC_PORTS		:= glibc-ports-$(GLIBC_PORTS_VERSION)
-GLIBC_PORTS_SOURCE	:= $(SRCDIR)/$(GLIBC_PORTS).$(GLIBC_SUFFIX)
-$(GLIBC_PORTS_SOURCE)	:= GLIBC_PORTS
-GLIBC_PORTS_DIR		:= $(BUILDDIR)/$(GLIBC)/ports
-GLIBC_PORTS_URL		:= \
-	$(call ptx/mirror, GNU, glibc/$(GLIBC_PORTS).$(GLIBC_SUFFIX)) \
-	ftp://sources.redhat.com/pub/glibc/snapshots/$(GLIBC_PORTS).$(GLIBC_SUFFIX) \
-	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC_PORTS).$(GLIBC_SUFFIX)
-
-ifdef PTXCONF_GLIBC_PORTS
-GLIBC_SOURCES		+= $(GLIBC_PORTS_SOURCE)
-endif
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
@@ -53,9 +38,6 @@ $(STATEDIR)/glibc.extract:
 	@$(call targetinfo)
 	@$(call clean, $(GLIBC_DIR))
 	@$(call extract, GLIBC, $(BUILDDIR_DEBUG))
-ifdef PTXCONF_GLIBC_PORTS
-	@$(call extract, GLIBC_PORTS, $(BUILDDIR_DEBUG))
-endif
 	@$(call patchin, GLIBC, $(GLIBC_DIR))
 	@$(call touch)
 
@@ -80,9 +62,6 @@ GLIBC_MAKEVARS := AUTOCONF=no
 # autoconf
 #
 GLIBC_ADDONS	:= libidn
-ifdef PTXCONF_GLIBC_PORTS
-GLIBC_ADDONS	+= ports
-endif
 GLIBC_ADDONS	+=  $(call remove_quotes, $(PTXCONF_GLIBC_EXTRA_ADDONS))
 
 GLIBC_AUTOCONF_COMMON := \
@@ -92,6 +71,9 @@ GLIBC_AUTOCONF_COMMON := \
 	\
 	--with-headers=$(SYSROOT)/usr/include \
 	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
+	\
+	--disable-build-nscd \
+	--disable-nscd \
 	\
 	--without-cvs \
 	--without-gd \
@@ -115,6 +97,7 @@ GLIBC_CONF_OPT	:= \
 	--enable-debug \
 	--enable-profile \
 	--enable-shared \
+	--enable-stackguard-randomization \
 	--enable-static-nss
 
 # ----------------------------------------------------------------------------
