@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_XZ) += host-xz
 #
 # Paths and names
 #
-HOST_XZ_VERSION	:= 5.0.7
-HOST_XZ_MD5	:= 5b8c56cc95bee12e4fbd80e8b721773e
+HOST_XZ_VERSION	:= 5.2.2
+HOST_XZ_MD5	:= f90c9a0c8b259aee2234c4e0d7fd70af
 HOST_XZ		:= xz-$(HOST_XZ_VERSION)
 HOST_XZ_SUFFIX	:= tar.bz2
 HOST_XZ_URL	:= http://tukaani.org/xz/$(HOST_XZ).$(HOST_XZ_SUFFIX)
@@ -45,8 +45,9 @@ HOST_XZ_CONF_OPT	:= \
 	--disable-lzmainfo \
 	--disable-lzma-links \
 	--disable-scripts \
-	--enable-static \
+	--disable-doc \
 	--disable-shared \
+	--enable-static \
 	--disable-nls \
 	--disable-rpath \
 	--disable-werror
