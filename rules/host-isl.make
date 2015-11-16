@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_ISL) += host-isl
 #
 # Paths and names
 #
-HOST_ISL_VERSION	:= 0.12.2
-HOST_ISL_MD5		:= e039bfcfb6c2ab039b8ee69bf883e824
+HOST_ISL_VERSION	:= 0.16.1
+HOST_ISL_MD5		:= ac1f25a0677912952718a51f5bc20f32
 HOST_ISL		:= isl-$(HOST_ISL_VERSION)
 HOST_ISL_SUFFIX		:= tar.bz2
 HOST_ISL_URL		:= http://isl.gforge.inria.fr/$(HOST_ISL).$(HOST_ISL_SUFFIX)
@@ -36,7 +36,11 @@ HOST_ISL_DEVPKG	:= NO
 HOST_ISL_CONF_TOOL	:= autoconf
 HOST_ISL_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
+	--enable-portable-binary \
 	--disable-shared \
-	--enable-static
+	--enable-static \
+	--with-int=gmp \
+	--with-gmp=system \
+	--without-clang
 
 # vim: syntax=make
