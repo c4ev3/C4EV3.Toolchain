@@ -254,6 +254,9 @@ fixup()
 	3.1[0123456789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="3.0"
 	    ;;
+	4.[0123456789])
+	    PTXCONF_GLIBC_ENABLE_KERNEL="3.18"
+	    ;;
 	"")
 	    ;;
 	*)
@@ -287,6 +290,9 @@ fixup()
 	    ;;
 	linaro-4.[89][-.]*)
 	    PTXCONF_CROSS_GCC_48=y
+	    ;;
+	5.*)
+	    PTXCONF_CROSS_GCC_50=y
 	    ;;
 	*)
 	    echo "unknown CROSS_GCC_VERSION: ${PTXCONF_CROSS_GCC_VERSION}"
