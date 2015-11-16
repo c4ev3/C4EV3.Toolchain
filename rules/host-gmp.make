@@ -16,11 +16,13 @@ HOST_PACKAGES-$(PTXCONF_HOST_GMP) += host-gmp
 #
 # Paths and names
 #
-HOST_GMP_VERSION	:= 6.0.0a
-HOST_GMP_MD5		:= 1e6da4e434553d2811437aa42c7f7c76
+HOST_GMP_VERSION	:= 6.1.0
+HOST_GMP_MD5		:= a9868ef2556ad6a2909babcd1428f3c7
 HOST_GMP		:= gmp-$(HOST_GMP_VERSION)
 HOST_GMP_SUFFIX		:= tar.xz
-HOST_GMP_URL		:= $(call ptx/mirror, GNU, gmp/$(HOST_GMP).$(HOST_GMP_SUFFIX))
+HOST_GMP_URL		:= \
+	$(call ptx/mirror, GNU, gmp/$(HOST_GMP).$(HOST_GMP_SUFFIX)) \
+	https://gmplib.org/download/gmp/$(HOST_GMP).$(HOST_GMP_SUFFIX)
 HOST_GMP_SOURCE		:= $(SRCDIR)/$(HOST_GMP).$(HOST_GMP_SUFFIX)
 HOST_GMP_DIR		:= $(HOST_BUILDDIR)/$(HOST_GMP)
 
@@ -36,6 +38,7 @@ HOST_GMP_DEVPKG	:= NO
 HOST_GMP_CONF_TOOL	:= autoconf
 HOST_GMP_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
+	--host=$(GNU_HOST) \
 	--disable-shared \
 	--enable-static \
 	--without-readline
