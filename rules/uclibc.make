@@ -20,7 +20,9 @@ UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
 UCLIBC_MD5	:= $(call remove_quotes,$(PTXCONF_UCLIBC_MD5))
 UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 UCLIBC_SUFFIX	:= tar.bz2
-UCLIBC_URL	:= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
+UCLIBC_URL	:= \
+	http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX) \
+	http://www.uclibc.org/downloads/snapshots/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_SOURCE	:= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_DIR	:= $(BUILDDIR)/$(UCLIBC)
 UCLIBC_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/config/$(PTXCONF_UCLIBC_CONFIG))
@@ -29,8 +31,24 @@ UCLIBC_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/config/$(PTX
 # Prepare
 # ----------------------------------------------------------------------------
 
-UCLIBC_PATH	:= PATH=$(CROSS_PATH)
-UCLIBC_ENV 	:= KCONFIG_NOTIMESTAMP=1 $(HOST_ENV_CC)
+UCLIBC_ENV	:= \
+	$(HOST_ENV_CC) \
+	KCONFIG_NOTIMESTAMP=1 \
+	$(if $(filter 0,$(PTXDIST_VERBOSE)),V=)
+
+$(UCLIBC_CONFIG):
+	@echo
+	@echo "**************************************************************************"
+	@echo "**** Please generate a uclibc config with 'ptxdist menuconfig uclibc' ****"
+	@echo "**************************************************************************"
+	@echo
+	@echo
+	@exit 1
+
+$(STATEDIR)/uclibc.prepare: $(UCLIBC_CONFIG)
+	@$(call targetinfo)
+	@$(call world/kconfig, UCLIBC, oldconfig)
+	@$(call touch)
 
 UCLIBC_MAKE_OPT		:= \
 	CROSS=$(COMPILER_PREFIX) \
@@ -43,28 +61,14 @@ UCLIBC_MAKE_OPT		:= \
 
 UCLIBC_INSTALL_OPT	:= \
 	$(UCLIBC_MAKE_OPT) \
-	DEVEL_PREFIX=/usr/ \
-	PREFIX=$(SYSROOT) \
 	install
-
-$(STATEDIR)/uclibc.prepare: $(STATEDIR)/uclibc-headers.install
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
 uclibc_oldconfig uclibc_menuconfig: $(STATEDIR)/uclibc.extract
-	@if test -e $(UCLIBC_CONFIG); then \
-		cp $(UCLIBC_CONFIG) $(UCLIBC_DIR)/.config; \
-	fi
-
-	@cd $(UCLIBC_DIR) && \
-		$(UCLIBC_PATH) $(UCLIBC_ENV) $(MAKE) $(UCLIBC_MAKEVARS) $(subst uclibc_,,$@)
-
-	@if cmp -s $(UCLIBC_DIR)/.config $(UCLIBC_CONFIG); then \
-		echo "uclibc configuration unchanged"; \
-	else \
-		cp $(UCLIBC_DIR)/.config $(UCLIBC_CONFIG); \
-	fi
+	@$(call world/kconfig, UCLIBC, $(subst uclibc_,,$@))
+	@$(call finish)
 
 # vim: syntax=make

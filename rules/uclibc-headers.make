@@ -13,34 +13,27 @@
 #
 PACKAGES-$(PTXCONF_UCLIBC_HEADERS) += uclibc-headers
 
+#
+# Paths and names
+#
+UCLIBC_HEADERS_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
+UCLIBC_HEADERS_MD5	:= $(call remove_quotes,$(PTXCONF_UCLIBC_MD5))
+UCLIBC_HEADERS		:= uClibc-$(UCLIBC_HEADERS_VERSION)
+UCLIBC_HEADERS_SUFFIX	:= tar.bz2
+UCLIBC_HEADERS_SOURCE	:= $(SRCDIR)/$(UCLIBC_HEADERS).$(UCLIBC_HEADERS_SUFFIX)
+UCLIBC_HEADERS_DIR	:= $(BUILDDIR)/uClibc-headers-$(UCLIBC_HEADERS_VERSION)
+UCLIBC_HEADERS_URL	 = $(UCLIBC_URL)
+UCLIBC_HEADERS_CONFIG	 = $(UCLIBC_CONFIG)
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(UCLIBC_CONFIG):
-	@echo
-	@echo "**************************************************************************"
-	@echo "**** Please generate a uclibc config with 'ptxdist menuconfig uclibc' ****"
-	@echo "**************************************************************************"
-	@echo
-	@echo
-	@exit 1
+UCLIBC_HEADERS_ENV = $(UCLIBC_ENV)
 
-$(STATEDIR)/uclibc-headers.prepare: $(STATEDIR)/uclibc.extract $(UCLIBC_CONFIG)
+$(STATEDIR)/uclibc-headers.prepare: $(UCLIBC_HEADERS_CONFIG)
 	@$(call targetinfo)
-
-	@if [ -f $(UCLIBC_CONFIG) ]; then				\
-		echo "Using uclibc config file: $(UCLIBC_CONFIG)";	\
-		install -m 644 $(UCLIBC_CONFIG) $(UCLIBC_DIR)/.config; 	\
-	else								\
-		echo "ERROR: No such uclibc config: $(UCLIBC_CONFIG)";	\
-		exit 1;							\
-	fi
-
-	cd $(UCLIBC_DIR) && yes "" | \
-		$(UCLIBC_PATH) $(UCLIBC_ENV) $(MAKE)  \
-		$(UCLIBC_MAKE_OPT) oldconfig
-
+	@$(call world/kconfig, UCLIBC_HEADERS, oldconfig)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -55,12 +48,8 @@ $(STATEDIR)/uclibc-headers.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/uclibc-headers.install:
-	@$(call targetinfo)
-	cd $(UCLIBC_DIR) && \
-		$(UCLIBC_PATH) $(UCLIBC_ENV) \
-		$(MAKE) $(UCLIBC_MAKE_OPT) \
-		install_headers
-	@$(call touch)
+UCLIBC_HEADERS_INSTALL_OPT = \
+	$(UCLIBC_MAKE_OPT) \
+	install_headers
 
 # vim: syntax=make
