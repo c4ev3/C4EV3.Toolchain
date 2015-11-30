@@ -13,4 +13,6 @@
 #
 PACKAGES-$(PTXCONF_LIBC_FIRST) += libc-first
 
+LIBC_FIRST_LICENSE := ignore
+
 # vim: syntax=make

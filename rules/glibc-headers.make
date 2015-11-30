@@ -27,6 +27,7 @@ GLIBC_HEADERS_DIR	:= $(BUILDDIR)/glibc-headers-$(GLIBC_HEADERS_VERSION)
 GLIBC_HEADERS_BUILDDIR	:= $(GLIBC_HEADERS_DIR)-build
 GLIBC_HEADERS_URL	 = $(GLIBC_URL)
 GLIBC_HEADERS_BUILD_OOT	:= YES
+GLIBC_HEADERS_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

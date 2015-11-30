@@ -26,6 +26,7 @@ GLIBC_CRT_DIR		:= $(BUILDDIR)/glibc-crt-$(GLIBC_CRT_VERSION)
 GLIBC_CRT_BUILDDIR	:= $(GLIBC_CRT_DIR)-build
 GLIBC_CRT_URL		 = $(GLIBC_URL)
 GLIBC_CRT_BUILD_OOT	:= YES
+GLIBC_CRT_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

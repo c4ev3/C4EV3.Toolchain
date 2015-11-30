@@ -13,6 +13,8 @@
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_TOOLCHAIN) += cross-toolchain
 
+CROSS_TOOLCHAIN_LICENSE := ignore
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------

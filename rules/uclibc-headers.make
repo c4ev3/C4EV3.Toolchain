@@ -24,6 +24,7 @@ UCLIBC_HEADERS_SOURCE	:= $(SRCDIR)/$(UCLIBC_HEADERS).$(UCLIBC_HEADERS_SUFFIX)
 UCLIBC_HEADERS_DIR	:= $(BUILDDIR)/uClibc-headers-$(UCLIBC_HEADERS_VERSION)
 UCLIBC_HEADERS_URL	 = $(UCLIBC_URL)
 UCLIBC_HEADERS_CONFIG	 = $(UCLIBC_CONFIG)
+UCLIBC_HEADERS_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

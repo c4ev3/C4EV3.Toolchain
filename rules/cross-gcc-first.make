@@ -31,6 +31,7 @@ CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_GCC_FIRST_DIR)-build
 CROSS_GCC_FIRST_URL		 = $(CROSS_GCC_URL)
 CROSS_GCC_FIRST_BUILD_OOT	:= YES
 CROSS_GCC_FIRST_DEVPKG		:= NO
+CROSS_GCC_FIRST_LICENSE		:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

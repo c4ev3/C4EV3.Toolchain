@@ -16,7 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_FAKE_MAKEINFO) += host-fake-makeinfo
 #
 # Paths and names
 #
-HOST_FAKE_MAKEINFO	:= fake-makeinfo
+HOST_FAKE_MAKEINFO		:= fake-makeinfo
+HOST_FAKE_MAKEINFO_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Install

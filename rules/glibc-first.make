@@ -27,6 +27,7 @@ GLIBC_FIRST_DIR		:= $(BUILDDIR)/glibc-first-$(GLIBC_FIRST_VERSION)
 GLIBC_FIRST_BUILDDIR	:= $(GLIBC_FIRST_DIR)-build
 GLIBC_FIRST_URL		 = $(GLIBC_URL)
 GLIBC_FIRST_BUILD_OOT	:= YES
+GLIBC_FIRST_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

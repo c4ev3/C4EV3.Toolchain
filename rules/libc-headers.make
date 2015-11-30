@@ -13,4 +13,6 @@
 #
 PACKAGES-$(PTXCONF_LIBC_HEADERS) += libc_headers
 
+LIBC_HEADERS_LICENSE := ignore
+
 # vim: syntax=make
