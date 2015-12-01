@@ -26,6 +26,8 @@ HOST_ZLIB_URL		:= \
 	$(call ptx/mirror, SF, libpng/$(HOST_ZLIB).$(HOST_ZLIB_SUFFIX))
 HOST_ZLIB_SOURCE	:= $(SRCDIR)/$(HOST_ZLIB).$(HOST_ZLIB_SUFFIX)
 HOST_ZLIB_DIR		:= $(HOST_BUILDDIR)/$(HOST_ZLIB)
+HOST_ZLIB_LICENSE	:= Zlib
+HOST_ZLIB_LICENSE_FILES	:= file://README;md5=d8d5d8b9343c56f64978164a53cce0e4
 
 # ----------------------------------------------------------------------------
 # Prepare
