@@ -23,6 +23,7 @@ HOST_ISL_SUFFIX		:= tar.bz2
 HOST_ISL_URL		:= http://isl.gforge.inria.fr/$(HOST_ISL).$(HOST_ISL_SUFFIX)
 HOST_ISL_SOURCE		:= $(SRCDIR)/$(HOST_ISL).$(HOST_ISL_SUFFIX)
 HOST_ISL_DIR		:= $(HOST_BUILDDIR)/$(HOST_ISL)
+HOST_ISL_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
