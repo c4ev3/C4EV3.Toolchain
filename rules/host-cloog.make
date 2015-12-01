@@ -17,12 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_CLOOG) += host-cloog
 # Paths and names
 #
 HOST_CLOOG_VERSION	:= 0.18.4
-HOST_CLOOG_MD5	:= e531f725244856c92c9bba009ff44faf
+HOST_CLOOG_MD5		:= e531f725244856c92c9bba009ff44faf
 HOST_CLOOG		:= cloog-$(HOST_CLOOG_VERSION)
 HOST_CLOOG_SUFFIX	:= tar.gz
-HOST_CLOOG_URL	:= http://www.bastoul.net/cloog/pages/download/$(HOST_CLOOG).$(HOST_CLOOG_SUFFIX)
+HOST_CLOOG_URL		:= http://www.bastoul.net/cloog/pages/download/$(HOST_CLOOG).$(HOST_CLOOG_SUFFIX)
 HOST_CLOOG_SOURCE	:= $(SRCDIR)/$(HOST_CLOOG).$(HOST_CLOOG_SUFFIX)
-HOST_CLOOG_DIR	:= $(HOST_BUILDDIR)/$(HOST_CLOOG)
+HOST_CLOOG_DIR		:= $(HOST_BUILDDIR)/$(HOST_CLOOG)
 
 # ----------------------------------------------------------------------------
 # Prepare
