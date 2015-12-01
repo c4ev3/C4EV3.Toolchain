@@ -23,7 +23,7 @@ HOST_LIBELF_SUFFIX	:= tar.bz2
 HOST_LIBELF_URL		:= https://fedorahosted.org/releases/e/l/elfutils/$(HOST_LIBELF_VERSION)/$(HOST_LIBELF).$(HOST_LIBELF_SUFFIX)
 HOST_LIBELF_SOURCE	:= $(SRCDIR)/$(HOST_LIBELF).$(HOST_LIBELF_SUFFIX)
 HOST_LIBELF_DIR		:= $(HOST_BUILDDIR)/$(HOST_LIBELF)
-HOST_LIBELF_LICENSE	:= LGPL
+HOST_LIBELF_LICENSE	:= (LGPL-3.0+ OR GPL-2.0+) AND GPL-3.0+
 
 # ----------------------------------------------------------------------------
 # Prepare
