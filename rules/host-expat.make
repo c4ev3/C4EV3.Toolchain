@@ -23,6 +23,7 @@ HOST_EXPAT_SUFFIX	:= tar.bz2
 HOST_EXPAT_URL		:= $(call ptx/mirror, SF, expat/$(HOST_EXPAT).$(HOST_EXPAT_SUFFIX))
 HOST_EXPAT_SOURCE	:= $(SRCDIR)/$(HOST_EXPAT).$(HOST_EXPAT_SUFFIX)
 HOST_EXPAT_DIR		:= $(HOST_BUILDDIR)/$(HOST_EXPAT)
+HOST_EXPAT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Prepare
