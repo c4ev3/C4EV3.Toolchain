@@ -23,6 +23,7 @@ HOST_CLOOG_SUFFIX	:= tar.gz
 HOST_CLOOG_URL		:= http://www.bastoul.net/cloog/pages/download/$(HOST_CLOOG).$(HOST_CLOOG_SUFFIX)
 HOST_CLOOG_SOURCE	:= $(SRCDIR)/$(HOST_CLOOG).$(HOST_CLOOG_SUFFIX)
 HOST_CLOOG_DIR		:= $(HOST_BUILDDIR)/$(HOST_CLOOG)
+HOST_CLOOG_LICENSE	:= LGPL-2.1+
 
 # ----------------------------------------------------------------------------
 # Prepare
