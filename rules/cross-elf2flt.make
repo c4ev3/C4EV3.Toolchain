@@ -23,6 +23,9 @@ CROSS_ELF2FLT_SUFFIX	:= tar.gz
 CROSS_ELF2FLT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(CROSS_ELF2FLT).$(CROSS_ELF2FLT_SUFFIX)
 CROSS_ELF2FLT_SOURCE	:= $(SRCDIR)/$(CROSS_ELF2FLT).$(CROSS_ELF2FLT_SUFFIX)
 CROSS_ELF2FLT_DIR	:= $(CROSS_BUILDDIR)/$(CROSS_ELF2FLT)
+CROSS_ELF2FLT_LICENSE	:= GPL-2.0+
+CROSS_ELF2FLT_LICENSE_FILES := \
+	file://LICENSE.TXT;md5=393a5ca445f6965873eca0259a17f833
 
 # ----------------------------------------------------------------------------
 # Prepare
