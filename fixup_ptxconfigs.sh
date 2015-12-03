@@ -302,6 +302,9 @@ fixup()
 
     clear
 
+    # add any new variables so they can be replaced
+    ./p --force --ptxconfig="${config}" oldconfig < /dev/null || exit 1
+
     local sed_magic=""
     for var in ${!PTXCONF_@}; do
 	# remove tabs :)
@@ -309,7 +312,9 @@ fixup()
 
 	echo "${var}"="${!var}"
 	sed_magic="${sed_magic} $(get_replace "${var}")"
-	unset "${var}"
+	if [ "${var}" != "PTXCONF_CONFIGFILE_VERSION" ]; then
+	    unset "${var}"
+	fi
     done
 
     eval sed -i "${sed_magic}" "${config}"
@@ -322,6 +327,11 @@ fixup()
     sed -i 's/PTXCONF__ptxconfig_MAGIC__=y//' "${config}"
 
     ./p --force --ptxconfig="${config}" oldconfig || exit 1
+
+    # fix PTXdist version
+    eval sed -i "$(get_replace PTXCONF_CONFIGFILE_VERSION)" \
+	-e "\"s~^\(\# PTXdist \).*~\1${PTXCONF_CONFIGFILE_VERSION}~\"" \
+		"${config}"
 }
 
 update()
