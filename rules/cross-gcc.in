@@ -78,6 +78,28 @@ config CROSS_GCC_CONFIG_EXTRA
 	help
 	  Add these extra options to the gcc configure script.
 
+config CROSS_GCC_LICENSE
+	string
+	prompt "gcc license"
+
+config CROSS_GCC_LICENSE_FILES
+	string
+	prompt "gcc license files"
+	help
+	  License file list for gcclibs. This is used to generate a makefile
+	  snipplet that defines GCCLIBS_LICENSE/GCCLIBS_LICENSE_FILES.
+
+config CROSS_GCC_GCCLIBS_LICENSE
+	string
+	prompt "gcclibs license"
+
+config CROSS_GCC_GCCLIBS_LICENSES
+	string
+	prompt "gcclibs license files"
+	help
+	  License file list for gcclibs. This is used to generate a makefile
+	  snipplet that defines GCCLIBS_LICENSE/GCCLIBS_LICENSE_FILES.
+
 comment "Additional supported languages:"
 
 config CROSS_GCC_LANG_C

@@ -30,6 +30,8 @@ CROSS_GCC_SOURCE	:= $(SRCDIR)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)
 CROSS_GCC_DIR		:= $(BUILDDIR_CROSS_DEBUG)/$(CROSS_GCC)
 CROSS_GCC_BUILDDIR	:= $(CROSS_BUILDDIR)/$(CROSS_GCC)-build
 CROSS_GCC_BUILD_OOT	:= YES
+CROSS_GCC_LICENSE	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_LICENSE))
+CROSS_GCC_LICENSE_FILES	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_LICENSE_FILES))
 
 CROSS_GCC_URL		:= \
 	$(call ptx/mirror, GNU, gcc/$(CROSS_GCC)/$(CROSS_GCC).$(CROSS_GCC_SUFFIX)) \
@@ -135,9 +137,15 @@ CROSS_GCC_CONF_OPT	:= \
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cross-gcc.install:
+$(STATEDIR)/cross-gcc.install: $(STATEDIR)/cross-gcc.report
 	@$(call targetinfo)
 	@$(call world/install, CROSS_GCC)
+
+	@$(call world/env, CROSS_GCC) \
+		pkg_license_target=gcclibs \
+		pkg_license_target_license=$(PTXCONF_CROSS_GCC_GCCLIBS_LICENSE) \
+		pkg_license_target_pattern=$(PTXCONF_CROSS_GCC_GCCLIBS_LICENSES) \
+		ptxd_make_world_copy_license
 
 	@cd "$(PTXCONF_SYSROOT_CROSS)/$(PTX_TOUPLE_TARGET)/lib"; \
 	dst="$(SYSROOT)/usr/lib"; \
