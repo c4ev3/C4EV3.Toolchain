@@ -23,4 +23,12 @@ config CROSS_GDB_MD5
 	string
 	prompt "gdb source md5sum"
 
+config CROSS_GDB_LICENSE
+	string
+	prompt "gdb license"
+
+config CROSS_GDB_LICENSE_FILES
+	string
+	prompt "gdb license files"
+
 endif
