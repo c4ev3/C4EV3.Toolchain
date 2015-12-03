@@ -19,4 +19,12 @@ config CROSS_BINUTILS_MD5
 	string
 	prompt "binutils source md5sum"
 
+config CROSS_BINUTILS_LICENSE
+	string
+	prompt "binutils license"
+
+config CROSS_BINUTILS_LICENSE_FILES
+	string
+	prompt "binutils license files"
+
 endif
