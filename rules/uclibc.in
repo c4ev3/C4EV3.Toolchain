@@ -30,4 +30,12 @@ config UCLIBC_CONFIG
 	string
 	default "uclibc-${PTXCONF_UCLIBC_VERSION}-${PTXCONF_GNU_TARGET}.config"
 
+config UCLIBC_LICENSE
+	string
+	prompt "uclibc license"
+
+config UCLIBC_LICENSE_FILES
+	string
+	prompt "uclibc license files"
+
 endif

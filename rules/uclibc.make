@@ -26,6 +26,8 @@ UCLIBC_URL	:= \
 UCLIBC_SOURCE	:= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_DIR	:= $(BUILDDIR)/$(UCLIBC)
 UCLIBC_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/config/$(PTXCONF_UCLIBC_CONFIG))
+UCLIBC_LICENSE	:= $(call remove_quotes,$(PTXCONF_UCLIBC_LICENSE))
+UCLIBC_LICENSE_FILES := $(call remove_quotes,$(PTXCONF_UCLIBC_LICENSE_FILES))
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,6 +64,12 @@ UCLIBC_MAKE_OPT		:= \
 UCLIBC_INSTALL_OPT	:= \
 	$(UCLIBC_MAKE_OPT) \
 	install
+
+$(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.report
+	@$(call targetinfo)
+	@$(call world/install, UCLIBC)
+	@$(call world/env, UCLIBC) ptxd_make_world_copy_license
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
