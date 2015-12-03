@@ -44,6 +44,14 @@ config GLIBC_MD5
 	string
 	prompt "glibc source md5sum"
 
+config GLIBC_LICENSE
+	string
+	prompt "glibc license"
+
+config GLIBC_LICENSE_FILES
+	string
+	prompt "glibc license files"
+
 config GLIBC_TIMESTAMP
 	string
 	prompt "glibc timestamp"

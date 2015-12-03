@@ -29,6 +29,8 @@ GLIBC_URL	:= \
 	$(call ptx/mirror, GNU, glibc/$(GLIBC).$(GLIBC_SUFFIX)) \
 	ftp://sourceware.org/pub/glibc/snapshots/$(GLIBC).$(GLIBC_SUFFIX) \
 	http://www.pengutronix.de/software/ptxdist/temporary-src/glibc/$(GLIBC).$(GLIBC_SUFFIX)
+GLIBC_LICENSE	:= $(call remove_quotes,$(PTXCONF_GLIBC_LICENSE))
+GLIBC_LICENSE_FILES := $(call remove_quotes,$(PTXCONF_GLIBC_LICENSE_FILES))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -105,11 +107,16 @@ GLIBC_CONF_OPT	:= \
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/glibc.install:
+GLIBC_COMPLIANCE := $(PTXCONF_SYSROOT_CROSS)/share/compliance/glibc
+
+
+$(STATEDIR)/glibc.install: $(STATEDIR)/glibc.report
 	@$(call targetinfo)
 	cd $(GLIBC_BUILDDIR) && \
 		$(GLIBC_PATH) $(MAKE) $(GLIBC_MAKEVARS) \
 		install_root=$(SYSROOT) install
+
+	@$(call world/env, GLIBC) ptxd_make_world_copy_license
 #
 # Fix a bug when linking statically
 # see: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=76451
