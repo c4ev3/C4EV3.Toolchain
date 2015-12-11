@@ -41,7 +41,10 @@ PTX_HOST_CROSS_AUTOCONF := \
 	$(PTX_HOST_CROSS_AUTOCONF_TARGET) \
 	$(PTX_HOST_CROSS_AUTOCONF_PREFIX)
 
-PTXDIST_HOST_LDFLAGS				+= -Wl,--as-needed
+#
+# overwrite to remove rpath
+#
+PTXDIST_HOST_LDFLAGS				:= -L${PTXDIST_PATH_SYSROOT_HOST_PREFIX}/lib
 
 #
 # gcc-first
