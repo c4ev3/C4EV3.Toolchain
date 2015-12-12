@@ -53,6 +53,7 @@ GLIBC_ENV := \
 	\
 	libc_cv_slibdir='/lib' \
 	\
+	ac_cv_path_BASH_SHELL=/bin/bash \
 	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE)
 
 
