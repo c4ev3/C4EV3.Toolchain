@@ -30,6 +30,7 @@ CROSS_GCC_FIRST_DIR		:= $(CROSS_BUILDDIR)/gcc-first-$(CROSS_GCC_FIRST_VERSION)
 CROSS_GCC_FIRST_BUILDDIR	:= $(CROSS_GCC_FIRST_DIR)-build
 CROSS_GCC_FIRST_URL		 = $(CROSS_GCC_URL)
 CROSS_GCC_FIRST_BUILD_OOT	:= YES
+CROSS_GCC_FIRST_DEVPKG		:= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -63,10 +64,12 @@ CROSS_GCC_FIRST_CONF_OPT	 = \
 # Install
 # ----------------------------------------------------------------------------
 
+CROSS_GCC_FIRST_INSTALL_OPT := \
+	install
+
 $(STATEDIR)/cross-gcc-first.install:
 	@$(call targetinfo)
-	cd $(CROSS_GCC_FIRST_BUILDDIR) && \
-		$(CROSS_GCC_FIRST_PATH) $(MAKE) install #install-gcc
+	@$(call world/install, CROSS_GCC_FIRST)
 	ln -sfv libgcc.a `$(CROSS_GCC_FIRST_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc \
 		-print-libgcc-file-name | \
 		sed 's/libgcc/&_eh/'`
