@@ -36,6 +36,7 @@ GLIBC_CRT_PATH := PATH=$(CROSS_PATH)
 GLIBC_CRT_ENV := \
 	CC="$(CROSS_CC) -fuse-ld=bfd" \
 	BUILD_CC=$(HOSTCC) \
+	$(GLIBC_FLAGS_ENV) \
 	\
 	ac_cv_path_GREP=grep \
 	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE) \

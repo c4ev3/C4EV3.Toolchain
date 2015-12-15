@@ -100,6 +100,16 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	$(call ptx/ifdef,PTXCONF_HOST_CLOOG,--with-cloog) \
 	$(call ptx/ifdef,PTXCONF_HOST_ISL,--with-isl)
 
+ifndef PTXCONF_TOOLCHAIN_DEBUG
+CROSS_GCC_AUTOCONF_COMMON += \
+	--with-debug-prefix-map="$(TOOLCHAIN_CROSS_DEBUG_MAP)" \
+	--enable-libstdcxx-debug-flags="-gdwarf-4 -O0 $(TOOLCHAIN_CROSS_DEBUG_FLAGS)"
+
+CROSS_GCC_CONF_ENV += \
+	CFLAGS_FOR_TARGET="$(TOOLCHAIN_CROSS_DEBUG_FLAGS)" \
+	CXXFLAGS_FOR_TARGET="$(TOOLCHAIN_CROSS_DEBUG_FLAGS)"
+endif
+
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
 #   --enable-initfini-array       use .init_array/.fini_array sections

@@ -46,6 +46,19 @@ PTX_HOST_CROSS_AUTOCONF := \
 #
 PTXDIST_HOST_LDFLAGS				:= -L${PTXDIST_PATH_SYSROOT_HOST_PREFIX}/lib
 
+ifndef PTXCONF_TOOLCHAIN_DEBUG
+TOOLCHAIN_CROSS_DEBUG_FLAGS := \
+	-g3 \
+	-gno-record-gcc-switches
+
+TOOLCHAIN_CROSS_DEBUG_MAP := \
+	$(call remove_quotes,$(PTXCONF_DESTDIR))= \
+	$(PTXDIST_WORKSPACE)/platform-=$(call remove_quotes,$(PTXCONF_PROJECT))/platform-
+
+GLIBC_FLAGS_ENV += \
+	$(addsuffix "-O2 $(TOOLCHAIN_CROSS_DEBUG_FLAGS) $(addprefix -fdebug-prefix-map=,$(TOOLCHAIN_CROSS_DEBUG_MAP))",CFLAGS= CXXFLAGS=)
+endif
+
 #
 # gcc-first
 #
