@@ -60,7 +60,10 @@ endif
 # ----------------------------------------------------------------------------
 
 CROSS_GCC_DEVPKG	:= NO
-CROSS_GCC_CONF_ENV	:= $(HOST_ENV) MAKEINFO=:
+CROSS_GCC_CONF_ENV	:= \
+	$(HOST_ENV) \
+	ac_cv_path_SED=/bin/sed \
+	MAKEINFO=:
 
 #
 # autoconf
