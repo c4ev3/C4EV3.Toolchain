@@ -10,7 +10,7 @@ config TOOLCHAIN_DISABLE_SYSROOT
 
 config TOOLCHAIN_CONFIG_SYSROOT
 	string
-	default "--with-sysroot=${SYSROOT}"	if  TOOLCHAIN_ENABLE_SYSROOT
+	default "--with-build-sysroot=${SYSROOT} --with-sysroot=${PTXCONF_PREFIX_TARGET}"	if  TOOLCHAIN_ENABLE_SYSROOT
 
 
 #

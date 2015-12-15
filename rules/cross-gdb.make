@@ -52,4 +52,8 @@ ifeq ($(CROSS_GDB_WITHOUT_PYTHON),y)
 CROSS_GDB_CONF_OPT += --without-python
 endif
 
+CROSS_GDB_INSTALL_OPT := \
+	DESTDIR=$(PTXCONF_DESTDIR) \
+	install
+
 # vim: syntax=make

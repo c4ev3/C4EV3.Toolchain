@@ -57,6 +57,10 @@ CROSS_BINUTILS_CONF_OPT		:= \
 # Install
 # ----------------------------------------------------------------------------
 
+CROSS_BINUTILS_INSTALL_OPT := \
+	DESTDIR=$(PTXCONF_DESTDIR) \
+	install
+
 $(STATEDIR)/cross-binutils.install:
 	@$(call targetinfo)
 	@$(call world/install, CROSS_BINUTILS)

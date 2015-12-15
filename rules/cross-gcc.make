@@ -137,6 +137,10 @@ CROSS_GCC_CONF_OPT	:= \
 # Install
 # ----------------------------------------------------------------------------
 
+CROSS_GCC_INSTALL_OPT := \
+	DESTDIR=$(PTXCONF_DESTDIR) \
+	install
+
 $(STATEDIR)/cross-gcc.install: $(STATEDIR)/cross-gcc.report
 	@$(call targetinfo)
 	@$(call world/install, CROSS_GCC)
@@ -172,6 +176,8 @@ $(STATEDIR)/cross-gcc.install: $(STATEDIR)/cross-gcc.report
 	done
 
 	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" -print0 | xargs -0 rm -v -f
+	sed -i -e 's;$(call remove_quotes,$(PTXCONF_DESTDIR));;' \
+		$(PTXCONF_SYSROOT_CROSS)/lib/gcc/$(PTXCONF_GNU_TARGET)/$(CROSS_GCC_VERSION)/install-tools/mkheaders.conf
 
 	@$(call touch)
 

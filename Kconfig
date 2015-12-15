@@ -89,6 +89,10 @@ source "workspace/rules/toolchain.in"
 
 menu "misc                        "
 
+config DESTDIR
+	string
+	default "${PTX_AUTOBUILD_DESTDIR}"
+
 config PREFIX
 	string
 	prompt "prefix for installation"
@@ -118,14 +122,22 @@ config SYSROOT_HOST
 	string
 	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
 
+config PREFIX_CROSS
+	string
+	default "${PTXCONF_PREFIX}/${PTXCONF_PROJECT}/${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
+
 config SYSROOT_CROSS
 	string
-	default "${PTX_AUTOBUILD_DESTDIR}${PTXCONF_PREFIX}/${PTXCONF_PROJECT}/${PTXCONF_GNU_TARGET}/${PTXCONF_PREFIX_TCID}"
+	default "${PTXCONF_DESTDIR}${PTXCONF_PREFIX_CROSS}"
+
+config PREFIX_TARGET
+	string
+	default "${PTXCONF_PREFIX_CROSS}/sysroot-${PTXCONF_GNU_TARGET}"	if TOOLCHAIN_ENABLE_SYSROOT
+	default "${PTXCONF_PREFIX_CROSS}"					if TOOLCHAIN_DISABLE_SYSROOT
 
 config SYSROOT_TARGET
 	string
-	default "${PTXCONF_SYSROOT_CROSS}/sysroot-${PTXCONF_GNU_TARGET}"	if TOOLCHAIN_ENABLE_SYSROOT
-	default "${PTXCONF_SYSROOT_CROSS}"					if TOOLCHAIN_DISABLE_SYSROOT
+	default "${PTXCONF_DESTDIR}${PTXCONF_PREFIX_TARGET}"
 
 config PLATFORM
 	string
