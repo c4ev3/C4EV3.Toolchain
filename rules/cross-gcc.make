@@ -93,19 +93,19 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	--with-system-zlib
 
 ifdef PTXCONF_HOST_GMP
-CROSS_GCC_AUTOCONF_COMMON += --with-gmp=$(PTXCONF_SYSROOT_HOST)
+CROSS_GCC_AUTOCONF_COMMON += --with-gmp
 endif
 
 ifdef PTXCONF_HOST_MPFR
-CROSS_GCC_AUTOCONF_COMMON += --with-mpfr=$(PTXCONF_SYSROOT_HOST)
+CROSS_GCC_AUTOCONF_COMMON += --with-mpfr
 endif
 
 ifdef PTXCONF_HOST_MPC
-CROSS_GCC_AUTOCONF_COMMON += --with-mpc=$(PTXCONF_SYSROOT_HOST)
+CROSS_GCC_AUTOCONF_COMMON += --with-mpc
 endif
 
 ifdef PTXCONF_HOST_CLOOG
-CROSS_GCC_AUTOCONF_COMMON += --with-isl=$(PTXCONF_SYSROOT_HOST) --with-cloog=$(PTXCONF_SYSROOT_HOST)
+CROSS_GCC_AUTOCONF_COMMON += --with-isl --with-cloog
 endif
 
 #   --enable-tls            enable or disable generation of tls code
