@@ -10,7 +10,8 @@ menuconfig CROSS_GCC
 	select HOST_MPC		if CROSS_GCC_43
 	select HOST_ZLIB	if CROSS_GCC_43
 	select HOST_LIBELF	if CROSS_GCC_45
-	select HOST_CLOOG	if CROSS_GCC_48
+	select HOST_CLOOG	if CROSS_GCC_48 && ! CROSS_GCC_50
+	select HOST_ISL		if CROSS_GCC_48
 	select CROSS_ECJ	if CROSS_GCC_LANG_JAVA
 
 if CROSS_GCC
@@ -58,6 +59,13 @@ config CROSS_GCC_48
 	select CROSS_GCC_45
 	help
 	  Add new dependencies for gcc >= 4.8: "cloog"
+
+config CROSS_GCC_50
+	bool
+	prompt "additional deps for gcc >= 5.0"
+	select CROSS_GCC_48
+	help
+	  Add new dependencies for gcc >= 5.0: "isl" but not "cloog"
 
 config CROSS_GCC_SERIES
 	string
@@ -206,5 +214,6 @@ config CROSS_GCC_FIRST
 	select HOST_MPC		if CROSS_GCC_43
 	select HOST_ZLIB	if CROSS_GCC_43
 	select HOST_LIBELF	if CROSS_GCC_45
-	select HOST_CLOOG	if CROSS_GCC_48
+	select HOST_CLOOG	if CROSS_GCC_48 && ! CROSS_GCC_50
+	select HOST_ISL		if CROSS_GCC_48
 

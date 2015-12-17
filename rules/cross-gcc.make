@@ -96,7 +96,7 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	$(call ptx/ifdef,PTXCONF_HOST_MPFR,--with-mpfr) \
 	$(call ptx/ifdef,PTXCONF_HOST_MPC,--with-mpc) \
 	$(call ptx/ifdef,PTXCONF_HOST_CLOOG,--with-cloog) \
-	$(call ptx/ifdef,PTXCONF_HOST_CLOOG,--with-isl)
+	$(call ptx/ifdef,PTXCONF_HOST_ISL,--with-isl)
 
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
