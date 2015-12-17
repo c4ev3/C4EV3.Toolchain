@@ -90,23 +90,13 @@ CROSS_GCC_AUTOCONF_COMMON := \
 	\
 	--with-pkgversion=$(PTXCONF_CROSS_GCC_PKGVERSION) \
 	--enable-threads=$(PTXCONF_CROSS_GCC_THREADS) \
-	--with-system-zlib
-
-ifdef PTXCONF_HOST_GMP
-CROSS_GCC_AUTOCONF_COMMON += --with-gmp
-endif
-
-ifdef PTXCONF_HOST_MPFR
-CROSS_GCC_AUTOCONF_COMMON += --with-mpfr
-endif
-
-ifdef PTXCONF_HOST_MPC
-CROSS_GCC_AUTOCONF_COMMON += --with-mpc
-endif
-
-ifdef PTXCONF_HOST_CLOOG
-CROSS_GCC_AUTOCONF_COMMON += --with-isl --with-cloog
-endif
+	--with-system-zlib \
+	\
+	$(call ptx/ifdef,PTXCONF_HOST_GMP,--with-gmp) \
+	$(call ptx/ifdef,PTXCONF_HOST_MPFR,--with-mpfr) \
+	$(call ptx/ifdef,PTXCONF_HOST_MPC,--with-mpc) \
+	$(call ptx/ifdef,PTXCONF_HOST_CLOOG,--with-cloog) \
+	$(call ptx/ifdef,PTXCONF_HOST_CLOOG,--with-isl)
 
 #   --enable-tls            enable or disable generation of tls code
 #                           overriding the assembler check for tls support
