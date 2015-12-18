@@ -15,6 +15,7 @@ dist: dirty-check
 	git archive "$(v)" --prefix="$(project)"/ > "${project}.tar"
 	mkdir -p "${project}"
 	echo -n "${version}" > "${project}/.tarball-version"
+	touch --date="$$(git log -1 --format="%cI")" "${project}/.tarball-version"
 
 	tar -rf "${project}.tar" \
 		"${project}/.tarball-version"
