@@ -21,6 +21,7 @@ UCLIBC_MD5	:= $(call remove_quotes,$(PTXCONF_UCLIBC_MD5))
 UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 UCLIBC_SUFFIX	:= tar.bz2
 UCLIBC_URL	:= \
+	http://downloads.uclibc-ng.org/releases/$(subst ng-,,$(UCLIBC_VERSION))/$(UCLIBC).$(UCLIBC_SUFFIX) \
 	http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX) \
 	http://www.uclibc.org/downloads/snapshots/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_SOURCE	:= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)

@@ -51,6 +51,8 @@ $(STATEDIR)/uclibc-headers.compile:
 
 UCLIBC_HEADERS_INSTALL_OPT = \
 	$(UCLIBC_MAKE_OPT) \
+	CPU_CFLAGS=$(PTXCONF_UCLIBC_HEADERS_FAKE_CROSS) \
+	CC="$(HOSTCC)" \
 	install_headers
 
 # vim: syntax=make
