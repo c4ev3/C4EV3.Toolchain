@@ -234,6 +234,17 @@ fixup()
 	    exit 1
 	    ;;
     esac
+    #
+    # PTXCONF_GLIBC_CONFIG_EXTRA_CROSS
+    #
+    case "${PTXCONF_GNU_TARGET}" in
+	powerpc-603e-linux-gnu|i*86*|x86_64-unknown-linux-gnu)
+		PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="--enable-obsolete-rpc --enable-stackguard-randomization --enable-lock-elision"
+	    ;;
+	*)
+		PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="--enable-obsolete-rpc --enable-stackguard-randomization"
+	    ;;
+    esac
 
     #
     # PTXCONF_GLIBC_ENABLE_KERNEL
