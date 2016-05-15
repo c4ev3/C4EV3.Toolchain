@@ -143,6 +143,13 @@ CROSS_GCC_CONF_OPT	:= \
 	\
 	$(if $(filter 3.%,$(CROSS_GCC_VERSION)),,--enable-checking=release)
 
+$(STATEDIR)/cross-gcc.prepare:
+	@$(call targetinfo)
+	@$(call world/prepare, CROSS_GCC)
+	sed -i -e '/TOPLEVEL_CONFIGURE_ARGUMENTS/s;$(PTXDIST_WORKSPACE);WORKSPACE;g' \
+		$(CROSS_GCC_BUILDDIR)/Makefile
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
