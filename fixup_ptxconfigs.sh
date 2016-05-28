@@ -189,7 +189,7 @@ fixup()
 	    ;;
 
 	# hard, vfp
-	arm-cortexm4-eabihf)
+	arm-cortexm4-*eabihf)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4			--with-mode=thumb"
 	    ;;
 
