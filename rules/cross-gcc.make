@@ -193,8 +193,10 @@ $(STATEDIR)/cross-gcc.install: $(STATEDIR)/cross-gcc.report
 	done
 
 	@find $(PTXCONF_SYSROOT_CROSS) -name "*.la" -print0 | xargs -0 rm -v -f
+ifneq ($(call remove_quotes,$(PTXCONF_DESTDIR)),)
 	sed -i -e 's;$(call remove_quotes,$(PTXCONF_DESTDIR));;' \
 		$(PTXCONF_SYSROOT_CROSS)/lib/gcc/$(PTXCONF_GNU_TARGET)/$(CROSS_GCC_VERSION)/install-tools/mkheaders.conf
+endif
 
 	@$(call touch)
 
