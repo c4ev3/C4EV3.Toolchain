@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBELF) += host-libelf
 #
 # Paths and names
 #
-HOST_LIBELF_VERSION	:= 0.166
-HOST_LIBELF_MD5		:= d4e462b7891915dc5326bccefa2024ff
+HOST_LIBELF_VERSION	:= 0.170
+HOST_LIBELF_MD5		:= 03599aee98c9b726c7a732a2dd0245d5
 HOST_LIBELF		:= elfutils-$(HOST_LIBELF_VERSION)
 HOST_LIBELF_SUFFIX	:= tar.bz2
 HOST_LIBELF_URL		:= https://fedorahosted.org/releases/e/l/elfutils/$(HOST_LIBELF_VERSION)/$(HOST_LIBELF).$(HOST_LIBELF_SUFFIX)
@@ -34,12 +34,22 @@ HOST_LIBELF_LICENSE	:= (LGPL-3.0+ OR GPL-2.0+) AND GPL-3.0+
 #
 HOST_LIBELF_AUTOCONF := \
 	$(PTX_HOST_AUTOCONF) \
+	--enable-deterministic-archives \
+	--disable-thread-safety \
 	--disable-debugpred \
 	--disable-gprof \
 	--disable-gcov \
+	--disable-sanitize-undefined \
 	--disable-valgrind \
+	--disable-tests-rpath \
+	--enable-libebl-subdir=elfutils \
+	--enable-textrelcheck \
+	--enable-symbol-versioning \
+	--disable-nls \
 	--with-zlib \
-	--with-lzma
+	--without-bzlib \
+	--with-lzma \
+	--without-biarch
 
 HOST_LIBELF_DEVPKG	:= NO
 
