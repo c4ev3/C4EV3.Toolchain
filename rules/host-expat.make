@@ -16,8 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_EXPAT) += host-expat
 #
 # Paths and names
 #
-HOST_EXPAT_VERSION	:= 2.1.1
-HOST_EXPAT_MD5		:= 7380a64a8e3a9d66a9887b01d0d7ea81
+HOST_EXPAT_VERSION	:= 2.2.5
+HOST_EXPAT_MD5		:= 789e297f547980fc9ecc036f9a070d49
 HOST_EXPAT		:= expat-$(HOST_EXPAT_VERSION)
 HOST_EXPAT_SUFFIX	:= tar.bz2
 HOST_EXPAT_URL		:= $(call ptx/mirror, SF, expat/$(HOST_EXPAT).$(HOST_EXPAT_SUFFIX))
@@ -29,7 +29,6 @@ HOST_EXPAT_LICENSE	:= MIT
 # Prepare
 # ----------------------------------------------------------------------------
 
-#HOST_EXPAT_CONF_ENV	:= $(HOST_ENV)
 HOST_EXPAT_DEVPKG	:= NO
 
 #
@@ -39,6 +38,9 @@ HOST_EXPAT_CONF_TOOL	:= autoconf
 HOST_EXPAT_CONF_OPT	:= \
 	$(PTX_HOST_AUTOCONF) \
 	--disable-shared \
-	--enable-static
+	--enable-static \
+	--enable-xml-context \
+	--without-xmlwf \
+	--without-libbsd
 
 # vim: syntax=make
