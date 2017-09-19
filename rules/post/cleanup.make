@@ -27,7 +27,7 @@ ifdef PTXCONF_TOOLCHAIN_CONFIG_SYSROOT
 	find "$(PTXCONF_SYSROOT_CROSS)/sysroot-$(call remove_quotes,$(PTXCONF_GNU_TARGET))/usr/lib" \
 		-type f -name "*.a" -print0 \
 		| xargs -0 -n1 $(PTXCONF_SYSROOT_CROSS)/bin/$(PTXCONF_GNU_TARGET)-objcopy \
-			--preserve-dates --strip-debug --keep-file-symbols
+			--preserve-dates --strip-debug --keep-file-symbols || true
 endif
 #	# compress debug sections and remove any absolute paths
 	find "$(PTXCONF_SYSROOT_CROSS)" "$(PTXCONF_SYSROOT_CROSS)/lib/gcc" \
