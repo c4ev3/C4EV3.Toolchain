@@ -37,7 +37,10 @@ CROSS_GCC_FIRST_LICENSE		:= ignore
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_GCC_FIRST_ENV	:= $(HOST_ENV) MAKEINFO=:
+CROSS_GCC_FIRST_ENV	:= \
+	$(HOST_ENV) \
+	MAKEINFO=: \
+	enable_libmpx=no
 
 #
 # autoconf
