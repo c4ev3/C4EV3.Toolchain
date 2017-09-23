@@ -94,12 +94,6 @@ config GLIBC_HEADERS_FAKE_CROSS
 	help
 	  Add these args to fake a crosscompiler during glibc-header extraction stage.
 
-config GLIBC_TLS
-	bool
-	prompt "enable TLS"
-	help
-	  Activate Thread Local Storage.
-
 config GLIBC_EXTRA_ADDONS
 	string
 	prompt "extra addons"

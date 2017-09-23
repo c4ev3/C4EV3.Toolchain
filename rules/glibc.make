@@ -86,12 +86,6 @@ GLIBC_AUTOCONF_COMMON := \
 	\
 	$(PTXCONF_GLIBC_CONFIG_EXTRA)
 
-ifdef PTXCONF_GLIBC_TLS
-GLIBC_AUTOCONF_COMMON	+= --with-tls --with-__thread
-else
-GLIBC_AUTOCONF_COMMON	+= --without-tls --without-__thread
-endif
-
 GLIBC_CONF_TOOL	:= autoconf
 GLIBC_CONF_OPT	:= \
 	$(GLIBC_AUTOCONF_COMMON) \
