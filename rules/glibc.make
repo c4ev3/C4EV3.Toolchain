@@ -79,7 +79,6 @@ GLIBC_AUTOCONF_COMMON := \
 	--disable-build-nscd \
 	--disable-nscd \
 	\
-	--without-cvs \
 	--without-gd \
 	--without-selinux \
 	--disable-sanity-checks \
