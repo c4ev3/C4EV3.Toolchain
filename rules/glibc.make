@@ -33,17 +33,6 @@ GLIBC_LICENSE	:= $(call remove_quotes,$(PTXCONF_GLIBC_LICENSE))
 GLIBC_LICENSE_FILES := $(call remove_quotes,$(PTXCONF_GLIBC_LICENSE_FILES))
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glibc.extract:
-	@$(call targetinfo)
-	@$(call clean, $(GLIBC_DIR))
-	@$(call extract, GLIBC, $(BUILDDIR_DEBUG))
-	@$(call patchin, GLIBC, $(GLIBC_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -91,10 +80,8 @@ GLIBC_CONF_OPT	:= \
 	$(PTXCONF_GLIBC_CONFIG_EXTRA_CROSS) \
 	\
 	--enable-kernel=$(PTXCONF_GLIBC_ENABLE_KERNEL) \
-	--enable-debug \
 	--enable-profile \
 	--enable-shared \
-	--enable-stackguard-randomization \
 	--enable-static-nss
 
 # ----------------------------------------------------------------------------

@@ -55,7 +55,6 @@ GLIBC_FIRST_CONF_TOOL	:= autoconf
 GLIBC_FIRST_CONF_OPT	 = \
 	$(GLIBC_AUTOCONF_COMMON) \
 	$(PTXCONF_GLIBC_CONFIG_EXTRA_CROSS) \
-	--disable-debug \
 	--disable-profile \
 
 GLIBC_FIRST_MAKE_OPT	:= \
