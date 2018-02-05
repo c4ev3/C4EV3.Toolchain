@@ -94,6 +94,14 @@ GLIBC_HEADERS_CONF_OPT	 = \
 	\
 	--enable-hacker-mode
 
+$(STATEDIR)/glibc-headers.prepare:
+	@$(call targetinfo)
+#	# --enable-hacker-mode is not a real option but needed here
+	@sed -i "s:^\(enable_option_checking\)=.*:\1=no:" \
+		$(GLIBC_HEADERS_DIR)/configure
+	@$(call world/prepare, GLIBC_HEADERS)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
