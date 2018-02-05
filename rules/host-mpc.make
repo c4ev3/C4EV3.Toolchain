@@ -16,11 +16,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_MPC) += host-mpc
 #
 # Paths and names
 #
-HOST_MPC_VERSION	:= 1.0.3
-HOST_MPC_MD5		:= d6a1d5f8ddea3abd2cc3e98f58352d26
+HOST_MPC_VERSION	:= 1.1.0
+HOST_MPC_MD5		:= 4125404e41e482ec68282a2e687f6c73
 HOST_MPC		:= mpc-$(HOST_MPC_VERSION)
 HOST_MPC_SUFFIX		:= tar.gz
-HOST_MPC_URL		:= http://www.multiprecision.org/mpc/download/$(HOST_MPC).$(HOST_MPC_SUFFIX)
+HOST_MPC_URL		:= https://ftp.gnu.org/gnu/mpc/$(HOST_MPC).$(HOST_MPC_SUFFIX)
 HOST_MPC_SOURCE		:= $(SRCDIR)/$(HOST_MPC).$(HOST_MPC_SUFFIX)
 HOST_MPC_DIR		:= $(HOST_BUILDDIR)/$(HOST_MPC)
 HOST_MPC_LICENSE	:= LGPL-3.0+
