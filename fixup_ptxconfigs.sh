@@ -234,6 +234,11 @@ fixup()
 	    exit 1
 	    ;;
     esac
+    case "${PTXCONF_GNU_TARGET}" in
+	*linux-gnu*)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="$PTXCONF_CROSS_GCC_CONFIG_EXTRA --enable-linker-build-id"
+	    ;;
+    esac
     #
     # PTXCONF_GLIBC_CONFIG_EXTRA_CROSS
     #
