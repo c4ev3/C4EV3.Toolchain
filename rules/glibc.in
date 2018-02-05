@@ -94,8 +94,4 @@ config GLIBC_HEADERS_FAKE_CROSS
 	help
 	  Add these args to fake a crosscompiler during glibc-header extraction stage.
 
-config GLIBC_EXTRA_ADDONS
-	string
-	prompt "extra addons"
-
 endif

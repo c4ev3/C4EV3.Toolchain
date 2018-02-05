@@ -54,16 +54,12 @@ GLIBC_MAKEVARS := AUTOCONF=no
 #
 # autoconf
 #
-GLIBC_ADDONS	:= libidn
-GLIBC_ADDONS	+=  $(call remove_quotes, $(PTXCONF_GLIBC_EXTRA_ADDONS))
-
 GLIBC_AUTOCONF_COMMON := \
 	--prefix=/usr \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	\
 	--with-headers=$(SYSROOT)/usr/include \
-	--enable-add-ons=$(subst $(space),$(comma),$(GLIBC_ADDONS)) \
 	\
 	--disable-build-nscd \
 	--disable-nscd \
