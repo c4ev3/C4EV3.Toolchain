@@ -21,7 +21,7 @@ CROSS_GCC_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_VERSION))
 CROSS_GCC_DL_VERSION	:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_DL_VERSION))
 CROSS_GCC_MD5		:= $(call remove_quotes,$(PTXCONF_CROSS_GCC_MD5))
 CROSS_GCC		:= gcc-$(CROSS_GCC_DL_VERSION)
-ifeq ($(CROSS_GCC_VERSION),$(CROSS_GCC_DL_VERSION))
+ifneq ($(filter linaro%,$(CROSS_GCC_DL_VERSION)),)
 CROSS_GCC_SUFFIX	:= tar.bz2
 else
 CROSS_GCC_SUFFIX	:= tar.xz
