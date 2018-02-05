@@ -175,11 +175,9 @@ fixup()
 	# soft, vfp
 	arm-v4t-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v5te-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 	arm-v7m-uclinuxeabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv7-m	--with-mode=thumb"
@@ -215,7 +213,7 @@ fixup()
 
 	mipsel-softfloat-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
-	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp libc_mips_float=soft"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="libc_mips_float=soft"
 	    ;;
 	powerpc-603e-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
