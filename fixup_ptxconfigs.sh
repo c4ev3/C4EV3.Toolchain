@@ -181,16 +181,16 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=arm926ej-s"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
-	arm-cortexm3-uclinuxeabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
+	arm-v7m-uclinuxeabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv7-m	--with-mode=thumb"
 	    ;;
-	arm-cortexm3-eabi)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
+	arm-v7m-eabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv7-m	--with-mode=thumb"
 	    ;;
 
 	# hard, vfp
-	arm-cortexm4-*eabihf)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16	--with-cpu=cortex-m4			--with-mode=thumb"
+	arm-v7em-*eabihf)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=fpv4-sp-d16			--with-arch=armv7e-m	--with-mode=thumb"
 	    ;;
 
 	aarch64-v8a-linux-gnu)
