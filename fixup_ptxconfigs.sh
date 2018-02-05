@@ -242,12 +242,10 @@ fixup()
     #
     # PTXCONF_GLIBC_CONFIG_EXTRA_CROSS
     #
+    PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="--enable-obsolete-rpc --enable-obsolete-nsl --enable-stackguard-randomization --enable-stack-protector=strong"
     case "${PTXCONF_GNU_TARGET}" in
-	powerpc-603e-linux-gnu|i*86*|x86_64-unknown-linux-gnu)
-		PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="--enable-obsolete-rpc --enable-stackguard-randomization --enable-lock-elision"
-	    ;;
-	*)
-		PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="--enable-obsolete-rpc --enable-stackguard-randomization"
+	x86_64-unknown-linux-gnu)
+		PTXCONF_GLIBC_CONFIG_EXTRA_CROSS="${PTXCONF_GLIBC_CONFIG_EXTRA_CROSS} --enable-mathvec"
 	    ;;
     esac
 
