@@ -43,4 +43,12 @@ NEWLIB_CONF_OPT		:= \
 	--disable-newlib-supplied-syscalls \
 	--with-newlib
 
+$(STATEDIR)/newlib.prepare:
+	@$(call targetinfo)
+#	# unknown options a propagated to newlib/configure
+	@sed -i "s:^\(enable_option_checking\)=.*:\1=no:" \
+		$(NEWLIB_DIR)/configure
+	@$(call world/prepare, NEWLIB)
+	@$(call touch)
+
 # vim: syntax=make
