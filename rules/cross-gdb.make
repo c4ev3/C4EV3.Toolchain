@@ -50,6 +50,8 @@ CROSS_GDB_CONF_OPT	:= \
 # define this from the outside to build without python
 ifeq ($(CROSS_GDB_WITHOUT_PYTHON),y)
 CROSS_GDB_CONF_OPT += --without-python
+else
+CROSS_GDB_CONF_OPT += --with-python=python3
 endif
 
 CROSS_GDB_INSTALL_OPT := \
