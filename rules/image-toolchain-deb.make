@@ -16,8 +16,9 @@ IMAGE_PACKAGES-$(PTXCONF_IMAGE_TOOLCHAIN_DEB) += image-toolchain-deb
 #
 # Paths and names
 #
+IMAGE_TOOLCHAIN_DEB_VERSION_EXT	?= $(shell ptxd_make_debian_version_ext)
 IMAGE_TOOLCHAIN_DEB_VERSION	:= $(shell ./scripts/setlocalversion ./.tarball-version)
-IMAGE_TOOLCHAIN_DEB_IMAGE	:= $(PTXDIST_WORKSPACE)/dist/oselas.toolchain-$(IMAGE_TOOLCHAIN_DEB_VERSION)-$(subst _,-,$(PTXCONF_PLATFORM))_$(IMAGE_TOOLCHAIN_DEB_VERSION)_$(PTX_TOOLCHAIN_HOST_ARCH).deb
+IMAGE_TOOLCHAIN_DEB_IMAGE	:= $(PTXDIST_WORKSPACE)/dist/oselas.toolchain-$(IMAGE_TOOLCHAIN_DEB_VERSION)-$(subst _,-,$(PTXCONF_PLATFORM))_$(IMAGE_TOOLCHAIN_DEB_VERSION)$(IMAGE_TOOLCHAIN_DEB_VERSION_EXT)_$(PTX_TOOLCHAIN_HOST_ARCH).deb
 
 # ----------------------------------------------------------------------------
 # Image
