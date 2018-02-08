@@ -41,7 +41,7 @@ Uploaders: $(git config user.name) <$(git config user.email)>
 Section: devel
 Priority: optional
 Origin: pengutronix
-Homepage: http://www.pengutronix.de/oselas/toolchain/
+Homepage: https://www.pengutronix.de/software/toolchain.html
 Bugs: mailto:bugs@pengutronix.de
 
 Package: ${package}
