@@ -1,0 +1,12 @@
+_dvmd_lnx.o: ../../../gcc-8.1.0/libgcc/config/arm/lib1funcs.S \
+ _dvmd_lnx.vis ../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/bpabi.S
+
+_dvmd_lnx.vis:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/bpabi.S:

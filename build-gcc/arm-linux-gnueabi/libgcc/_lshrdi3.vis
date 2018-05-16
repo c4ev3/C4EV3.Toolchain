@@ -1,0 +1,2 @@
+	.hidden __lshrdi3
+	.hidden __aeabi_llsr

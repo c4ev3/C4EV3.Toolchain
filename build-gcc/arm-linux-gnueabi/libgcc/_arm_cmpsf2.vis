@@ -1,0 +1,15 @@
+	.hidden __gtsf2
+	.hidden __gesf2
+	.hidden __ltsf2
+	.hidden __lesf2
+	.hidden __cmpsf2
+	.hidden __nesf2
+	.hidden __eqsf2
+	.hidden __aeabi_cfrcmple
+	.hidden __aeabi_cfcmpeq
+	.hidden __aeabi_cfcmple
+	.hidden __aeabi_fcmpeq
+	.hidden __aeabi_fcmplt
+	.hidden __aeabi_fcmple
+	.hidden __aeabi_fcmpge
+	.hidden __aeabi_fcmpgt

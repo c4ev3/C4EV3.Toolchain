@@ -1,0 +1,2 @@
+	.hidden __fixunsdfsi
+	.hidden __aeabi_d2uiz

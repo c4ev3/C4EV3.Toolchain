@@ -1,0 +1,2 @@
+#define __stub_fegetexceptflag
+#define __stub_feupdateenv

@@ -1,0 +1,181 @@
+emutls_s.o: ../../../gcc-8.1.0/libgcc/emutls.c ../.././gcc/tconfig.h \
+ ../.././gcc/auto-host.h ../../../gcc-8.1.0/libgcc/../include/ansidecl.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/tsystem.h \
+ /opt/cross/c4ev3/build-gcc/gcc/include/stddef.h \
+ /opt/cross/c4ev3/build-gcc/gcc/include/float.h \
+ ../../../gcc-8.1.0/libgcc/../include/filenames.h \
+ ../../../gcc-8.1.0/libgcc/../include/hashtab.h \
+ ../../../gcc-8.1.0/libgcc/../include/ansidecl.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/coretypes.h ../.././gcc/tm.h \
+ ../.././gcc/options.h ../../../gcc-8.1.0/libgcc/../gcc/flag-types.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm-opts.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm-flags.h \
+ ../.././gcc/arm-isa.h ../.././gcc/arm-cpu.h ../.././gcc/insn-constants.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/dbxelf.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/elfos.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/gnu-user.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/linux.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/linux-android.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/glibc-stdint.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/elf.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-gas.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-elf.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/bpabi.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-eabi.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/aout.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/vxworks-dummy.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm.h \
+ ../.././gcc/insn-modes.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/config/initfini-array.h \
+ ../.././gcc/insn-modes.h ../../../gcc-8.1.0/libgcc/../gcc/defaults.h \
+ libgcc_tm.h ../../../gcc-8.1.0/libgcc/config/arm/bpabi-lib.h \
+ ../../../gcc-8.1.0/libgcc/gthr.h gthr-default.h \
+ /opt/cross/arm-linux-gnueabi/include/pthread.h \
+ /opt/cross/arm-linux-gnueabi/include/features.h \
+ /opt/cross/arm-linux-gnueabi/include/sys/cdefs.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/wordsize.h \
+ /opt/cross/arm-linux-gnueabi/include/gnu/stubs.h \
+ /opt/cross/arm-linux-gnueabi/include/endian.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/endian.h \
+ /opt/cross/arm-linux-gnueabi/include/sched.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/types.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/typesizes.h \
+ /opt/cross/arm-linux-gnueabi/include/time.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/sched.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/time.h \
+ /opt/cross/arm-linux-gnueabi/include/xlocale.h \
+ /opt/cross/arm-linux-gnueabi/include/signal.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/sigset.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/pthreadtypes.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/setjmp.h \
+ /opt/cross/arm-linux-gnueabi/include/unistd.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/posix_opt.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/environments.h \
+ /opt/cross/arm-linux-gnueabi/include/bits/confname.h \
+ ../../../gcc-8.1.0/libgcc/../include/getopt.h
+
+../.././gcc/tconfig.h:
+
+../.././gcc/auto-host.h:
+
+../../../gcc-8.1.0/libgcc/../include/ansidecl.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/tsystem.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/stddef.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/float.h:
+
+../../../gcc-8.1.0/libgcc/../include/filenames.h:
+
+../../../gcc-8.1.0/libgcc/../include/hashtab.h:
+
+../../../gcc-8.1.0/libgcc/../include/ansidecl.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/coretypes.h:
+
+../.././gcc/tm.h:
+
+../.././gcc/options.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/flag-types.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm-opts.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm-flags.h:
+
+../.././gcc/arm-isa.h:
+
+../.././gcc/arm-cpu.h:
+
+../.././gcc/insn-constants.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/dbxelf.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/elfos.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/gnu-user.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/linux.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/linux-android.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/glibc-stdint.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/elf.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-gas.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-elf.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/bpabi.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/linux-eabi.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/aout.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/vxworks-dummy.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/arm/arm.h:
+
+../.././gcc/insn-modes.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/config/initfini-array.h:
+
+../.././gcc/insn-modes.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/defaults.h:
+
+libgcc_tm.h:
+
+../../../gcc-8.1.0/libgcc/config/arm/bpabi-lib.h:
+
+../../../gcc-8.1.0/libgcc/gthr.h:
+
+gthr-default.h:
+
+/opt/cross/arm-linux-gnueabi/include/pthread.h:
+
+/opt/cross/arm-linux-gnueabi/include/features.h:
+
+/opt/cross/arm-linux-gnueabi/include/sys/cdefs.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/wordsize.h:
+
+/opt/cross/arm-linux-gnueabi/include/gnu/stubs.h:
+
+/opt/cross/arm-linux-gnueabi/include/endian.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/endian.h:
+
+/opt/cross/arm-linux-gnueabi/include/sched.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/types.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/typesizes.h:
+
+/opt/cross/arm-linux-gnueabi/include/time.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/sched.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/time.h:
+
+/opt/cross/arm-linux-gnueabi/include/xlocale.h:
+
+/opt/cross/arm-linux-gnueabi/include/signal.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/sigset.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/pthreadtypes.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/setjmp.h:
+
+/opt/cross/arm-linux-gnueabi/include/unistd.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/posix_opt.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/environments.h:
+
+/opt/cross/arm-linux-gnueabi/include/bits/confname.h:
+
+../../../gcc-8.1.0/libgcc/../include/getopt.h:

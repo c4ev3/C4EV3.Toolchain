@@ -1,0 +1,15 @@
+	.hidden __aeabi_drsub
+	.hidden __subdf3
+	.hidden __aeabi_dsub
+	.hidden __adddf3
+	.hidden __aeabi_dadd
+	.hidden __floatunsidf
+	.hidden __aeabi_ui2d
+	.hidden __floatsidf
+	.hidden __aeabi_i2d
+	.hidden __extendsfdf2
+	.hidden __aeabi_f2d
+	.hidden __floatundidf
+	.hidden __aeabi_ul2d
+	.hidden __floatdidf
+	.hidden __aeabi_l2d

@@ -1,0 +1,5 @@
+@set version-GCC 8.1.0
+@clear DEVELOPMENT
+@set srcdir /opt/cross/c4ev3/build-gcc/gcc/../../gcc-8.1.0/gcc
+@set VERSION_PACKAGE (GCC for c4ev3 2018-05-15) 
+@set BUGURL @uref{https://github.com/c4ev3/toolchain}

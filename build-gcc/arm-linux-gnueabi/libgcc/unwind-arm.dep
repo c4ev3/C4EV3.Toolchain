@@ -1,0 +1,34 @@
+unwind-arm.o: ../../../gcc-8.1.0/libgcc/config/arm/unwind-arm.c unwind.h \
+ /opt/cross/c4ev3/build-gcc/gcc/include/unwind-arm-common.h \
+ ../../../gcc-8.1.0/libgcc/unwind-arm-common.inc ../.././gcc/tconfig.h \
+ ../.././gcc/auto-host.h ../../../gcc-8.1.0/libgcc/../include/ansidecl.h \
+ ../../../gcc-8.1.0/libgcc/../gcc/tsystem.h \
+ /opt/cross/c4ev3/build-gcc/gcc/include/stddef.h \
+ /opt/cross/c4ev3/build-gcc/gcc/include/float.h \
+ ../../../gcc-8.1.0/libgcc/../include/filenames.h \
+ ../../../gcc-8.1.0/libgcc/../include/hashtab.h \
+ ../../../gcc-8.1.0/libgcc/../include/ansidecl.h
+
+unwind.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/unwind-arm-common.h:
+
+../../../gcc-8.1.0/libgcc/unwind-arm-common.inc:
+
+../.././gcc/tconfig.h:
+
+../.././gcc/auto-host.h:
+
+../../../gcc-8.1.0/libgcc/../include/ansidecl.h:
+
+../../../gcc-8.1.0/libgcc/../gcc/tsystem.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/stddef.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/float.h:
+
+../../../gcc-8.1.0/libgcc/../include/filenames.h:
+
+../../../gcc-8.1.0/libgcc/../include/hashtab.h:
+
+../../../gcc-8.1.0/libgcc/../include/ansidecl.h:

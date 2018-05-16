@@ -1,0 +1,2 @@
+	.hidden __ashldi3
+	.hidden __aeabi_llsl

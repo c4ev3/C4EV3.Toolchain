@@ -1,0 +1,1876 @@
+###Driver
+-all-warningsAda AdaWhy AdaSCIL Alias(Wall)
+-all-warningsC ObjC C++ ObjC++ Warning Alias(Wall)
+-all-warningsFortran Alias(Wall)
+-ansiC ObjC C++ ObjC++ Alias(ansi)
+-assembleDriver Alias(S)
+-assertC ObjC C++ ObjC++ Separate Alias(A) MissingArgError(assertion missing after %qs)
+-assertFortran Separate Alias(A)
+-assert=C ObjC C++ ObjC++ Joined Alias(A) MissingArgError(assertion missing after %qs)
+-assert=Fortran Joined Alias(A)
+-commentsC ObjC C++ ObjC++ Alias(C)
+-commentsFortran Alias(C)
+-comments-in-macrosC ObjC C++ ObjC++ Alias(CC)
+-comments-in-macrosFortran Alias(CC)
+-compileDriver Alias(c)
+-coverageDriver Alias(coverage)
+-debugCommon Alias(g)
+-define-macroC ObjC C++ ObjC++ Separate Alias(D) MissingArgError(macro name missing after %qs)
+-define-macroFortran Separate Alias(D)
+-define-macro=C ObjC C++ ObjC++ Joined Alias(D) MissingArgError(macro name missing after %qs)
+-define-macro=Fortran Joined Alias(D)
+-dependenciesC ObjC C++ ObjC++ Alias(M)
+-dependenciesFortran Alias(M)
+-dumpBRIG Separate Alias(d)
+-dumpC ObjC C++ ObjC++ Separate Alias(d)
+-dumpCommon Separate Alias(d)
+-dumpFortran Separate Alias(d)
+-dump=BRIG Joined Alias(d)
+-dump=C ObjC C++ ObjC++ Joined Alias(d)
+-dump=Common Joined Alias(d)
+-dump=Fortran Joined Alias(d)
+-dumpbaseCommon Separate Alias(dumpbase)
+-dumpdirCommon Separate Alias(dumpdir)
+-entryDriver Separate Alias(e)
+-entry=Driver Joined Alias(e)
+-extra-warningsCommon Warning Alias(Wextra)
+-for-assemblerDriver Separate Alias(Xassembler)
+-for-assembler=Driver JoinedOrMissing Alias(Xassembler)
+-for-linkerDriver Separate Alias(Xlinker)
+-for-linker=Driver JoinedOrMissing Alias(Xlinker)
+-force-linkDriver Separate Alias(u)
+-force-link=Driver Joined Alias(u)
+-helpCommon Driver Var(help_flag)Display this information.
+-help=Common Driver Report Joined--help=<class>	Display descriptions of a specific class of options.  <class> is one or more of optimizers, target, warnings, undocumented, params.
+-imacrosC ObjC C++ ObjC++ Separate Alias(imacros) MissingArgError(missing filename after %qs)
+-imacros=C ObjC C++ ObjC++ Joined Alias(imacros) MissingArgError(missing filename after %qs)
+-includeC ObjC C++ ObjC++ Separate Alias(include) MissingArgError(missing filename after %qs)
+-include-barrierAda AdaWhy AdaSCIL Alias(I, -)
+-include-barrierC ObjC C++ ObjC++ Alias(I, -)
+-include-barrierFortran Alias(I, -)
+-include-directoryAda AdaWhy AdaSCIL Separate Alias(I)
+-include-directoryC ObjC C++ ObjC++ Separate Alias(I) MissingArgError(missing path after %qs)
+-include-directoryFortran Separate Alias(I)
+-include-directory-afterC ObjC C++ ObjC++ Separate Alias(idirafter) MissingArgError(missing path after %qs)
+-include-directory-afterFortran Separate Alias(idirafter)
+-include-directory-after=C ObjC C++ ObjC++ Joined Alias(idirafter) MissingArgError(missing path after %qs)
+-include-directory-after=Fortran Joined Alias(idirafter)
+-include-directory=Ada AdaWhy AdaSCIL Joined Alias(I)
+-include-directory=C ObjC C++ ObjC++ Joined Alias(I) MissingArgError(missing path after %qs)
+-include-directory=Fortran Joined Alias(I)
+-include-prefixC ObjC C++ ObjC++ Separate Alias(iprefix)
+-include-prefixFortran Separate Alias(iprefix)
+-include-prefix=C ObjC C++ ObjC++ JoinedOrMissing Alias(iprefix)
+-include-prefix=Fortran JoinedOrMissing Alias(iprefix)
+-include-with-prefixC ObjC C++ ObjC++ Separate Alias(iwithprefix)
+-include-with-prefix-afterC ObjC C++ ObjC++ Separate Alias(iwithprefix)
+-include-with-prefix-after=C ObjC C++ ObjC++ JoinedOrMissing Alias(iwithprefix)
+-include-with-prefix-beforeC ObjC C++ ObjC++ Separate Alias(iwithprefixbefore)
+-include-with-prefix-before=C ObjC C++ ObjC++ JoinedOrMissing Alias(iwithprefixbefore)
+-include-with-prefix=C ObjC C++ ObjC++ JoinedOrMissing Alias(iwithprefix)
+-include=C ObjC C++ ObjC++ Joined Alias(include) MissingArgError(missing filename after %qs)
+-languageDriver Separate Alias(x)
+-language=Driver Joined Alias(x)
+-library-directoryDriver Separate Alias(L)
+-library-directory=Driver Joined Alias(L)
+-no-canonical-prefixesDriver Alias(no-canonical-prefixes)
+-no-integrated-cppDriver Alias(no-integrated-cpp)
+-no-line-commandsC ObjC C++ ObjC++ Alias(P)
+-no-line-commandsFortran Alias(P)
+-no-standard-includesAda AdaWhy AdaSCIL Alias(nostdinc)
+-no-standard-includesC ObjC C++ ObjC++ Alias(nostdinc)
+-no-standard-includesFortran Alias(nostdinc)
+-no-standard-librariesAda AdaWhy AdaSCIL Alias(nostdlib)
+-no-standard-librariesDriver Alias(nostdlib)
+-no-sysroot-suffixDriver Var(no_sysroot_suffix)
+-no-warningsC ObjC C++ ObjC++ Alias(w)
+-no-warningsCommon Alias(w)
+-optimizeCommon Alias(O)
+-outputC ObjC C++ ObjC++ Separate Alias(o)
+-outputCommon Driver Separate Alias(o) MissingArgError(missing filename after %qs)
+-outputFortran Separate Alias(o)
+-output-pch=C ObjC C++ ObjC++ Joined Separate
+-output=BRIG Driver Joined Alias(o) MissingArgError(missing filename after %qs)
+-output=C ObjC C++ ObjC++ Joined Alias(o)
+-output=Common Driver Joined Alias(o) MissingArgError(missing filename after %qs)
+-output=Fortran Joined Alias(o)
+-paramCommon Separate--param <param>=<value>	Set parameter <param> to value.  See below for a complete list of parameters.
+-param=Common Joined Alias(-param)
+-pass-exit-codesDriver Alias(pass-exit-codes)
+-pedanticC ObjC C++ ObjC++ Alias(pedantic)
+-pedanticCommon Alias(Wpedantic)
+-pedantic-errorsCommon Alias(pedantic-errors)
+-pieDriver Alias(pie)
+-pipeDriver Alias(pipe)
+-prefixDriver Separate Alias(B)
+-prefix=Driver JoinedOrMissing Alias(B)
+-preprocessC ObjC C++ ObjC++ Undocumented Alias(E)
+-preprocessDriver Alias(E)
+-preprocessFortran Undocumented Alias(E)
+-print-file-nameDriver Separate Alias(print-file-name=)
+-print-file-name=Driver JoinedOrMissing Alias(print-file-name=)
+-print-libgcc-file-nameDriver Alias(print-libgcc-file-name)
+-print-missing-file-dependenciesC ObjC C++ ObjC++ Alias(MG)
+-print-missing-file-dependenciesFortran Alias(MG)
+-print-multi-directoryDriver Alias(print-multi-directory)
+-print-multi-libDriver Alias(print-multi-lib)
+-print-multi-os-directoryDriver Alias(print-multi-os-directory)
+-print-multiarchDriver Alias(print-multiarch)
+-print-prog-nameDriver Separate Alias(print-prog-name=)
+-print-prog-name=Driver JoinedOrMissing Alias(print-prog-name=)
+-print-search-dirsDriver Alias(print-search-dirs)
+-print-sysrootDriver Alias(print-sysroot)
+-print-sysroot-headers-suffixDriver Alias(print-sysroot-headers-suffix)
+-profileCommon Alias(p)
+-save-tempsDriver Alias(save-temps)
+-sharedDriver Alias(shared)
+-specsDriver Separate Alias(specs=)
+-specs=Driver Joined Alias(specs=)
+-staticDriver Alias(static)
+-static-pieDriver Alias(static-pie)
+-symbolicDriver Alias(symbolic)
+-sysrootDriver Separate Alias(-sysroot=)
+-sysroot=Driver JoinedOrMissing
+-target-helpCommon DriverAlias for --help=target.
+-timeDriver Alias(time)
+-trace-includesC ObjC C++ ObjC++ Alias(H)
+-trace-includesFortran Alias(H)
+-traditionalDriver Alias(traditional)
+-traditional-cppC ObjC C++ ObjC++ Alias(traditional-cpp)
+-trigraphsC ObjC C++ ObjC++ Alias(trigraphs)
+-undefine-macroC ObjC C++ ObjC++ Separate Alias(U) MissingArgError(macro name missing after %qs)
+-undefine-macroFortran Separate Alias(U)
+-undefine-macro=C ObjC C++ ObjC++ Joined Alias(U) MissingArgError(macro name missing after %qs)
+-undefine-macro=Fortran Joined Alias(U)
+-user-dependenciesC ObjC C++ ObjC++ Alias(MM)
+-user-dependenciesFortran Alias(MM)
+-verboseCommon C ObjC C++ ObjC++ Alias(v)
+-verboseDriver Alias(v)
+-verboseFortran Alias(v)
+-versionCommon Driver
+-write-dependenciesC ObjC C++ ObjC++ NoDriverArg Separate Alias(MD) MissingArgError(missing filename after %qs)
+-write-dependenciesFortran NoDriverArg Separate Alias(MD)
+-write-user-dependenciesC ObjC C++ ObjC++ NoDriverArg Separate Alias(MMD) MissingArgError(missing filename after %qs)
+-write-user-dependenciesFortran NoDriverArg Separate Alias(MMD)
+AC ObjC C++ ObjC++ Joined Separate MissingArgError(assertion missing after %qs)-A<question>=<answer>	Assert the <answer> to <question>.  Putting '-' before <question> disables the <answer> to <question>.
+AFortran Joined Separate
+BDriver Joined Separate
+CC ObjC C++ ObjC++Do not discard comments.
+CFortran
+CCC ObjC C++ ObjC++Do not discard comments in macro expansions.
+CCFortran
+DC ObjC C++ ObjC++ Joined Separate MissingArgError(macro name missing after %qs)-D<macro>[=<val>]	Define a <macro> with <val> as its value.  If just <macro> is given, <val> is taken to be 1.
+DFortran Joined Separate
+EC ObjC C++ ObjC++ Undocumented Var(flag_preprocess_only)
+EDriver
+EFortran Undocumented
+EnumName(arm_abi_type) Type(enum arm_abi_type)Known ARM ABIs (for use with the -mabi= option):
+EnumName(arm_arch) Type(int)Known ARM architectures (for use with the -march= option):
+EnumName(arm_fp16_format_type) Type(enum arm_fp16_format_type)Known __fp16 formats (for use with the -mfp16-format= option):
+EnumName(arm_fpu) Type(enum fpu_type)Known ARM FPUs (for use with the -mfpu= option):
+EnumName(arm_tp_type) Type(enum arm_tp_type)Valid arguments to -mtp=:
+EnumName(cf_protection_level) Type(enum cf_protection_level) UnknownError(unknown Control-Flow Protection Level %qs)
+EnumName(compressed_debug_sections) Type(int)
+EnumName(cpp_normalize_level) Type(int) UnknownError(argument %qs to %<-Wnormalized%> not recognized)
+EnumName(diagnostic_color_rule) Type(int)
+EnumName(diagnostic_prefixing_rule) Type(int)
+EnumName(dwarf_gnat_encodings) Type(int)
+EnumName(excess_precision) Type(enum excess_precision) UnknownError(unknown excess precision style %qs)
+EnumName(float_abi_type) Type(enum float_abi_type)Known floating-point ABIs (for use with the -mfloat-abi= option):
+EnumName(fp_contract_mode) Type(enum fp_contract_mode) UnknownError(unknown floating point contraction style %qs)
+EnumName(gfc_convert) Type(enum gfc_convert) UnknownError(Unrecognized option to endianness value: %qs)
+EnumName(gfc_fcoarray) Type(enum gfc_fcoarray) UnknownError(Unrecognized option: %qs)
+EnumName(gfc_init_local_real) Type(enum gfc_init_local_real) UnknownError(Unrecognized option to floating-point init value: %qs)
+EnumName(ira_algorithm) Type(enum ira_algorithm) UnknownError(unknown IRA algorithm %qs)
+EnumName(ira_region) Type(enum ira_region) UnknownError(unknown IRA region %qs)
+EnumName(ivar_visibility) Type(enum ivar_visibility) UnknownError(unrecognized ivar visibility value %qs)
+EnumName(lto_linker_output) Type(enum lto_linker_output) UnknownError(unknown linker output %qs)
+EnumName(lto_partition_model) Type(enum lto_partition_model) UnknownError(unknown LTO partitioning model %qs)
+EnumName(offload_abi) Type(enum offload_abi) UnknownError(unknown offload ABI %qs)
+EnumName(permitted_flt_eval_methods) Type(enum permitted_flt_eval_methods) UnknownError(unknown specification for the set of FLT_EVAL_METHOD values to permit %qs)
+EnumName(processor_type) Type(enum processor_type)Known ARM CPUs (for use with the -mcpu= and -mtune= options):
+EnumName(profile_update) Type(enum profile_update) UnknownError(unknown profile update method %qs)
+EnumName(reorder_blocks_algorithm) Type(enum reorder_blocks_algorithm) UnknownError(unknown basic block reordering algorithm %qs)
+EnumName(sso_struct) Type(enum scalar_storage_order_kind) UnknownError(unrecognized scalar storage order value %qs)
+EnumName(stack_reuse_level) Type(enum stack_reuse_level) UnknownError(unknown Stack Reuse Level %qs)
+EnumName(strong_eval_order) Type(int)
+EnumName(symbol_visibility) Type(enum symbol_visibility) UnknownError(unrecognized visibility value %qs)
+EnumName(tls_model) Type(enum tls_model) UnknownError(unknown TLS model %qs)
+EnumName(tls_type) Type(enum arm_tls_type)TLS dialect to use:
+EnumName(vect_cost_model) Type(enum vect_cost_model) UnknownError(unknown vectorizer cost model %qs)
+EnumName(vtv_priority) Type(enum vtv_priority) UnknownError(unknown vtable verify initialization priority %qs)
+EnumName(warn_aligned_new_level) Type(int) UnknownError(argument %qs to %<-Waligned-new%> not recognized)
+EnumValueEnum(arm_abi_type) String(aapcs) Value(ARM_ABI_AAPCS)
+EnumValueEnum(arm_abi_type) String(aapcs-linux) Value(ARM_ABI_AAPCS_LINUX)
+EnumValueEnum(arm_abi_type) String(apcs-gnu) Value(ARM_ABI_APCS)
+EnumValueEnum(arm_abi_type) String(atpcs) Value(ARM_ABI_ATPCS)
+EnumValueEnum(arm_abi_type) String(iwmmxt) Value(ARM_ABI_IWMMXT)
+EnumValueEnum(arm_arch) String(armv2) Value(0)
+EnumValueEnum(arm_arch) String(armv2a) Value(1)
+EnumValueEnum(arm_arch) String(armv3) Value(2)
+EnumValueEnum(arm_arch) String(armv3m) Value(3)
+EnumValueEnum(arm_arch) String(armv4) Value(4)
+EnumValueEnum(arm_arch) String(armv4t) Value(5)
+EnumValueEnum(arm_arch) String(armv5) Value(6)
+EnumValueEnum(arm_arch) String(armv5e) Value(8)
+EnumValueEnum(arm_arch) String(armv5t) Value(7)
+EnumValueEnum(arm_arch) String(armv5te) Value(9)
+EnumValueEnum(arm_arch) String(armv5tej) Value(10)
+EnumValueEnum(arm_arch) String(armv6) Value(11)
+EnumValueEnum(arm_arch) String(armv6-m) Value(18)
+EnumValueEnum(arm_arch) String(armv6j) Value(12)
+EnumValueEnum(arm_arch) String(armv6k) Value(13)
+EnumValueEnum(arm_arch) String(armv6kz) Value(15)
+EnumValueEnum(arm_arch) String(armv6s-m) Value(19)
+EnumValueEnum(arm_arch) String(armv6t2) Value(17)
+EnumValueEnum(arm_arch) String(armv6z) Value(14)
+EnumValueEnum(arm_arch) String(armv6zk) Value(16)
+EnumValueEnum(arm_arch) String(armv7) Value(20)
+EnumValueEnum(arm_arch) String(armv7-a) Value(21)
+EnumValueEnum(arm_arch) String(armv7-m) Value(24)
+EnumValueEnum(arm_arch) String(armv7-r) Value(23)
+EnumValueEnum(arm_arch) String(armv7e-m) Value(25)
+EnumValueEnum(arm_arch) String(armv7ve) Value(22)
+EnumValueEnum(arm_arch) String(armv8-a) Value(26)
+EnumValueEnum(arm_arch) String(armv8-m.base) Value(31)
+EnumValueEnum(arm_arch) String(armv8-m.main) Value(32)
+EnumValueEnum(arm_arch) String(armv8-r) Value(33)
+EnumValueEnum(arm_arch) String(armv8.1-a) Value(27)
+EnumValueEnum(arm_arch) String(armv8.2-a) Value(28)
+EnumValueEnum(arm_arch) String(armv8.3-a) Value(29)
+EnumValueEnum(arm_arch) String(armv8.4-a) Value(30)
+EnumValueEnum(arm_arch) String(iwmmxt) Value(34)
+EnumValueEnum(arm_arch) String(iwmmxt2) Value(35)
+EnumValueEnum(arm_arch) String(native) Value(-1) DriverOnly
+EnumValueEnum(arm_fp16_format_type) String(alternative) Value(ARM_FP16_FORMAT_ALTERNATIVE)
+EnumValueEnum(arm_fp16_format_type) String(ieee) Value(ARM_FP16_FORMAT_IEEE)
+EnumValueEnum(arm_fp16_format_type) String(none) Value(ARM_FP16_FORMAT_NONE)
+EnumValueEnum(arm_fpu) String(auto) Value(TARGET_FPU_auto)
+EnumValueEnum(arm_fpu) String(crypto-neon-fp-armv8) Value(TARGET_FPU_crypto_neon_fp_armv8)
+EnumValueEnum(arm_fpu) String(fp-armv8) Value(TARGET_FPU_fp_armv8)
+EnumValueEnum(arm_fpu) String(fpv4-sp-d16) Value(TARGET_FPU_fpv4_sp_d16)
+EnumValueEnum(arm_fpu) String(fpv5-d16) Value(TARGET_FPU_fpv5_d16)
+EnumValueEnum(arm_fpu) String(fpv5-sp-d16) Value(TARGET_FPU_fpv5_sp_d16)
+EnumValueEnum(arm_fpu) String(neon) Value(TARGET_FPU_neon)
+EnumValueEnum(arm_fpu) String(neon-fp-armv8) Value(TARGET_FPU_neon_fp_armv8)
+EnumValueEnum(arm_fpu) String(neon-fp16) Value(TARGET_FPU_neon_fp16)
+EnumValueEnum(arm_fpu) String(neon-vfpv3) Value(TARGET_FPU_neon_vfpv3)
+EnumValueEnum(arm_fpu) String(neon-vfpv4) Value(TARGET_FPU_neon_vfpv4)
+EnumValueEnum(arm_fpu) String(vfp) Value(TARGET_FPU_vfp)
+EnumValueEnum(arm_fpu) String(vfp3) Value(TARGET_FPU_vfp3)
+EnumValueEnum(arm_fpu) String(vfpv2) Value(TARGET_FPU_vfpv2)
+EnumValueEnum(arm_fpu) String(vfpv3) Value(TARGET_FPU_vfpv3)
+EnumValueEnum(arm_fpu) String(vfpv3-d16) Value(TARGET_FPU_vfpv3_d16)
+EnumValueEnum(arm_fpu) String(vfpv3-d16-fp16) Value(TARGET_FPU_vfpv3_d16_fp16)
+EnumValueEnum(arm_fpu) String(vfpv3-fp16) Value(TARGET_FPU_vfpv3_fp16)
+EnumValueEnum(arm_fpu) String(vfpv3xd) Value(TARGET_FPU_vfpv3xd)
+EnumValueEnum(arm_fpu) String(vfpv3xd-fp16) Value(TARGET_FPU_vfpv3xd_fp16)
+EnumValueEnum(arm_fpu) String(vfpv4) Value(TARGET_FPU_vfpv4)
+EnumValueEnum(arm_fpu) String(vfpv4-d16) Value(TARGET_FPU_vfpv4_d16)
+EnumValueEnum(arm_tp_type) String(auto) Value(TP_AUTO)
+EnumValueEnum(arm_tp_type) String(cp15) Value(TP_CP15)
+EnumValueEnum(arm_tp_type) String(soft) Value(TP_SOFT)
+EnumValueEnum(cf_protection_level) String(branch) Value(CF_BRANCH)
+EnumValueEnum(cf_protection_level) String(full) Value(CF_FULL)
+EnumValueEnum(cf_protection_level) String(none) Value(CF_NONE)
+EnumValueEnum(cf_protection_level) String(return) Value(CF_RETURN)
+EnumValueEnum(compressed_debug_sections) String(none) Value(0)
+EnumValueEnum(compressed_debug_sections) String(zlib) Value(1)
+EnumValueEnum(compressed_debug_sections) String(zlib-gnu) Value(2)
+EnumValueEnum(cpp_normalize_level) String(id) Value(normalized_identifier_C)
+EnumValueEnum(cpp_normalize_level) String(nfc) Value(normalized_C)
+EnumValueEnum(cpp_normalize_level) String(nfkc) Value(normalized_KC)
+EnumValueEnum(cpp_normalize_level) String(none) Value(normalized_none)
+EnumValueEnum(diagnostic_color_rule) String(always) Value(DIAGNOSTICS_COLOR_YES)
+EnumValueEnum(diagnostic_color_rule) String(auto) Value(DIAGNOSTICS_COLOR_AUTO)
+EnumValueEnum(diagnostic_color_rule) String(never) Value(DIAGNOSTICS_COLOR_NO)
+EnumValueEnum(diagnostic_prefixing_rule) String(every-line) Value(DIAGNOSTICS_SHOW_PREFIX_EVERY_LINE)
+EnumValueEnum(diagnostic_prefixing_rule) String(once) Value(DIAGNOSTICS_SHOW_PREFIX_ONCE)
+EnumValueEnum(dwarf_gnat_encodings) String(all) Value(DWARF_GNAT_ENCODINGS_ALL)
+EnumValueEnum(dwarf_gnat_encodings) String(gdb) Value(DWARF_GNAT_ENCODINGS_GDB)
+EnumValueEnum(dwarf_gnat_encodings) String(minimal) Value(DWARF_GNAT_ENCODINGS_MINIMAL)
+EnumValueEnum(excess_precision) String(fast) Value(EXCESS_PRECISION_FAST)
+EnumValueEnum(excess_precision) String(standard) Value(EXCESS_PRECISION_STANDARD)
+EnumValueEnum(float_abi_type) String(hard) Value(ARM_FLOAT_ABI_HARD)
+EnumValueEnum(float_abi_type) String(soft) Value(ARM_FLOAT_ABI_SOFT)
+EnumValueEnum(float_abi_type) String(softfp) Value(ARM_FLOAT_ABI_SOFTFP)
+EnumValueEnum(fp_contract_mode) String(fast) Value(FP_CONTRACT_FAST)
+EnumValueEnum(fp_contract_mode) String(off) Value(FP_CONTRACT_OFF)
+EnumValueEnum(fp_contract_mode) String(on) Value(FP_CONTRACT_OFF)
+EnumValueEnum(gfc_convert) String(big-endian) Value(GFC_FLAG_CONVERT_BIG)
+EnumValueEnum(gfc_convert) String(little-endian) Value(GFC_FLAG_CONVERT_LITTLE)
+EnumValueEnum(gfc_convert) String(native) Value(GFC_FLAG_CONVERT_NATIVE)
+EnumValueEnum(gfc_convert) String(swap) Value(GFC_FLAG_CONVERT_SWAP)
+EnumValueEnum(gfc_fcoarray) String(lib) Value(GFC_FCOARRAY_LIB)
+EnumValueEnum(gfc_fcoarray) String(none) Value(GFC_FCOARRAY_NONE)
+EnumValueEnum(gfc_fcoarray) String(single) Value(GFC_FCOARRAY_SINGLE)
+EnumValueEnum(gfc_init_local_real) String(-inf) Value(GFC_INIT_REAL_NEG_INF)
+EnumValueEnum(gfc_init_local_real) String(inf) Value(GFC_INIT_REAL_INF)
+EnumValueEnum(gfc_init_local_real) String(nan) Value(GFC_INIT_REAL_NAN)
+EnumValueEnum(gfc_init_local_real) String(snan) Value(GFC_INIT_REAL_SNAN)
+EnumValueEnum(gfc_init_local_real) String(zero) Value(GFC_INIT_REAL_ZERO)
+EnumValueEnum(ira_algorithm) String(CB) Value(IRA_ALGORITHM_CB)
+EnumValueEnum(ira_algorithm) String(priority) Value(IRA_ALGORITHM_PRIORITY)
+EnumValueEnum(ira_region) String(all) Value(IRA_REGION_ALL)
+EnumValueEnum(ira_region) String(mixed) Value(IRA_REGION_MIXED)
+EnumValueEnum(ira_region) String(one) Value(IRA_REGION_ONE)
+EnumValueEnum(ivar_visibility) String(package) Value(IVAR_VISIBILITY_PACKAGE)
+EnumValueEnum(ivar_visibility) String(private) Value(IVAR_VISIBILITY_PRIVATE)
+EnumValueEnum(ivar_visibility) String(protected) Value(IVAR_VISIBILITY_PROTECTED)
+EnumValueEnum(ivar_visibility) String(public) Value(IVAR_VISIBILITY_PUBLIC)
+EnumValueEnum(lto_linker_output) String(dyn) Value(LTO_LINKER_OUTPUT_DYN)
+EnumValueEnum(lto_linker_output) String(exec) Value(LTO_LINKER_OUTPUT_EXEC)
+EnumValueEnum(lto_linker_output) String(pie) Value(LTO_LINKER_OUTPUT_PIE)
+EnumValueEnum(lto_linker_output) String(rel) Value(LTO_LINKER_OUTPUT_REL)
+EnumValueEnum(lto_linker_output) String(unknown) Value(LTO_LINKER_OUTPUT_UNKNOWN)
+EnumValueEnum(lto_partition_model) String(1to1) Value(LTO_PARTITION_1TO1)
+EnumValueEnum(lto_partition_model) String(balanced) Value(LTO_PARTITION_BALANCED)
+EnumValueEnum(lto_partition_model) String(max) Value(LTO_PARTITION_MAX)
+EnumValueEnum(lto_partition_model) String(none) Value(LTO_PARTITION_NONE)
+EnumValueEnum(lto_partition_model) String(one) Value(LTO_PARTITION_ONE)
+EnumValueEnum(offload_abi) String(ilp32) Value(OFFLOAD_ABI_ILP32)
+EnumValueEnum(offload_abi) String(lp64) Value(OFFLOAD_ABI_LP64)
+EnumValueEnum(permitted_flt_eval_methods) String(c11) Value(PERMITTED_FLT_EVAL_METHODS_C11)
+EnumValueEnum(permitted_flt_eval_methods) String(ts-18661-3) Value(PERMITTED_FLT_EVAL_METHODS_TS_18661)
+EnumValueEnum(processor_type) String(arm1020e) Value( TARGET_CPU_arm1020e)
+EnumValueEnum(processor_type) String(arm1020t) Value( TARGET_CPU_arm1020t)
+EnumValueEnum(processor_type) String(arm1022e) Value( TARGET_CPU_arm1022e)
+EnumValueEnum(processor_type) String(arm1026ej-s) Value( TARGET_CPU_arm1026ejs)
+EnumValueEnum(processor_type) String(arm10e) Value( TARGET_CPU_arm10e)
+EnumValueEnum(processor_type) String(arm10tdmi) Value( TARGET_CPU_arm10tdmi)
+EnumValueEnum(processor_type) String(arm1136j-s) Value( TARGET_CPU_arm1136js)
+EnumValueEnum(processor_type) String(arm1136jf-s) Value( TARGET_CPU_arm1136jfs)
+EnumValueEnum(processor_type) String(arm1156t2-s) Value( TARGET_CPU_arm1156t2s)
+EnumValueEnum(processor_type) String(arm1156t2f-s) Value( TARGET_CPU_arm1156t2fs)
+EnumValueEnum(processor_type) String(arm1176jz-s) Value( TARGET_CPU_arm1176jzs)
+EnumValueEnum(processor_type) String(arm1176jzf-s) Value( TARGET_CPU_arm1176jzfs)
+EnumValueEnum(processor_type) String(arm2) Value( TARGET_CPU_arm2)
+EnumValueEnum(processor_type) String(arm250) Value( TARGET_CPU_arm250)
+EnumValueEnum(processor_type) String(arm3) Value( TARGET_CPU_arm3)
+EnumValueEnum(processor_type) String(arm6) Value( TARGET_CPU_arm6)
+EnumValueEnum(processor_type) String(arm60) Value( TARGET_CPU_arm60)
+EnumValueEnum(processor_type) String(arm600) Value( TARGET_CPU_arm600)
+EnumValueEnum(processor_type) String(arm610) Value( TARGET_CPU_arm610)
+EnumValueEnum(processor_type) String(arm620) Value( TARGET_CPU_arm620)
+EnumValueEnum(processor_type) String(arm7) Value( TARGET_CPU_arm7)
+EnumValueEnum(processor_type) String(arm70) Value( TARGET_CPU_arm70)
+EnumValueEnum(processor_type) String(arm700) Value( TARGET_CPU_arm700)
+EnumValueEnum(processor_type) String(arm700i) Value( TARGET_CPU_arm700i)
+EnumValueEnum(processor_type) String(arm710) Value( TARGET_CPU_arm710)
+EnumValueEnum(processor_type) String(arm7100) Value( TARGET_CPU_arm7100)
+EnumValueEnum(processor_type) String(arm710c) Value( TARGET_CPU_arm710c)
+EnumValueEnum(processor_type) String(arm710t) Value( TARGET_CPU_arm710t)
+EnumValueEnum(processor_type) String(arm720) Value( TARGET_CPU_arm720)
+EnumValueEnum(processor_type) String(arm720t) Value( TARGET_CPU_arm720t)
+EnumValueEnum(processor_type) String(arm740t) Value( TARGET_CPU_arm740t)
+EnumValueEnum(processor_type) String(arm7500) Value( TARGET_CPU_arm7500)
+EnumValueEnum(processor_type) String(arm7500fe) Value( TARGET_CPU_arm7500fe)
+EnumValueEnum(processor_type) String(arm7d) Value( TARGET_CPU_arm7d)
+EnumValueEnum(processor_type) String(arm7di) Value( TARGET_CPU_arm7di)
+EnumValueEnum(processor_type) String(arm7dm) Value( TARGET_CPU_arm7dm)
+EnumValueEnum(processor_type) String(arm7dmi) Value( TARGET_CPU_arm7dmi)
+EnumValueEnum(processor_type) String(arm7m) Value( TARGET_CPU_arm7m)
+EnumValueEnum(processor_type) String(arm7tdmi) Value( TARGET_CPU_arm7tdmi)
+EnumValueEnum(processor_type) String(arm7tdmi-s) Value( TARGET_CPU_arm7tdmis)
+EnumValueEnum(processor_type) String(arm8) Value( TARGET_CPU_arm8)
+EnumValueEnum(processor_type) String(arm810) Value( TARGET_CPU_arm810)
+EnumValueEnum(processor_type) String(arm9) Value( TARGET_CPU_arm9)
+EnumValueEnum(processor_type) String(arm920) Value( TARGET_CPU_arm920)
+EnumValueEnum(processor_type) String(arm920t) Value( TARGET_CPU_arm920t)
+EnumValueEnum(processor_type) String(arm922t) Value( TARGET_CPU_arm922t)
+EnumValueEnum(processor_type) String(arm926ej-s) Value( TARGET_CPU_arm926ejs)
+EnumValueEnum(processor_type) String(arm940t) Value( TARGET_CPU_arm940t)
+EnumValueEnum(processor_type) String(arm946e-s) Value( TARGET_CPU_arm946es)
+EnumValueEnum(processor_type) String(arm966e-s) Value( TARGET_CPU_arm966es)
+EnumValueEnum(processor_type) String(arm968e-s) Value( TARGET_CPU_arm968es)
+EnumValueEnum(processor_type) String(arm9e) Value( TARGET_CPU_arm9e)
+EnumValueEnum(processor_type) String(arm9tdmi) Value( TARGET_CPU_arm9tdmi)
+EnumValueEnum(processor_type) String(cortex-a12) Value( TARGET_CPU_cortexa12)
+EnumValueEnum(processor_type) String(cortex-a15) Value( TARGET_CPU_cortexa15)
+EnumValueEnum(processor_type) String(cortex-a15.cortex-a7) Value( TARGET_CPU_cortexa15cortexa7)
+EnumValueEnum(processor_type) String(cortex-a17) Value( TARGET_CPU_cortexa17)
+EnumValueEnum(processor_type) String(cortex-a17.cortex-a7) Value( TARGET_CPU_cortexa17cortexa7)
+EnumValueEnum(processor_type) String(cortex-a32) Value( TARGET_CPU_cortexa32)
+EnumValueEnum(processor_type) String(cortex-a35) Value( TARGET_CPU_cortexa35)
+EnumValueEnum(processor_type) String(cortex-a5) Value( TARGET_CPU_cortexa5)
+EnumValueEnum(processor_type) String(cortex-a53) Value( TARGET_CPU_cortexa53)
+EnumValueEnum(processor_type) String(cortex-a55) Value( TARGET_CPU_cortexa55)
+EnumValueEnum(processor_type) String(cortex-a57) Value( TARGET_CPU_cortexa57)
+EnumValueEnum(processor_type) String(cortex-a57.cortex-a53) Value( TARGET_CPU_cortexa57cortexa53)
+EnumValueEnum(processor_type) String(cortex-a7) Value( TARGET_CPU_cortexa7)
+EnumValueEnum(processor_type) String(cortex-a72) Value( TARGET_CPU_cortexa72)
+EnumValueEnum(processor_type) String(cortex-a72.cortex-a53) Value( TARGET_CPU_cortexa72cortexa53)
+EnumValueEnum(processor_type) String(cortex-a73) Value( TARGET_CPU_cortexa73)
+EnumValueEnum(processor_type) String(cortex-a73.cortex-a35) Value( TARGET_CPU_cortexa73cortexa35)
+EnumValueEnum(processor_type) String(cortex-a73.cortex-a53) Value( TARGET_CPU_cortexa73cortexa53)
+EnumValueEnum(processor_type) String(cortex-a75) Value( TARGET_CPU_cortexa75)
+EnumValueEnum(processor_type) String(cortex-a75.cortex-a55) Value( TARGET_CPU_cortexa75cortexa55)
+EnumValueEnum(processor_type) String(cortex-a8) Value( TARGET_CPU_cortexa8)
+EnumValueEnum(processor_type) String(cortex-a9) Value( TARGET_CPU_cortexa9)
+EnumValueEnum(processor_type) String(cortex-m0) Value( TARGET_CPU_cortexm0)
+EnumValueEnum(processor_type) String(cortex-m0.small-multiply) Value( TARGET_CPU_cortexm0smallmultiply)
+EnumValueEnum(processor_type) String(cortex-m0plus) Value( TARGET_CPU_cortexm0plus)
+EnumValueEnum(processor_type) String(cortex-m0plus.small-multiply) Value( TARGET_CPU_cortexm0plussmallmultiply)
+EnumValueEnum(processor_type) String(cortex-m1) Value( TARGET_CPU_cortexm1)
+EnumValueEnum(processor_type) String(cortex-m1.small-multiply) Value( TARGET_CPU_cortexm1smallmultiply)
+EnumValueEnum(processor_type) String(cortex-m23) Value( TARGET_CPU_cortexm23)
+EnumValueEnum(processor_type) String(cortex-m3) Value( TARGET_CPU_cortexm3)
+EnumValueEnum(processor_type) String(cortex-m33) Value( TARGET_CPU_cortexm33)
+EnumValueEnum(processor_type) String(cortex-m4) Value( TARGET_CPU_cortexm4)
+EnumValueEnum(processor_type) String(cortex-m7) Value( TARGET_CPU_cortexm7)
+EnumValueEnum(processor_type) String(cortex-r4) Value( TARGET_CPU_cortexr4)
+EnumValueEnum(processor_type) String(cortex-r4f) Value( TARGET_CPU_cortexr4f)
+EnumValueEnum(processor_type) String(cortex-r5) Value( TARGET_CPU_cortexr5)
+EnumValueEnum(processor_type) String(cortex-r52) Value( TARGET_CPU_cortexr52)
+EnumValueEnum(processor_type) String(cortex-r7) Value( TARGET_CPU_cortexr7)
+EnumValueEnum(processor_type) String(cortex-r8) Value( TARGET_CPU_cortexr8)
+EnumValueEnum(processor_type) String(ep9312) Value( TARGET_CPU_ep9312)
+EnumValueEnum(processor_type) String(exynos-m1) Value( TARGET_CPU_exynosm1)
+EnumValueEnum(processor_type) String(fa526) Value( TARGET_CPU_fa526)
+EnumValueEnum(processor_type) String(fa606te) Value( TARGET_CPU_fa606te)
+EnumValueEnum(processor_type) String(fa626) Value( TARGET_CPU_fa626)
+EnumValueEnum(processor_type) String(fa626te) Value( TARGET_CPU_fa626te)
+EnumValueEnum(processor_type) String(fa726te) Value( TARGET_CPU_fa726te)
+EnumValueEnum(processor_type) String(fmp626) Value( TARGET_CPU_fmp626)
+EnumValueEnum(processor_type) String(generic-armv7-a) Value( TARGET_CPU_genericv7a)
+EnumValueEnum(processor_type) String(iwmmxt) Value( TARGET_CPU_iwmmxt)
+EnumValueEnum(processor_type) String(iwmmxt2) Value( TARGET_CPU_iwmmxt2)
+EnumValueEnum(processor_type) String(marvell-pj4) Value( TARGET_CPU_marvell_pj4)
+EnumValueEnum(processor_type) String(mpcore) Value( TARGET_CPU_mpcore)
+EnumValueEnum(processor_type) String(mpcorenovfp) Value( TARGET_CPU_mpcorenovfp)
+EnumValueEnum(processor_type) String(native) Value(-1) DriverOnly
+EnumValueEnum(processor_type) String(strongarm) Value( TARGET_CPU_strongarm)
+EnumValueEnum(processor_type) String(strongarm110) Value( TARGET_CPU_strongarm110)
+EnumValueEnum(processor_type) String(strongarm1100) Value( TARGET_CPU_strongarm1100)
+EnumValueEnum(processor_type) String(strongarm1110) Value( TARGET_CPU_strongarm1110)
+EnumValueEnum(processor_type) String(xgene1) Value( TARGET_CPU_xgene1)
+EnumValueEnum(processor_type) String(xscale) Value( TARGET_CPU_xscale)
+EnumValueEnum(profile_update) String(atomic) Value(PROFILE_UPDATE_ATOMIC)
+EnumValueEnum(profile_update) String(prefer-atomic) Value(PROFILE_UPDATE_PREFER_ATOMIC)
+EnumValueEnum(profile_update) String(single) Value(PROFILE_UPDATE_SINGLE)
+EnumValueEnum(reorder_blocks_algorithm) String(simple) Value(REORDER_BLOCKS_ALGORITHM_SIMPLE)
+EnumValueEnum(reorder_blocks_algorithm) String(stc) Value(REORDER_BLOCKS_ALGORITHM_STC)
+EnumValueEnum(sso_struct) String(big-endian) Value(SSO_BIG_ENDIAN)
+EnumValueEnum(sso_struct) String(little-endian) Value(SSO_LITTLE_ENDIAN)
+EnumValueEnum(sso_struct) String(native) Value(SSO_NATIVE)
+EnumValueEnum(stack_reuse_level) String(all) Value(SR_ALL)
+EnumValueEnum(stack_reuse_level) String(named_vars) Value(SR_NAMED_VARS)
+EnumValueEnum(stack_reuse_level) String(none) Value(SR_NONE)
+EnumValueEnum(strong_eval_order) String(all) Value(2)
+EnumValueEnum(strong_eval_order) String(none) Value(0)
+EnumValueEnum(strong_eval_order) String(some) Value(1)
+EnumValueEnum(symbol_visibility) String(default) Value(VISIBILITY_DEFAULT)
+EnumValueEnum(symbol_visibility) String(hidden) Value(VISIBILITY_HIDDEN)
+EnumValueEnum(symbol_visibility) String(internal) Value(VISIBILITY_INTERNAL)
+EnumValueEnum(symbol_visibility) String(protected) Value(VISIBILITY_PROTECTED)
+EnumValueEnum(tls_model) String(global-dynamic) Value(TLS_MODEL_GLOBAL_DYNAMIC)
+EnumValueEnum(tls_model) String(initial-exec) Value(TLS_MODEL_INITIAL_EXEC)
+EnumValueEnum(tls_model) String(local-dynamic) Value(TLS_MODEL_LOCAL_DYNAMIC)
+EnumValueEnum(tls_model) String(local-exec) Value(TLS_MODEL_LOCAL_EXEC)
+EnumValueEnum(tls_type) String(gnu) Value(TLS_GNU)
+EnumValueEnum(tls_type) String(gnu2) Value(TLS_GNU2)
+EnumValueEnum(vect_cost_model) String(cheap) Value(VECT_COST_MODEL_CHEAP)
+EnumValueEnum(vect_cost_model) String(dynamic) Value(VECT_COST_MODEL_DYNAMIC)
+EnumValueEnum(vect_cost_model) String(unlimited) Value(VECT_COST_MODEL_UNLIMITED)
+EnumValueEnum(vtv_priority) String(none) Value(VTV_NO_PRIORITY)
+EnumValueEnum(vtv_priority) String(preinit) Value(VTV_PREINIT_PRIORITY)
+EnumValueEnum(vtv_priority) String(std) Value(VTV_STANDARD_PRIORITY)
+EnumValueEnum(warn_aligned_new_level) String(all) Value(2)
+EnumValueEnum(warn_aligned_new_level) String(global) Value(1)
+EnumValueEnum(warn_aligned_new_level) String(none) Value(0)
+FDriver C ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-F <dir>	Add <dir> to the end of the main framework include path.
+HC ObjC C++ ObjC++Print the name of header files as they are used.
+HFortran
+HeaderIncludeconfig/arm/arm-opts.h
+IAda AdaWhy AdaSCIL Joined Separate
+IC ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-I <dir>	Add <dir> to the end of the main include path.
+IFortran Joined Separate
+IGo Joined Separate
+JFortran Joined Separate-J<directory>	Put MODULE files in 'directory'.
+LBRIG Joined Separate
+LDriver Joined Separate
+LGo Joined Separate
+LanguageAda
+LanguageAdaSCIL
+LanguageAdaWhy
+LanguageBRIG
+LanguageC
+LanguageC++
+LanguageFortran
+LanguageGo
+LanguageLTO
+LanguageObjC
+LanguageObjC++
+MC ObjC C++ ObjC++Generate make dependencies.
+MFortran
+MDC ObjC C++ ObjC++ NoDriverArg Separate MissingArgError(missing filename after %qs)Generate make dependencies and compile.
+MDFortran Separate NoDriverArg
+MFC ObjC C++ ObjC++ Joined Separate MissingArgError(missing filename after %qs)-MF <file>	Write dependency output to the given file.
+MFFortran Joined Separate
+MGC ObjC C++ ObjC++Treat missing header files as generated files.
+MGFortran
+MMC ObjC C++ ObjC++Like -M but ignore system header files.
+MMFortran
+MMDC ObjC C++ ObjC++ NoDriverArg Separate MissingArgError(missing filename after %qs)Like -MD but ignore system header files.
+MMDFortran Separate NoDriverArg
+MPC ObjC C++ ObjC++Generate phony targets for all headers.
+MPFortran
+MQC ObjC C++ ObjC++ Joined Separate MissingArgError(missing makefile target after %qs)-MQ <target>	Add a MAKE-quoted target.
+MQFortran Joined Separate
+MTC ObjC C++ ObjC++ Joined Separate MissingArgError(missing makefile target after %qs)-MT <target>	Add an unquoted target.
+MTFortran Joined Separate
+NDriver
+OCommon JoinedOrMissing Optimization-O<number>	Set optimization level to <number>.
+OfastCommon OptimizationOptimize for speed disregarding exact standards compliance.
+OgCommon OptimizationOptimize for debugging experience rather than speed or size.
+OsCommon OptimizationOptimize for space rather than speed.
+PC ObjC C++ ObjC++Do not generate #line directives.
+PFortran
+QDriver
+QnDriver Negative(Qy)
+QyDriver Negative(Qn)
+RDriver Joined Separate
+SDriver
+SourceIncludecpplib.h
+SourceIncludediagnostic-color.h
+SourceIncludepretty-print.h
+TDriver Joined Separate
+TargetSaveconst char *x_arm_arch_string
+TargetSaveconst char *x_arm_cpu_string
+TargetSaveconst char *x_arm_tune_string
+TbssDriver Separate
+Tbss=Driver Joined
+TdataDriver Separate
+Tdata=Driver Joined
+TtextDriver Separate
+Ttext=Driver Joined
+UC ObjC C++ ObjC++ Joined Separate MissingArgError(macro name missing after %qs)-U<macro>	Undefine <macro>.
+UFortran Joined Separate
+VariableHOST_WIDE_INT frame_larger_than_size
+VariableHOST_WIDE_INT function_entry_patch_area_size
+VariableHOST_WIDE_INT function_entry_patch_area_start
+VariableHOST_WIDE_INT larger_than_size
+Variablebool dump_base_name_prefixed = false
+Variablebool exit_after_options
+Variablebool flag_disable_hsa = false
+Variablebool flag_dump_all_passed
+Variablebool flag_opts_finished
+Variablebool flag_stack_usage_info = false
+Variablebool flag_warn_unused_result = false
+Variablebool in_lto_p = false
+Variablebool use_gnu_debug_info_extensions
+Variablebool warn_frame_larger_than
+Variablebool warn_larger_than
+Variablechar *help_enum_printed
+Variablechar *help_printed
+Variableconst char *main_input_basename
+Variableconst char *main_input_filename
+Variableenum debug_info_levels debug_info_level = DINFO_LEVEL_NONE
+Variableenum debug_info_type write_symbols = NO_DEBUG
+Variableenum debug_struct_file debug_struct_generic[DINFO_USAGE_NUM_ENUMS] = { DINFO_STRUCT_FILE_ANY, DINFO_STRUCT_FILE_ANY, DINFO_STRUCT_FILE_ANY }
+Variableenum debug_struct_file debug_struct_ordinary[DINFO_USAGE_NUM_ENUMS] = { DINFO_STRUCT_FILE_ANY, DINFO_STRUCT_FILE_ANY, DINFO_STRUCT_FILE_ANY }
+Variableenum dwarf_gnat_encodings gnat_encodings = DWARF_GNAT_ENCODINGS_DEFAULT
+Variableenum stack_check_type flag_stack_check = NO_STACK_CHECK
+Variableint *param_values
+Variableint flag_complex_method = 1
+Variableint flag_debug_asm
+Variableint flag_dump_rtl_in_asm
+Variableint flag_gen_aux_info = 0
+Variableint flag_generate_lto
+Variableint flag_generate_offload = 0
+Variableint flag_incremental_link = 0
+Variableint flag_print_asm_name
+Variableint flag_shlib
+Variableint main_input_baselength
+Variableint optimize
+Variableint optimize_debug
+Variableint optimize_fast
+Variableint optimize_size
+Variableint rtl_dump_and_exit
+Variableint target_flags
+Variableunsigned int flag_sanitize
+Variableunsigned int flag_sanitize_coverage
+Variableunsigned int flag_sanitize_recover = (SANITIZE_UNDEFINED | SANITIZE_UNDEFINED_NONDEFAULT | SANITIZE_KERNEL_ADDRESS) & ~(SANITIZE_UNREACHABLE | SANITIZE_RETURN)
+Variableunsigned int help_columns
+Variableunsigned int initial_max_fld_align = TARGET_DEFAULT_PACK_STRUCT
+Variablevoid *flag_instrument_functions_exclude_files
+Variablevoid *flag_instrument_functions_exclude_functions
+WCommon RejectNegative Warning Alias(Wextra)This switch is deprecated; use -Wextra instead.
+Wa,Driver JoinedOrMissing RejectNegative
+WabiC ObjC C++ ObjC++ LTO Var(warn_abi) WarningWarn about things that will change when compiling with an ABI-compliant compiler.
+Wabi-tagC++ ObjC++ Var(warn_abi_tag) WarningWarn if a subobject has an abi_tag attribute that the complete object type does not have.
+Wabi=C ObjC C++ ObjC++ LTO Joined RejectNegative UInteger WarningWarn about things that change between the current -fabi-version and the specified version.
+WaddressC ObjC C++ ObjC++ Var(warn_address) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about suspicious uses of memory addresses.
+Waggregate-returnCommon Var(warn_aggregate_return) WarningWarn about returning structures, unions or arrays.
+Waggressive-loop-optimizationsCommon Var(warn_aggressive_loop_optimizations) Init(1) WarningWarn if a loop with constant number of iterations triggers undefined behavior.
+WaliasingFortran Warning Var(warn_aliasing) LangEnabledBy(Fortran,Wall)Warn about possible aliasing of dummy arguments.
+Walign-commonsFortran Warning Var(warn_align_commons) Init(1)Warn about alignment of COMMON blocks.
+Waligned-newC++ ObjC++ Alias(Waligned-new=,global,none)Warn about 'new' of type with extended alignment without -faligned-new.
+Waligned-new=C++ ObjC++ Var(warn_aligned_new) Enum(warn_aligned_new_level) Joined RejectNegative Warning LangEnabledBy(C++ ObjC++,Wall,1,0)-Waligned-new=[none|global|all]	Warn even if 'new' uses a class member allocation function.
+WallAda AdaWhy AdaSCILEnable most warning messages.
+WallC ObjC C++ ObjC++ WarningEnable most warning messages.
+WallFortran
+WallGo
+Walloc-size-larger-than=C ObjC C++ LTO ObjC++ Var(warn_alloc_size_limit) Warning Joined LangEnabledBy(C ObjC C++ LTO ObjC++,Wall)-Walloc-size-larger-than=<bytes> Warn for calls to allocation functions thatattempt to allocate objects larger than the specified number of bytes.
+Walloc-zeroC ObjC C++ ObjC++ Var(warn_alloc_zero) Warning-Walloc-zero Warn for calls to allocation functions that specify zero bytes.
+WallocaC ObjC C++ ObjC++ Var(warn_alloca) WarningWarn on any use of alloca.
+Walloca-larger-than=C ObjC C++ LTO ObjC++ Var(warn_alloca_limit) Warning Joined RejectNegative UInteger-Walloca-larger-than=<number>	Warn on unbounded uses ofalloca, and on bounded uses of alloca whose bound can be larger than<number> bytes.
+WampersandFortran Warning Var(warn_ampersand) LangEnabledBy(Fortran,Wall || Wpedantic)Warn about missing ampersand in continued character constants.
+Wargument-mismatchFortran Warning Var(warn_argument_mismatch) Init(1)Warn about type and rank mismatches between arguments and parameters.
+Warray-boundsCommon Var(warn_array_bounds) WarningWarn if an array is accessed out of bounds.
+Warray-boundsLangEnabledBy(C ObjC C++ LTO ObjC++,Wall)
+Warray-bounds=Common Joined RejectNegative UInteger Var(warn_array_bounds) Warning IntegerRange(0, 2)Warn if an array is accessed out of bounds.
+Warray-bounds=LangEnabledBy(C ObjC C++ LTO ObjC++,Wall,1,0)
+Warray-temporariesFortran Warning Var(warn_array_temporaries)Warn about creation of array temporaries.
+Wassign-interceptObjC ObjC++ Var(warn_assign_intercept) WarningWarn whenever an Objective-C assignment is being intercepted by the garbage collector.
+Wattribute-aliasCommon Var(warn_attributes) Init(1) WarningWarn about type safety and similar errors in attribute alias and related.
+WattributesCommon Var(warn_attributes) Init(1) WarningWarn about inappropriate attribute usage.
+Wbad-function-castC ObjC Var(warn_bad_function_cast) WarningWarn about casting functions to incompatible types.
+Wbool-compareC ObjC C++ ObjC++ Var(warn_bool_compare) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about boolean expression compared with an integer value different from true/false.
+Wbool-operationC ObjC C++ ObjC++ Var(warn_bool_op) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about certain operations on boolean expressions.
+Wbuiltin-declaration-mismatchC ObjC C++ ObjC++ Var(warn_builtin_declaraion_mismatch) Init(1) WarningWarn when a built-in function is declared with the wrong signature.
+Wbuiltin-macro-redefinedC ObjC C++ ObjC++ CPP(warn_builtin_macro_redefined) CppReason(CPP_W_BUILTIN_MACRO_REDEFINED) Var(cpp_warn_builtin_macro_redefined) Init(1) WarningWarn when a built-in preprocessor macro is undefined or redefined.
+Wc++-compatC ObjC Var(warn_cxx_compat) CPP(warn_cxx_operator_names) CppReason(CPP_W_CXX_OPERATOR_NAMES) Init(0) WarningWarn about C constructs that are not in the common subset of C and C++.
+Wc++0x-compatC++ ObjC++ Warning Alias(Wc++11-compat) Undocumented
+Wc++11-compatC++ ObjC++ Var(warn_cxx11_compat) Warning LangEnabledBy(C++ ObjC++,Wall) Init(0) CPP(cpp_warn_cxx11_compat) CppReason(CPP_W_CXX11_COMPAT)Warn about C++ constructs whose meaning differs between ISO C++ 1998 and ISO C++ 2011.
+Wc++14-compatC++ ObjC++ Var(warn_cxx14_compat) Warning LangEnabledBy(C++ ObjC++,Wall)Warn about C++ constructs whose meaning differs between ISO C++ 2011 and ISO C++ 2014.
+Wc++17-compatC++ ObjC++ Var(warn_cxx17_compat) Warning LangEnabledBy(C++ ObjC++,Wall)Warn about C++ constructs whose meaning differs between ISO C++ 2014 and ISO C++ 2017.
+Wc++1z-compatC++ ObjC++ Warning Alias(Wc++17-compat) Undocumented
+Wc-binding-typeFortran Var(warn_c_binding_type) Warning LangEnabledBy(Fortran,Wall)Warn if the type of a variable might be not interoperable with C.
+Wc90-c99-compatC ObjC CPP(cpp_warn_c90_c99_compat) CppReason(CPP_W_C90_C99_COMPAT) Var(warn_c90_c99_compat) Init(-1) WarningWarn about features not present in ISO C90, but present in ISO C99.
+Wc99-c11-compatC ObjC Var(warn_c99_c11_compat) Init(-1) WarningWarn about features not present in ISO C99, but present in ISO C11.
+Wcast-alignCommon Var(warn_cast_align) WarningWarn about pointer casts which increase alignment.
+Wcast-align=strictCommon Var(warn_cast_align,2) WarningWarn about pointer casts which increase alignment.
+Wcast-function-typeC ObjC C++ ObjC++ Var(warn_cast_function_type) Warning EnabledBy(Wextra)Warn about casts between incompatible function types.
+Wcast-qualC ObjC C++ ObjC++ Var(warn_cast_qual) WarningWarn about casts which discard qualifiers.
+Wcatch-valueC++ ObjC++ Warning Alias(Wcatch-value=, 1, 0)Warn about catch handlers of non-reference type.
+Wcatch-value=C++ ObjC++ Var(warn_catch_value) Warning Joined RejectNegative UInteger LangEnabledBy(C++ ObjC++,Wall, 1, 0) IntegerRange(0, 3)Warn about catch handlers of non-reference type.
+Wchar-subscriptsC ObjC C++ ObjC++ Var(warn_char_subscripts) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about subscripts whose type is \"char\".
+Wcharacter-truncationFortran Var(warn_character_truncation) Warning LangEnabledBy(Fortran,Wall)Warn about truncated character expressions.
+WchkpC ObjC C++ ObjC++ Var(warn_chkp) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about memory access errors found by Pointer Bounds Checker.
+Wclass-memaccessC++ ObjC++ Var(warn_class_memaccess) Warning LangEnabledBy(C++ ObjC++, Wall)Warn for unsafe raw memory writes to objects of class types.
+WclobberedC ObjC C++ ObjC++ Var(warn_clobbered) Warning EnabledBy(Wextra)Warn about variables that might be changed by \"longjmp\" or \"vfork\".
+WcommentC ObjC C++ ObjC++ CPP(warn_comments) CppReason(CPP_W_COMMENTS) Var(cpp_warn_comment) Init(0) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about possibly nested block comments, and C++ comments spanning more than one physical line.
+WcommentsC ObjC C++ ObjC++ Warning Alias(Wcomment)Synonym for -Wcomment.
+Wcompare-realsFortran Warning Var(warn_compare_reals) LangEnabledBy(Fortran,Wextra)Warn about equality comparisons involving REAL or COMPLEX expressions.
+Wconditionally-supportedC++ ObjC++ Var(warn_conditionally_supported) WarningWarn for conditionally-supported constructs.
+WconversionC ObjC C++ ObjC++ Var(warn_conversion) WarningWarn for implicit type conversions that may change a value.
+WconversionFortran Var(warn_conversion) Warning LangEnabledBy(Fortran,Wall)
+Wconversion-extraFortran Var(warn_conversion_extra) WarningWarn about most implicit conversions.
+Wconversion-nullC++ ObjC++ Var(warn_conversion_null) Init(1) WarningWarn for converting NULL from/to a non-pointer type.
+Wcoverage-mismatchCommon Var(warn_coverage_mismatch) Init(1) WarningWarn in case profiles in -fprofile-use do not match.
+WcppC ObjC C++ ObjC++ CppReason(CPP_W_WARNING_DIRECTIVE)
+WcppCommon Var(warn_cpp) Init(1) WarningWarn when a #warning directive is encountered.
+Wctor-dtor-privacyC++ ObjC++ Var(warn_ctor_dtor_privacy) WarningWarn when all constructors and destructors are private.
+Wdangling-elseC ObjC C++ ObjC++ Var(warn_dangling_else) Warning LangEnabledBy(C ObjC C++ ObjC++,Wparentheses)Warn about dangling else.
+Wdate-timeC ObjC C++ ObjC++ CPP(warn_date_time) CppReason(CPP_W_DATE_TIME) Var(cpp_warn_date_time) Init(0) WarningWarn about __TIME__, __DATE__ and __TIMESTAMP__ usage.
+Wdate-timeFortran
+Wdeclaration-after-statementC ObjC Var(warn_declaration_after_statement) Init(-1) WarningWarn when a declaration is found after a statement.
+Wdelete-incompleteC++ ObjC++ Var(warn_delete_incomplete) Init(1) WarningWarn when deleting a pointer to incomplete type.
+Wdelete-non-virtual-dtorC++ ObjC++ Var(warn_delnonvdtor) Warning LangEnabledBy(C++ ObjC++,Wall || Weffc++)Warn about deleting polymorphic objects with non-virtual destructors.
+WdeprecatedC C++ ObjC ObjC++ CPP(cpp_warn_deprecated) CppReason(CPP_W_DEPRECATED) Var(warn_deprecated) Init(1) WarningWarn if a deprecated compiler feature, class, method, or field is used.
+Wdeprecated-declarationsCommon Var(warn_deprecated_decl) Init(1) WarningWarn about uses of __attribute__((deprecated)) declarations.
+Wdesignated-initC ObjC Var(warn_designated_init) Init(1) WarningWarn about positional initialization of structs requiring designated initializers.
+Wdisabled-optimizationCommon Var(warn_disabled_optimization) WarningWarn when an optimization pass is disabled.
+Wdiscarded-array-qualifiersC ObjC Var(warn_discarded_array_qualifiers) Init(1) WarningWarn if qualifiers on arrays which are pointer targets are discarded.
+Wdiscarded-qualifiersC ObjC Var(warn_discarded_qualifiers) Init(1) WarningWarn if type qualifiers on pointers are discarded.
+Wdiv-by-zeroC ObjC C++ ObjC++ Var(warn_div_by_zero) Init(1) WarningWarn about compile-time integer division by zero.
+Wdo-subscriptFortran Var(warn_do_subscript) Warning LangEnabledBy(Fortran,Wextra)Warn about possibly incorrect subscripts in do loops.
+Wdouble-promotionC ObjC C++ ObjC++ Var(warn_double_promotion) WarningWarn about implicit conversions from \"float\" to \"double\".
+Wduplicate-decl-specifierC ObjC Var(warn_duplicate_decl_specifier) Warning LangEnabledBy(C ObjC,Wall)Warn when a declaration has duplicate const, volatile, restrict or _Atomic specifier.
+Wduplicated-branchesC ObjC C++ ObjC++ Var(warn_duplicated_branches) Init(0) WarningWarn about duplicated branches in if-else statements.
+Wduplicated-condC ObjC C++ ObjC++ Var(warn_duplicated_cond) Init(0) WarningWarn about duplicated conditions in an if-else-if chain.
+Weffc++C++ ObjC++ Var(warn_ecpp) WarningWarn about violations of Effective C++ style rules.
+Wempty-bodyC ObjC C++ ObjC++ Var(warn_empty_body) Warning EnabledBy(Wextra)Warn about an empty body in an if or else statement.
+Wendif-labelsC ObjC C++ ObjC++ CPP(warn_endif_labels) CppReason(CPP_W_ENDIF_LABELS) Var(cpp_warn_endif_labels) Init(1) Warning LangEnabledBy(C ObjC C++ ObjC++,Wpedantic)Warn about stray tokens after #else and #endif.
+Wenum-compareC ObjC C++ ObjC++ Var(warn_enum_compare) Init(-1) Warning LangEnabledBy(C ObjC,Wall || Wc++-compat)Warn about comparison of different enum types.
+WerrorC ObjC C++ ObjC++
+WerrorCommon Var(warnings_are_errors)Treat all warnings as errors.
+Werror-implicit-function-declarationC ObjC RejectNegative Warning Alias(Werror=, implicit-function-declaration)This switch is deprecated; use -Werror=implicit-function-declaration instead.
+Werror=Common JoinedTreat specified warning as error.
+Wexpansion-to-definedC ObjC C++ ObjC++ CPP(warn_expansion_to_defined) CppReason(CPP_W_EXPANSION_TO_DEFINED) Var(cpp_warn_expansion_to_defined) Init(0) Warning EnabledBy(Wextra || Wpedantic)Warn if \"defined\" is used outside #if.
+WextraC ObjC C++ ObjC++ Warning
+WextraCommon Var(extra_warnings) WarningPrint extra (possibly unwanted) warnings.
+WextraFortran Warning
+Wextra-semiC++ ObjC++ Var(warn_extra_semi) WarningWarn about semicolon after in-class function definition.
+Wfatal-errorsCommon Var(flag_fatal_errors)Exit on the first error occurred.
+Wfloat-conversionC ObjC C++ ObjC++ Var(warn_float_conversion) Warning LangEnabledBy(C ObjC C++ ObjC++,Wconversion)Warn for implicit type conversions that cause loss of floating point precision.
+Wfloat-equalC ObjC C++ ObjC++ Var(warn_float_equal) WarningWarn if testing floating point numbers for equality.
+WformatC ObjC C++ ObjC++ Warning Alias(Wformat=, 1, 0)Warn about printf/scanf/strftime/strfmon format string anomalies.
+Wformat-contains-nulC ObjC C++ ObjC++ Var(warn_format_contains_nul) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=, warn_format >= 1, 0)Warn about format strings that contain NUL bytes.
+Wformat-extra-argsC ObjC C++ ObjC++ Var(warn_format_extra_args) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=, warn_format >= 1, 0)Warn if passing too many arguments to a function for its format string.
+Wformat-nonliteralC ObjC C++ ObjC++ Var(warn_format_nonliteral) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=, warn_format >= 2, 0)Warn about format strings that are not literals.
+Wformat-overflowC ObjC C++ LTO ObjC++ Warning Alias(Wformat-overflow=, 1, 0) IntegerRange(0, 2)Warn about function calls with format strings that write past the endof the destination region.  Same as -Wformat-overflow=1.
+Wformat-overflow=C ObjC C++ LTO ObjC++ Joined RejectNegative UInteger Var(warn_format_overflow) Warning LangEnabledBy(C ObjC C++ LTO ObjC++,Wformat=, warn_format >= 1, 0) IntegerRange(0, 2)Warn about function calls with format strings that write past the endof the destination region.
+Wformat-securityC ObjC C++ ObjC++ Var(warn_format_security) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=, warn_format >= 2, 0)Warn about possible security problems with format functions.
+Wformat-signednessC ObjC C++ ObjC++ Var(warn_format_signedness) WarningWarn about sign differences with format functions.
+Wformat-truncationC ObjC C++ LTO ObjC++ Warning Alias(Wformat-truncation=, 1, 0)Warn about calls to snprintf and similar functions that truncate output.Same as -Wformat-truncation=1.
+Wformat-truncation=C ObjC C++ LTO ObjC++ Joined RejectNegative UInteger Var(warn_format_trunc) Warning LangEnabledBy(C ObjC C++ LTO ObjC++,Wformat=, warn_format >= 1, 0) IntegerRange(0, 2)Warn about calls to snprintf and similar functions that truncate output.
+Wformat-y2kC ObjC C++ ObjC++ Var(warn_format_y2k) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=,warn_format >= 2, 0)Warn about strftime formats yielding 2-digit years.
+Wformat-zero-lengthC ObjC C++ ObjC++ Var(warn_format_zero_length) Warning LangEnabledBy(C ObjC C++ ObjC++,Wformat=,warn_format >= 1, 0)Warn about zero-length formats.
+Wformat=C ObjC C++ ObjC++ Joined RejectNegative UInteger Var(warn_format) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall, 1, 0) IntegerRange(0, 2)Warn about printf/scanf/strftime/strfmon format string anomalies.
+Wframe-addressC ObjC C++ ObjC++ Var(warn_frame_address) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn when __builtin_frame_address or __builtin_return_address is used unsafely.
+Wframe-larger-than=Common RejectNegative Joined UInteger Warning-Wframe-larger-than=<number>	Warn if a function's stack frame requires more than <number> bytes.
+Wfree-nonheap-objectCommon Var(warn_free_nonheap_object) Init(1) WarningWarn when attempting to free a non-heap object.
+Wfrontend-loop-interchangeFortran Var(flag_warn_frontend_loop_interchange)Warn if loops have been interchanged.
+Wfunction-eliminationFortran Warning Var(warn_function_elimination)Warn about function call elimination.
+WhsaCommon Var(warn_hsa) Init(1) WarningWarn when a function cannot be expanded to HSAIL.
+Wif-not-alignedC ObjC C++ ObjC++ Var(warn_if_not_aligned) Init(1) WarningWarn when the field in a struct is not aligned.
+Wignored-attributesC C++ Var(warn_ignored_attributes) Init(1) WarningWarn whenever attributes are ignored.
+Wignored-qualifiersC C++ Var(warn_ignored_qualifiers) Warning EnabledBy(Wextra)Warn whenever type qualifiers are ignored.
+WimplicitC ObjC Var(warn_implicit) Warning LangEnabledBy(C ObjC,Wall)Warn about implicit declarations.
+Wimplicit-fallthroughCommon Alias(Wimplicit-fallthrough=,3,0) Warning
+Wimplicit-fallthrough=Common Var(warn_implicit_fallthrough) RejectNegative Joined UInteger Warning IntegerRange(0, 5)Warn when a switch case falls through.
+Wimplicit-fallthrough=LangEnabledBy(C ObjC C++ ObjC++,Wextra,3,0)
+Wimplicit-function-declarationC ObjC Var(warn_implicit_function_declaration) Init(-1) Warning LangEnabledBy(C ObjC,Wimplicit)Warn about implicit function declarations.
+Wimplicit-intC ObjC Var(warn_implicit_int) Init(-1) Warning LangEnabledBy(C ObjC,Wimplicit)Warn when a declaration does not specify a type.
+Wimplicit-interfaceFortran Warning Var(warn_implicit_interface)Warn about calls with implicit interface.
+Wimplicit-procedureFortran Warning Var(warn_implicit_procedure)Warn about called procedures not explicitly declared.
+WimportC ObjC C++ ObjC++ Undocumented Ignore
+Wincompatible-pointer-typesC ObjC Var(warn_incompatible_pointer_types) Init(1) WarningWarn when there is a conversion between pointers that have incompatible types.
+Winherited-variadic-ctorC++ ObjC++ Var(warn_inh_var_ctor) Init(1) WarningWarn about C++11 inheriting constructors when the base has a variadic constructor.
+Winit-selfC ObjC C++ ObjC++ Var(warn_init_self) Warning LangEnabledBy(C++ ObjC++,Wall)Warn about variables which are initialized to themselves.
+WinlineCommon Var(warn_inline) WarningWarn when an inlined function cannot be inlined.
+Wint-conversionC ObjC Var(warn_int_conversion) Init(1) WarningWarn about incompatible integer to pointer and pointer to integer conversions.
+Wint-in-bool-contextC ObjC C++ ObjC++ Var(warn_int_in_bool_context) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn for suspicious integer expressions in boolean context.
+Wint-to-pointer-castC ObjC C++ ObjC++ Var(warn_int_to_pointer_cast) Init(1) WarningWarn when there is a cast to a pointer from an integer of a different size.
+Winteger-divisionFortran Warning Var(warn_integer_division) LangEnabledBy(Fortran,Wall)Warn about constant integer divisions with truncated results.
+Wintrinsic-shadowFortran Warning Var(warn_intrinsic_shadow) LangEnabledBy(Fortran,Wall)Warn if a user-procedure has the same name as an intrinsic.
+Wintrinsics-stdFortran Var(warn_intrinsics_std) Warning LangEnabledBy(Fortran,Wall)Warn on intrinsics not part of the selected standard.
+Winvalid-memory-modelCommon Var(warn_invalid_memory_model) Init(1) WarningWarn when an atomic memory model parameter is known to be outside the valid range.
+Winvalid-offsetofC++ ObjC++ Var(warn_invalid_offsetof) Init(1) WarningWarn about invalid uses of the \"offsetof\" macro.
+Winvalid-pchC ObjC C++ ObjC++ CPP(warn_invalid_pch) CppReason(CPP_W_INVALID_PCH) Var(cpp_warn_invalid_pch) Init(0) WarningWarn about PCH files that are found but not used.
+Wjump-misses-initC ObjC Var(warn_jump_misses_init) Warning LangEnabledby(C ObjC,Wc++-compat)Warn when a jump misses a variable initialization.
+Wl,Driver JoinedOrMissing RejectNegative
+Wlarger-than-Common RejectNegative Joined Warning Undocumented Alias(Wlarger-than=)
+Wlarger-than=Common RejectNegative Joined UInteger Warning-Wlarger-than=<number>	Warn if an object is larger than <number> bytes.
+Wline-truncationFortran Warning Var(warn_line_truncation) LangEnabledBy(Fortran,Wall) Init(-1)Warn about truncated source lines.
+Wliteral-suffixC++ ObjC++ CPP(warn_literal_suffix) CppReason(CPP_W_LITERAL_SUFFIX) Var(cpp_warn_literal_suffix) Init(1) WarningWarn when a string or character literal is followed by a ud-suffix which does not begin with an underscore.
+Wlogical-not-parenthesesC ObjC C++ ObjC++ Var(warn_logical_not_paren) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn when logical not is used on the left hand side operand of a comparison.
+Wlogical-opC ObjC C++ ObjC++ Var(warn_logical_op) Init(0) WarningWarn when a logical operator is suspiciously always evaluating to true or false.
+Wlong-longC ObjC C++ ObjC++ CPP(cpp_warn_long_long) CppReason(CPP_W_LONG_LONG) Var(warn_long_long) Init(-1) Warning LangEnabledBy(C ObjC,Wc90-c99-compat)Do not warn about using \"long long\" when -pedantic.
+Wlto-type-mismatchCommon Var(warn_lto_type_mismatch) Init(1) WarningDuring link time optimization warn about mismatched types of global declarations.
+WmainC ObjC C++ ObjC++ Var(warn_main) Init(-1) Warning LangEnabledBy(C ObjC,Wall, 2, 0)Warn about suspicious declarations of \"main\".
+WmainLangEnabledBy(C ObjC C++ ObjC++,Wpedantic, 2, 0)
+Wmaybe-uninitializedC ObjC C++ ObjC++ LTO LangEnabledBy(C ObjC C++ ObjC++ LTO,Wall)
+Wmaybe-uninitializedCommon Var(warn_maybe_uninitialized) Warning EnabledBy(Wuninitialized)Warn about maybe uninitialized automatic variables.
+Wmaybe-uninitializedFortran LangEnabledBy(Fortran,Wall)
+Wmemset-elt-sizeC ObjC C++ ObjC++ Var(warn_memset_elt_size) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about suspicious calls to memset where the third argument contains the number of elements not multiplied by the element size.
+Wmemset-transposed-argsC ObjC C++ ObjC++ Var(warn_memset_transposed_args) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about suspicious calls to memset where the third argument is constant literal zero and the second is not.
+Wmisleading-indentationC C++ Common Var(warn_misleading_indentation) Warning LangEnabledBy(C C++,Wall)Warn when the indentation of the code does not reflect the block structure.
+Wmissing-attributesC ObjC C++ ObjC++ Var(warn_missing_attributes) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about declarations of entities that may be missing attributesthat related entities have been declared with it.
+Wmissing-bracesC ObjC C++ ObjC++ Var(warn_missing_braces) Warning LangEnabledBy(C ObjC,Wall)Warn about possibly missing braces around initializers.
+Wmissing-declarationsC ObjC C++ ObjC++ Var(warn_missing_declarations) WarningWarn about global functions without previous declarations.
+Wmissing-field-initializersC ObjC C++ ObjC++ Var(warn_missing_field_initializers) Warning EnabledBy(Wextra)Warn about missing fields in struct initializers.
+Wmissing-format-attributeC ObjC C++ ObjC++ Warning Alias(Wsuggest-attribute=format)
+Wmissing-include-dirsC ObjC C++ ObjC++ CPP(warn_missing_include_dirs) CppReason(CPP_W_MISSING_INCLUDE_DIRS) Var(cpp_warn_missing_include_dirs) Init(0) WarningWarn about user-specified include directories that do not exist.
+Wmissing-include-dirsFortran
+Wmissing-noreturnCommon Warning Alias(Wsuggest-attribute=noreturn)
+Wmissing-parameter-typeC ObjC Var(warn_missing_parameter_type) Warning EnabledBy(Wextra)Warn about function parameters declared without a type specifier in K&R-style functions.
+Wmissing-prototypesC ObjC Var(warn_missing_prototypes) WarningWarn about global functions without prototypes.
+WmudflapC ObjC C++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+WmulticharC ObjC C++ ObjC++ CPP(warn_multichar) CppReason(CPP_W_MULTICHAR) Var(cpp_warn_multichar) Init(0) WarningWarn about use of multi-character character constants.
+Wmultiple-inheritanceC++ ObjC++ Var(warn_multiple_inheritance) WarningWarn on direct multiple inheritance.
+Wmultistatement-macrosC ObjC C++ ObjC++ Var(warn_multistatement_macros) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about unsafe macros expanding to multiple statements used as a body of a clause such as if, else, while, switch, or for.
+WnamespacesC++ ObjC++ Var(warn_namespaces) WarningWarn on namespace definition.
+WnarrowingC ObjC C++ ObjC++ Warning Var(warn_narrowing) Init(-1) LangEnabledBy(C++ ObjC++,Wall || Wc++11-compat)Warn about narrowing conversions within { } that are ill-formed in C++11.
+Wnested-externsC ObjC Var(warn_nested_externs) WarningWarn about \"extern\" declarations not at file scope.
+WnoexceptC++ ObjC++ Var(warn_noexcept) WarningWarn when a noexcept expression evaluates to false even though the expression can't actually throw.
+Wnoexcept-typeC++ ObjC++ Warning Var(warn_noexcept_type) LangEnabledBy(C++ ObjC++,Wabi || Wc++17-compat)Warn if C++17 noexcept function type will change the mangled name of a symbol.
+Wnon-template-friendC++ ObjC++ Var(warn_nontemplate_friend) Init(1) WarningWarn when non-templatized friend functions are declared within a template.
+Wnon-virtual-dtorC++ ObjC++ Var(warn_nonvdtor) Warning LangEnabledBy(C++ ObjC++,Weffc++)Warn about non-virtual destructors.
+WnonnullC ObjC C++ LTO ObjC++ LangEnabledBy(C ObjC C++ LTO ObjC++,Wall)
+WnonnullC ObjC C++ LTO ObjC++ Var(warn_nonnull) Warning LangEnabledBy(C ObjC C++ LTO ObjC++,Wformat=,warn_format >= 1,0)Warn about NULL being passed to argument slots marked as requiring non-NULL.
+Wnonnull-compareC ObjC C++ ObjC++ LangEnabledBy(C ObjC C++ ObjC++,Wall)
+Wnonnull-compareVar(warn_nonnull_compare) WarningWarn if comparing pointer parameter with nonnull attribute with NULL.
+WnormalizedC ObjC C++ ObjC++ Warning Alias(Wnormalized=,nfc,none)
+Wnormalized=C ObjC C++ ObjC++ RejectNegative Joined Warning CPP(warn_normalize) CppReason(CPP_W_NORMALIZE) Init(normalized_C) Var(cpp_warn_normalize) Enum(cpp_normalize_level)-Wnormalized=[none|id|nfc|nfkc]	Warn about non-normalized Unicode strings.
+Wnull-dereferenceCommon Var(warn_null_dereference) WarningWarn if dereferencing a NULL pointer may lead to erroneous or undefined behavior.
+WodrCommon Var(warn_odr_violations) Init(1) WarningWarn about some C++ One Definition Rule violations during link time optimization.
+Wold-style-castC++ ObjC++ Var(warn_old_style_cast) WarningWarn if a C-style cast is used in a program.
+Wold-style-declarationC ObjC Var(warn_old_style_declaration) Warning EnabledBy(Wextra)Warn for obsolescent usage in a declaration.
+Wold-style-definitionC ObjC Var(warn_old_style_definition) WarningWarn if an old-style parameter definition is used.
+Wopenmp-simdC C++ Var(warn_openmp_simd) Warning LangEnabledBy(C C++,Wall)Warn if a simd directive is overridden by the vectorizer cost model.
+Wopenmp-simdFortran
+WoverflowCommon Var(warn_overflow) Init(1) WarningWarn about overflow in arithmetic expressions.
+Woverlength-stringsC ObjC C++ ObjC++ Var(warn_overlength_strings) Warning LangEnabledBy(C ObjC C++ ObjC++,Wpedantic)Warn if a string is longer than the maximum portable length specified by the standard.
+Woverloaded-virtualC++ ObjC++ Var(warn_overloaded_virtual) WarningWarn about overloaded virtual function names.
+Woverride-initC ObjC Var(warn_override_init) Warning EnabledBy(Wextra)Warn about overriding initializers without side effects.
+Woverride-init-side-effectsC ObjC Var(warn_override_init_side_effects) Init(1) WarningWarn about overriding initializers with side effects.
+Wp,Driver JoinedOrMissing RejectNegative
+WpackedCommon Var(warn_packed) WarningWarn when the packed attribute has no effect on struct layout.
+Wpacked-bitfield-compatC ObjC C++ ObjC++ Var(warn_packed_bitfield_compat) Init(-1) WarningWarn about packed bit-fields whose offset changed in GCC 4.4.
+Wpacked-not-alignedC ObjC C++ ObjC++ Var(warn_packed_not_aligned) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn when fields in a struct with the packed attribute are misaligned.
+WpaddedCommon Var(warn_padded) WarningWarn when padding is required to align structure members.
+WparenthesesC ObjC C++ ObjC++ Var(warn_parentheses) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about possibly missing parentheses.
+WpedanticC ObjC C++ ObjC++ CPP(cpp_pedantic) CppReason(CPP_W_PEDANTIC) Warning
+WpedanticCommon Var(pedantic) Init(0) WarningIssue warnings needed for strict compliance to the standard.
+WpedanticFortran
+Wplacement-newC++ Warning Alias(Wplacement-new=, 1, 0)Warn for placement new expressions with undefined behavior.
+Wplacement-new=C++ Joined RejectNegative UInteger Var(warn_placement_new) Init(-1) Warning IntegerRange(0, 2)Warn for placement new expressions with undefined behavior.
+Wpmf-conversionsC++ ObjC++ Var(warn_pmf2ptr) Init(1) WarningWarn when converting the type of pointers to member functions.
+Wpointer-arithC ObjC C++ ObjC++ Var(warn_pointer_arith) Warning LangEnabledBy(C ObjC C++ ObjC++,Wpedantic)Warn about function pointer arithmetic.
+Wpointer-compareC ObjC C++ ObjC++ Var(warn_pointer_compare) Init(1) WarningWarn when a pointer is compared with a zero character constant.
+Wpointer-signC ObjC Var(warn_pointer_sign) Warning LangEnabledBy(C ObjC,Wall || Wpedantic)Warn when a pointer differs in signedness in an assignment.
+Wpointer-to-int-castC ObjC Var(warn_pointer_to_int_cast) Init(1) WarningWarn when a pointer is cast to an integer of a different size.
+WpragmasC ObjC C++ ObjC++ Var(warn_pragmas) Init(1) WarningWarn about misuses of pragmas.
+Wproperty-assign-defaultObjC ObjC++ Var(warn_property_assign_default) Init(1) WarningWarn if a property for an Objective-C object has no assign semantics specified.
+WprotocolObjC ObjC++ Var(warn_protocol) Init(1) WarningWarn if inherited methods are unimplemented.
+WpsabiC ObjC C++ ObjC++ LTO Var(warn_psabi) Init(1) Warning Undocumented LangEnabledBy(C ObjC C++ ObjC++,Wabi)
+Wreal-q-constantFortran Warning Var(warn_real_q_constant) LangEnabledBy(Fortran,Wall)Warn about real-literal-constants with 'q' exponent-letter.
+Wrealloc-lhsFortran Warning Var(warn_realloc_lhs) LangEnabledBy(Fortran,Wrealloc-lhs-all)Warn when a left-hand-side array variable is reallocated.
+Wrealloc-lhs-allFortran Warning Var(warn_realloc_lhs_all)Warn when a left-hand-side variable is reallocated.
+Wredundant-declsC ObjC C++ ObjC++ Var(warn_redundant_decls) WarningWarn about multiple declarations of the same object.
+WregisterC++ ObjC++ Var(warn_register) WarningWarn about uses of register storage specifier.
+WreorderC++ ObjC++ Var(warn_reorder) Warning LangEnabledBy(C++ ObjC++,Wall)Warn when the compiler reorders code.
+WrestrictC ObjC C++ ObjC++ Var(warn_restrict) Warning LangEnabledBy(C ObjC C++ ObjC++, Wall)Warn when an argument passed to a restrict-qualified parameter aliases withanother argument.
+Wreturn-local-addrCommon Var(warn_return_local_addr) Init(1) WarningWarn about returning a pointer/reference to a local or temporary variable.
+Wreturn-typeC ObjC C++ ObjC++ Var(warn_return_type) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall) Init(-1)Warn whenever a function's return type defaults to \"int\" (C), or about inconsistent return types (C++).
+Wreturn-typeFortran Warning LangEnabledBy(Fortran,Wall)
+Wscalar-storage-orderC ObjC C++ ObjC++ Init(1) WarningWarn on suspicious constructs involving reverse scalar storage order.
+WselectorObjC ObjC++ Var(warn_selector) WarningWarn if a selector has multiple methods.
+Wsequence-pointC ObjC C++ ObjC++ Var(warn_sequence_point) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about possible violations of sequence point rules.
+WshadowCommon Var(warn_shadow) WarningWarn when one variable shadows another.  Same as -Wshadow=global.
+Wshadow-compatible-localCommon Warning Undocumented Alias(Wshadow=compatible-local)
+Wshadow-ivarObjC ObjC++ Var(warn_shadow_ivar) EnabledBy(Wshadow) Init(1) WarningWarn if a local declaration hides an instance variable.
+Wshadow-localCommon Warning Undocumented Alias(Wshadow=local)
+Wshadow=compatible-localCommon Var(warn_shadow_compatible_local) Warning EnabledBy(Wshadow=local)Warn when one local variable shadows another local variable or parameter of compatible type.
+Wshadow=globalCommon Warning Alias(Wshadow)Warn when one variable shadows another (globally).
+Wshadow=localCommon Var(warn_shadow_local) Warning EnabledBy(Wshadow)Warn when one local variable shadows another local variable or parameter.
+Wshift-count-negativeC ObjC C++ ObjC++ Var(warn_shift_count_negative) Init(1) WarningWarn if shift count is negative.
+Wshift-count-overflowC ObjC C++ ObjC++ Var(warn_shift_count_overflow) Init(1) WarningWarn if shift count >= width of type.
+Wshift-negative-valueC ObjC C++ ObjC++ Var(warn_shift_negative_value) Init(-1) WarningWarn if left shifting a negative value.
+Wshift-overflowC ObjC C++ ObjC++ Warning Alias(Wshift-overflow=, 1, 0)Warn if left shift of a signed value overflows.
+Wshift-overflow=C ObjC C++ ObjC++ Joined RejectNegative UInteger Var(warn_shift_overflow) Init(-1) Warning IntegerRange(0, 2)Warn if left shift of a signed value overflows.
+Wsign-compareC ObjC C++ ObjC++ EnabledBy(Wextra)
+Wsign-compareC ObjC C++ ObjC++ Var(warn_sign_compare) Warning LangEnabledBy(C++ ObjC++,Wall)Warn about signed-unsigned comparisons.
+Wsign-conversionC ObjC C++ ObjC++ Var(warn_sign_conversion) Warning LangEnabledBy(C ObjC,Wconversion)Warn for implicit type conversions between signed and unsigned integers.
+Wsign-promoC++ ObjC++ Var(warn_sign_promo) WarningWarn when overload promotes from unsigned to signed.
+Wsized-deallocationC++ ObjC++ Var(warn_sized_deallocation) Warning EnabledBy(Wextra)Warn about missing sized deallocation functions.
+Wsizeof-array-argumentC ObjC C++ ObjC++ Var(warn_sizeof_array_argument) Warning Init(1)Warn when sizeof is applied on a parameter declared as an array.
+Wsizeof-pointer-divC ObjC C++ ObjC++ Var(warn_sizeof_pointer_div) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about suspicious divisions of two sizeof expressions that don't work correctly with pointers.
+Wsizeof-pointer-memaccessC ObjC C++ ObjC++ Var(warn_sizeof_pointer_memaccess) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about suspicious length parameters to certain string functions if the argument uses sizeof.
+Wstack-protectorCommon Var(warn_stack_protect) WarningWarn when not issuing stack smashing protection for some reason.
+Wstack-usage=Common Joined RejectNegative UInteger Var(warn_stack_usage) Warning-Wstack-usage=<number>	Warn if stack usage might be larger than specified amount.
+Wstrict-aliasingCommon WarningWarn about code which might break strict aliasing rules.
+Wstrict-aliasing=C ObjC C++ ObjC++ LangEnabledBy(C ObjC C++ ObjC++,Wall, 3, 0) IntegerRange(0, 3)
+Wstrict-aliasing=Common Joined RejectNegative UInteger Var(warn_strict_aliasing) WarningWarn about code which might break strict aliasing rules.
+Wstrict-null-sentinelC++ ObjC++ Warning Var(warn_strict_null_sentinel)Warn about uncasted NULL used as sentinel.
+Wstrict-overflowCommon WarningWarn about optimizations that assume that signed overflow is undefined.
+Wstrict-overflow=C ObjC C++ ObjC++ LangEnabledBy(C ObjC C++ ObjC++,Wall, 1, 0) IntegerRange(0, 5)
+Wstrict-overflow=Common Joined RejectNegative UInteger Var(warn_strict_overflow) WarningWarn about optimizations that assume that signed overflow is undefined.
+Wstrict-prototypesC ObjC Var(warn_strict_prototypes) WarningWarn about unprototyped function declarations.
+Wstrict-selector-matchObjC ObjC++ Var(warn_strict_selector_match) WarningWarn if type signatures of candidate methods do not match exactly.
+Wstringop-overflowC ObjC C++ LTO ObjC++ Warning Alias(Wstringop-overflow=, 2, 0)Warn about buffer overflow in string manipulation functions like memcpyand strcpy.
+Wstringop-overflow=C ObjC C++ LTO ObjC++ Joined RejectNegative UInteger Var(warn_stringop_overflow) Init(2) Warning LangEnabledBy(C ObjC C++ LTO ObjC++, Wall, 2, 0) IntegerRange(0, 4)Under the control of Object Size type, warn about buffer overflow in stringmanipulation functions like memcpy and strcpy.
+Wstringop-truncationC ObjC C++ LTO ObjC++ Var(warn_stringop_truncation) Warning Init (1) LangEnabledBy(C ObjC C++ LTO ObjC++, Wall)Warn about truncation in string manipulation functions like strncat and strncpy.
+Wsubobject-linkageC++ ObjC++ Var(warn_subobject_linkage) Warning Init(1)Warn if a class type has a base or a field whose type uses the anonymous namespace or depends on a type with no linkage.
+Wsuggest-attribute=coldCommon Var(warn_suggest_attribute_cold) WarningWarn about functions which might be candidates for __attribute__((cold)).
+Wsuggest-attribute=constCommon Var(warn_suggest_attribute_const) WarningWarn about functions which might be candidates for __attribute__((const)).
+Wsuggest-attribute=formatC ObjC C++ ObjC++ Var(warn_suggest_attribute_format) WarningWarn about functions which might be candidates for format attributes.
+Wsuggest-attribute=mallocCommon Var(warn_suggest_attribute_malloc) WarningWarn about functions which might be candidates for __attribute__((malloc)).
+Wsuggest-attribute=noreturnCommon Var(warn_suggest_attribute_noreturn) WarningWarn about functions which might be candidates for __attribute__((noreturn)).
+Wsuggest-attribute=pureCommon Var(warn_suggest_attribute_pure) WarningWarn about functions which might be candidates for __attribute__((pure)).
+Wsuggest-final-methodsCommon Var(warn_suggest_final_methods) WarningWarn about C++ virtual methods where adding final keyword would improve code quality.
+Wsuggest-final-typesCommon Var(warn_suggest_final_types) WarningWarn about C++ polymorphic types where adding final keyword would improve code quality.
+Wsuggest-overrideC++ ObjC++ Var(warn_override) WarningSuggest that the override keyword be used when the declaration of a virtualfunction overrides another.
+WsurprisingFortran Warning Var(warn_surprising) LangEnabledBy(Fortran,Wall)Warn about \"suspicious\" constructs.
+WswitchC ObjC C++ ObjC++ Var(warn_switch) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn about enumerated switches, with no default, missing a case.
+Wswitch-boolC ObjC C++ ObjC++ Var(warn_switch_bool) Warning Init(1)Warn about switches with boolean controlling expression.
+Wswitch-defaultC ObjC C++ ObjC++ Var(warn_switch_default) WarningWarn about enumerated switches missing a \"default:\" statement.
+Wswitch-enumC ObjC C++ ObjC++ Var(warn_switch_enum) WarningWarn about all enumerated switches missing a specific case.
+Wswitch-unreachableCommon Var(warn_switch_unreachable) Warning Init(1)Warn about statements between switch's controlling expression and the firstcase.
+Wsync-nandC C++ Var(warn_sync_nand) Init(1) WarningWarn when __sync_fetch_and_nand and __sync_nand_and_fetch built-in functions are used.
+WsynthC++ ObjC++ Var(warn_synth) WarningDeprecated.  This switch has no effect.
+Wsystem-headersC ObjC C++ ObjC++ Warning
+Wsystem-headersCommon Var(warn_system_headers) WarningDo not suppress warnings from system headers.
+WtabsFortran Warning Var(warn_tabs) LangEnabledBy(Fortran,Wall || Wpedantic)Permit nonconforming uses of the tab character.
+Wtarget-lifetimeFortran Warning Var(warn_target_lifetime) LangEnabledBy(Fortran,Wall)Warn if the pointer in a pointer assignment might outlive its target.
+Wtautological-compareC ObjC C++ ObjC++ Var(warn_tautological_compare) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn if a comparison always evaluates to true or false.
+WtemplatesC++ ObjC++ Var(warn_templates) WarningWarn on primary template declaration.
+WterminateC++ ObjC++ Warning Var(warn_terminate) Init(1)Warn if a throw expression will always result in a call to terminate().
+WtraditionalC ObjC CPP(cpp_warn_traditional) CppReason(CPP_W_TRADITIONAL) Var(warn_traditional) Init(0) WarningWarn about features not present in traditional C.
+Wtraditional-conversionC ObjC Var(warn_traditional_conversion) WarningWarn of prototypes causing type conversions different from what would happen in the absence of prototype.
+WtrampolinesCommon Var(warn_trampolines) WarningWarn whenever a trampoline is generated.
+WtrigraphsC ObjC C++ ObjC++ CPP(warn_trigraphs) CppReason(CPP_W_TRIGRAPHS) Var(cpp_warn_trigraphs) Init(2) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn if trigraphs are encountered that might affect the meaning of the program.
+Wtype-limitsCommon Var(warn_type_limits) Warning EnabledBy(Wextra)Warn if a comparison is always true or always false due to the limited range of the data type.
+Wundeclared-selectorObjC ObjC++ Var(warn_undeclared_selector) WarningWarn about @selector()s without previously declared methods.
+WundefC ObjC C++ ObjC++ CPP(warn_undef) CppReason(CPP_W_UNDEF) Var(cpp_warn_undef) Init(0) WarningWarn if an undefined macro is used in an #if directive.
+Wundefined-do-loopFortran Warning Var(warn_undefined_do_loop) LangEnabledBy(Fortran,Wall)Warn about an invalid DO loop.
+WunderflowFortran Warning Var(warn_underflow) Init(1)Warn about underflow of numerical constant expressions.
+WuninitializedC ObjC C++ ObjC++ LTO LangEnabledBy(C ObjC C++ ObjC++ LTO,Wall)
+WuninitializedCommon Var(warn_uninitialized) Warning EnabledBy(Wextra)Warn about uninitialized automatic variables.
+WuninitializedFortran LangEnabledBy(Fortran,Wall)
+Wunknown-pragmasC ObjC C++ ObjC++ Warning Var(warn_unknown_pragmas) LangEnabledBy(C ObjC C++ ObjC++,Wall, 1, 0)Warn about unrecognized pragmas.
+Wunreachable-codeCommon Ignore WarningDoes nothing. Preserved for backward compatibility.
+Wunsafe-loop-optimizationsCommon Var(warn_unsafe_loop_optimizations) WarningWarn if the loop cannot be optimized due to nontrivial assumptions.
+Wunsuffixed-float-constantsC ObjC Var(warn_unsuffixed_float_constants) WarningWarn about unsuffixed float constants.
+WunusedC ObjC C++ ObjC++ LangEnabledBy(C ObjC C++ ObjC++,Wall)
+WunusedCommon Var(warn_unused) Init(0) WarningEnable all -Wunused- warnings.
+WunusedLangEnabledBy(Fortran,Wall)
+Wunused-but-set-parameterCommon Var(warn_unused_but_set_parameter) Warning EnabledBy(Wunused && Wextra)Warn when a function parameter is only set, otherwise unused.
+Wunused-but-set-variableCommon Var(warn_unused_but_set_variable) Warning EnabledBy(Wunused)Warn when a variable is only set, otherwise unused.
+Wunused-const-variableC ObjC C++ ObjC++ Warning Alias(Wunused-const-variable=, 2, 0)Warn when a const variable is unused.
+Wunused-const-variable=C ObjC C++ ObjC++ Joined RejectNegative UInteger Var(warn_unused_const_variable) Warning LangEnabledBy(C ObjC,Wunused-variable, 1, 0) IntegerRange(0, 2)Warn when a const variable is unused.
+Wunused-dummy-argumentFortran Warning Var(warn_unused_dummy_argument) LangEnabledBy(Fortran,Wall)Warn about unused dummy arguments.
+Wunused-functionCommon Var(warn_unused_function) Warning EnabledBy(Wunused)Warn when a function is unused.
+Wunused-labelCommon Var(warn_unused_label) Warning EnabledBy(Wunused)Warn when a label is unused.
+Wunused-local-typedefsC ObjC C++ ObjC++ Var(warn_unused_local_typedefs) Warning EnabledBy(Wunused)Warn when typedefs locally defined in a function are not used.
+Wunused-macrosC ObjC C++ ObjC++ CppReason(CPP_W_UNUSED_MACROS) Var(cpp_warn_unused_macros) WarningWarn about macros defined in the main file that are not used.
+Wunused-parameterCommon Var(warn_unused_parameter) Warning EnabledBy(Wunused && Wextra)Warn when a function parameter is unused.
+Wunused-resultC ObjC C++ ObjC++ Var(warn_unused_result) Init(1) WarningWarn if a caller of a function, marked with attribute warn_unused_result, does not use its return value.
+Wunused-valueCommon Var(warn_unused_value) Warning EnabledBy(Wunused)Warn when an expression value is unused.
+Wunused-variableC ObjC C++ ObjC++ LangEnabledBy(C ObjC C++ ObjC++,Wunused)
+Wunused-variableCommon Var(warn_unused_variable) Warning EnabledBy(Wunused)Warn when a variable is unused.
+Wuse-without-onlyFortran Var(warn_use_without_only) WarningWarn about USE statements that have no ONLY qualifier.
+Wuseless-castC++ ObjC++ Var(warn_useless_cast) WarningWarn about useless casts.
+WvarargsC ObjC C++ ObjC++ Warning Var(warn_varargs) Init(1)Warn about questionable usage of the macros used to retrieve variable arguments.
+Wvariadic-macrosC ObjC C++ ObjC++ CPP(warn_variadic_macros) CppReason(CPP_W_VARIADIC_MACROS) Var(cpp_warn_variadic_macros) Init(0) Warning LangEnabledBy(C ObjC C++ ObjC++,Wpedantic || Wtraditional)Warn about using variadic macros.
+Wvector-operation-performanceCommon Var(warn_vector_operation_performance) WarningWarn when a vector operation is compiled outside the SIMD.
+Wvirtual-inheritanceC++ ObjC++ Var(warn_virtual_inheritance) WarningWarn on direct virtual inheritance.
+Wvirtual-move-assignC++ ObjC++ Var(warn_virtual_move_assign) Warning Init(1)Warn if a virtual base has a non-trivial move assignment operator.
+WvlaC ObjC C++ ObjC++ Var(warn_vla) Init(-1) WarningWarn if a variable length array is used.
+Wvla-larger-than=C ObjC C++ ObjC++ Var(warn_vla_limit) Warning Joined RejectNegative UInteger-Wvla-larger-than=<number>	Warn on unbounded uses of variable-length arrays, andon bounded uses of variable-length arrays whose bound can belarger than <number> bytes.
+Wvolatile-register-varC ObjC C++ ObjC++ Var(warn_volatile_register_var) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)Warn when a register variable is declared volatile.
+Wwrite-stringsC ObjC C++ ObjC++ Var(warn_write_strings) WarningIn C++, nonzero means warn about deprecated conversion from string literals to 'char *'.  In C, similar warning, except that the conversion is of course not deprecated by the ISO C standard.
+Wzero-as-null-pointer-constantC++ ObjC++ Var(warn_zero_as_null_pointer_constant) WarningWarn when a literal '0' is used as null pointer.
+WzerotripFortran Warning Var(warn_zerotrip) LangEnabledBy(Fortran,Wall)Warn about zero-trip DO loops.
+XassemblerDriver Separate
+XlinkerDriver Separate
+XpreprocessorDriver Separate
+ZDriver
+ansiC ObjC C++ ObjC++A synonym for -std=c89 (for C) or -std=c++98 (for C++).
+aux-infoCommon Separate Var(aux_info_file_name)-aux-info <file>	Emit declaration information into <file>.
+aux-info=Common Joined Alias(aux-info)
+auxbaseCommon Separate RejectDriver Var(aux_base_name)
+auxbase-stripCommon Separate RejectDriver
+cDriver
+coverageDriver
+cppFortran Negative(nocpp)Enable preprocessing.
+cpp=Fortran Joined Negative(nocpp) Undocumented NoDWARFRecord
+dC ObjC C++ ObjC++ Joined
+dCommon Joined-d<letters>	Enable dumps from specific passes of the compiler.
+dFortran Joined
+dumpbaseCommon Separate Var(dump_base_name)-dumpbase <file>	Set the file basename to be used for dumps.
+dumpdirCommon Separate Var(dump_dir_name)-dumpdir <dir>	Set the directory name to be used for dumps.
+dumpfullversionDriver
+dumpmachineDriver
+dumpspecsDriver
+dumpversionDriver
+eDriver Joined Separate
+export-dynamicDriver Undocumented
+fPICCommon Report Var(flag_pic,2) Negative(fPIE) Init(-1)Generate position-independent code if possible (large mode).
+fPIECommon Report Var(flag_pie,2) Negative(fpic) Init(-1)Generate position-independent code for executables if possible (large mode).
+fRTS=Ada AdaWhy AdaSCIL Joined RejectNegativeSelect the runtime.
+fabi-compat-version=C++ ObjC++ Joined RejectNegative UInteger Var(flag_abi_compat_version) Init(-1)The version of the C++ ABI used for -Wabi warnings and link compatibility aliases.
+fabi-version=Common Joined RejectNegative UInteger Var(flag_abi_version) Init(0)The version of the C++ ABI in use.
+faccess-controlC++ ObjC++ Var(flag_access_control) Init(1)Enforce class member access control semantics.
+fada-spec-parent=C ObjC C++ ObjC++ RejectNegative Joined Var(ada_specs_parent)-fada-spec-parent=unit  Dump Ada specs as child units of given parent.
+faggressive-function-eliminationFortran Var(flag_aggressive_function_elimination)Eliminate multiple function invocations also for impure functions.
+faggressive-loop-optimizationsCommon Report Var(flag_aggressive_loop_optimizations) Optimization Init(1)Aggressively optimize loops using language constraints.
+falign-commonsFortran Var(flag_align_commons) Init(1)Enable alignment of COMMON blocks.
+falign-functionsCommon Report Var(align_functions,0) Optimization UIntegerAlign the start of functions.
+falign-functions=Common RejectNegative Joined UInteger Var(align_functions) Optimization
+falign-jumpsCommon Report Var(align_jumps,0) Optimization UIntegerAlign labels which are only reached by jumping.
+falign-jumps=Common RejectNegative Joined UInteger Var(align_jumps) Optimization
+falign-labelsCommon Report Var(align_labels,0) Optimization UIntegerAlign all labels.
+falign-labels=Common RejectNegative Joined UInteger Var(align_labels) Optimization
+falign-loopsCommon Report Var(align_loops,0) Optimization UIntegerAlign the start of loops.
+falign-loops=Common RejectNegative Joined UInteger Var(align_loops) Optimization
+faligned-newC++ ObjC++ Alias(faligned-new=,1,0)Support C++17 allocation of over-aligned types.
+faligned-new=C++ ObjC++ Joined RejectNegative Var(aligned_new_threshold) UInteger Init(-1)-faligned-new=<N> Use C++17 over-aligned type allocation for alignments greater than N.
+fall-intrinsicsFortran RejectNegative Var(flag_all_intrinsics)All intrinsics procedures are available regardless of selected standard.
+fall-virtualC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fallow-leading-underscoreFortran Undocumented Var(flag_allow_leading_underscore)
+fallow-parameterless-variadic-functionsC ObjC Var(flag_allow_parameterless_variadic_functions)Allow variadic functions without named parameter.
+falt-external-templatesC++ ObjC++ Ignore Warn(switch %qs is no longer supported)No longer supported.
+fargument-aliasCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fargument-noaliasCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fargument-noalias-anythingCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fargument-noalias-globalCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fasan-shadow-offset=Common Joined RejectNegative Var(common_deferred_options) Defer-fasan-shadow-offset=<number>	Use custom shadow memory offset.
+fasmC ObjC C++ ObjC++ Var(flag_no_asm, 0)Recognize the \"asm\" keyword.
+fassociative-mathCommon Report Var(flag_associative_math) SetByCombined OptimizationAllow optimization for floating-point arithmetic which may change theresult of the operation due to rounding.
+fasynchronous-unwind-tablesCommon Report Var(flag_asynchronous_unwind_tables) OptimizationGenerate unwind tables that are exact at each instruction boundary.
+fauto-inc-decCommon Report Var(flag_auto_inc_dec) Init(1) OptimizationGenerate auto-inc/dec instructions.
+fauto-profileCommon Report Var(flag_auto_profile)Use sample profile information for call graph node weights. The defaultprofile file is fbdata.afdo in 'pwd'.
+fauto-profile=Common Joined RejectNegative Var(auto_profile_file)Use sample profile information for call graph node weights. The profilefile is specified in the argument.
+fautomaticFortran Var(flag_automatic) Init(1)Do not treat local variables and COMMON blocks as if they were named in SAVE statements.
+fbackslashFortran Var(flag_backslash)Specify that backslash in string introduces an escape character.
+fbacktraceFortran Var(flag_backtrace) Init(1)Produce a backtrace when a runtime error is encountered.
+fblas-matmul-limit=Fortran RejectNegative Joined UInteger Var(flag_blas_matmul_limit) Init(30)-fblas-matmul-limit=<n>	Size of the smallest matrix for which matmul will use BLAS.
+fbounds-checkCommon Report Var(flag_bounds_check)Generate code to check bounds before indexing arrays.
+fbranch-count-regCommon Report Var(flag_branch_on_count_reg) OptimizationReplace add, compare, branch with branch on count register.
+fbranch-probabilitiesCommon Report Var(flag_branch_probabilities) OptimizationUse profiling information for branch probabilities.
+fbranch-target-load-optimizeCommon Report Var(flag_branch_target_load_optimize) OptimizationPerform branch target load optimization before prologue / epilogue threading.
+fbranch-target-load-optimize2Common Report Var(flag_branch_target_load_optimize2) OptimizationPerform branch target load optimization after prologue / epilogue threading.
+fbtr-bb-exclusiveCommon Report Var(flag_btr_bb_exclusive) OptimizationRestrict target load migration not to re-use registers in any basic block.
+fbuilding-libgccC ObjC C++ ObjC++ Undocumented Var(flag_building_libgcc)
+fbuiltinC ObjC C++ ObjC++ Var(flag_no_builtin, 0)Recognize built-in functions.
+fbuiltin-C ObjC C++ ObjC++ Joined
+fbuiltin-printfAda UndocumentedIgnored.
+fc-prototypesFortran Var(flag_c_prototypes)Generate C prototypes from BIND(C) declarations.
+fcall-saved-Common Joined RejectNegative Var(common_deferred_options) Defer-fcall-saved-<register>	Mark <register> as being preserved across functions.
+fcall-used-Common Joined RejectNegative Var(common_deferred_options) Defer-fcall-used-<register>	Mark <register> as being corrupted by function calls.
+fcaller-savesCommon Report Var(flag_caller_saves) OptimizationSave registers around function calls.
+fcanonical-system-headersC ObjC C++ ObjC++Where shorter, use canonicalized paths to systems headers.
+fcf-protectionCommon RejectNegative Alias(fcf-protection=,full)
+fcf-protection=Common Report Joined RejectNegative Enum(cf_protection_level) Var(flag_cf_protection) Init(CF_NONE)-fcf-protection=[full|branch|return|none]	Instrument functions with checks to verify jump/call/return control-flow transferinstructions have valid targets.
+fcheck-array-temporariesFortranProduce a warning at runtime if a array temporary has been created for a procedure argument.
+fcheck-data-depsCommon Report Var(flag_check_data_deps)This switch is deprecated; do not use.
+fcheck-newCommon Var(flag_check_new)Check the return value of new in C++.
+fcheck-pointer-boundsC ObjC C++ ObjC++ LTO Report Var(flag_check_pointer_bounds)Add Pointer Bounds Checker instrumentation.  fchkp-* flags are used tocontrol instrumentation.  Currently available for C, C++ and ObjC.
+fcheck=Fortran RejectNegative JoinedOrMissing-fcheck=[...]	Specify which runtime checks are to be performed.
+fcheckingCommon Var(flag_checking) Init(CHECKING_P ? ENABLE_EXTRA_CHECKING ? 2 : 1 : 0)Perform internal consistency checkings.
+fchecking=Common Joined RejectNegative UInteger Var(flag_checking)Perform internal consistency checkings.
+fchkp-check-incomplete-typeC ObjC C++ ObjC++ LTO Report Var(flag_chkp_incomplete_type) Init(1)Generate pointer bounds checks for variables with incomplete type.
+fchkp-check-readC ObjC C++ ObjC++ LTO Report Var(flag_chkp_check_read) Init(1)Generate checks for all read accesses to memory.
+fchkp-check-writeC ObjC C++ ObjC++ LTO Report Var(flag_chkp_check_write) Init(1)Generate checks for all write accesses to memory.
+fchkp-first-field-has-own-boundsC ObjC C++ ObjC++ LTO RejectNegative Report Var(flag_chkp_first_field_has_own_bounds)Forces Pointer Bounds Checker to use narrowed bounds for address of the firstfield in the structure.  By default pointer to the first field has the samebounds as pointer to the whole structure.
+fchkp-flexible-struct-trailing-arraysC ObjC C++ ObjC++ LTO Report Var(flag_chkp_flexible_struct_trailing_arrays)Forces Pointer Bounds Checker to treat all trailing arrays in structures aspossibly flexible.  By default only arrays fields with zero length or that aremarked with attribute bnd_variable_size are treated as flexible.
+fchkp-instrument-callsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_instrument_calls) Init(1)Generate bounds passing for calls.
+fchkp-instrument-marked-onlyC ObjC C++ ObjC++ LTO Report Var(flag_chkp_instrument_marked_only) Init(0)Instrument only functions marked with bnd_instrument attribute.
+fchkp-narrow-boundsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_narrow_bounds) Init(1)Control how Pointer Bounds Checker handle pointers to object fields.  Whennarrowing is on, field bounds are used.  Otherwise full object bounds are used.
+fchkp-narrow-to-innermost-arrayC ObjC C++ ObjC++ LTO RejectNegative Report Var(flag_chkp_narrow_to_innermost_arrray)Forces Pointer Bounds Checker to use bounds of the innermost arrays in case ofnested static arrays access.  By default outermost array is used.
+fchkp-optimizeC ObjC C++ ObjC++ LTO Report Var(flag_chkp_optimize) Init(-1)Allow Pointer Bounds Checker optimizations.  By default allowedon optimization levels >0.
+fchkp-store-boundsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_store_bounds) Init(1)Generate bounds stores for pointer writes.
+fchkp-treat-zero-dynamic-size-as-infiniteC ObjC C++ ObjC++ LTO Report Var(flag_chkp_zero_dynamic_size_as_infinite) Init(0)With this option zero size obtained dynamically for objects withincomplete type will be treated as infinite.
+fchkp-use-fast-string-functionsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_use_fast_string_functions) Init(0)Allow to use *_nobnd versions of string functions by Pointer Bounds Checker.
+fchkp-use-nochk-string-functionsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_use_nochk_string_functions) Init(0)Allow to use *_nochk versions of string functions by Pointer Bounds Checker.
+fchkp-use-static-boundsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_use_static_bounds) Init(1)Use statically initialized variable for vars bounds instead ofgenerating them each time it is required.
+fchkp-use-static-const-boundsC ObjC C++ ObjC++ LTO Report Var(flag_chkp_use_static_const_bounds) Init(-1)Use statically initialized variable for constant bounds instead ofgenerating them each time it is required.
+fchkp-use-wrappersC ObjC C++ ObjC++ LTO Report Var(flag_chkp_use_wrappers) Init(1)Transform instrumented builtin calls into calls to wrappers.
+fchkp-zero-input-bounds-for-mainC ObjC C++ ObjC++ LTO Report Var(flag_chkp_zero_input_bounds_for_main) Init(0)Use zero bounds for all incoming arguments in 'main' function.  It helps wheninstrumented binaries are used with legacy libs.
+fcilkplus UndocumentedC ObjC C++ ObjC++ LTO Report Var(flag_cilkplus) Init(0)Deprecated in GCC 8.  This switch has no effect.
+fcoarray=Fortran RejectNegative Joined Enum(gfc_fcoarray) Var(flag_coarray) Init(GFC_FCOARRAY_NONE)-fcoarray=<none|single|lib>	Specify which coarray parallelization should be used.
+fcode-hoistingCommon Report Var(flag_code_hoisting) OptimizationEnable code hoisting.
+fcombine-stack-adjustmentsCommon Report Var(flag_combine_stack_adjustments) OptimizationLooks for opportunities to reduce stack adjustments and stack references.
+fcommonCommon Report Var(flag_no_common,0)Do not put uninitialized globals in the common section.
+fcompare-debugDriver
+fcompare-debug-secondCommon Driver RejectNegative Var(flag_compare_debug)Run only the second compilation of -fcompare-debug.
+fcompare-debug=Common Driver JoinedOrMissing RejectNegative Var(flag_compare_debug_opt)-fcompare-debug[=<opts>]	Compile with and without e.g. -gtoggle, and compare the final-insns dump.
+fcompare-elimCommon Report Var(flag_compare_elim_after_reload) OptimizationPerform comparison elimination after register allocation has finished.
+fconceptsC++ ObjC++ Var(flag_concepts)Enable support for C++ concepts.
+fcond-mismatchC ObjC C++ ObjC++Allow the arguments of the '?' operator to have different types.
+fconserve-spaceC++ ObjC++ Var(flag_conserve_space)Does nothing.  Preserved for backward compatibility.
+fconserve-stackCommon Var(flag_conserve_stack) OptimizationDo not perform optimizations increasing noticeably stack usage.
+fconstant-string-class=ObjC ObjC++ Joined MissingArgError(no class name specified with %qs)-fconst-string-class=<name>	Use class <name> for constant strings.
+fconstexpr-depth=C++ ObjC++ Joined RejectNegative UInteger Var(max_constexpr_depth) Init(512)-fconstexpr-depth=<number>	Specify maximum constexpr recursion depth.
+fconstexpr-loop-limit=C++ ObjC++ Joined RejectNegative UInteger Var(constexpr_loop_limit) Init(262144)-fconstexpr-loop-limit=<number>	Specify maximum constexpr loop iteration count.
+fconvert=Fortran RejectNegative Joined Enum(gfc_convert) Var(flag_convert) Init(GFC_FLAG_CONVERT_NATIVE)-fconvert=<big-endian|little-endian|native|swap> The endianness used for unformatted files.
+fcprop-registersCommon Report Var(flag_cprop_registers) OptimizationPerform a register copy-propagation optimization pass.
+fcray-pointerFortran Var(flag_cray_pointer)Use the Cray Pointer extension.
+fcrossjumpingCommon Report Var(flag_crossjumping) OptimizationPerform cross-jumping optimization.
+fcse-follow-jumpsCommon Report Var(flag_cse_follow_jumps) OptimizationWhen running CSE, follow jumps to their targets.
+fcse-skip-blocksCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fcx-fortran-rulesCommon Report Var(flag_cx_fortran_rules) OptimizationComplex multiplication and division follow Fortran rules.
+fcx-limited-rangeCommon Report Var(flag_cx_limited_range) Optimization SetByCombinedOmit range reduction step when performing complex division.
+fd-lines-as-codeFortran RejectNegativeIgnore 'D' in column one in fixed form.
+fd-lines-as-commentsFortran RejectNegativeTreat lines with 'D' in column one as comments.
+fdata-sectionsCommon Report Var(flag_data_sections)Place data items into their own section.
+fdbg-cnt-listCommon Report Var(common_deferred_options) DeferList all available debugging counters with their limits and counts.
+fdbg-cnt=Common RejectNegative Joined Var(common_deferred_options) Defer-fdbg-cnt=<counter>:<limit>[,<counter>:<limit>,...]	Set the debug counter limit.
+fdceCommon Var(flag_dce) Init(1) OptimizationUse the RTL dead code elimination pass.
+fdebug-cppC ObjC C++ ObjC++Emit debug annotations during preprocessing.
+fdebug-prefix-map=Common Joined RejectNegative Var(common_deferred_options) Defer-fdebug-prefix-map=<old>=<new> Map one directory name to another in debug information.
+fdebug-types-sectionCommon Report Var(flag_debug_types_section) Init(0)Output .debug_types section when using DWARF v4 debuginfo.
+fdecFortran Var(flag_dec)Enable all DEC language extensions.
+fdec-intrinsic-intsFortran Var(flag_dec_intrinsic_ints)Enable kind-specific variants of integer intrinsic functions.
+fdec-mathFortran Var(flag_dec_math)Enable legacy math intrinsics for compatibility.
+fdec-staticFortran Var(flag_dec_static)Enable DEC-style STATIC and AUTOMATIC attributes.
+fdec-structureFortran Var(flag_dec_structure)Enable support for DEC STRUCTURE/RECORD.
+fdeclone-ctor-dtorC++ ObjC++ Var(flag_declone_ctor_dtor) Init(-1)Factor complex constructors and destructors to favor space over speed.
+fdeduce-init-listC++ ObjC++ Var(flag_deduce_init_list) Init(0)-fdeduce-init-list	enable deduction of std::initializer_list for a template type parameter from a brace-enclosed initializer-list.
+fdefault-double-8Fortran Var(flag_default_double)Set the default double precision kind to an 8 byte wide type.
+fdefault-inlineC++ ObjC++ IgnoreDoes nothing.  Preserved for backward compatibility.
+fdefault-integer-8Fortran Var(flag_default_integer)Set the default integer kind to an 8 byte wide type.
+fdefault-real-10Fortran Var(flag_default_real_10)Set the default real kind to an 10 byte wide type.
+fdefault-real-16Fortran Var(flag_default_real_16)Set the default real kind to an 16 byte wide type.
+fdefault-real-8Fortran Var(flag_default_real_8)Set the default real kind to an 8 byte wide type.
+fdefer-popCommon Report Var(flag_defer_pop) OptimizationDefer popping functions args from stack until later.
+fdelayed-branchCommon Report Var(flag_delayed_branch) OptimizationAttempt to fill delay slots of branch instructions.
+fdelete-dead-exceptionsCommon Report Var(flag_delete_dead_exceptions) Init(0) OptimizationDelete dead instructions that may throw exceptions.
+fdelete-null-pointer-checksCommon Report Var(flag_delete_null_pointer_checks) Init(-1) OptimizationDelete useless null pointer checks.
+fdevirtualizeCommon Report Var(flag_devirtualize) OptimizationTry to convert virtual calls to direct ones.
+fdevirtualize-at-ltransCommon Report Var(flag_ltrans_devirtualize)Stream extra data to support more aggressive devirtualization in LTO local transformation mode.
+fdevirtualize-speculativelyCommon Report Var(flag_devirtualize_speculatively) OptimizationPerform speculative devirtualization.
+fdiagnostics-colorCommon Alias(fdiagnostics-color=,always,never)
+fdiagnostics-color=Driver Common Joined RejectNegative Var(flag_diagnostics_show_color) Enum(diagnostic_color_rule) Init(DIAGNOSTICS_COLOR_NO)-fdiagnostics-color=[never|always|auto]	Colorize diagnostics.
+fdiagnostics-generate-patchCommon Var(flag_diagnostics_generate_patch)Print fix-it hints to stderr in unified diff format.
+fdiagnostics-parseable-fixitsCommon Var(flag_diagnostics_parseable_fixits)Print fix-it hints in machine-readable form.
+fdiagnostics-show-caretCommon Var(flag_diagnostics_show_caret) Init(1)Show the source line with a caret indicating the column.
+fdiagnostics-show-location=Common Joined RejectNegative Enum(diagnostic_prefixing_rule)-fdiagnostics-show-location=[once|every-line]	How often to emit source location at the beginning of line-wrapped diagnostics.
+fdiagnostics-show-optionCommon Var(flag_diagnostics_show_option) Init(1)Amend appropriate diagnostic messages with the command line option that controls them.
+fdiagnostics-show-template-treeC++ ObjC++ Var(flag_diagnostics_show_template_tree) Init(0)Print hierarchical comparisons when template types are mismatched.
+fdirectives-onlyC ObjC C++ ObjC++Preprocess directives only.
+fdisable-Common Joined RejectNegative Var(common_deferred_options) Defer-fdisable-[tree|rtl|ipa]-<pass>=range1+range2 disables an optimization pass.
+fdollar-okFortran Var(flag_dollar_ok)Allow dollar signs in entity names.
+fdollars-in-identifiersC ObjC C++ ObjC++Permit '$' as an identifier character.
+fdseCommon Var(flag_dse) Init(1) OptimizationUse the RTL dead store elimination pass.
+fdump-Common Joined RejectNegative Var(common_deferred_options) Defer-fdump-<type>	Dump various compiler internals to a file.
+fdump-ada-specC ObjC C++ ObjC++ RejectNegative Var(flag_dump_ada_spec)Write all declarations as Ada code transitively.
+fdump-ada-spec-slimC ObjC C++ ObjC++ RejectNegative Var(flag_dump_ada_spec_slim)Write all declarations as Ada code for the given file only.
+fdump-coreFortran IgnoreDoes nothing. Preserved for backward compatibility.
+fdump-final-insnsDriver RejectNegative
+fdump-final-insns=Common RejectNegative Joined Var(flag_dump_final_insns)-fdump-final-insns=filename	Dump to filename the insns at the end of translation.
+fdump-fortran-optimizedFortran Var(flag_dump_fortran_optimized)Display the code tree after front end optimization.
+fdump-fortran-originalFortran Var(flag_dump_fortran_original)Display the code tree after parsing.
+fdump-go-spec=Common RejectNegative Joined Var(flag_dump_go_spec)-fdump-go-spec=filename	Write all declarations to file as Go code.
+fdump-internal-locationsCommon Var(flag_dump_locations) Init(0)Dump detailed information on GCC's internal representation of source code locations.
+fdump-noaddrCommon Report Var(flag_dump_noaddr)Suppress output of addresses in debugging dumps.
+fdump-parse-treeFortran Alias(fdump-fortran-original)Display the code tree after parsing; deprecated option.
+fdump-passesCommon Var(flag_dump_passes) Init(0)Dump optimization passes.
+fdump-unnumberedCommon Report Var(flag_dump_unnumbered)Suppress output of instruction numbers, line number notes and addresses in debugging dumps.
+fdump-unnumbered-linksCommon Report Var(flag_dump_unnumbered_links)Suppress output of previous and next insn numbers in debugging dumps.
+fdwarf2-cfi-asmCommon Report Var(flag_dwarf2_cfi_asm) Init(HAVE_GAS_CFI_DIRECTIVE)Enable CFI tables via GAS assembler directives.
+fearly-inliningCommon Report Var(flag_early_inlining) Init(1) OptimizationPerform early inlining.
+felide-constructorsC++ ObjC++ Var(flag_elide_constructors) Init(1)
+felide-typeC++ ObjC++ Var(flag_elide_type) Init(1)-fno-elide-type Do not elide common elements in template comparisons.
+feliminate-dwarf2-dupsCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+feliminate-unused-debug-symbolsCommon Report Var(flag_debug_only_used_symbols)Perform unused symbol elimination in debug info.
+feliminate-unused-debug-typesCommon Report Var(flag_eliminate_unused_debug_types) Init(1)Perform unused type elimination in debug info.
+femit-class-debug-alwaysCommon Report Var(flag_emit_class_debug_always) Init(0)Do not suppress C++ class debug information.
+femit-struct-debug-baseonlyC ObjC C++ ObjC++-femit-struct-debug-baseonly	Aggressive reduced debug info for structs.
+femit-struct-debug-detailed=C ObjC C++ ObjC++ Joined-femit-struct-debug-detailed=<spec-list>	Detailed reduced debug info for structs.
+femit-struct-debug-reducedC ObjC C++ ObjC++-femit-struct-debug-reduced	Conservative reduced debug info for structs.
+fenable-Common Joined RejectNegative Var(common_deferred_options) Defer-fenable-[tree|rtl|ipa]-<pass>=range1+range2 enables an optimization pass.
+fenforce-eh-specsC++ ObjC++ Var(flag_enforce_eh_specs) Init(1)Generate code to check exception specifications.
+fenum-int-equivC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fexceptionsCommon Report Var(flag_exceptions) OptimizationEnable exception handling.
+fexcess-precision=Common Joined RejectNegative Enum(excess_precision) Var(flag_excess_precision_cmdline) Init(EXCESS_PRECISION_DEFAULT) SetByCombined-fexcess-precision=[fast|standard]	Specify handling of excess floating-point precision.
+fexec-charset=C ObjC C++ ObjC++ Joined RejectNegative-fexec-charset=<cset>	Convert all strings and character constants to character set <cset>.
+fexpensive-optimizationsCommon Report Var(flag_expensive_optimizations) OptimizationPerform a number of minor, expensive optimizations.
+fext-numeric-literalsC++ ObjC++ Var(flag_ext_numeric_literals) Init(1)Interpret imaginary, fixed-point, or other gnu number suffix as the correspondingnumber literal rather than a user-defined number literal.
+fextended-identifiersC ObjC C++ ObjC++Permit universal character names (\\u and \\U) in identifiers.
+fextern-tls-initC++ ObjC++ Var(flag_extern_tls_init) Init(-1)Support dynamic initialization of thread-local variables in a different translation unit.
+fexternal-blasFortran Var(flag_external_blas)Specify that an external BLAS library should be used for matmul calls on large-size arrays.
+fexternal-templatesC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+ff2cFortran Var(flag_f2c)Use f2c calling convention.
+ffast-mathCommon Optimization
+ffat-lto-objectsCommon Var(flag_fat_lto_objects)Output lto objects containing both the intermediate language and binary output.
+ffile-prefix-map=Common Joined RejectNegative Var(common_deferred_options) Defer-ffile-prefix-map=<old>=<new> Map one directory name to another in compilation result.
+ffinite-math-onlyCommon Report Var(flag_finite_math_only) Optimization SetByCombinedAssume no NaNs or infinities are generated.
+ffixed-Common Joined RejectNegative Var(common_deferred_options) Defer-ffixed-<register>	Mark <register> as being unavailable to the compiler.
+ffixed-formFortran RejectNegativeAssume that the source file is fixed form.
+ffixed-line-length-Fortran RejectNegative Joined UInteger Var(flag_fixed_line_length) Init(72)-ffixed-line-length-<n>	Use n as character line width in fixed mode.
+ffixed-line-length-noneFortran RejectNegative Var(flag_fixed_line_length,0)Allow arbitrary character line width in fixed mode.
+ffloat-storeCommon Report Var(flag_float_store) OptimizationDon't allocate floats and doubles in extended-precision registers.
+ffor-scopeC++ ObjC++ Var(flag_new_for_scope) Init(1)Scope of for-init-statement variables is local to the loop.
+fforce-addrCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fforward-propagateCommon Report Var(flag_forward_propagate) OptimizationPerform a forward propagation pass on RTL.
+ffp-contract=Common Joined RejectNegative Enum(fp_contract_mode) Var(flag_fp_contract_mode) Init(FP_CONTRACT_FAST) Optimization-ffp-contract=[off|on|fast]	Perform floating-point expression contraction.
+ffp-int-builtin-inexactCommon Report Var(flag_fp_int_builtin_inexact) Init(1) OptimizationAllow built-in functions ceil, floor, round, trunc to raise \"inexact\" exceptions.
+ffpe-summary=Fortran RejectNegative JoinedOrMissing-ffpe-summary=[...]	Print summary of floating point exceptions.
+ffpe-trap=Fortran RejectNegative JoinedOrMissing-ffpe-trap=[...]	Stop on following floating point exceptions.
+ffree-formFortran RejectNegativeAssume that the source file is free form.
+ffree-line-length-Fortran RejectNegative Joined UInteger Var(flag_free_line_length) Init(132)-ffree-line-length-<n>	Use n as character line width in free mode.
+ffree-line-length-noneFortran RejectNegative Var(flag_free_line_length,0)Allow arbitrary character line width in free mode.
+ffreestandingC ObjC C++ ObjC++Do not assume that standard C libraries and \"main\" exist.
+ffriend-injectionC++ ObjC++ Var(flag_friend_injection)Inject friend functions into enclosing namespace.
+ffrontend-loop-interchangeFortran Var(flag_frontend_loop_interchange) Init(-1)Try to interchange loops if profitable.
+ffrontend-optimizeFortran Var(flag_frontend_optimize) Init(-1)Enable front end optimization.
+ffunction-cseCommon Report Var(flag_no_function_cse,0) OptimizationAllow function addresses to be held in registers.
+ffunction-sectionsCommon Report Var(flag_function_sections)Place each function into its own section.
+fgcseCommon Report Var(flag_gcse) OptimizationPerform global common subexpression elimination.
+fgcse-after-reloadCommon Report Var(flag_gcse_after_reload) OptimizationPerform global common subexpression elimination after register allocation hasfinished.
+fgcse-lasCommon Report Var(flag_gcse_las) Init(0) OptimizationPerform redundant load after store elimination in global common subexpressionelimination.
+fgcse-lmCommon Report Var(flag_gcse_lm) Init(1) OptimizationPerform enhanced load motion during global common subexpression elimination.
+fgcse-smCommon Report Var(flag_gcse_sm) Init(0) OptimizationPerform store motion after global common subexpression elimination.
+fgimpleC Var(flag_gimple) Init(0)Enable parsing GIMPLE.
+fgnat-encodings=Common Enum(dwarf_gnat_encodings) Joined RejectNegative Report Undocumented Var(gnat_encodings)-fgnat-encodings=[all|gdb|minimal]	Select the balance between GNAT encodings and standard DWARF emitted in the debug information
+fgnu-keywordsC++ ObjC++ Var(flag_no_gnu_keywords, 0)Recognize GNU-defined keywords.
+fgnu-runtimeObjC ObjC++ LTO Report RejectNegative Var(flag_next_runtime,0) Init(NEXT_OBJC_RUNTIME)Generate code for GNU runtime environment.
+fgnu-tmCommon Report Var(flag_tm)Enable support for GNU transactional memory.
+fgnu-uniqueCommon Report Var(flag_gnu_unique) Init(1)Use STB_GNU_UNIQUE if supported by the assembler.
+fgnu89-inlineC ObjC Var(flag_gnu89_inline) Init(-1)Use traditional GNU semantics for inline functions.
+fgo-c-header=Go Joined RejectNegative-fgo-c-header=<file>	Write Go struct definitions to file as C code.
+fgo-check-divide-overflowGo Var(go_check_divide_overflow) Init(1)Add explicit checks for division overflow in INT_MIN / -1.
+fgo-check-divide-zeroGo Var(go_check_divide_zero) Init(1)Add explicit checks for division by zero.
+fgo-compiling-runtimeGo Var(go_compiling_runtime) Init(0)Apply special rules for compiling runtime package.
+fgo-debug-escapeGo Joined UInteger Var(go_debug_escape_level) Init(0)Emit debugging information related to the escape analysis pass when run with -fgo-optimize-allocs.
+fgo-debug-escape-hash=Go Joined RejectNegative Var(go_debug_escape_hash) Init(0)-fgo-debug-escape-hash=<string>	Hash value to debug escape analysis.
+fgo-dump-Go Joined RejectNegative-fgo-dump-<type>	Dump Go frontend internal information.
+fgo-optimize-Go Joined-fgo-optimize-<type>	Turn on optimization passes in the frontend.
+fgo-pkgpath=Go Joined RejectNegative-fgo-pkgpath=<string>	Set Go package path.
+fgo-prefix=Go Joined RejectNegative-fgo-prefix=<string>	Set package-specific prefix for exported Go names.
+fgo-relative-import-path=Go Joined RejectNegative-fgo-relative-import-path=<path>	Treat a relative import as relative to path.
+fgraphiteCommon Report Var(flag_graphite) OptimizationEnable in and out of Graphite representation.
+fgraphite-identityCommon Report Var(flag_graphite_identity) OptimizationEnable Graphite Identity transformation.
+fguess-branch-probabilityCommon Report Var(flag_guess_branch_prob) OptimizationEnable guessing of branch probabilities.
+fguiding-declsC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fhandle-exceptionsC++ ObjC++ Optimization Alias(fexceptions) Warn({-fhandle-exceptions has been renamed -fexceptions (and is now on by default)})
+fhelpCommon Driver Alias(-help)
+fhelp=Common Driver Joined Alias(-help=)
+fhoist-adjacent-loadsCommon Report Var(flag_hoist_adjacent_loads) OptimizationEnable hoisting adjacent loads to encourage generating conditional moveinstructions.
+fhonor-stdC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fhostedC ObjCAssume normal C execution environment.
+fhuge-objectsC++ ObjC++ Ignore Warn(switch %qs is no longer supported)No longer supported.
+fidentCommon Report Var(flag_no_ident,0)Process #ident directives.
+fif-conversionCommon Report Var(flag_if_conversion) OptimizationPerform conversion of conditional jumps to branchless equivalents.
+fif-conversion2Common Report Var(flag_if_conversion2) OptimizationPerform conversion of conditional jumps to conditional execution.
+fimplement-inlinesC++ ObjC++ Var(flag_implement_inlines) Init(1)Export functions even if they can be inlined.
+fimplicit-inline-templatesC++ ObjC++ Var(flag_implicit_inline_templates) Init(1)Emit implicit instantiations of inline templates.
+fimplicit-noneFortran Var(flag_implicit_none)Specify that no implicit typing is allowed, unless overridden by explicit IMPLICIT statements.
+fimplicit-templatesC++ ObjC++ Var(flag_implicit_templates) Init(1)Emit implicit instantiations of templates.
+findirect-inliningCommon Report Var(flag_indirect_inlining) OptimizationPerform indirect inlining.
+finhibit-size-directiveCommon Report Var(flag_inhibit_size_directive)Do not generate .size directives.
+finit-character=Fortran RejectNegative Joined UInteger-finit-character=<n>	Initialize local character variables to ASCII value n.
+finit-derivedFortran Var(flag_init_derived)Initialize components of derived type variables according to other init flags.
+finit-integer=Fortran RejectNegative Joined-finit-integer=<n>	Initialize local integer variables to n.
+finit-local-zeroFortranInitialize local variables to zero (from g77).
+finit-logical=Fortran RejectNegative Joined-finit-logical=<true|false>	Initialize local logical variables.
+finit-real=Fortran RejectNegative ToLower Joined Enum(gfc_init_local_real) Var(flag_init_real) Init(GFC_INIT_REAL_OFF)-finit-real=<zero|snan|nan|inf|-inf>	Initialize local real variables.
+finlineCommon Report Var(flag_no_inline,0) Init(0) OptimizationEnable inlining of function declared \"inline\", disabling disables all inlining.
+finline-atomicsCommon Report Var(flag_inline_atomics) Init(1) OptimizationInline __atomic operations when a lock free instruction sequence is available.
+finline-functionsCommon Report Var(flag_inline_functions) OptimizationIntegrate functions not declared \"inline\" into their callers when profitable.
+finline-functions-called-onceCommon Report Var(flag_inline_functions_called_once) OptimizationIntegrate functions only required by their single caller.
+finline-limit-Common RejectNegative Joined Alias(finline-limit=)
+finline-limit=Common RejectNegative Joined UInteger-finline-limit=<number>	Limit the size of inlined functions to <number>.
+finline-matmul-limit=Fortran RejectNegative Joined UInteger Var(flag_inline_matmul_limit) Init(-1)-finline-matmul-limit=<n>	Specify the size of the largest matrix for which matmul will be inlined.
+finline-small-functionsCommon Report Var(flag_inline_small_functions) OptimizationIntegrate functions into their callers when code size is known not to grow.
+finput-charset=C ObjC C++ ObjC++ Joined RejectNegative-finput-charset=<cset>	Specify the default character set for source files.
+finstrument-functionsCommon Report Var(flag_instrument_function_entry_exit)Instrument function entry and exit with profiling calls.
+finstrument-functions-exclude-file-list=Common RejectNegative Joined-finstrument-functions-exclude-file-list=filename,...  Do not instrument functions listed in files.
+finstrument-functions-exclude-function-list=Common RejectNegative Joined-finstrument-functions-exclude-function-list=name,...  Do not instrument listed functions.
+finteger-4-integer-8Fortran RejectNegative Var(flag_integer4_kind,8)Interpret any INTEGER(4) as an INTEGER(8).
+fintrinsic-modules-pathFortran RejectNegative SeparateSpecify where to find the compiled intrinsic modules.
+fintrinsic-modules-path=Fortran RejectNegative JoinedSpecify where to find the compiled intrinsic modules.
+fipa-bit-cpCommon Report Var(flag_ipa_bit_cp) OptimizationPerform interprocedural bitwise constant propagation.
+fipa-cpCommon Report Var(flag_ipa_cp) OptimizationPerform interprocedural constant propagation.
+fipa-cp-alignmentCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fipa-cp-cloneCommon Report Var(flag_ipa_cp_clone) OptimizationPerform cloning to make Interprocedural constant propagation stronger.
+fipa-icfCommon Report Var(flag_ipa_icf) OptimizationPerform Identical Code Folding for functions and read-only variables.
+fipa-icf-functionsCommon Report Var(flag_ipa_icf_functions) OptimizationPerform Identical Code Folding for functions.
+fipa-icf-variablesCommon Report Var(flag_ipa_icf_variables) OptimizationPerform Identical Code Folding for variables.
+fipa-matrix-reorgCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fipa-profileCommon Report Var(flag_ipa_profile) Init(0) OptimizationPerform interprocedural profile propagation.
+fipa-ptaCommon Report Var(flag_ipa_pta) Init(0) OptimizationPerform interprocedural points-to analysis.
+fipa-pure-constCommon Report Var(flag_ipa_pure_const) Init(0) OptimizationDiscover pure and const functions.
+fipa-raCommon Report Var(flag_ipa_ra) OptimizationUse caller save register across calls if possible.
+fipa-referenceCommon Report Var(flag_ipa_reference) Init(0) OptimizationDiscover readonly and non addressable static variables.
+fipa-sraCommon Report Var(flag_ipa_sra) Init(0) OptimizationPerform interprocedural reduction of aggregates.
+fipa-struct-reorgCommon IgnoreDoes nothing. Preserved for backward compatibility.
+fipa-vrpCommon Report Var(flag_ipa_vrp) OptimizationPerform IPA Value Range Propagation.
+fira-algorithm=Common Joined RejectNegative Enum(ira_algorithm) Var(flag_ira_algorithm) Init(IRA_ALGORITHM_CB) Optimization-fira-algorithm=[CB|priority]	Set the used IRA algorithm.
+fira-hoist-pressureCommon Report Var(flag_ira_hoist_pressure) Init(1) OptimizationUse IRA based register pressure calculationin RTL hoist optimizations.
+fira-loop-pressureCommon Report Var(flag_ira_loop_pressure) OptimizationUse IRA based register pressure calculationin RTL loop optimizations.
+fira-region=Common Joined RejectNegative Enum(ira_region) Var(flag_ira_region) Init(IRA_REGION_AUTODETECT) Optimization-fira-region=[one|all|mixed]	Set regions for IRA.
+fira-share-save-slotsCommon Report Var(flag_ira_share_save_slots) Init(1) OptimizationShare slots for saving different hard registers.
+fira-share-spill-slotsCommon Report Var(flag_ira_share_spill_slots) Init(1) OptimizationShare stack slots for spilled pseudo-registers.
+fira-verbose=Common RejectNegative Joined UInteger Var(flag_ira_verbose) Init(5)-fira-verbose=<number>	Control IRA's level of diagnostic messages.
+fisolate-erroneous-paths-attributeCommon Report Var(flag_isolate_erroneous_paths_attribute) OptimizationDetect paths that trigger erroneous or undefined behavior due to a null valuebeing used in a way forbidden by a returns_nonnull or nonnullattribute.  Isolate those paths from the main control flow and turn thestatement with erroneous or undefined behavior into a trap.
+fisolate-erroneous-paths-dereferenceCommon Report Var(flag_isolate_erroneous_paths_dereference) OptimizationDetect paths that trigger erroneous or undefined behavior due todereferencing a null pointer.  Isolate those paths from the main controlflow and turn the statement with erroneous or undefined behavior into a trap.
+fivar-visibility=ObjC ObjC++ Joined RejectNegative Enum(ivar_visibility) Var(default_ivar_visibility) Init(IVAR_VISIBILITY_PROTECTED)-fvisibility=[private|protected|public|package]	Set the default symbol visibility.
+fivoptsCommon Report Var(flag_ivopts) Init(1) OptimizationOptimize induction variables on trees.
+fjump-tablesCommon Var(flag_jump_tables) Init(1) OptimizationUse jump tables for sufficiently large switch statements.
+fkeep-gc-roots-liveCommon Undocumented Report Var(flag_keep_gc_roots_live) Optimization
+fkeep-inline-dllexportC C++ ObjC ObjC++ Var(flag_keep_inline_dllexport) Init(1) Report Condition(TARGET_DLLIMPORT_DECL_ATTRIBUTES)Don't emit dllexported inline functions unless needed.
+fkeep-inline-functionsCommon Report Var(flag_keep_inline_functions)Generate code for functions even if they are fully inlined.
+fkeep-static-constsCommon Report Var(flag_keep_static_consts) Init(1)Emit static const variables even if they are not used.
+fkeep-static-functionsCommon Report Var(flag_keep_static_functions)Generate code for static functions even if they are never called.
+flabels-okC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+flax-vector-conversionsC ObjC C++ ObjC++ Var(flag_lax_vector_conversions)Allow implicit conversions between vectors with differing numbers of subparts and/or differing element types.
+fleading-underscoreCommon Report Var(flag_leading_underscore) Init(-1)Give external symbols a leading underscore.
+flifetime-dseCommon Report Var(flag_lifetime_dse,2) Init(2) OptimizationTell DSE that the storage for a C++ object is dead when the constructorstarts and when the destructor finishes.
+flifetime-dse=Common Joined RejectNegative UInteger Var(flag_lifetime_dse) Optimization IntegerRange(0, 2)
+flimit-function-alignmentCommon Report Var(flag_limit_function_alignment) Optimization Init(0)
+flinker-output=LTO Report Driver Joined RejectNegative Enum(lto_linker_output) Var(flag_lto_linker_output) Init(LTO_LINKER_OUTPUT_UNKNOWN)Set linker output type (used internally during LTO optimization)
+flive-range-shrinkageCommon Report Var(flag_live_range_shrinkage) Init(0) OptimizationRelief of register pressure through live range shrinkage.
+flocal-ivarsObjC ObjC++ Var(flag_local_ivars) Init(1)Allow access to instance variables as if they were local declarations within instance method implementations.
+floop-blockCommon Alias(floop-nest-optimize)Enable loop nest transforms.  Same as -floop-nest-optimize.
+floop-flattenCommon IgnoreDoes nothing. Preserved for backward compatibility.
+floop-interchangeCommon Report Var(flag_loop_interchange) OptimizationEnable loop interchange on trees.
+floop-nest-optimizeCommon Report Var(flag_loop_nest_optimize) OptimizationEnable the loop nest optimizer.
+floop-optimizeCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+floop-parallelize-allCommon Report Var(flag_loop_parallelize_all) OptimizationMark all loops as parallel.
+floop-strip-mineCommon Alias(floop-nest-optimize)Enable loop nest transforms.  Same as -floop-nest-optimize.
+floop-unroll-and-jamCommon Report Var(flag_unroll_jam) OptimizationPerform unroll-and-jam on loops.
+flra-rematCommon Report Var(flag_lra_remat) OptimizationDo CFG-sensitive rematerialization in LRA.
+fltoCommonEnable link-time optimization.
+flto-compression-level=Common Joined RejectNegative UInteger Var(flag_lto_compression_level) Init(-1) IntegerRange(0, 9)-flto-compression-level=<number>	Use zlib compression level <number> for IL.
+flto-odr-type-mergingCommon Report Var(flag_lto_odr_type_mering) Init(1)Merge C++ types using One Definition Rule.
+flto-partition=Common Joined RejectNegative Enum(lto_partition_model) Var(flag_lto_partition) Init(LTO_PARTITION_BALANCED)Specify the algorithm to partition symbols and vars at linktime.
+flto-reportCommon Report Var(flag_lto_report) Init(0)Report various link-time optimization statistics.
+flto-report-wpaCommon Report Var(flag_lto_report_wpa) Init(0)Report various link-time optimization statistics for WPA only.
+flto=Common RejectNegative Joined Var(flag_lto)Link-time optimization with number of parallel jobs or jobserver.
+fltransLTO Report Var(flag_ltrans)Run the link-time optimizer in local transformation (LTRANS) mode.
+fltrans-output-list=LTO Joined Var(ltrans_output_list)Specify a file to which a list of files output by LTRANS is written.
+fmacro-prefix-map=C ObjC C++ ObjC++ Joined RejectNegative-fmacro-prefix-map=<old>=<new> Map one directory name to another in __FILE__, __BASE_FILE__, and __builtin_FILE().
+fmath-errnoCommon Report Var(flag_errno_math) Init(1) Optimization SetByCombinedSet errno after built-in math functions.
+fmax-array-constructor=Fortran RejectNegative Joined UInteger Var(flag_max_array_constructor) Init(65535)-fmax-array-constructor=<n>	Maximum number of objects in an array constructor.
+fmax-errors=Common Joined RejectNegative UInteger Var(flag_max_errors)-fmax-errors=<number>	Maximum number of errors to report.
+fmax-identifier-length=Fortran RejectNegative Joined UInteger-fmax-identifier-length=<n>	Maximum identifier length.
+fmax-stack-var-size=Fortran RejectNegative Joined UInteger Var(flag_max_stack_var_size) Init(-2)-fmax-stack-var-size=<n>	Size in bytes of the largest array that will be put on the stack.
+fmax-subrecord-length=Fortran RejectNegative Joined UInteger Var(flag_max_subrecord_length)-fmax-subrecord-length=<n>	Maximum length for subrecords.
+fmem-reportCommon Report Var(mem_report)Report on permanent memory allocation.
+fmem-report-wpaCommon Report Var(mem_report_wpa)Report on permanent memory allocation in WPA only.
+fmerge-all-constantsCommon Report Var(flag_merge_constants,2) Init(1)Attempt to merge identical constants and constant variables.
+fmerge-constantsCommon Report Var(flag_merge_constants,1)Attempt to merge identical constants across compilation units.
+fmerge-debug-stringsCommon Report Var(flag_merge_debug_strings) Init(1)Attempt to merge identical debug strings across compilation units.
+fmessage-length=Common RejectNegative Joined UInteger-fmessage-length=<number>	Limit diagnostics to <number> characters per line.  0 suppresses line-wrapping.
+fmodule-privateFortran Var(flag_module_private)Set default accessibility of module entities to PRIVATE.
+fmodulo-schedCommon Report Var(flag_modulo_sched) OptimizationPerform SMS based modulo scheduling before the first scheduling pass.
+fmodulo-sched-allow-regmovesCommon Report Var(flag_modulo_sched_allow_regmoves) OptimizationPerform SMS based modulo scheduling with register moves allowed.
+fmove-loop-invariantsCommon Report Var(flag_move_loop_invariants) OptimizationMove loop invariant computations out of loops.
+fms-extensionsC ObjC C++ ObjC++ Var(flag_ms_extensions)Don't warn about uses of Microsoft extensions.
+fmudflapC ObjC C++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fmudflapirC ObjC C++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fmudflapthC ObjC C++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fname-mangling-version-C++ ObjC++ Joined Ignore Warn(switch %qs is no longer supported)
+fnew-abiC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fnew-inheriting-ctorsC++ ObjC++ Var(flag_new_inheriting_ctors) Init(1)Implement C++17 inheriting constructor semantics.
+fnew-ttp-matchingC++ ObjC++ Var(flag_new_ttp)Implement resolution of DR 150 for matching of template template arguments.
+fnext-runtimeObjC ObjC++ LTO Report RejectNegative Var(flag_next_runtime)Generate code for NeXT (Apple Mac OS X) runtime environment.
+fnil-receiversObjC ObjC++ Var(flag_nil_receivers) Init(1)Assume that receivers of Objective-C messages may be nil.
+fnon-call-exceptionsCommon Report Var(flag_non_call_exceptions) OptimizationSupport synchronous non-call exceptions.
+fnonansi-builtinsC++ ObjC++ Var(flag_no_nonansi_builtin, 0)
+fnonnull-objectsC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fnothrow-optC++ ObjC++ Optimization Var(flag_nothrow_opt)Treat a throw() exception specification as noexcept to improve code size.
+fobjc-abi-version=ObjC ObjC++ LTO Joined Report RejectNegative UInteger Var(flag_objc_abi)Specify which ABI to use for Objective-C family code and meta-data generation.
+fobjc-call-cxx-cdtorsObjC++ Var(flag_objc_call_cxx_cdtors)Generate special Objective-C methods to initialize/destroy non-POD C++ ivars, if needed.
+fobjc-direct-dispatchObjC ObjC++ Var(flag_objc_direct_dispatch)Allow fast jumps to the message dispatcher.
+fobjc-exceptionsObjC ObjC++ Var(flag_objc_exceptions)Enable Objective-C exception and synchronization syntax.
+fobjc-gcObjC ObjC++ LTO Var(flag_objc_gc)Enable garbage collection (GC) in Objective-C/Objective-C++ programs.
+fobjc-nilcheckObjC ObjC++ Var(flag_objc_nilcheck,1)Enable inline checks for nil receivers with the NeXT runtime and ABI version 2.
+fobjc-sjlj-exceptionsObjC ObjC++ Var(flag_objc_sjlj_exceptions) Init(-1)Enable Objective-C setjmp exception handling runtime.
+fobjc-std=objc1ObjC ObjC++ Var(flag_objc1_only)Conform to the Objective-C 1.0 language as implemented in GCC 4.0.
+foffload-abi=Common Joined RejectNegative Enum(offload_abi) Var(flag_offload_abi) Init(OFFLOAD_ABI_UNSET)-foffload-abi=[lp64|ilp32]     Set the ABI to use in an offload compiler.
+foffload=Common Driver Joined MissingArgError(options or targets missing after %qs)-foffload=<targets>=<options>  Specify offloading targets and options for them.
+fomit-frame-pointerCommon Report Var(flag_omit_frame_pointer) OptimizationWhen possible do not generate stack frames.
+fopenaccC ObjC C++ ObjC++ LTO Var(flag_openacc)Enable OpenACC.
+fopenaccFortran LTO
+fopenacc-dim=C ObjC C++ ObjC++ LTO Joined Var(flag_openacc_dims)Specify default OpenACC compute dimensions.
+fopenacc-dim=Fortran LTO Joined Var(flag_openacc_dims)
+fopenmpC ObjC C++ ObjC++ LTO Var(flag_openmp)Enable OpenMP (implies -frecursive in Fortran).
+fopenmpFortran LTO
+fopenmp-simdC ObjC C++ ObjC++ Var(flag_openmp_simd)Enable OpenMP's SIMD directives.
+fopenmp-simdFortran
+foperator-namesC++ ObjC++Recognize C++ keywords like \"compl\" and \"xor\".
+fopt-infoCommon Report Var(flag_opt_info) OptimizationEnable all optimization info dumps on stderr.
+fopt-info-Common Joined RejectNegative Var(common_deferred_options) Defer-fopt-info[-<type>=filename]	Dump compiler optimization details.
+foptimize-register-moveCommon IgnoreDoes nothing. Preserved for backward compatibility.
+foptimize-sibling-callsCommon Report Var(flag_optimize_sibling_calls) OptimizationOptimize sibling and tail recursive calls.
+foptimize-strlenCommon Report Var(flag_optimize_strlen) OptimizationEnable string length optimizations on trees.
+foptional-diagsC++ ObjC++ IgnoreDoes nothing.  Preserved for backward compatibility.
+fpack-derivedFortran Var(flag_pack_derived)Try to lay out derived types as compactly as possible.
+fpack-structCommon Report Var(flag_pack_struct) OptimizationPack structure members together without holes.
+fpack-struct=Common RejectNegative Joined UInteger Optimization-fpack-struct=<number>	Set initial maximum structure member alignment.
+fpartial-inliningCommon Report Var(flag_partial_inlining) OptimizationPerform partial inlining.
+fpatchable-function-entry=Common Joined OptimizationInsert NOP instructions at each function entry.
+fpcc-struct-returnCommon Report Var(flag_pcc_struct_return,1) Init(DEFAULT_PCC_STRUCT_RETURN)Return small aggregates in memory, not registers.
+fpch-depsC ObjC C++ ObjC++
+fpch-preprocessC ObjC C++ ObjC++Look for and use PCH files even when preprocessing.
+fpeel-loopsCommon Report Var(flag_peel_loops) OptimizationPerform loop peeling.
+fpeepholeCommon Report Var(flag_no_peephole,0) OptimizationEnable machine specific peephole optimizations.
+fpeephole2Common Report Var(flag_peephole2) OptimizationEnable an RTL peephole pass before sched2.
+fpermissiveC++ ObjC++ Var(flag_permissive)Downgrade conformance errors to warnings.
+fpermitted-flt-eval-methods=Common Joined RejectNegative Enum(permitted_flt_eval_methods) Var(flag_permitted_flt_eval_methods) Init(PERMITTED_FLT_EVAL_METHODS_DEFAULT)-fpermitted-flt-eval-methods=[c11|ts-18661]	Specify which values of FLT_EVAL_METHOD are permitted.
+fpicCommon Report Var(flag_pic,1) Negative(fpie) Init(-1)Generate position-independent code if possible (small mode).
+fpieCommon Report Var(flag_pie,1) Negative(fPIC) Init(-1)Generate position-independent code for executables if possible (small mode).
+fplan9-extensionsC ObjC Var(flag_plan9_extensions)Enable Plan 9 language extensions.
+fpltCommon Report Var(flag_plt) Init(1) OptimizationUse PLT for PIC calls (-fno-plt: load the address from GOT at call site).
+fplugin-arg-Common Joined RejectNegative Var(common_deferred_options) Defer-fplugin-arg-<name>-<key>[=<value>]	Specify argument <key>=<value> for plugin <name>.
+fplugin=Common Joined RejectNegative Var(common_deferred_options) DeferSpecify a plugin to load.
+fpost-ipa-mem-reportCommon Report Var(post_ipa_mem_report)Report on memory allocation before interprocedural optimization.
+fpre-ipa-mem-reportCommon Report Var(pre_ipa_mem_report)Report on memory allocation before interprocedural optimization.
+fpredictive-commoningCommon Report Var(flag_predictive_commoning) OptimizationRun predictive commoning optimization.
+fprefetch-loop-arraysCommon Report Var(flag_prefetch_loop_arrays) Init(-1) OptimizationGenerate prefetch instructions, if available, for arrays in loops.
+fpreprocessedC ObjC C++ ObjC++Treat the input file as already preprocessed.
+fpreprocessedFortran
+fpretty-templatesC++ ObjC++ Var(flag_pretty_templates) Init(1)-fno-pretty-templates Do not pretty-print template specializations as the template signature followed by the arguments.
+fprintf-return-valueC ObjC C++ ObjC++ LTO Optimization Var(flag_printf_return_value) Init(1)Treat known sprintf return values as constants.
+fprofileCommon Report Var(profile_flag)Enable basic program profiling code.
+fprofile-abs-pathCommon Report Var(profile_abs_path_flag)Generate absolute source path names for gcov.
+fprofile-arcsCommon Report Var(profile_arc_flag)Insert arc-based program profiling code.
+fprofile-correctionCommon Report Var(flag_profile_correction)Enable correction of flow inconsistent profile data input.
+fprofile-dir=Common Joined RejectNegative Var(profile_data_prefix)Set the top-level directory for storing the profile data.The default is 'pwd'.
+fprofile-generateCommonEnable common options for generating profile info for profile feedback directed optimizations.
+fprofile-generate=Common Joined RejectNegativeEnable common options for generating profile info for profile feedback directed optimizations, and set -fprofile-dir=.
+fprofile-reorder-functionsCommon Report Var(flag_profile_reorder_functions)Enable function reordering that improves code placement.
+fprofile-reportCommon Report Var(profile_report)Report on consistency of profile.
+fprofile-update=Common Joined RejectNegative Enum(profile_update) Var(flag_profile_update) Init(PROFILE_UPDATE_SINGLE)-fprofile-update=[single|atomic|prefer-atomic]	Set the profile update method.
+fprofile-useCommon Var(flag_profile_use)Enable common options for performing profile feedback directed optimizations.
+fprofile-use=Common Joined RejectNegativeEnable common options for performing profile feedback directed optimizations, and set -fprofile-dir=.
+fprofile-valuesCommon Report Var(flag_profile_values)Insert code to profile values of expressions.
+fprotect-parensFortran Var(flag_protect_parens) Init(-1)Protect parentheses in expressions.
+frandom-seedCommon Var(common_deferred_options) Defer
+frandom-seed=Common Joined RejectNegative Var(common_deferred_options) Defer-frandom-seed=<string>	Make compile reproducible using <string>.
+frange-checkFortran Var(flag_range_check) Init(1)Enable range checking during compilation.
+freal-4-real-10Fortran RejectNegative Var(flag_real4_kind,10)Interpret any REAL(4) as a REAL(10).
+freal-4-real-16Fortran RejectNegative Var(flag_real4_kind,16)Interpret any REAL(4) as a REAL(16).
+freal-4-real-8Fortran RejectNegative Var(flag_real4_kind,8)Interpret any REAL(4) as a REAL(8).
+freal-8-real-10Fortran RejectNegative Var(flag_real8_kind,10)Interpret any REAL(8) as a REAL(10).
+freal-8-real-16Fortran RejectNegative Var(flag_real8_kind,16)Interpret any REAL(8) as a REAL(16).
+freal-8-real-4Fortran RejectNegative Var(flag_real8_kind,4)Interpret any REAL(8) as a REAL(4).
+frealloc-lhsFortran Var(flag_realloc_lhs) Init(-1)Reallocate the LHS in assignments.
+freciprocal-mathCommon Report Var(flag_reciprocal_math) SetByCombined OptimizationSame as -fassociative-math for expressions which include division.
+frecord-gcc-switchesCommon Report Var(flag_record_gcc_switches)Record gcc command line switches in the object file.
+frecord-marker=4Fortran RejectNegative Var(flag_record_marker,4)Use a 4-byte record marker for unformatted files.
+frecord-marker=8Fortran RejectNegative Var(flag_record_marker,8)Use an 8-byte record marker for unformatted files.
+frecursiveFortran Var(flag_recursive)Allocate local variables on the stack to allow indirect recursion.
+freeCommon Report Var(flag_ree) Init(0)Turn on Redundant Extensions Elimination pass.
+freg-struct-returnCommon Report Var(flag_pcc_struct_return,0) OptimizationReturn small aggregates in registers.
+fregmoveCommon IgnoreDoes nothing. Preserved for backward compatibility.
+frename-registersCommon Report Var(flag_rename_registers) Init(2) OptimizationPerform a register renaming optimization pass.
+freorder-blocksCommon Report Var(flag_reorder_blocks) OptimizationReorder basic blocks to improve code placement.
+freorder-blocks-algorithm=Common Joined RejectNegative Enum(reorder_blocks_algorithm) Var(flag_reorder_blocks_algorithm) Init(REORDER_BLOCKS_ALGORITHM_SIMPLE) Optimization-freorder-blocks-algorithm=[simple|stc]	Set the used basic block reordering algorithm.
+freorder-blocks-and-partitionCommon Report Var(flag_reorder_blocks_and_partition) OptimizationReorder basic blocks and partition into hot and cold sections.
+freorder-functionsCommon Report Var(flag_reorder_functions) OptimizationReorder functions to improve code placement.
+frepack-arraysFortran Var(flag_repack_arrays)Copy array sections into a contiguous block on procedure entry.
+freplace-objc-classesObjC ObjC++ LTO Var(flag_replace_objc_classes)Used in Fix-and-Continue mode to indicate that object files may be swapped in at runtime.
+frepoC++ ObjC++Enable automatic template instantiation.
+freport-bugCommon Driver Var(flag_report_bug)Collect and dump debug information into temporary file if ICE in C/C++compiler occurred.
+frequire-return-statementGo Var(go_require_return_statement) Init(1) WarningFunctions which return values must end with return statements.
+frerun-cse-after-loopCommon Report Var(flag_rerun_cse_after_loop) OptimizationAdd a common subexpression elimination pass after loop optimizations.
+frerun-loop-optCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+freschedule-modulo-scheduled-loopsCommon Report Var(flag_resched_modulo_sched) OptimizationEnable/Disable the traditional scheduling in loops that already passed modulo scheduling.
+fresolution=LTO JoinedThe resolution file.
+frounding-mathCommon Report Var(flag_rounding_math) Optimization SetByCombinedDisable optimizations that assume default FP rounding behavior.
+frttiC++ ObjC++ Optimization Var(flag_rtti) Init(1)Generate run time type descriptor information.
+fsanitize-address-use-after-scopeCommon Driver Report Var(flag_sanitize_address_use_after_scope) Init(0)
+fsanitize-coverage=Common Report JoinedSelect type of coverage sanitization.
+fsanitize-recoverCommon ReportThis switch is deprecated; use -fsanitize-recover= instead.
+fsanitize-recover=Common Report JoinedAfter diagnosing undefined behavior attempt to continue execution.
+fsanitize-sections=Common Joined RejectNegative Var(common_deferred_options) Defer-fsanitize-sections=<sec1,sec2,...>	Sanitize global variablesin user-defined sections.
+fsanitize-undefined-trap-on-errorCommon Driver Report Var(flag_sanitize_undefined_trap_on_error) Init(0)Use trap instead of a library function for undefined behavior sanitization.
+fsanitize=Common Driver Report JoinedSelect what to sanitize.
+fsched-critical-path-heuristicCommon Report Var(flag_sched_critical_path_heuristic) Init(1) OptimizationEnable the critical path heuristic in the scheduler.
+fsched-dep-count-heuristicCommon Report Var(flag_sched_dep_count_heuristic) Init(1) OptimizationEnable the dependent count heuristic in the scheduler.
+fsched-group-heuristicCommon Report Var(flag_sched_group_heuristic) Init(1) OptimizationEnable the group heuristic in the scheduler.
+fsched-interblockCommon Report Var(flag_schedule_interblock) Init(1) OptimizationEnable scheduling across basic blocks.
+fsched-last-insn-heuristicCommon Report Var(flag_sched_last_insn_heuristic) Init(1) OptimizationEnable the last instruction heuristic in the scheduler.
+fsched-pressureCommon Report Var(flag_sched_pressure) Init(0) OptimizationEnable register pressure sensitive insn scheduling.
+fsched-rank-heuristicCommon Report Var(flag_sched_rank_heuristic) Init(1) OptimizationEnable the rank heuristic in the scheduler.
+fsched-specCommon Report Var(flag_schedule_speculative) Init(1) OptimizationAllow speculative motion of non-loads.
+fsched-spec-insn-heuristicCommon Report Var(flag_sched_spec_insn_heuristic) Init(1) OptimizationEnable the speculative instruction heuristic in the scheduler.
+fsched-spec-loadCommon Report Var(flag_schedule_speculative_load) OptimizationAllow speculative motion of some loads.
+fsched-spec-load-dangerousCommon Report Var(flag_schedule_speculative_load_dangerous) OptimizationAllow speculative motion of more loads.
+fsched-stalled-insnsCommon Report Var(flag_sched_stalled_insns) Optimization UIntegerAllow premature scheduling of queued insns.
+fsched-stalled-insns-depCommon Report Var(flag_sched_stalled_insns_dep,1) Init(1) Optimization UIntegerSet dependence distance checking in premature scheduling of queued insns.
+fsched-stalled-insns-dep=Common RejectNegative Joined UInteger Optimization-fsched-stalled-insns-dep=<number>	Set dependence distance checking in premature scheduling of queued insns.
+fsched-stalled-insns=Common RejectNegative Joined UInteger Optimization-fsched-stalled-insns=<number>	Set number of queued insns that can be prematurely scheduled.
+fsched-verbose=Common RejectNegative Joined UInteger Var(sched_verbose_param) Init(1)-fsched-verbose=<number>	Set the verbosity level of the scheduler.
+fsched2-use-superblocksCommon Report Var(flag_sched2_use_superblocks) OptimizationIf scheduling post reload, do superblock scheduling.
+fsched2-use-tracesCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fschedule-fusionCommon Report Var(flag_schedule_fusion) Init(2) OptimizationPerform a target dependent instruction fusion optimization pass.
+fschedule-insnsCommon Report Var(flag_schedule_insns) OptimizationReschedule instructions before register allocation.
+fschedule-insns2Common Report Var(flag_schedule_insns_after_reload) OptimizationReschedule instructions after register allocation.
+fsecond-underscoreFortran Var(flag_second_underscore) Init(-1)Append a second underscore if the name already contains an underscore.
+fsection-anchorsCommon Report Var(flag_section_anchors) OptimizationAccess data in the same section from shared anchor points.
+fseeCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fsel-sched-pipeliningCommon Report Var(flag_sel_sched_pipelining) Init(0) OptimizationPerform software pipelining of inner loops during selective scheduling.
+fsel-sched-pipelining-outer-loopsCommon Report Var(flag_sel_sched_pipelining_outer_loops) Init(0) OptimizationPerform software pipelining of outer loops during selective scheduling.
+fsel-sched-reschedule-pipelinedCommon Report Var(flag_sel_sched_reschedule_pipelined) Init(0) OptimizationReschedule pipelined regions without pipelining.
+fselective-schedulingCommon Report Var(flag_selective_scheduling) OptimizationSchedule instructions using selective scheduling algorithm.
+fselective-scheduling2Common Report Var(flag_selective_scheduling2) OptimizationRun selective scheduling after reload.
+fself-test=Common Undocumented Joined Var(flag_self_test)Run self-tests, using the given path to locate test files.
+fsemantic-interpositionCommon Report Var(flag_semantic_interposition) Init(1)Allow interposing function (or variables) by ones with different semantics (or initializer) respectively by dynamic linker.
+fshort-enumsAda AdaWhy AdaSCILUse the narrowest integer type possible for enumeration types.
+fshort-enumsC ObjC C++ ObjC++ LTO Optimization Var(flag_short_enums)Use the narrowest integer type possible for enumeration types.
+fshort-enumsFortran Var(flag_short_enums)
+fshort-wcharC ObjC C++ ObjC++ LTO Optimization Var(flag_short_wchar)Force the underlying type for \"wchar_t\" to be \"unsigned short\".
+fshow-columnCommon Report Var(flag_show_column) Init(1)Show column numbers in diagnostics, when available.  Default on.
+fshrink-wrapCommon Report Var(flag_shrink_wrap) OptimizationEmit function prologues only before parts of the function that need it,rather than at the top of the function.
+fshrink-wrap-separateCommon Report Var(flag_shrink_wrap_separate) Init(1) OptimizationShrink-wrap parts of the prologue and epilogue separately.
+fsign-zeroFortran Var(flag_sign_zero) Init(1)Apply negative sign to zero values.
+fsignaling-nansCommon Report Var(flag_signaling_nans) Optimization SetByCombinedDisable optimizations observable by IEEE signaling NaNs.
+fsigned-bitfieldsC ObjC C++ ObjC++ Var(flag_signed_bitfields) Init(1)When \"signed\" or \"unsigned\" is not given make the bitfield signed.
+fsigned-charAda AdaWhy AdaSCILMake \"char\" signed by default.
+fsigned-charC ObjC C++ ObjC++ LTO Var(flag_signed_char)Make \"char\" signed by default.
+fsigned-zerosCommon Report Var(flag_signed_zeros) Init(1) Optimization SetByCombinedDisable floating point optimizations that ignore the IEEE signedness of zero.
+fsimd-cost-model=Common Joined RejectNegative Enum(vect_cost_model) Var(flag_simd_cost_model) Init(VECT_COST_MODEL_UNLIMITED) Optimization-fsimd-cost-model=[unlimited|dynamic|cheap]	Specifies the vectorization cost model for code marked with a simd directive.
+fsingle-precision-constantCommon Report Var(flag_single_precision_constant) OptimizationConvert floating point constants to single precision constants.
+fsized-deallocationC++ ObjC++ Var(flag_sized_deallocation) Init(-1)Enable C++14 sized deallocation support.
+fsplit-ivs-in-unrollerCommon Report Var(flag_split_ivs_in_unroller) Init(1) OptimizationSplit lifetimes of induction variables when loops are unrolled.
+fsplit-loopsCommon Report Var(flag_split_loops) OptimizationPerform loop splitting.
+fsplit-pathsCommon Report Var(flag_split_paths) Init(0) OptimizationSplit paths leading to loop backedges.
+fsplit-stackCommon Report Var(flag_split_stack) Init(-1)Generate discontiguous stack frames.
+fsplit-wide-typesCommon Report Var(flag_split_wide_types) OptimizationSplit wide types into independent registers.
+fsquangleC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fssa-backpropCommon Report Var(flag_ssa_backprop) Init(1) OptimizationEnable backward propagation of use properties at the SSA level.
+fssa-phioptCommon Report Var(flag_ssa_phiopt) OptimizationOptimize conditional patterns using SSA PHI nodes.
+fsso-struct=C ObjC Joined RejectNegative Enum(sso_struct) Var(default_sso) Init(SSO_NATIVE)-fsso-struct=[big-endian|little-endian|native]	Set the default scalar storage order.
+fstack-arraysFortran Var(flag_stack_arrays) Init(-1)Put all local arrays on stack.
+fstack-checkCommon Alias(fstack-check=, specific, no)Insert stack checking code into the program.  Same as -fstack-check=specific.
+fstack-check=Common Report RejectNegative Joined Optimization-fstack-check=[no|generic|specific]	Insert stack checking code into the program.
+fstack-clash-protectionCommon Report Var(flag_stack_clash_protection) OptimizationInsert code to probe each page of stack space as it is allocated to protectfrom stack-clash style attacks.
+fstack-limitCommon Var(common_deferred_options) Defer
+fstack-limit-register=Common RejectNegative Joined Var(common_deferred_options) Defer-fstack-limit-register=<register>	Trap if the stack goes past <register>.
+fstack-limit-symbol=Common RejectNegative Joined Var(common_deferred_options) Defer-fstack-limit-symbol=<name>	Trap if the stack goes past symbol <name>.
+fstack-protectorCommon Report Var(flag_stack_protect, 1) Init(-1) OptimizationUse propolice as a stack protection method.
+fstack-protector-allCommon Report RejectNegative Var(flag_stack_protect, 2) Init(-1) OptimizationUse a stack protection method for every function.
+fstack-protector-explicitCommon Report RejectNegative Var(flag_stack_protect, 4) OptimizationUse stack protection method only for functions with the stack_protect attribute.
+fstack-protector-strongCommon Report RejectNegative Var(flag_stack_protect, 3) Init(-1) OptimizationUse a smart stack protection method for certain functions.
+fstack-reuse=Common Joined RejectNegative Enum(stack_reuse_level) Var(flag_stack_reuse) Init(SR_ALL) Optimization-fstack-reuse=[all|named_vars|none]	Set stack reuse level for local variables.
+fstack-usageCommon RejectNegative Var(flag_stack_usage)Output stack usage information on a per-function basis.
+fstatsC++ ObjC++ Var(flag_detailed_statistics)Display statistics accumulated during compilation.
+fstdarg-optCommon Report Var(flag_stdarg_opt) Init(1) OptimizationOptimize amount of stdarg registers saved to stack at start of function.
+fstore-mergingCommon Report Var(flag_store_merging) OptimizationMerge adjacent stores.
+fstrength-reduceCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fstrict-aliasingCommon Report Var(flag_strict_aliasing) OptimizationAssume strict aliasing rules apply.
+fstrict-enumsC++ ObjC++ Optimization Var(flag_strict_enums)Assume that values of enumeration type are always within the minimum range of that type.
+fstrict-overflowCommon ReportTreat signed overflow as undefined.  Negated as -fwrapv -fwrapv-pointer.
+fstrict-prototypeC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fstrict-volatile-bitfieldsCommon Report Var(flag_strict_volatile_bitfields) Init(-1) OptimizationForce bitfield accesses to match their type width.
+fstrong-eval-orderC++ ObjC++ Common Alias(fstrong-eval-order=, all, none)Follow the C++17 evaluation order requirements for assignment expressions,shift, member function calls, etc.
+fstrong-eval-order=C++ ObjC++ Common Var(flag_strong_eval_order) Joined Enum(strong_eval_order) RejectNegative Init(-1)Follow the C++17 evaluation order requirements for assignment expressions,shift, member function calls, etc.
+fsync-libcallsCommon Report Var(flag_sync_libcalls) Init(1)Implement __atomic operations via libcalls to legacy __sync functions.
+fsyntax-onlyCommon Report Var(flag_syntax_only)Check for syntax errors, then stop.
+ftabstop=C ObjC C++ ObjC++ Joined RejectNegative UInteger-ftabstop=<number>	Distance between tab stops for column reporting.
+ftarget-helpCommon Driver Alias(-target-help)
+ftemplate-backtrace-limit=C++ ObjC++ Joined RejectNegative UInteger Var(template_backtrace_limit) Init(10)Set the maximum number of template instantiation notes for a single warning or error.
+ftemplate-depth-C++ ObjC++ Joined RejectNegative Undocumented Alias(ftemplate-depth=)
+ftemplate-depth=C++ ObjC++ Joined RejectNegative UInteger-ftemplate-depth=<number>	Specify maximum template instantiation depth.
+ftest-coverageCommon Report Var(flag_test_coverage)Create data files needed by \"gcov\".
+ftest-forall-tempFortran Var(flag_test_forall_temp) Init(0)Force creation of temporary to test infrequently-executed forall code.
+fthis-is-variableC++ ObjC++ Ignore Warn(switch %qs is no longer supported)
+fthread-jumpsCommon Report Var(flag_thread_jumps) OptimizationPerform jump threading optimizations.
+fthreadsafe-staticsC++ ObjC++ Optimization Var(flag_threadsafe_statics) Init(1)-fno-threadsafe-statics	Do not generate thread-safe code for initializing local statics.
+ftime-reportCommon Report Var(time_report)Report the time taken by each compiler pass.
+ftime-report-detailsCommon Report Var(time_report_details)Record times taken by sub-phases separately.
+ftls-model=Common Joined RejectNegative Enum(tls_model) Var(flag_tls_default) Init(TLS_MODEL_GLOBAL_DYNAMIC)-ftls-model=[global-dynamic|local-dynamic|initial-exec|local-exec]	Set the default thread-local storage code generation model.
+ftoplevel-reorderCommon Report Var(flag_toplevel_reorder) Init(2)Reorder top level functions, variables, and asms.
+ftracerCommon Report Var(flag_tracer) OptimizationPerform superblock formation via tail duplication.
+ftrack-macro-expansionC ObjC C++ ObjC++ JoinedOrMissing RejectNegative UInteger
+ftrack-macro-expansion=C ObjC C++ ObjC++ JoinedOrMissing RejectNegative UInteger-ftrack-macro-expansion=<0|1|2>  Track locations of tokens coming from macro expansion and display them in error messages.
+ftrampolinesCommon Report Var(flag_trampolines) Init(0)For targets that normally need trampolines for nested functions, alwaysgenerate them instead of using descriptors.
+ftrapping-mathCommon Report Var(flag_trapping_math) Init(1) Optimization SetByCombinedAssume floating-point operations can trap.
+ftrapvCommon Report Var(flag_trapv) OptimizationTrap for signed overflow in addition, subtraction and multiplication.
+ftree-bit-ccpCommon Report Var(flag_tree_bit_ccp) OptimizationEnable SSA-BIT-CCP optimization on trees.
+ftree-builtin-call-dceCommon Report Var(flag_tree_builtin_call_dce) Init(0) OptimizationEnable conditional dead code elimination for builtin calls.
+ftree-ccpCommon Report Var(flag_tree_ccp) OptimizationEnable SSA-CCP optimization on trees.
+ftree-chCommon Report Var(flag_tree_ch) OptimizationEnable loop header copying on trees.
+ftree-coalesce-inlined-varsCommon Ignore RejectNegativeDoes nothing.  Preserved for backward compatibility.
+ftree-coalesce-varsCommon Report Var(flag_tree_coalesce_vars) OptimizationEnable SSA coalescing of user variables.
+ftree-copy-propCommon Report Var(flag_tree_copy_prop) OptimizationEnable copy propagation on trees.
+ftree-copyrenameCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+ftree-cselimCommon Report Var(flag_tree_cselim) Init(2) OptimizationTransform condition stores into unconditional ones.
+ftree-dceCommon Report Var(flag_tree_dce) OptimizationEnable SSA dead code elimination optimization on trees.
+ftree-dominator-optsCommon Report Var(flag_tree_dom) OptimizationEnable dominator optimizations.
+ftree-dseCommon Report Var(flag_tree_dse) OptimizationEnable dead store elimination.
+ftree-forwpropCommon Report Var(flag_tree_forwprop) Init(1) OptimizationEnable forward propagation on trees.
+ftree-freCommon Report Var(flag_tree_fre) OptimizationEnable Full Redundancy Elimination (FRE) on trees.
+ftree-loop-distribute-patternsCommon Report Var(flag_tree_loop_distribute_patterns) OptimizationEnable loop distribution for patterns transformed into a library call.
+ftree-loop-distributionCommon Report Var(flag_tree_loop_distribution) OptimizationEnable loop distribution on trees.
+ftree-loop-if-convertCommon Report Var(flag_tree_loop_if_convert) Init(-1) OptimizationConvert conditional jumps in innermost loops to branchless equivalents.
+ftree-loop-if-convert-storesCommon IgnoreDoes nothing. Preserved for backward compatibility.
+ftree-loop-imCommon Report Var(flag_tree_loop_im) Init(1) OptimizationEnable loop invariant motion on trees.
+ftree-loop-ivcanonCommon Report Var(flag_tree_loop_ivcanon) Init(1) OptimizationCreate canonical induction variables in loops.
+ftree-loop-linearCommon Alias(floop-nest-optimize)Enable loop nest transforms.  Same as -floop-nest-optimize.
+ftree-loop-optimizeCommon Report Var(flag_tree_loop_optimize) Init(1) OptimizationEnable loop optimizations on tree level.
+ftree-loop-vectorizeCommon Report Var(flag_tree_loop_vectorize) Optimization EnabledBy(ftree-vectorize)Enable loop vectorization on trees.
+ftree-lrsCommon Report Var(flag_tree_live_range_split) OptimizationPerform live range splitting during the SSA->normal pass.
+ftree-parallelize-loops=Common Report Joined RejectNegative UInteger Var(flag_tree_parallelize_loops) Init(1) Optimization-ftree-parallelize-loops=<number>	Enable automatic parallelization of loops.
+ftree-partial-preCommon Report Var(flag_tree_partial_pre) OptimizationIn SSA-PRE optimization on trees, enable partial-partial redundancy elimination.
+ftree-phipropCommon Report Var(flag_tree_phiprop) Init(1) OptimizationEnable hoisting loads from conditional pointers.
+ftree-preCommon Report Var(flag_tree_pre) OptimizationEnable SSA-PRE optimization on trees.
+ftree-ptaCommon Report Var(flag_tree_pta) OptimizationPerform function-local points-to analysis on trees.
+ftree-reassocCommon Report Var(flag_tree_reassoc) Init(1) OptimizationEnable reassociation on tree level.
+ftree-saliasCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+ftree-scev-cpropCommon Report Var(flag_tree_scev_cprop) Init(1) OptimizationEnable copy propagation of scalar-evolution information.
+ftree-sinkCommon Report Var(flag_tree_sink) OptimizationEnable SSA code sinking on trees.
+ftree-slp-vectorizeCommon Report Var(flag_tree_slp_vectorize) Optimization EnabledBy(ftree-vectorize)Enable basic block vectorization (SLP) on trees.
+ftree-slsrCommon Report Var(flag_tree_slsr) OptimizationPerform straight-line strength reduction.
+ftree-sraCommon Report Var(flag_tree_sra) OptimizationPerform scalar replacement of aggregates.
+ftree-store-ccpCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+ftree-store-copy-propCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+ftree-switch-conversionCommon Report Var(flag_tree_switch_conversion) OptimizationPerform conversions of switch initializations.
+ftree-tail-mergeCommon Report Var(flag_tree_tail_merge) OptimizationEnable tail merging on trees.
+ftree-terCommon Report Var(flag_tree_ter) OptimizationReplace temporary expressions in the SSA->normal pass.
+ftree-vect-loop-versionCommon IgnoreDoes nothing. Preserved for backward compatibility.
+ftree-vectorizeCommon Report OptimizationEnable vectorization on trees.
+ftree-vectorizer-verbose=Common Joined RejectNegative IgnoreDoes nothing.  Preserved for backward compatibility.
+ftree-vrpCommon Report Var(flag_tree_vrp) Init(0) OptimizationPerform Value Range Propagation on trees.
+funconstrained-commonsCommon Var(flag_unconstrained_commons) OptimizationAssume common declarations may be overridden with ones with a largertrailing array.
+funderscoringFortran Var(flag_underscoring) Init(1)Append underscores to externally visible names.
+funit-at-a-timeCommon Report Var(flag_unit_at_a_time) Init(1)Compile whole compilation unit at a time.
+funroll-all-loopsCommon Report Var(flag_unroll_all_loops) OptimizationPerform loop unrolling for all loops.
+funroll-loopsCommon Report Var(flag_unroll_loops) OptimizationPerform loop unrolling when iteration count is known.
+funsafe-loop-optimizationsCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+funsafe-math-optimizationsCommon Report Var(flag_unsafe_math_optimizations) Optimization SetByCombinedAllow math optimizations that may violate IEEE or ISO standards.
+funsigned-bitfieldsC ObjC C++ ObjC++ Var(flag_signed_bitfields, 0)When \"signed\" or \"unsigned\" is not given make the bitfield unsigned.
+funsigned-charC ObjC C++ ObjC++ LTO Var(flag_signed_char, 0)Make \"char\" unsigned by default.
+funswitch-loopsCommon Report Var(flag_unswitch_loops) OptimizationPerform loop unswitching.
+funwind-tablesCommon Report Var(flag_unwind_tables) OptimizationJust generate unwind tables for exception handling.
+fuse-cxa-atexitC++ ObjC++ Var(flag_use_cxa_atexit) Init(DEFAULT_USE_CXA_ATEXIT)Use __cxa_atexit to register destructors.
+fuse-cxa-get-exception-ptrC++ ObjC++ Var(flag_use_cxa_get_exception_ptr) Init(2)Use __cxa_get_exception_ptr in exception handling.
+fuse-ld=bfdCommon Driver Negative(fuse-ld=gold)Use the bfd linker instead of the default linker.
+fuse-ld=goldCommon Driver Negative(fuse-ld=bfd)Use the gold linker instead of the default linker.
+fuse-linker-pluginCommon Undocumented Var(flag_use_linker_plugin)
+fvar-trackingCommon Report Var(flag_var_tracking) Init(2) PerFunctionPerform variable tracking.
+fvar-tracking-assignmentsCommon Report Var(flag_var_tracking_assignments) Init(2) PerFunctionPerform variable tracking by annotating assignments.
+fvar-tracking-assignments-toggleCommon Report Var(flag_var_tracking_assignments_toggle) PerFunctionToggle -fvar-tracking-assignments.
+fvar-tracking-uninitCommon Report Var(flag_var_tracking_uninit) PerFunctionPerform variable tracking and also tag variables that are uninitialized.
+fvariable-expansion-in-unrollerCommon Report Var(flag_variable_expansion_in_unroller) OptimizationApply variable expansion when loops are unrolled.
+fvect-cost-modelCommon Alias(fvect-cost-model=,dynamic,unlimited)Enables the dynamic vectorizer cost model.  Preserved for backward compatibility.
+fvect-cost-model=Common Joined RejectNegative Enum(vect_cost_model) Var(flag_vect_cost_model) Init(VECT_COST_MODEL_DEFAULT) OptimizationSpecifies the cost model for vectorization.-fvect-cost-model=[unlimited|dynamic|cheap]	Specifies the cost model for vectorization.
+fverbose-asmCommon Report Var(flag_verbose_asm)Add extra commentary to assembler output.
+fversionCommon Driver Alias(-version)
+fvisibility-inlines-hiddenC++ ObjC++Marks all inlined functions and methods as having hidden visibility.
+fvisibility-ms-compatC++ ObjC++ Var(flag_visibility_ms_compat)Changes visibility to match Microsoft Visual Studio by default.
+fvisibility=Common Joined RejectNegative Enum(symbol_visibility) Var(default_visibility) Init(VISIBILITY_DEFAULT)-fvisibility=[default|internal|hidden|protected]	Set the default symbol visibility.
+fvptCommon Report Var(flag_value_profile_transformations) OptimizationUse expression value profiles in optimizations.
+fvtable-gcC++ ObjC++ Ignore Warn(switch %qs is no longer supported)No longer supported.
+fvtable-thunksC++ ObjC++ Ignore Warn(switch %qs is no longer supported)No longer supported.
+fvtable-verify=Common Joined RejectNegative Enum(vtv_priority) Var(flag_vtable_verify) Init(VTV_NO_PRIORITY)Validate vtable pointers before using them.
+fvtv-countsCommon Var(flag_vtv_counts)Output vtable verification counters.
+fvtv-debugCommon Var(flag_vtv_debug)Output vtable verification pointer sets information.
+fweakC++ ObjC++ Var(flag_weak) Init(1)Emit common-like symbols as weak symbols.
+fwebCommon Report Var(flag_web) Init(2) OptimizationConstruct webs and split unrelated uses of single variable.
+fwhole-fileFortran IgnoreDoes nothing.  Preserved for backward compatibility.
+fwhole-programCommon Report Var(flag_whole_program) Init(0)Perform whole program optimizations.
+fwide-exec-charset=C ObjC C++ ObjC++ Joined RejectNegative-fwide-exec-charset=<cset>	Convert all wide strings and character constants to character set <cset>.
+fworking-directoryC ObjC C++ ObjC++ Var(flag_working_directory) Init(-1)Generate a #line directive pointing at the current working directory.
+fworking-directoryFortran
+fwpaLTO Driver ReportRun the link-time optimizer in whole program analysis (WPA) mode.
+fwpa=LTO Driver RejectNegative Joined Var(flag_wpa)Whole program analysis (WPA) mode with number of parallel jobs specified.
+fwrapvCommon Report Var(flag_wrapv) OptimizationAssume signed arithmetic overflow wraps around.
+fwrapv-pointerCommon Report Var(flag_wrapv_pointer) OptimizationAssume pointer overflow wraps around.
+fxrefC++ ObjC++ Ignore Warn(switch %qs is no longer supported)No longer supported.
+fzeeCommon IgnoreDoes nothing.  Preserved for backward compatibility.
+fzero-initialized-in-bssCommon Report Var(flag_zero_initialized_in_bss) Init(1)Put zero initialized data in the bss section.
+fzero-linkObjC ObjC++ Var(flag_zero_link)Generate lazy class lookup (via objc_getClass()) for use in Zero-Link mode.
+gCommon Driver RejectNegative JoinedOrMissingGenerate debug information in default format.
+gantAda AdaWhy AdaSCIL Driver Joined Undocumented RejectNegativeCatch typos.
+gas-loc-supportCommon Driver Var(dwarf2out_as_loc_support) Init(2)Assume assembler support for (DWARF2+) .loc directives
+gas-locview-supportCommon Driver Var(dwarf2out_as_locview_support) Init(2)Assume assembler support for view in (DWARF2+) .loc directives
+gcoffCommon Driver Ignore Warn(switch %qs no longer supported)Does nothing.  Preserved for backward compatibility.
+gcoff1Common Driver Ignore Warn(switch %qs no longer supported)Does nothing.  Preserved for backward compatibility.
+gcoff2Common Driver Ignore Warn(switch %qs no longer supported)Does nothing.  Preserved for backward compatibility.
+gcoff3Common Driver Ignore Warn(switch %qs no longer supported)Does nothing.  Preserved for backward compatibility.
+gcolumn-infoCommon Driver Var(debug_column_info,1) Init(1)Record DW_AT_decl_column and DW_AT_call_column in DWARF.
+gdwarfCommon Driver JoinedOrMissing Negative(gdwarf-)Generate debug information in default version of DWARF format.
+gdwarf-Common Driver Joined UInteger Var(dwarf_version) Init(4) Negative(gstabs)Generate debug information in DWARF v2 (or later) format.
+gen-declsObjC ObjC++ Driver Var(flag_gen_declaration) RejectNegativeDump declarations to a .decl file.
+ggdbCommon Driver JoinedOrMissingGenerate debug information in default extended format.
+ggnu-pubnamesCommon Driver Negative(gno-pubnames) Var(debug_generate_pub_sections, 2)Generate DWARF pubnames and pubtypes sections with GNU extensions.
+ginline-pointsCommon Driver Var(debug_inline_points) Init(2)Generate extended entry point information for inlined functions
+ginternal-reset-location-viewsCommon Driver Var(debug_internal_reset_location_views) Init(2)Compute locview reset points based on insn length estimates
+gnatAda AdaWhy AdaSCIL Driver Joined RejectNegative-gnat<options>	Specify options to GNAT.
+gnatOAda AdaWhy AdaSCIL Driver Separate RejectNegativeSet name of output ALI file (internal switch).
+gno-RejectNegative Joined Undocumented
+gno-pubnamesCommon Driver Negative(gpubnames) Var(debug_generate_pub_sections, 0) Init(-1)Don't generate DWARF pubnames and pubtypes sections.
+gpubnamesCommon Driver Negative(ggnu-pubnames) Var(debug_generate_pub_sections, 1)Generate DWARF pubnames and pubtypes sections.
+grecord-gcc-switchesCommon Driver Var(dwarf_record_gcc_switches) Init(1)Record gcc command line switches in DWARF DW_AT_producer.
+gsplit-dwarfCommon Driver Var(dwarf_split_debug_info) Init(0)Generate debug information in separate .dwo files.
+gstabsCommon Driver JoinedOrMissing Negative(gstabs+)Generate debug information in STABS format.
+gstabs+Common Driver JoinedOrMissing Negative(gvms)Generate debug information in extended STABS format.
+gstatement-frontiersCommon Driver Var(debug_nonbind_markers_p) Init(2)Emit progressive recommended breakpoint locations.
+gstrict-dwarfCommon Driver Report Var(dwarf_strict) Init(0)Don't emit DWARF additions beyond selected version.
+gtoggleCommon Driver Report Var(flag_gtoggle)Toggle debug information generation.
+gvariable-location-viewsCommon Driver Var(debug_variable_location_views, 1) Init(2)Augment variable location lists with progressive views.
+gvariable-location-views=incompat5Common Driver RejectNegative Var(debug_variable_location_views, -1) Init(2)
+gvmsCommon Driver JoinedOrMissing Negative(gxcoff)Generate debug information in VMS format.
+gxcoffCommon Driver JoinedOrMissing Negative(gxcoff+)Generate debug information in XCOFF format.
+gxcoff+Common Driver JoinedOrMissing Negative(gdwarf)Generate debug information in extended XCOFF format.
+gzCommon DriverGenerate compressed debug sections.
+gz=Common Driver RejectNegative Joined Enum(compressed_debug_sections)-gz=<format>	Generate compressed debug sections in format <format>.
+hDriver Joined Separate
+idirafterC ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-idirafter <dir>	Add <dir> to the end of the system include path.
+idirafterFortran Joined Separate
+imacrosC ObjC C++ ObjC++ Joined Separate MissingArgError(missing filename after %qs)-imacros <file>	Accept definition of macros in <file>.
+imultiarchCommon Joined Separate RejectDriver Var(imultiarch) Init(0)-imultiarch <dir>	Set <dir> to be the multiarch include subdirectory.
+imultilibC ObjC C++ ObjC++ Joined Separate-imultilib <dir>	Set <dir> to be the multilib include subdirectory.
+imultilibFortran Joined Separate
+includeC ObjC C++ ObjC++ Joined Separate MissingArgError(missing filename after %qs)-include <file>	Include the contents of <file> before other files.
+iplugindir=Common Joined Var(plugindir_string) Init(0)-iplugindir=<dir>	Set <dir> to be the default plugin directory.
+iprefixC ObjC C++ ObjC++ Joined Separate-iprefix <path>	Specify <path> as a prefix for next two options.
+iprefixFortran Joined Separate
+iquoteC ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-iquote <dir>	Add <dir> to the end of the quote include path.
+iquoteFortran Joined Separate
+isysrootC ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-isysroot <dir>	Set <dir> to be the system root directory.
+isysrootFortran Joined Separate
+isystemC ObjC C++ ObjC++ Joined Separate MissingArgError(missing path after %qs)-isystem <dir>	Add <dir> to the start of the system include path.
+isystemFortran Joined Separate
+iwithprefixC ObjC C++ ObjC++ Joined Separate-iwithprefix <dir>	Add <dir> to the end of the system include path.
+iwithprefixbeforeC ObjC C++ ObjC++ Joined Separate-iwithprefixbefore <dir>	Add <dir> to the end of the main include path.
+k8DriverSynonym of -gnatk8.
+lDriver Joined Separate
+lang-asmC Undocumented RejectDriver
+mabi=Target RejectNegative Joined Enum(arm_abi_type) Var(arm_abi) Init(ARM_DEFAULT_ABI)Specify an ABI.
+mabort-on-noreturnTarget Report Mask(ABORT_NORETURN)Generate a call to abort if a noreturn function returns.
+mandroidTarget Report Mask(ANDROID) Var(flag_android) Init(ANDROID_DEFAULT ? OPTION_MASK_ANDROID : 0)Generate code for the Android platform.
+mapcsTarget RejectNegative Mask(APCS_FRAME) Undocumented
+mapcs-frameTarget Report Mask(APCS_FRAME)Generate APCS conformant stack frames.
+mapcs-reentrantTarget Report Mask(APCS_REENT)Generate re-entrant, PIC code.
+mapcs-stack-checkTarget Report Mask(APCS_STACK) Undocumented
+march=Target RejectNegative ToLower Joined Var(arm_arch_string)Specify the name of the target architecture.
+marmTarget Report RejectNegative Negative(mthumb) InverseMask(THUMB)Generate code in 32 bit ARM state.
+masm-syntax-unifiedTarget Report Var(inline_asm_unified) Init(0) SaveAssume unified syntax for inline assembly code.
+mbe32Target Report RejectNegative Negative(mbe8) InverseMask(BE8)When linking for big-endian targets, generate a legacy BE32 format image.
+mbe8Target Report RejectNegative Negative(mbe32) Mask(BE8)When linking for big-endian targets, generate a BE8 format image.
+mbig-endianTarget Report RejectNegative Negative(mlittle-endian) Mask(BIG_END)Assume target CPU is configured as big endian.
+mbionicTarget Report RejectNegative Var(linux_libc,LIBC_BIONIC) Init(DEFAULT_LIBC) Negative(mglibc)Use Bionic C library.
+mbranch-cost=Target RejectNegative Joined UInteger Var(arm_branch_cost) Init(-1)Cost to assume for a branch insn.
+mcallee-super-interworkingTarget Report Mask(CALLEE_INTERWORKING)Thumb: Assume non-static functions may be called from ARM code.
+mcaller-super-interworkingTarget Report Mask(CALLER_INTERWORKING)Thumb: Assume function pointers may go to non-Thumb aware code.
+mcmseTarget RejectNegative Var(use_cmse)Specify that the compiler should target secure code as per ARMv8-M Security Extensions.
+mcpu=Target RejectNegative ToLower Joined Var(arm_cpu_string)Specify the name of the target CPU.
+mfix-cortex-m3-ldrdTarget Report Var(fix_cm3_ldrd) Init(2)Avoid overlapping destination and address registers on LDRD instructionsthat may trigger Cortex-M3 errata.
+mflip-thumbTarget Report Var(TARGET_FLIP_THUMB) UndocumentedSwitch ARM/Thumb modes on alternating functions for compiler testing.
+mfloat-abi=Target RejectNegative Joined Enum(float_abi_type) Var(arm_float_abi) Init(TARGET_DEFAULT_FLOAT_ABI)Specify if floating point hardware should be used.
+mfp16-format=Target RejectNegative Joined Enum(arm_fp16_format_type) Var(arm_fp16_format) Init(ARM_FP16_FORMAT_NONE)Specify the __fp16 floating-point format.
+mfpu=Target RejectNegative Joined Enum(arm_fpu) Var(arm_fpu_index) Init(TARGET_FPU_auto) SaveSpecify the name of the target floating point hardware/format.
+mglibcTarget Report RejectNegative Var(linux_libc,LIBC_GLIBC) Negative(muclibc)Use GNU C library.
+mhard-floatTarget RejectNegative Alias(mfloat-abi=, hard) Undocumented
+mlittle-endianTarget Report RejectNegative Negative(mbig-endian) InverseMask(BIG_END)Assume target CPU is configured as little endian.
+mlong-callsTarget Report Mask(LONG_CALLS)Generate call insns as indirect calls, if necessary.
+mmuslTarget Report RejectNegative Var(linux_libc,LIBC_MUSL) Negative(mbionic)Use musl C library.
+mneon-for-64bitsTarget Report RejectNegative Var(use_neon_for_64bits) Init(0)Use Neon to perform 64-bits operations rather than core registers.
+mpic-data-is-text-relativeTarget Report Var(arm_pic_data_is_text_relative) Init(TARGET_DEFAULT_PIC_DATA_IS_TEXT_RELATIVE)Assume data segments are relative to text segment.
+mpic-register=Target RejectNegative Joined Var(arm_pic_register_string)Specify the register to be used for PIC addressing.
+mpoke-function-nameTarget Report Mask(POKE_FUNCTION_NAME)Store function names in object code.
+mprint-tune-infoTarget Report RejectNegative Var(print_tune_info) Init(0)Print CPU tuning information as comment in assembler file.  This isan option used only for regression testing of the compiler and notintended for ordinary use in compiling code.
+mpure-codeTarget Report Var(target_pure_code) Init(0)Do not allow constant data to be placed in code sections.
+mrestrict-itTarget Report Var(arm_restrict_it) Init(2) SaveGenerate IT blocks appropriate for ARMv8.
+msched-prologTarget Report Mask(SCHED_PROLOG)Permit scheduling of a function's prologue sequence.
+msingle-pic-baseTarget Report Mask(SINGLE_PIC_BASE)Do not load the PIC register in function prologues.
+mslow-flash-dataTarget Report Var(target_slow_flash_data) Init(0)Assume loading data from flash is slower than fetching instructions.
+msoft-floatTarget RejectNegative Alias(mfloat-abi=, soft) Undocumented
+mstructure-size-boundary=Target RejectNegative Joined UInteger Var(arm_structure_size_boundary) Init(DEFAULT_STRUCTURE_SIZE_BOUNDARY)Specify the minimum bit alignment of structures. (Deprecated).
+mthumbTarget Report RejectNegative Negative(marm) Mask(THUMB) SaveGenerate code for Thumb state.
+mthumb-interworkTarget Report Mask(INTERWORK)Support calls between Thumb and ARM instruction sets.
+mtls-dialect=Target RejectNegative Joined Enum(tls_type) Var(target_tls_dialect) Init(TLS_GNU)Specify thread local storage scheme.
+mtp=Target RejectNegative Joined Enum(arm_tp_type) Var(target_thread_pointer) Init(TP_AUTO)Specify how to access the thread pointer.
+mtpcs-frameTarget Report Mask(TPCS_FRAME)Thumb: Generate (non-leaf) stack frames even if not needed.
+mtpcs-leaf-frameTarget Report Mask(TPCS_LEAF_FRAME)Thumb: Generate (leaf) stack frames even if not needed.
+mtune=Target RejectNegative ToLower Joined Var(arm_tune_string)Tune code for the given processor.
+muclibcTarget Report RejectNegative Var(linux_libc,LIBC_UCLIBC) Negative(mmusl)Use uClibc C library.
+munaligned-accessTarget Report Var(unaligned_access) Init(2) SaveEnable unaligned word and halfword accesses to packed data.
+mvectorize-with-neon-doubleTarget Report RejectNegative Mask(NEON_VECTORIZE_DOUBLE)Use Neon double-word (rather than quad-word) registers for vectorization.
+mvectorize-with-neon-quadTarget Report RejectNegative InverseMask(NEON_VECTORIZE_DOUBLE)Use Neon quad-word (rather than double-word) registers for vectorization.
+mverbose-cost-dumpCommon Undocumented Var(arm_verbose_cost) Init(0)Enable more verbose RTX cost dumps during debug.  For GCC developers use only.
+mword-relocationsTarget Report Var(target_word_relocations) Init(TARGET_DEFAULT_WORD_RELOCATIONS)Only generate absolute relocations on word sized values.
+nDriver
+no-canonical-prefixesDriver
+no-integrated-cppDriver
+no-pieDriver RejectNegative Negative(shared)Don't create a dynamically linked position independent executable.
+nocppFortran Negative(cpp)Disable preprocessing.
+nodefaultlibsDriver
+nostartfilesDriver
+nostdincAda AdaWhy AdaSCIL RejectNegative
+nostdincC ObjC C++ ObjC++Do not search standard system include directories (those specified with -isystem will still be used).
+nostdincFortran
+nostdinc++C++ ObjC++Do not search standard system include directories for C++.
+nostdlibAda AdaWhy AdaSCILDo not look for object files in standard path.
+nostdlibDriver
+oC ObjC C++ ObjC++ Joined Separate
+oCommon Driver Joined Separate Var(asm_file_name) MissingArgError(missing filename after %qs)-o <file>	Place output into <file>.
+oFortran Joined Separate
+oGo Joined Separate
+pCommon Var(profile_flag)Enable function profiling.
+pass-exit-codesDriver Var(pass_exit_codes)
+pedanticC ObjC C++ ObjC++ Alias(Wpedantic)
+pedanticCommon Alias(Wpedantic)
+pedantic-errorsCommon Var(flag_pedantic_errors)Like -pedantic but issue them as errors.
+pgDriver
+pieDriver RejectNegative Negative(no-pie)Create a dynamically linked position independent executable.
+pipeDriver Var(use_pipes)
+posixDriver
+print-file-name=Driver JoinedOrMissing Var(print_file_name)
+print-libgcc-file-nameDriver
+print-multi-directoryDriver Var(print_multi_directory)
+print-multi-libDriver Var(print_multi_lib)
+print-multi-os-directoryDriver Var(print_multi_os_directory)
+print-multiarchDriver Var(print_multiarch)
+print-objc-runtime-infoObjC ObjC++Generate C header of platform-specific features.
+print-prog-name=Driver JoinedOrMissing Var(print_prog_name)
+print-search-dirsDriver Var(print_search_dirs)
+print-sysrootDriver Var(print_sysroot)
+print-sysroot-headers-suffixDriver Var(print_sysroot_headers_suffix)
+profileDriver
+pthreadDriver
+quietCommon Var(quiet_flag) RejectDriverDo not display functions compiled or elapsed time.
+rDriver
+rdynamicDriver
+remapC ObjC C++ ObjC++Remap file names when including files.
+sDriver
+save-tempsDriver
+save-temps=Driver Joined
+sharedDriver RejectNegative Negative(static-pie)Create a shared library.
+shared-libgccDriver
+specsDriver Separate Alias(specs=)
+specs=Driver Joined
+staticDriver
+static-libasanDriver
+static-libgccDriver
+static-libgfortranDriver
+static-libgfortranFortranStatically link the GNU Fortran helper library (libgfortran).
+static-libgoDriver
+static-liblsanDriver
+static-libmpxDriver
+static-libmpxwrappersDriver
+static-libstdc++Driver
+static-libtsanDriver
+static-libubsanDriver
+static-pieDriver RejectNegative Negative(pie)Create a static position independent executable.
+std=c++03C++ ObjC++ Alias(std=c++98)Conform to the ISO 1998 C++ standard revised by the 2003 technical corrigendum.
+std=c++0xC++ ObjC++ Alias(std=c++11) UndocumentedDeprecated in favor of -std=c++11.
+std=c++11C++ ObjC++Conform to the ISO 2011 C++ standard.
+std=c++14C++ ObjC++Conform to the ISO 2014 C++ standard.
+std=c++17C++ ObjC++Conform to the ISO 2017 C++ standard.
+std=c++1yC++ ObjC++ Alias(std=c++14) UndocumentedDeprecated in favor of -std=c++14.
+std=c++1zC++ ObjC++ Alias(std=c++17) UndocumentedDeprecated in favor of -std=c++17.
+std=c++2aC++ ObjC++Conform to the ISO 2020(?) C++ draft standard (experimental and incomplete support).
+std=c++98C++ ObjC++Conform to the ISO 1998 C++ standard revised by the 2003 technical corrigendum.
+std=c11C ObjCConform to the ISO 2011 C standard.
+std=c17C ObjCConform to the ISO 2017 C standard (expected to be published in 2018).
+std=c18C ObjC Alias(std=c17)Conform to the ISO 2017 C standard (expected to be published in 2018).
+std=c1xC ObjC Alias(std=c11)Deprecated in favor of -std=c11.
+std=c89C ObjC Alias(std=c90)Conform to the ISO 1990 C standard.
+std=c90C ObjCConform to the ISO 1990 C standard.
+std=c99C ObjCConform to the ISO 1999 C standard.
+std=c9xC ObjC Alias(std=c99)Deprecated in favor of -std=c99.
+std=f2003FortranConform to the ISO Fortran 2003 standard.
+std=f2008FortranConform to the ISO Fortran 2008 standard.
+std=f2008tsFortranConform to the ISO Fortran 2008 standard including TS 29113.
+std=f2018FortranConform to the ISO Fortran 2018 standard.
+std=f95FortranConform to the ISO Fortran 95 standard.
+std=gnuFortranConform to nothing in particular.
+std=gnu++03C++ ObjC++ Alias(std=gnu++98)Conform to the ISO 1998 C++ standard revised by the 2003 technicalcorrigendum with GNU extensions.
+std=gnu++0xC++ ObjC++ Alias(std=gnu++11) UndocumentedDeprecated in favor of -std=gnu++11.
+std=gnu++11C++ ObjC++Conform to the ISO 2011 C++ standard with GNU extensions.
+std=gnu++14C++ ObjC++Conform to the ISO 2014 C++ standard with GNU extensions.
+std=gnu++17C++ ObjC++Conform to the ISO 2017 C++ standard with GNU extensions.
+std=gnu++1yC++ ObjC++ Alias(std=gnu++14) UndocumentedDeprecated in favor of -std=gnu++14.
+std=gnu++1zC++ ObjC++ Alias(std=gnu++17) UndocumentedDeprecated in favor of -std=gnu++17.
+std=gnu++2aC++ ObjC++Conform to the ISO 2020(?) C++ draft standard with GNU extensions (experimental and incomplete support).
+std=gnu++98C++ ObjC++Conform to the ISO 1998 C++ standard revised by the 2003 technicalcorrigendum with GNU extensions.
+std=gnu11C ObjCConform to the ISO 2011 C standard with GNU extensions.
+std=gnu17C ObjCConform to the ISO 2017 C standard (expected to be published in 2018) with GNU extensions.
+std=gnu18C ObjC Alias(std=gnu17)Conform to the ISO 2017 C standard (expected to be published in 2018) with GNU extensions.
+std=gnu1xC ObjC Alias(std=gnu11)Deprecated in favor of -std=gnu11.
+std=gnu89C ObjC Alias(std=gnu90)Conform to the ISO 1990 C standard with GNU extensions.
+std=gnu90C ObjCConform to the ISO 1990 C standard with GNU extensions.
+std=gnu99C ObjCConform to the ISO 1999 C standard with GNU extensions.
+std=gnu9xC ObjC Alias(std=gnu99)Deprecated in favor of -std=gnu99.
+std=iso9899:1990C ObjC Alias(std=c90)Conform to the ISO 1990 C standard.
+std=iso9899:199409C ObjCConform to the ISO 1990 C standard as amended in 1994.
+std=iso9899:1999C ObjC Alias(std=c99)Conform to the ISO 1999 C standard.
+std=iso9899:199xC ObjC Alias(std=c99)Deprecated in favor of -std=iso9899:1999.
+std=iso9899:2011C ObjC Alias(std=c11)Conform to the ISO 2011 C standard.
+std=iso9899:2017C ObjC Alias(std=c17)Conform to the ISO 2017 C standard (expected to be published in 2018).
+std=iso9899:2018C ObjC Alias(std=c17)Conform to the ISO 2017 C standard (expected to be published in 2018).
+std=legacyFortranAccept extensions to support legacy code.
+symbolicDriver
+tDriver
+timeDriver Var(report_times)
+time=Driver JoinedOrMissing
+tno-android-ccDriver
+tno-android-ldDriver
+traditionalDriver
+traditional-cppC ObjC C++ ObjC++Enable traditional preprocessing.
+trigraphsC ObjC C++ ObjC++-trigraphs	Support ISO C trigraphs.
+uDriver Joined Separate
+undefC ObjC C++ ObjC++ Var(flag_undef)Do not predefine system-specific and GCC-specific macros.
+undefDriver
+undefFortran
+vC ObjC C++ ObjC++
+vCommon Driver Var(verbose_flag)Enable verbose output.
+vFortran
+versionCommon Var(version_flag) RejectDriverDisplay the compiler's version.
+wC ObjC C++ ObjC++
+wCommon Var(inhibit_warnings)Suppress warnings.
+wrapperDriver Separate Var(wrapper_string)
+xDriver Joined Separate
+zDriver Joined Separate

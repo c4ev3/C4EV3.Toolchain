@@ -1,0 +1,12 @@
+_thumb1_case_shi.o: ../../../gcc-8.1.0/libgcc/config/arm/lib1funcs.S \
+ _thumb1_case_shi.vis ../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/bpabi.S
+
+_thumb1_case_shi.vis:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/bpabi.S:

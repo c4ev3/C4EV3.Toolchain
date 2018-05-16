@@ -1,0 +1,15 @@
+	.hidden _call_via_r0
+	.hidden _call_via_r1
+	.hidden _call_via_r2
+	.hidden _call_via_r3
+	.hidden _call_via_r4
+	.hidden _call_via_r5
+	.hidden _call_via_r6
+	.hidden _call_via_r7
+	.hidden _call_via_r8
+	.hidden _call_via_r9
+	.hidden _call_via_sl
+	.hidden _call_via_fp
+	.hidden _call_via_ip
+	.hidden _call_via_sp
+	.hidden _call_via_lr

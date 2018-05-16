@@ -1,0 +1,4 @@
+#define __stub_swapcontext
+#define __stub_setcontext
+#define __stub_getcontext
+#define __stub_makecontext

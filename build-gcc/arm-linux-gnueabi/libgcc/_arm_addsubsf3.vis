@@ -1,0 +1,13 @@
+	.hidden __aeabi_frsub
+	.hidden __subsf3
+	.hidden __aeabi_fsub
+	.hidden __addsf3
+	.hidden __aeabi_fadd
+	.hidden __floatunsisf
+	.hidden __aeabi_ui2f
+	.hidden __floatsisf
+	.hidden __aeabi_i2f
+	.hidden __floatundisf
+	.hidden __aeabi_ul2f
+	.hidden __floatdisf
+	.hidden __aeabi_l2f

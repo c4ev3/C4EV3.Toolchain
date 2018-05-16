@@ -1,0 +1,2 @@
+	.hidden __ashrdi3
+	.hidden __aeabi_lasr

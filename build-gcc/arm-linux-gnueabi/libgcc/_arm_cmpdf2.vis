@@ -1,0 +1,15 @@
+	.hidden __gtdf2
+	.hidden __gedf2
+	.hidden __ltdf2
+	.hidden __ledf2
+	.hidden __cmpdf2
+	.hidden __nedf2
+	.hidden __eqdf2
+	.hidden __aeabi_cdrcmple
+	.hidden __aeabi_cdcmpeq
+	.hidden __aeabi_cdcmple
+	.hidden __aeabi_dcmpeq
+	.hidden __aeabi_dcmplt
+	.hidden __aeabi_dcmple
+	.hidden __aeabi_dcmpge
+	.hidden __aeabi_dcmpgt

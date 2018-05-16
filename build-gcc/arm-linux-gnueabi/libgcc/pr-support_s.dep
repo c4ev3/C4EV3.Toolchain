@@ -1,0 +1,6 @@
+pr-support_s.o: ../../../gcc-8.1.0/libgcc/config/arm/pr-support.c \
+ unwind.h /opt/cross/c4ev3/build-gcc/gcc/include/unwind-arm-common.h
+
+unwind.h:
+
+/opt/cross/c4ev3/build-gcc/gcc/include/unwind-arm-common.h:

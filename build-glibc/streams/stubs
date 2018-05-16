@@ -1,0 +1,6 @@
+#define __stub_fdetach
+#define __stub_getpmsg
+#define __stub_fattach
+#define __stub_putmsg
+#define __stub_getmsg
+#define __stub_putpmsg

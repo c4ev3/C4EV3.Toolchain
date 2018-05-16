@@ -1,0 +1,15 @@
+libunwind.o: ../../../gcc-8.1.0/libgcc/config/arm/libunwind.S \
+ libunwind.vis ../../../gcc-8.1.0/libgcc/config/arm/lib1funcs.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/bpabi.S
+
+libunwind.vis:
+
+../../../gcc-8.1.0/libgcc/config/arm/lib1funcs.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/bpabi.S:

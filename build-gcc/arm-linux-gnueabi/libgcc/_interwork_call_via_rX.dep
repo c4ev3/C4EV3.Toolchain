@@ -1,0 +1,14 @@
+_interwork_call_via_rX.o: \
+ ../../../gcc-8.1.0/libgcc/config/arm/lib1funcs.S \
+ _interwork_call_via_rX.vis \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S \
+ ../../../gcc-8.1.0/libgcc/config/arm/bpabi.S
+
+_interwork_call_via_rX.vis:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-df.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/ieee754-sf.S:
+
+../../../gcc-8.1.0/libgcc/config/arm/bpabi.S:

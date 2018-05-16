@@ -1,0 +1,2 @@
+	.hidden __negdf2
+	.hidden __aeabi_dneg

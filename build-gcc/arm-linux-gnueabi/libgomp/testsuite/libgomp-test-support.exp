@@ -1,0 +1,7 @@
+set cuda_driver_include ""
+set cuda_driver_lib ""
+set hsa_runtime_lib ""
+
+set offload_targets ""
+set offload_additional_options ""
+set offload_additional_lib_paths ""
