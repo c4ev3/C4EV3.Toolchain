@@ -1,0 +1,10 @@
+/opt/cross/c4ev3/build-glibc/dummy.o: \
+ /opt/cross/c4ev3/build-glibc/dummy.c ../include/libc-symbols.h \
+ /opt/cross/c4ev3/build-glibc/config.h \
+ ../sysdeps/wordsize-32/symbol-hacks.h
+
+../include/libc-symbols.h:
+
+/opt/cross/c4ev3/build-glibc/config.h:
+
+../sysdeps/wordsize-32/symbol-hacks.h:
