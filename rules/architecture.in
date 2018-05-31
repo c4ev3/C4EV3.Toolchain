@@ -28,6 +28,9 @@ choice
 	config ARCH_AVR32
 		bool "AVR-32 "
 
+	config ARCH_RISCV64
+		bool "RISCV64"
+
 	help
 	  This option specifies the toolchain architecture. It corresponds to
 	  the arch/ directory of the Linux kernel.
@@ -45,6 +48,7 @@ config ARCH
 	default "x86_64"	if ARCH_X86_64
 	default "mips"		if ARCH_MIPS
 	default "powerpc"	if ARCH_POWERPC
+	default "riscv"		if ARCH_RISCV64
 
 config GNU_TARGET
 	string
@@ -59,5 +63,5 @@ config GNU_TARGET
 config SIZEOF_LONG_DOUBLE
 	string
 	default "12" if ARCH_I386
-	default "16" if ARCH_X86_64 || ARCH_ARM64
+	default "16" if ARCH_X86_64 || ARCH_ARM64 || ARCH_RISCV64
 	default "8"
