@@ -97,6 +97,9 @@ fixup()
 	mips*)
 	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-DBOOTSTRAP_GCC -D_MIPS_SIM=_ABIO32"
 	    ;;
+	riscv64*)
+	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-D__riscv_atomic -D__riscv_xlen=64 -D__riscv_flen=64 -D__riscv_float_abi_double"
+	    ;;
 	*)
 	    ;;
     esac
@@ -122,6 +125,9 @@ fixup()
 	    ;;
 	x86_64*)
 	    PTXCONF_ARCH_X86_64=y
+	    ;;
+	riscv64*)
+	    PTXCONF_ARCH_RISCV64=y
 	    ;;
 	*)
 	    echo "unsupported GNU_TARGET: ${PTXCONF_GNU_TARGET}"
@@ -218,6 +224,9 @@ fixup()
 	    ;;
 
 	arm-elf)
+	    #FIXME
+	    ;;
+	riscv64-linux-gnu)
 	    #FIXME
 	    ;;
 
