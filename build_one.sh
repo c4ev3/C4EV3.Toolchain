@@ -9,7 +9,7 @@ if [ ${#config[@]} -eq 0 ]; then
 	exit 1
 fi
 if [ ${#config[@]} -gt 1 ]; then
-	echo "'${pattern}' matches more than on config:"
+	echo "'${pattern}' matches more than one config:"
 	for cfg in "${config[@]}"; do
 		echo -e "\t${cfg}"
 	done
