@@ -1,0 +1,5 @@
+oselas.toolchain (2018.02.0-0ptx2) unstable; urgency=medium
+
+  * Initial packaging of OSELAS.Toolchain using debhelper
+
+ -- Uwe Kleine-König <u.kleine-koenig@pengutronix.de>  Wed, 30 May 2018 11:27:03 +0200

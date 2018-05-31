@@ -1,0 +1,15 @@
+Description: Don't strip in post/cleanup
+
+Index: OSELAS.Toolchain/rules/post/cleanup.make
+===================================================================
+--- OSELAS.Toolchain.orig/rules/post/cleanup.make
++++ OSELAS.Toolchain/rules/post/cleanup.make
+@@ -14,7 +14,7 @@ $(STATEDIR)/world.cleanup: $(STATEDIR)/w
+ 		-wholename "$(PTXCONF_SYSROOT_CROSS)/lib/gcc" -prune -o \
+ 		-type f -name "*.a" -print0 | xargs -0 -r rm
+ #	# strip all host binaries
+-	find $(TOOLCHAIN_CLEANUP_HOST_DIRS) \
++	: || find $(TOOLCHAIN_CLEANUP_HOST_DIRS) \
+ 		-wholename "$(PTXCONF_SYSROOT_CROSS)/lib/gcc" -prune -o \
+ 		-type f \( -executable -o -name "*.so*" \) -print0 \
+ 		| xargs -0 -n1 --verbose strip --preserve-dates || true
