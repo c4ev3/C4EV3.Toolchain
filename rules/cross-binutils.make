@@ -44,6 +44,7 @@ CROSS_BINUTILS_CONF_TOOL	:= autoconf
 CROSS_BINUTILS_CONF_OPT		:= \
 	$(PTX_HOST_CROSS_AUTOCONF) \
 	$(PTXCONF_TOOLCHAIN_CONFIG_SYSROOT) \
+	--with-lib-path="=/../$(PTX_TOUPLE_TARGET)/lib:=/lib:=/usr/lib" \
 	\
 	--enable-gold \
 	--enable-ld=default \
