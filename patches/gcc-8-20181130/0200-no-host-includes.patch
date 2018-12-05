@@ -15,10 +15,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 28 insertions(+)
 
 diff --git a/gcc/incpath.c b/gcc/incpath.c
-index 98fe5ec9ab36..d3008c7311e6 100644
+index b11c6a579396..09bf5ec60316 100644
 --- a/gcc/incpath.c
 +++ b/gcc/incpath.c
-@@ -450,6 +450,34 @@ add_path (char *path, int chain, int cxx_aware, bool user_supplied_p)
+@@ -461,6 +461,34 @@ add_path (char *path, incpath_kind chain, int cxx_aware, bool user_supplied_p)
    p->construct = 0;
    p->user_supplied_p = user_supplied_p;
  

@@ -7,8 +7,7 @@
 0202-aarch64-change-paths-for-pure64.patch
 #tag:uclibc --start-number 300
 0300-also-match-uclibc-when-checking-host-os.patch
-#0302-c99-snprintf.patch
 #tag:gentoo --start-number 400
 0400-libiberty-pic.patch
 0401-libstdc-pic.patch
-# bdbd0c15550577195e41bb0cf4eff162  - git-ptx-patches magic
+# 9f6feaac654748e56638aee7db92fa0e  - git-ptx-patches magic
