@@ -13,11 +13,13 @@ $(STATEDIR)/world.cleanup: $(STATEDIR)/world.targetinstall
 	find $(TOOLCHAIN_CLEANUP_HOST_DIRS) \
 		-wholename "$(PTXCONF_SYSROOT_CROSS)/lib/gcc" -prune -o \
 		-type f -name "*.a" -print0 | xargs -0 -r rm
+ifndef PTXDIST_TOOLCHCAIN_KEEP_DEBUG
 #	# strip all host binaries
 	find $(TOOLCHAIN_CLEANUP_HOST_DIRS) \
 		-wholename "$(PTXCONF_SYSROOT_CROSS)/lib/gcc" -prune -o \
 		-type f \( -executable -o -name "*.so*" \) -print0 \
 		| xargs -0 -n1 --verbose strip --preserve-dates || true
+endif
 #	# make sure there are no bogus rpaths
 	find "$(PTXCONF_SYSROOT_CROSS)/$(call remove_quotes,$(PTXCONF_GNU_TARGET))" \
 		-type f \( -executable -o -name "*.so*" \) -print0 \
