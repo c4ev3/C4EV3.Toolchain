@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 die() {
 	echo >&2 "$@"
@@ -23,8 +23,12 @@ Bugs: mailto:bugs@pengutronix.de
 Build-Depends: debhelper (>= 9), libncurses-dev, python3-dev, bison, flex
 EOF
 
-find ptxconfigs -maxdepth 2 -name \*.ptxconfig |
-while read configfile; do
+if [ $# -gt 0 ]; then
+	configs=( "${@}" )
+else
+	configs=( ptxconfigs/*.ptxconfig )
+fi
+for configfile in "${configs[@]}"; do
 	toolchain_name="$(basename "${configfile}" .ptxconfig | sed s/_/-/g)"
 	pkg="oselas.toolchain-${toolchain_version}-${toolchain_name}"
 	gnutriplet="$(sed -n 's/^PTXCONF_GNU_TARGET="\(.*\)"/\1/p' "$configfile")"
@@ -36,18 +40,18 @@ Architecture: any
 Depends: \${shlibs:Depends}, \${misc:Depends}
 Description: OSELAS Toolchain for ${gnutriplet}
  
-Package: oselas.toolchain-${toolchain_version}-${gnutriplet}
+Package: oselas.toolchain-${toolchain_version}-${gnutriplet/_/-}
 Architecture: all
 Depends: $pkg
 Description: Meta package depending on latest OSELAS Toolchain for ${gnutriplet}
 
-Package: oselas.toolchain-${toolchain_version%.*}-${gnutriplet}
+Package: oselas.toolchain-${toolchain_version%.*}-${gnutriplet/_/-}
 Architecture: all
 Depends: $pkg
 Description: Meta package depending on latest OSELAS Toolchain for ${gnutriplet}
 EOF
 
-	echo "/opt/OSELAS.Toolchain-2018.02.0/${gnutriplet}" > "debian/${pkg}.install"
+	echo "/opt/OSELAS.Toolchain-${toolchain_version}/${gnutriplet}" > "debian/${pkg}.install"
 done
 
 if ! cmp -s "$newcontrol" "debian/control"; then

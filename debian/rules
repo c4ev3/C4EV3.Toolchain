@@ -1,33 +1,58 @@
 #!/usr/bin/make -f
 
+PTXDIST ?= ptxdist-$(shell sed -n 's/.*PTXCONF_CONFIGFILE_VERSION="\(.*\)"$$/\1/p' fixup_ptxconfigs.sh)
+
+TOOLCHAINS := $(shell sed -n 's;Package: oselas.toolchain-20..\...\..-\(.*-gcc-.*\);gstate/\1.build;p' debian/control)
+
 RULETARGETS := binary binary-arch binary-indep build build-arch build-indep clean install install-arch install-indep
 $(RULETARGETS): %: debian/control
 	dh $@
 
+
 debian/control: debian/bin/gencontrol.sh $(wildcard ptxconfigs/*.ptxconfig)
 	debian/bin/gencontrol.sh
 
-ptxdistrc:
+debian/ptxdistrc:
 	: > $@
 	test ! -d /ptx/src || echo 'PTXCONF_SETUP_SRCDIR="/ptx/src"' >> $@
+	if [ -x /usr/lib/icecc/icecc-create-env ]; then \
+		echo 'PTXCONF_SETUP_ICECC=y'; \
+		echo 'PTXCONF_SETUP_ICECC_CREATE_ENV="/usr/lib/icecc/icecc-create-env"'; \
+	fi >> $@
 
-override_dh_auto_build: ptxdistrc
-	PTXDIST_PTXRC=$(CURDIR)/ptxdistrc make -f build_all_v2.mk ARG="-j -q go" PTXDIST=/opt/bin/ptxdist-2018.02.0 CROSS_GDB_WITHOUT_PYTHON=n
+PTXDIST_ENV := \
+	PTXDIST_TOOLCHCAIN_KEEP_DEBUG=1 \
+	PTXDIST_PTXRC=$(CURDIR)/debian/ptxdistrc \
+	CROSS_GDB_WITHOUT_PYTHON=n
 
-override_dh_auto_install:
+override_dh_auto_build: debian/ptxdistrc
+	$(PTXDIST_ENV) make -f build_all_v2.mk ARG="-j -q go" PTXDIST="$(PTXDIST)" $(TOOLCHAINS)
+
+override_dh_auto_install-arch:
 	mkdir -p $(CURDIR)/debian/tmp
-	mv inst/opt debian/tmp/opt
+	rm -rf $(CURDIR)/debian/tmp/opt
+	cp -a inst/opt $(CURDIR)/debian/tmp/
 
 override_dh_auto_clean:
 	dh_auto_clean
-	rm -rf gstate platform-*
+	rm -rf gstate platform-* inst/
+
+EXCLUDES = \
+	-Xsysroot- \
+	$(foreach d,$(wildcard inst/opt/OSELAS.Toolchain-*/*/*/*/lib),-X$(subst inst,,$(d))) \
+	$(foreach d,$(wildcard inst/opt/OSELAS.Toolchain-*/*/*/lib/gcc/*/*),-X$(subst inst,,$(d)))
+
+# don't change the permissions of target files
+# the dynamic linker and glibc must remain executable
+override_dh_fixperms:
+	dh_fixperms $(EXCLUDES)
 
 # don't strip target stuff
 override_dh_strip:
-	dh_strip -Xsysroot- $(foreach d,$(wildcard debian/tmp/opt/OSELAS.Toolchain-*/*/*/*/lib),-X$(subst debian/tmp,,$(d)))
+	dh_strip $(EXCLUDES)
 
 # don't use target binaries to generate dependencies
 override_dh_shlibdeps:
-	dh_shlibdeps -Xsysroot- $(foreach d,$(wildcard debian/tmp/opt/OSELAS.Toolchain-*/*/*/*/lib),-X$(subst debian/tmp,,$(d)))
+	dh_shlibdeps $(EXCLUDES)
 
 .PHONY: $(RULETARGETS)
