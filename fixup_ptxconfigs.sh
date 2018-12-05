@@ -297,7 +297,7 @@ fixup()
 	linaro-4.[89][-.]*)
 	    PTXCONF_CROSS_GCC_48=y
 	    ;;
-	5.*|7.*)
+	5.*|7.*|8.*)
 	    PTXCONF_CROSS_GCC_50=y
 	    ;;
 	*)
