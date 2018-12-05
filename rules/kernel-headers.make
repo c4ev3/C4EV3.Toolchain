@@ -33,7 +33,8 @@ KERNEL_HEADERS_PATH	:= PATH=$(HOST_PATH)
 KERNEL_HEADERS_ENV 	:= $(HOST_ENV)
 KERNEL_HEADERS_MAKEVARS	:= \
 	ARCH=$(PTXCONF_ARCH) \
-	CROSS_COMPILE=we_dont_have_a_cross_compiler_yet- \
+	GCC=false \
+	GXX=false \
 	$(PARALLELMFLAGS)
 
 $(STATEDIR)/kernel-headers.prepare:
