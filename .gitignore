@@ -7,7 +7,6 @@ selected_ptxconfig
 
 platform-*
 ptxconfigs/*.old
-ptxconfigs/*/*.old
 
 *.orig
 *.swp
