@@ -1,3 +1,9 @@
+oselas.toolchain (2018.12.0-1) unstable; urgency=medium
+
+  * new upstream version
+
+ -- Michael Olbrich <mol@pengutronix.de>  Thu, 13 Dec 2018 15:13:01 +0100
+
 oselas.toolchain (2018.02.0-0ptx2) unstable; urgency=medium
 
   * Initial packaging of OSELAS.Toolchain using debhelper
