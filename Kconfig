@@ -55,13 +55,6 @@ if LIBC_AVR
 source "workspace/rules/avrlib.in"
 endif
 
-if LIBC_MINGW
-source "workspace/rules/mingw-runtime.in"
-source "workspace/rules/mingw-runtime-headers.in"
-source "workspace/rules/w32api.in"
-source "workspace/rules/w32api-headers.in"
-endif
-
 source "workspace/rules/cross-binutils.in"
 source "workspace/rules/cross-elf2flt.in"
 source "workspace/rules/kernel-headers.in"
@@ -116,7 +109,6 @@ config PREFIX_TCID
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}${PTXCONF_PREFIX_JAVA}-uclibc-${PTXCONF_UCLIBC_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_UCLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}"	if LIBC_NEWLIB
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-libc-${PTXCONF_AVRLIB_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}"	if LIBC_AVR
-	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-mingw-${PTXCONF_MINGW_RUNTIME_VERSION}-w32api-${PTXCONF_W32API_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}"	if LIBC_MINGW
 
 config SYSROOT_HOST
 	string
