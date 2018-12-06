@@ -27,6 +27,13 @@ config NEWLIB_VERSION
 	help
 	  Specify the newlib version here.
 
+config NEWLIB_DL_VERSION
+	string
+	prompt "newlib download version"
+	default "${PTXCONF_NEWLIB_VERSION}"
+	help
+	  The version of the downloaded archive.
+
 config NEWLIB_MD5
 	string
 	prompt "newlib source md5sum"
