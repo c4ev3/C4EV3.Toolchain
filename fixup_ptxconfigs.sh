@@ -211,7 +211,7 @@ fixup()
 	x86_64-unknown-linux-gnu)
 	    ;;
 
-	mipsel-softfloat-linux-gnu)
+	mipsel-softfloat-linux-gnu|mips-softfloat-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="libc_mips_float=soft"
 	    ;;
