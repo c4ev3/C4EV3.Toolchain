@@ -63,6 +63,17 @@ if git rev-parse -q --verify "refs/tags/$release" >/dev/null 2>&1; then
     exit 1
 fi
 
+config_release="$(sed -n 's/^PTXCONF_PROJECT="OSELAS.Toolchain-\(.*\)"/\1/p' ptxconfigs/*.ptxconfig | sort -u)"
+if [ "${release#${v}}" != "${config_release}" ]; then
+	echo "release version(s) from the ptxconfigs (${config_release}) do not match '${release#${v}}'" >&2
+	exit 1
+fi
+
+if grep -q UNRELEASED debian/changelog; then
+	echo "debian changelog entry must not be UNRELEASED" >&2
+	exit 1
+fi
+
 tmp="$(mktemp -d /tmp/${0##*/}.XXXXXX)"
 log="${tmp}/log"
 
