@@ -37,6 +37,11 @@ CROSS_BINUTILS_URL	:= \
 
 CROSS_BINUTILS_DEVPKG	:= NO
 
+CROSS_BINUTILS_CONF_ENV	:= \
+	$(HOST_CROSS_ENV) \
+	CFLAGS="-ggdb3 -O2" \
+	CXXFLAGS="-ggdb3 -O2"
+
 #
 # autoconf
 #

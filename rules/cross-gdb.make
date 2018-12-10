@@ -35,6 +35,11 @@ CROSS_GDB_URL		:= \
 
 CROSS_GDB_DEVPKG := NO
 
+CROSS_GDB_CONF_ENV	:= \
+	$(HOST_CROSS_ENV) \
+	CFLAGS="-ggdb3 -O2" \
+	CXXFLAGS="-ggdb3 -O2"
+
 #
 # autoconf
 #

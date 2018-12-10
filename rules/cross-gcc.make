@@ -63,7 +63,9 @@ endif
 
 CROSS_GCC_DEVPKG	:= NO
 CROSS_GCC_CONF_ENV	:= \
-	$(HOST_ENV) \
+	$(HOST_CROSS_ENV) \
+	CFLAGS="-ggdb3 -O2" \
+	CXXFLAGS="-ggdb3 -O2" \
 	ac_cv_path_SED=/bin/sed \
 	MAKEINFO=:
 
