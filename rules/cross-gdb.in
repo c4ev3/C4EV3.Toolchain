@@ -1,6 +1,7 @@
 menuconfig CROSS_GDB
 	bool "cross gdb                   "
 	select HOST_EXPAT
+	select HOST_GMP
 	select HOST_ZLIB
 	select HOST_XZ
 	help
