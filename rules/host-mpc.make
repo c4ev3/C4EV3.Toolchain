@@ -23,7 +23,7 @@ HOST_MPC_SUFFIX		:= tar.gz
 HOST_MPC_URL		:= https://ftp.gnu.org/gnu/mpc/$(HOST_MPC).$(HOST_MPC_SUFFIX)
 HOST_MPC_SOURCE		:= $(SRCDIR)/$(HOST_MPC).$(HOST_MPC_SUFFIX)
 HOST_MPC_DIR		:= $(HOST_BUILDDIR)/$(HOST_MPC)
-HOST_MPC_LICENSE	:= LGPL-3.0+
+HOST_MPC_LICENSE	:= LGPL-3.0-or-later
 
 # ----------------------------------------------------------------------------
 # Prepare

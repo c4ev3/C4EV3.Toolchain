@@ -23,7 +23,7 @@ KERNEL_HEADERS_SUFFIX	:= tar.xz
 KERNEL_HEADERS_URL	:= $(call kernel-url, KERNEL_HEADERS)
 KERNEL_HEADERS_SOURCE	:= $(SRCDIR)/$(KERNEL_HEADERS).$(KERNEL_HEADERS_SUFFIX)
 KERNEL_HEADERS_DIR	:= $(BUILDDIR)/$(KERNEL_HEADERS)
-KERNEL_HEADERS_LICENSE	:= GPL-2.0
+KERNEL_HEADERS_LICENSE	:= GPL-2.0-only
 
 # ----------------------------------------------------------------------------
 # Prepare
