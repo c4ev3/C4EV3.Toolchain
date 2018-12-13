@@ -30,6 +30,10 @@ config PROJECT
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
 
+config PROJECT_CHECK_LICENSES
+	bool
+	default y
+
 comment "----------------------------------"
 
 source "workspace/rules/architecture.in"
