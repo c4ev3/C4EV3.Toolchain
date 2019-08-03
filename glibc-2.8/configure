@@ -4521,26 +4521,27 @@ fi
   test -n "$AS" && break
 done
 
-if test -z "$AS"; then
-  ac_verc_fail=yes
-else
-  # Found it, now check the version.
-  { echo "$as_me:$LINENO: checking version of $AS" >&5
-echo $ECHO_N "checking version of $AS... $ECHO_C" >&6; }
-  ac_prog_version=`$AS --version 2>&1 | sed -n 's/^.*GNU assembler.* \([0-9]*\.[0-9.]*\).*$/\1/p'`
-  case $ac_prog_version in
-    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
-    2.1[3-9]*)
-       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
-    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
-
-  esac
-  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
-echo "${ECHO_T}$ac_prog_version" >&6; }
-fi
-if test $ac_verc_fail = yes; then
-  AS=: critic_missing="$critic_missing as"
-fi
+#if test -z "$AS"; then
+#  ac_verc_fail=yes
+#else
+#  # Found it, now check the version.
+#  { echo "$as_me:$LINENO: checking version of $AS" >&5
+#echo $ECHO_N "checking version of $AS... $ECHO_C" >&6; }
+#  ac_prog_version=`$AS --version 2>&1 | sed -n 's/^.*GNU assembler.* \([0-9]*\.[0-9.]*\).*$/\1/p'`
+#  case $ac_prog_version in
+#    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
+#    2.1[3-9]*)
+#       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
+#    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
+#
+#  esac
+#  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+#echo "${ECHO_T}$ac_prog_version" >&6; }
+#fi
+#if test $ac_verc_fail = yes; then
+#  AS=: critic_missing="$critic_missing as"
+#fi
+ac_verc_fail=yes
 
 for ac_prog in $LD
 do
@@ -4584,27 +4585,27 @@ fi
   test -n "$LD" && break
 done
 
-if test -z "$LD"; then
-  ac_verc_fail=yes
-else
-  # Found it, now check the version.
-  { echo "$as_me:$LINENO: checking version of $LD" >&5
-echo $ECHO_N "checking version of $LD... $ECHO_C" >&6; }
-  ac_prog_version=`$LD --version 2>&1 | sed -n 's/^.*GNU ld.* \([0-9][0-9]*\.[0-9.]*\).*$/\1/p'`
-  case $ac_prog_version in
-    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
-    2.1[3-9]*)
-       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
-    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
-
-  esac
-  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
-echo "${ECHO_T}$ac_prog_version" >&6; }
-fi
-if test $ac_verc_fail = yes; then
-  LD=: critic_missing="$critic_missing ld"
-fi
-
+#if test -z "$LD"; then
+#  ac_verc_fail=yes
+#else
+#  # Found it, now check the version.
+#  { echo "$as_me:$LINENO: checking version of $LD" >&5
+#echo $ECHO_N "checking version of $LD... $ECHO_C" >&6; }
+#  ac_prog_version=`$LD --version 2>&1 | sed -n 's/^.*GNU ld.* \([0-9][0-9]*\.[0-9.]*\).*$/\1/p'`
+#  case $ac_prog_version in
+#    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
+#    2.1[3-9]*)
+#       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
+#    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
+#
+#  esac
+#  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+#echo "${ECHO_T}$ac_prog_version" >&6; }
+#fi
+#if test $ac_verc_fail = yes; then
+#  LD=: critic_missing="$critic_missing ld"
+#fi
+ac_verc_fail=no
 
 # We need the physical current working directory.  We cannot use the
 # "pwd -P" shell builtin since that's not portable.  Instead we try to
@@ -4702,26 +4703,27 @@ fi
   test -n "$CC" && break
 done
 
-if test -z "$CC"; then
-  ac_verc_fail=yes
-else
-  # Found it, now check the version.
-  { echo "$as_me:$LINENO: checking version of $CC" >&5
-echo $ECHO_N "checking version of $CC... $ECHO_C" >&6; }
-  ac_prog_version=`$CC -v 2>&1 | sed -n 's/^.*version \([egcygnustpi-]*[0-9.]*\).*$/\1/p'`
-  case $ac_prog_version in
-    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
-    3.4* | 4.[0-9]* )
-       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
-    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
-
-  esac
-  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
-echo "${ECHO_T}$ac_prog_version" >&6; }
-fi
-if test $ac_verc_fail = yes; then
-  critic_missing="$critic_missing gcc"
-fi
+#if test -z "$CC"; then
+#  ac_verc_fail=yes
+#else
+#  # Found it, now check the version.
+#  { echo "$as_me:$LINENO: checking version of $CC" >&5
+#echo $ECHO_N "checking version of $CC... $ECHO_C" >&6; }
+#  ac_prog_version=`$CC -v 2>&1 | sed -n 's/^.*version \([egcygnustpi-]*[0-9.]*\).*$/\1/p'`
+#  case $ac_prog_version in
+#    '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
+#    3.4* | 4.[0-9]* )
+#       ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
+#    *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
+#
+#  esac
+#  { echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+#echo "${ECHO_T}$ac_prog_version" >&6; }
+#fi
+#if test $ac_verc_fail = yes; then
+#  critic_missing="$critic_missing gcc"
+#fi
+ac_verc_fail=no
 
 for ac_prog in gnumake gmake make
 do
@@ -5749,18 +5751,18 @@ rm -f conftest*
 fi
 { echo "$as_me:$LINENO: result: $libc_cv_ld_version_script_option" >&5
 echo "${ECHO_T}$libc_cv_ld_version_script_option" >&6; }
-if test $shared != no &&
-   test $libc_cv_asm_symver_directive = yes &&
-   test $libc_cv_ld_version_script_option = yes &&
-   test $enable_versioning = yes; then
+#if test $shared != no &&
+#   test $libc_cv_asm_symver_directive = yes &&
+#   test $libc_cv_ld_version_script_option = yes &&
+#   test $enable_versioning = yes; then
+#  VERSIONING=yes
+#  cat >>confdefs.h <<\_ACEOF
+##define DO_VERSIONING 1
+#_ACEOF
+#
+#else
   VERSIONING=yes
-  cat >>confdefs.h <<\_ACEOF
-#define DO_VERSIONING 1
-_ACEOF
-
-else
-  VERSIONING=no
-fi
+#fi
 
 
 if test $elf = yes && test $shared != no && test $VERSIONING = no; then
