@@ -22,8 +22,7 @@
 
 #define LIBGCC_S_SO "libgcc_s.so.4"
 
-static void (*libgcc_s_resume) (struct _Unwind_Exception *exc)
-__attribute_used__;
+static void (*libgcc_s_resume) (struct _Unwind_Exception *exc);
 static _Unwind_Reason_Code (*libgcc_s_personality)
   (int, _Unwind_Action, _Unwind_Exception_Class, struct _Unwind_Exception *,
    struct _Unwind_Context *);

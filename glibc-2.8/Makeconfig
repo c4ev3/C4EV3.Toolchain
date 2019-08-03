@@ -471,7 +471,7 @@ ifeq ($(elf),yes)
 # run the linked programs.
 link-libc = -Wl,-rpath-link=$(rpath-link) \
 	    $(common-objpfx)libc.so$(libc.so-version) \
-	    $(common-objpfx)$(patsubst %,$(libtype.oST),c) $(gnulib)
+	    $(common-objpfx)$(patsubst %,$(libtype.oS),c) $(gnulib)
 # This is how to find at build-time things that will be installed there.
 rpath-dirs = math elf dlfcn nss nis rt resolv crypt
 endif
@@ -692,7 +692,7 @@ endif
 # The compilation rules use $(CPPFLAGS-${SUFFIX}) and $(CFLAGS-${SUFFIX})
 # to pass different flags for each flavor.
 libtypes = $(foreach o,$(object-suffixes-for-libc),$(libtype$o))
-all-object-suffixes := .o .os .op .og .ob .oST
+all-object-suffixes := .o .os .op .og .ob .oS
 object-suffixes :=
 CPPFLAGS-.o = $(pic-default)
 CFLAGS-.o = $(filter %frame-pointer,$(+cflags))
@@ -748,14 +748,14 @@ object-suffixes-for-libc := $(object-suffixes)
 
 ifeq (yes,$(build-shared))
 # Build special library that contains the static-only routines for libc.
-object-suffixes-for-libc += .oST
+object-suffixes-for-libc += .oS
 
 # Must build the routines as PIC, though, because they can end up in (users')
 # shared objects.  We don't want to use CFLAGS-os because users may, for
 # example, make that processor-specific.
-CFLAGS-.oST = $(CFLAGS-.o) $(PIC-ccflag)
-CPPFLAGS-.oST = $(CPPFLAGS-.o) -DPIC -DLIBC_NONSHARED=1
-libtype.oST = lib%_nonshared.a
+CFLAGS-.oS = $(CFLAGS-.o) $(PIC-ccflag)
+CPPFLAGS-.oS = $(CPPFLAGS-.o) -DPIC -DLIBC_NONSHARED=1
+libtype.oS = lib%_nonshared.a
 endif
 
 # The assembler can generate debug information too.

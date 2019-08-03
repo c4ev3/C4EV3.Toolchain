@@ -128,7 +128,7 @@ extern int __nss_lookup (service_user **ni, const char *fct_name,
    natural end.  */
 extern int __nss_next2 (service_user **ni, const char *fct_name,
 			const char *fct2_name, void **fctp, int status,
-			int all_values);
+			int all_values) attribute_hidden;
 libc_hidden_proto (__nss_next2)
 extern int __nss_next (service_user **ni, const char *fct_name, void **fctp,
 		       int status, int all_values);

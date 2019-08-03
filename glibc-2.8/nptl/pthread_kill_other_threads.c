@@ -32,6 +32,6 @@ void
 __pthread_kill_other_threads_np (void)
 {
 }
-compat_symbol_reference (libpthread, __pthread_kill_other_threads_np,
+compat_symbol (libpthread, __pthread_kill_other_threads_np,
 	       pthread_kill_other_threads_np, GLIBC_2_0);
 #endif
