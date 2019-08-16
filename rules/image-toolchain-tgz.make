@@ -17,7 +17,7 @@ IMAGE_PACKAGES-$(PTXCONF_IMAGE_TOOLCHAIN_TGZ) += image-toolchain-tgz
 # Paths and names
 #
 IMAGE_TOOLCHAIN_TGZ_VERSION	:= $(shell ./scripts/setlocalversion ./.tarball-version)
-IMAGE_TOOLCHAIN_TGZ_IMAGE	:= $(PTXDIST_WORKSPACE)/dist/oselas.toolchain-$(IMAGE_TOOLCHAIN_TGZ_VERSION)-$(subst _,-,$(PTXCONF_PLATFORM))_$(PTX_TOOLCHAIN_HOST_ARCH).tar.xz
+IMAGE_TOOLCHAIN_TGZ_IMAGE	:= $(PTXDIST_WORKSPACE)/dist/C4EV3.Toolchain-$(IMAGE_TOOLCHAIN_TGZ_VERSION)-$(subst _,-,$(PTXCONF_PLATFORM))_$(PTX_TOOLCHAIN_HOST_ARCH).tar.xz
 
 # ----------------------------------------------------------------------------
 # Image
