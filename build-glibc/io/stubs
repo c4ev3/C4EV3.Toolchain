@@ -1,2 +1,0 @@
-#define __stub_sync_file_range
-#define __stub_lchmod

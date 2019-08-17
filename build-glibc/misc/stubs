@@ -1,9 +1,0 @@
-#define __stub_chflags
-#define __stub_stty
-#define __stub_gtty
-#define __stub_create_module
-#define __stub_sstk
-#define __stub_get_kernel_syms
-#define __stub_fchflags
-#define __stub_query_module
-#define __stub_revoke
