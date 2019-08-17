@@ -1,4 +1,4 @@
-# c4ev3 Toolchain (Work in progress)
+# ~c4ev3 Toolchain (Work in progress)~ Check the master branch instead
 
 ```
 $ arm-c4ev3-linux-gnueabi-gcc -Q -v
